@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.index.css">
+     
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <title>Chultrabook Tools</title>
+</head>
+<body>
+    <nav>
+        <div class="logo-name">
+            <div class="logo-image">
+               <img class src="../Icons/chrome.svg" alt="">
+            </div>
+
+            <span class="logo_name">Chultrabook Tools</span>
+        </div>
+        <div class="menu-items">
+            <ul class="nav-links">
+                <li><a href="#">
+                    <img class="navbarimg" src="../Icons/home.svg" alt="">
+                    <span class="link-name">Dashboard</span>
+                </a></li>
+                <li><a href="../Fan Control/fancontrol.html">
+                    <img class="navbarimg" src="../Icons/fan.svg" alt="">
+                    <span class="link-name">Fan Control</span>
+                </a></li>
+                <li><a href="../cbmem/cbmem.html">
+                    <img class="navbarimg" src="../Icons/Diagnostics.svg" alt="">
+                    <span class="link-name">Memory Diagnostics</span>
+                </a></li>            
+              </ul>
+            
+                <ul class="dark-mode">
+
+                <!--<li class="mode">
+                    <a href="#">
+                        <i class="uil uil-moon"></i>
+                    <span class="link-name">Dark Mode</span>
+                </a>
+                -->
+
+                <div class="mode-toggle">
+                  <span class="switch"></span>
+                </div>
+            </ul>
+            </li>
+            </ul> 
+        </div>
+    </nav>
+
+    <section class="dashboard">
+        <div class="top">
+            <i class="uil uil-bars sidebar-toggle"></i>
+        </div>
+
+       <!----> <div class="dash-content">
+            <div class="overview">
+                <div class="title">
+                    <i class="uil uil-tachometer-fast-alt"></i>
+                    <span class="text">Dashboard</span>
+                </div>
+
+                <div class="boxes">
+                    <div class="box box1">
+                        <img src="../Icons/cpu.svg" alt="">
+                        <span class="text">CPU Load</span>
+                        <span id="cpuLoad">0%</span>
+                    </div>
+                    <div class="box box2">
+                        <img src="../Icons/thermometer.svg" alt="">
+                        <span class="text">CPU TEMPS</span>
+                        <span id="cpuTemp">0°C</span>
+                    </div>
+                    <div class="box box3">
+                        <img src="../Icons/ram.svg" alt="">
+                        <span class="text">RAM USAGE</span>
+                        <span id="ramPercentage">0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <h1>WORK IN PROGRESS currently learning electron</h1>
+
+     
+    <script src="../script.js"></script>
+
+</html>

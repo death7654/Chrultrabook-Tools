@@ -1,0 +1,21 @@
+{
+  "name": "chultrabook-windows-controller",
+  "version": "1.0.0",
+  "description": "UI for CrosEC",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "publish": "electron-forge publish"
+  },
+  "author": "Robinson Arysseril",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "@electron-forge/publisher-github": "^6.4.1",
+    "electron": "^26.1.0"
+  },
+  "dependencies": {
+    "electron-forge": "^5.2.4",
+    "os": "^0.1.2",
+    "os-utils": "^0.0.14"
+  }
+}
