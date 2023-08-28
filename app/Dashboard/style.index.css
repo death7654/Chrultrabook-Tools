@@ -109,7 +109,8 @@ nav .logo-image img{
     width: 40px;
     object-fit: cover;
     border-radius: 50%;
-    color: var(--title-icon-color);
+    /*color: var(--title-icon-color)*/
+    color: white;
 
 }
 
@@ -223,8 +224,8 @@ body.dark .nav-links li a:hover .link-name{
 body.dark .switch:before{
     left: 20px;
 }
-/*side nav end */
 
+/*sidnav ends */
 /*Main HTML File begins */
 .dashboard{
     position: relative;
@@ -335,6 +336,11 @@ nav.close ~ .dashboard .top{
     background-color: var(--box3-color);
 }
 /*main html file ends */
+
+.fanSpeed{
+    font-size: 0;
+    color: white;
+}
 
 @media (max-width: 1000px) {
     nav{

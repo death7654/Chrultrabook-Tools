@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.fancontrol.css">
-     
+
+    <link rel="stylesheet" href="style.fancontrol.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
     <title>Fan Control</title>
@@ -35,7 +35,10 @@
                     <span class="link-name">Memory Diagnostics</span>
                 </a></li>            
               </ul>
-            
+              <!--to remove console errors -->
+              <span class ="cpuLoad" id="cpuLoad">0%</span>
+              <span class = "ramPercentage" id="ramPercentage">0%</span>
+
             <ul class="dark-mode">
 
                <!--<li class="mode">
@@ -57,9 +60,53 @@
         <div class="top">
             <i class="uil uil-bars sidebar-toggle"></i>
         </div>
-    </section>
-    <script src="../script.js"></script>
 
+       <!----> <div class="dash-content">
+            <div class="overview">
+                <div class="title">
+                    <img src="../Icons/fancontroldash.svg">
+                    <span class="text">Fan Control</span>
+                </div>
+                <h2 class="FanSpeedText">Fan Speeds</h2>
+
+                <button id="fanAuto" href="#" class="FanAuto">Auto</button>
+                <button id="fanOff" href="#" class="FanOff"> Off </button>
+                <button id="fanMax" href="#" class="FanMax"> Max </button>
+
+                <script>
+                    const modeOne = 1;
+                    const modeTwo = 2;
+                    const modeThree = 3;
+                    const buttonfanMax = document.getElementById('fanMax');
+                    buttonfanMax.addEventListener('click', () => window.electronAPI.setFan(modeOne));
+                    const buttonfanOff = document.getElementById('fanOff');
+                    buttonfanOff.addEventListener('click', () =>  window.electronAPI.setFan(modeTwo));
+                    const buttonfanAuto = document.getElementById('fanAuto');
+                    buttonfanAuto.addEventListener('click', () =>  window.electronAPI.setFan(modeThree));
+
+                </script>
+
+
+
+                <div class="boxes">
+                    <div class="box box1">
+                        <img src="../Icons/animatedfan.svg" alt="">
+                        <span class="text">Fan Speed</span>
+                        <span id="fanSpeed">0 RPM</span>
+                    </div>
+                    <div class="box box2">
+                        <img src="../Icons/thermometer.svg" alt="">
+                        <span class="text">CPU TEMPS</span>
+                        <span id="cpuTemp">0°C</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <script  src="../script.js"></script>
 
 </body>
 </html>

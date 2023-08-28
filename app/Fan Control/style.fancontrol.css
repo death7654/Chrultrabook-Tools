@@ -109,7 +109,8 @@ nav .logo-image img{
     width: 40px;
     object-fit: cover;
     border-radius: 50%;
-    color: var(--title-icon-color);
+    /*color: var(--title-icon-color)*/
+    color: white;
 
 }
 
@@ -305,9 +306,14 @@ nav.close ~ .dashboard .top{
     border-radius: 12px;
     width: calc(100% / 3 - 15px);
     padding: 15px 20px;
-    background-color: var(--box1-color);
+    /*background-color: var(--box1-color);*/
     transition: var(--tran-05);
 }
+.dash-content .boxes .box1{
+    background-color:  #DD5144;
+ 
+}
+
 .boxes .box i{
     font-size: 35px;
     color: var(--text-color);
@@ -323,16 +329,117 @@ nav.close ~ .dashboard .top{
     font-weight: 500;
     color: var(--text-color);
 }
-.boxes .box .cpuLoad{
-    font-size: 40px;
-    font-weight: 500;
-    color: var(--text-color);
+.cpuLoad{
+    font-size: 0px;
+    color: white;
+ 
+}
+.ramPercentage{
+    font-size: 0px;
+    color: white;
+
 }
 .boxes .box.box2{
-    background-color: var(--box2-color);
+    background-color: #1DA462;
+    position: relative;
+    bottom: 60px;
+    right: 235px;
+    padding: 15px 20px;
+
+
 }
-.boxes .box.box3{
-    background-color: var(--box3-color);
+.boxes .box.box1{
+    background-color: #DD5144;
+    position: relative;
+    bottom: 60px;
+ 
+}
+.FanSpeedText{
+    position: relative;
+    top: 175px;
+}
+
+.FanAuto {
+    position: relative;
+    top: 200px;
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    background: #1DA462;
+    width: 160px;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: box-shadow, transform;
+    transition-property: box-shadow, transform;
+}
+.FanAuto:hover, .FanAuto:focus, .FanAuto:active{
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.FanOff {
+    position: relative;
+    top: 200px;
+    left: 10px;
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    background: #FFCD46;
+    width: 160px;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: box-shadow, transform;
+    transition-property: box-shadow, transform;
+}
+.FanOff:hover, .FanOff:focus, .FanOff:active{
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.FanMax {
+    position: relative;
+    top: 200px;
+    left: 20px;
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    background: #DD5144;
+    width: 160px;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: box-shadow, transform;
+    transition-property: box-shadow, transform;
+}
+.FanMax:hover, .FanMax:focus, .FanMax:active{
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
 }
 /*main html file ends */
 

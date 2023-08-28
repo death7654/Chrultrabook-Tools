@@ -8,10 +8,14 @@ function getTemps(){
         const cpuTempFunction = stdout.toString();
         const cpuTempFunctionSpecfic = cpuTempFunction.substring(131, 134);
         mainWindow.webContents.send('cpuTemp',cpuTempFunctionSpecfic);
-        console.log(cpuTempFunctionSpecfic);
+        //console.log(cpuTempFunctionSpecfic);
         return cpuTempFunctionSpecfic;
         
       });
     }
   
     module.exports = {getTemps}
+
+
+
+  

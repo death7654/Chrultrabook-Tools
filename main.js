@@ -1,13 +1,29 @@
 
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, contextBridge } = require('electron');
 const path = require('path');
 const os = require('os');
 const os2 = require('os-utils');
-const temps = require('./app/Dashboard/ectool.js')
-var cpuTemp;
+const temps = require('./app/ectools/cpuTemp.js');
+const fanSpeed = require('./app/ectools/fanRPM.js');
+const fanMax = require('./app/ectools/setFanMaxSpeed.js');
+const fanAuto = require('./app/ectools/setFanAuto.js');
+const fanOff = require('./app/ectools/setFanOff.js');
+
+
+
+app.whenReady().then(() => {
+  ipcMain.on('sentcommand', handleSetTitle)
+})
+
 app.whenReady().then(main);
 
 let window;
+
+function handleSetTitle (event, title) {
+  const webContents = event.sender
+  const win = BrowserWindow.fromWebContents(webContents)
+  win.setTitle(title)
+}
 
 async function main (){
   mainWindow = new BrowserWindow({
@@ -18,8 +34,8 @@ async function main (){
     webPreferences: {
       devTools: true,
       sandbox: false,
-      nodeIntegration: false,
-      preload: path.join(__dirname, "./backend/systeminfo.js"),
+      nodeIntegration: true,
+      preload: path.join(__dirname, "./backend/preload.js"),
       enableRemoteModule: false,
       contextIsolation: true,
     }
@@ -34,8 +50,28 @@ setInterval(() => {
     mainWindow.webContents.send('cpu',v*100);
     mainWindow.webContents.send('mem',os2.freememPercentage()*100);
   })  
-  temps.getTemps() // makes cpu temps work, a highly botched solution
+  temps.getTemps(); // makes cpu temps work, a highly botched solution
+  fanSpeed.getFanSpeed();
 },1000);
+
+ipcMain.on('setFan', (event, mode) => {
+  //console.log('recieved');
+  if (mode === 1)  {
+    fanMax.setFanSpeedMax();
+    //console.log(mode);
+  }
+  else if (mode === 2) {
+    fanOff.setFanOff();
+    //console.log(mode);
+
+  }
+  else if (mode === 3){
+    fanAuto.setFanAuto();
+    //console.log(mode);
+
+  }
+
+});
 
 
 
