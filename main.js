@@ -5,13 +5,12 @@ const os = require('os');
 const os2 = require('os-utils');
 const temps = require('./app/Dashboard/ectool.js')
 var cpuTemp;
-app.whenReady().then(main);
 
-let window;
+global.mainWindow = null;
 
-async function main (){
-  mainWindow = new BrowserWindow({
-    icon: path.join (__dirname, "/Icons/app-icon.ico"),
+function createWindow(){
+  global.mainWindow = new BrowserWindow({
+    icon: path.join(__dirname, "/app/Icons/app-icon.ico"),
     width: 800, //px
     height: 600, //px
     autoHideMenuBar: true,
@@ -26,6 +25,10 @@ async function main (){
   })
   mainWindow.loadFile(path.join(__dirname, "app/dashboard/index.html"));
 }
+app.on('ready', createWindow);
+app.on('activate', () => {
+    if (mainWindow === null) createWindow();
+})
 
 //update functions for index.html
 
