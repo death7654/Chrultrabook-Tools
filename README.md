@@ -22,6 +22,7 @@ Coolstar - Providing Chromebook Windows Drivers
 <br>Death7654 - Making the Chromebook Windows Controller App
 <br>
 <br> From Electron's Discord Server
+<br>
 <br> Timosh - Helping with Debugging and help in general
 <br> ArKellys - Helping with Debugging and help in general
 
