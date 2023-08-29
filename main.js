@@ -11,6 +11,12 @@ const fanOff = require('./app/ectools/setFanOff.js');
 app.whenReady().then(() => {
   ipcMain.on('sentcommand', handleSetTitle)
 })
+app.on('ready', createWindow);
+app.on('activate', () => {
+    if (mainWindow === null) createWindow();
+})
+
+global.mainWindow = null;
 
 function handleSetTitle (event, title) {
   const webContents = event.sender
@@ -18,9 +24,9 @@ function handleSetTitle (event, title) {
   win.setTitle(title)
 }
 
-function createWindow() {
+function createWindow(){
   global.mainWindow = new BrowserWindow({
-    icon: path.join (__dirname, "/app/Icons/app-icon.ico"),
+    icon: path.join(__dirname, "/app/Icons/app-icon.ico"),
     width: 800, //px
     height: 600, //px
     autoHideMenuBar: true,
