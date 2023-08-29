@@ -57,6 +57,18 @@ function sendData() {
 
 setInterval(sendData, 1000);
 
+ipcMain.on('ectool', (event, mode) => {
+  //console.log('recieved');
+  if (mode === 1)  {
+    fanMax.setFanSpeedMax();
+    //console.log(mode);
+  }
+  else if (mode === 2) {
+    fanOff.setFanOff();
+    //console.log(mode);
+  }
+})
+
 ipcMain.on('setFan', (event, mode) => {
     //console.log('recieved');
     if (mode === 1)  {
@@ -69,6 +81,9 @@ ipcMain.on('setFan', (event, mode) => {
     } else if (mode === 3) {
     fanAuto.setFanAuto();
     //console.log(mode);
+    }else if (mode === 4){
+        console.log(mode);
+        cbMem.cbMem();
     }
 });
 
