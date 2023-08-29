@@ -36,11 +36,11 @@
                     const modeTwo = 2;
                     const modeThree = 3;
                     const buttonfanMax = document.getElementById('fanMax');
-                    buttonfanMax.addEventListener('click', () => window.electronAPI.setFan(modeOne));
+                    buttonfanMax.addEventListener('click', () => window.parent.electronAPI.setFan(modeOne));
                     const buttonfanOff = document.getElementById('fanOff');
-                    buttonfanOff.addEventListener('click', () =>  window.electronAPI.setFan(modeTwo));
+                    buttonfanOff.addEventListener('click', () =>  window.parent.electronAPI.setFan(modeTwo));
                     const buttonfanAuto = document.getElementById('fanAuto');
-                    buttonfanAuto.addEventListener('click', () =>  window.electronAPI.setFan(modeThree));
+                    buttonfanAuto.addEventListener('click', () =>  window.parent.electronAPI.setFan(modeThree));
 
                 </script>
 

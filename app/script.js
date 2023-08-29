@@ -12,6 +12,7 @@ window.addEventListener("DOMContentLoaded", () => {
         newFrame.addEventListener("load", () => {
             newFrame.style.display = "";
             window.currentFrame.remove();
+            window.electronAPI.requestData();
             window.currentFrame = newFrame;
         })
         newFrame.style.display = "none";
