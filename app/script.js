@@ -29,7 +29,9 @@ window.addEventListener("DOMContentLoaded", () => {
     document.getElementById("diagnostics").addEventListener("click", () => {
         loadPage("cbmem/cbmem.html");
     })
-    
+    document.getElementById("information").addEventListener("click", () => {
+        loadPage("information/info.html");
+    })    
     let getMode = localStorage.getItem("mode");
     if (getMode && getMode ==="dark") {
         body.classList.toggle("dark");

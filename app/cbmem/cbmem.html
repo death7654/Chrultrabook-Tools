@@ -20,13 +20,28 @@
         </div>
         <button id="cbMem" href="#" class="cbMem">Run Memory Diagnostics</button>
         <h2 class="h2title">Memory Diagnostics</h2>
-        <code class="code" id="cbMem">the result will appear below</code>
+        <pre class = "pre" style="height: 250px; overflow: scroll;">
+            <span class="cbmem">
+                <code class ="code" id="cbMemInfo"></code>
+            </span>
+            <!--<button onclick="textCopy()">Copy text</button> -->
+        </pre>
 
+        <script>
+            function textCopy() {
+                var copyText = document.getElementById("cbMemInfo");
+                copyText.select();             
+                navigator.clipboard.writeText(copyText.value);
+                alert("Copied the text: " + copyText.value);
+              }
+        </script>
+
+        <span class ="hiddentext" id="cpuLoad">0%</span>
+        <span class = "hiddentext" id="ramPercentage">0%</span>
+        <span class = "hiddentext" id="cpuTemps">0%</span>
+        <span class = "hiddentext" id="fanSpeed">0%</span>
     </section>
-    <span class ="hiddentext" id="cpuLoad">0%</span>
-    <span class = "hiddentext" id="ramPercentage">0%</span>
-    <span class = "hiddentext" id="cpuTemps">0%</span>
-    <span class = "hiddentext" id="fanSpeed">0%</span>
+
 
 
     <script>

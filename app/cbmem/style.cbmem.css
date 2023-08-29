@@ -1,7 +1,6 @@
 /* ===== Google Font Import - Poppins ===== */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
 *{
-    user-drag: none;
     user-select: none;
     -webkit-user-drag: none;
     -webkit-user-select: none;
@@ -369,12 +368,57 @@ nav.close ~ .dashboard .top{
     transform: scale(1.1);
 }
 
-.code{
-    position: relative;
-    top: 180px;
-}
-/*main html file ends */
 
+.pre {
+    overflow: scroll;
+    height: 500px;
+    position: relative;
+    top: 160px;
+    background-color: wheat;
+    border-radius: 10px;
+  }
+/*main html file ends */
+.hiddentext{
+    font-size: 0px;
+    color: white;
+}
+.tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 140px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -75px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
 @media (max-width: 1000px) {
     nav{
         width: 73px;
