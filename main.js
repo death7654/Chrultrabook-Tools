@@ -1,4 +1,3 @@
-
 const { app, BrowserWindow, ipcMain, contextBridge } = require('electron');
 const path = require('path');
 const os = require('os');
@@ -9,15 +8,9 @@ const fanMax = require('./app/ectools/setFanMaxSpeed.js');
 const fanAuto = require('./app/ectools/setFanAuto.js');
 const fanOff = require('./app/ectools/setFanOff.js');
 
-
-
 app.whenReady().then(() => {
   ipcMain.on('sentcommand', handleSetTitle)
 })
-
-app.whenReady().then(main);
-
-let window;
 
 function handleSetTitle (event, title) {
   const webContents = event.sender
@@ -25,9 +18,9 @@ function handleSetTitle (event, title) {
   win.setTitle(title)
 }
 
-async function main (){
-  mainWindow = new BrowserWindow({
-    icon: path.join (__dirname, "/Icons/app-icon.ico"),
+function createWindow() {
+  global.mainWindow = new BrowserWindow({
+    icon: path.join (__dirname, "/app/Icons/app-icon.ico"),
     width: 800, //px
     height: 600, //px
     autoHideMenuBar: true,
@@ -42,6 +35,7 @@ async function main (){
   })
   mainWindow.loadFile(path.join(__dirname, "app/dashboard/index.html"));
 }
+app.on('ready', createWindow);
 
 //update functions for index.html
 
