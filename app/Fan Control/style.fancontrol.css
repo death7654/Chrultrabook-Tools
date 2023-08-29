@@ -342,17 +342,19 @@ nav.close ~ .dashboard .top{
     display: flex;
     background-color: #1DA462;
     position: relative;
-    bottom: 80px;
-    left: -180px;
-    padding: 15px 20px;
+    bottom: 100px;
+    
 
 
 }
 .boxes .box.box1{
     background-color: #DD5144;
     position: relative;
-    bottom: 80px;
+    bottom: 100px;
  
+}
+.boxes .box.box3{
+    background-color: white;
 }
 .FanSpeedText{
     position: relative;

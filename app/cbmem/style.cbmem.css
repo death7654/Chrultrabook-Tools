@@ -344,6 +344,7 @@ nav.close ~ .dashboard .top{
 .cbMem {
     position: relative;
     top: 120px;
+    left: 175px;
     font-family: "Roboto", sans-serif;
     font-size: 18px;
     font-weight: bold;
