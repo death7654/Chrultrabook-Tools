@@ -21,6 +21,10 @@ set PATH=c:\myBin;C:\Program Files\crosec
 Coolstar - Providing Chromebook Windows Drivers
 <br>Death7654 - Making the Chromebook Windows Controller App
 <br>
+<br> From the Chrultrabook Server
+<br>
+<br> Ethanaobrien - for fixes, and help
+<br>
 <br> From Electron's Discord Server
 <br>
 <br> Timosh - Helping with Debugging and help in general
