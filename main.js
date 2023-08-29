@@ -24,15 +24,21 @@ function createWindow(){
   global.mainWindow = new BrowserWindow({
     icon: path.join(__dirname, "/app/Icons/app-icon.ico"),
     width: 800, //px
-    height: 600, //px
+    height: 550, //px
     autoHideMenuBar: true,
     webPreferences: {
-      devTools: false,
+      devTools: true,
       sandbox: false,
       nodeIntegration: true,
       preload: path.join(__dirname, "./backend/preload.js"),
       enableRemoteModule: false,
       contextIsolation: true,
+    },
+    //frame: false,
+    resizable: false,
+    titleBarStyle: 'hidden',
+    titleBarOverlay: {
+      color: '#ffffff',
     }
   })
   mainWindow.loadFile(path.join(__dirname, "app/index.html"));

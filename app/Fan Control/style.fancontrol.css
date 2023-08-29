@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
 *{
     user-select: none;
-    -webkit-user-drag: none;
+    -webkit-app-region: none;
     -webkit-user-select: none;
     margin: 0;
     padding: 0;
@@ -339,10 +339,11 @@ nav.close ~ .dashboard .top{
 
 }
 .boxes .box.box2{
+    display: flex;
     background-color: #1DA462;
     position: relative;
-    bottom: 60px;
-    right: 235px;
+    bottom: 80px;
+    left: -180px;
     padding: 15px 20px;
 
 
@@ -350,7 +351,7 @@ nav.close ~ .dashboard .top{
 .boxes .box.box1{
     background-color: #DD5144;
     position: relative;
-    bottom: 60px;
+    bottom: 80px;
  
 }
 .FanSpeedText{

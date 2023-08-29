@@ -25,7 +25,6 @@
     "make_all_windows": "npm run make_windows_x64 && npm run make_windows_ia32 && npm run make_windows_arm64 && npm run make_windows_zip_x64 && npm run make_windows_zip_ia32 && npm run make_windows_zip_arm64",
     "make_all_windows_appx": "npm run make_windows_appx_x64 && npm run make_windows_appx_ia32 && npm run make_windows_appx_arm64",
     "package": "electron-forge package"
-  
   },
   "author": "Robinson Arysseril",
   "license": "GPL-3.0",

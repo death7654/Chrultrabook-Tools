@@ -3,7 +3,7 @@
 *{
     user-drag: none;
     user-select: none;
-    -webkit-user-drag: none;
+    -webkit-app-region: none;
     -webkit-user-select: none;
     margin: 0;
     padding: 0;
@@ -19,14 +19,23 @@ iframe {
     height: 98vh;
     display: float;
     overflow: hidden;
+
 }
  h1{
     padding-left: 25%;
+ }
+
+
+ .frame {
+    position: relative;
+    top: 0px;
+    right: 1000px;
  }
  
  .menu-items .nav-links .navbarimg{
     padding-left: 8px;
     padding-right: 8px;
+
  }
 /*default colors */
 :root{
