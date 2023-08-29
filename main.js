@@ -38,10 +38,14 @@ function createWindow(){
   mainWindow.loadFile(path.join(__dirname, "app/index.html"));
 }
 app.on('ready', createWindow);
+app.on('window-all-closed', function() {
+    app.quit();
+})
 
 //update functions for index.html
 
 function sendData() {
+    if (!mainWindow) return;
     os2.cpuUsage(function(v){
         mainWindow.webContents.send('cpu',v*100);
         mainWindow.webContents.send('mem',os2.freememPercentage()*100);
