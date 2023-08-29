@@ -5,17 +5,67 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "publish": "electron-forge publish"
+    "publish": "electron-forge publish",
+    "make": "electron-builder",
+    "make_windows_x64": "electron-builder --windows nsis --x64",
+    "make_windows_ia32": "electron-builder --windows nsis --ia32",
+    "make_windows_arm64": "electron-builder --windows nsis --arm64",
+    "make_windows_zip_x64": "electron-builder --windows zip --x64",
+    "make_windows_zip_ia32": "electron-builder --windows zip --ia32",
+    "make_windows_zip_arm64": "electron-builder --windows zip --arm64",
+    "make_windows_appx_x64": "electron-builder --windows appx --x64",
+    "make_windows_appx_ia32": "electron-builder --windows appx --ia32",
+    "make_windows_appx_arm64": "electron-builder --windows appx --arm64",
+    "make_linux_deb_x64": "electron-builder --linux deb --x64",
+    "make_linux_deb_ia32": "electron-builder --linux deb --ia32",
+    "make_linux_deb_arm64": "electron-builder --linux deb --arm64",
+    "make_linux_targz_x64": "electron-builder --linux targz --x64",
+    "make_linux_targz_ia32": "electron-builder --linux targz --ia32",
+    "make_linux_targz_arm64": "electron-builder --linux targz --arm64",
+    "make_all_windows": "npm run make_windows_x64 && npm run make_windows_ia32 && npm run make_windows_arm64 && npm run make_windows_zip_x64 && npm run make_windows_zip_ia32 && npm run make_windows_zip_arm64",
+    "make_all_windows_appx": "npm run make_windows_appx_x64 && npm run make_windows_appx_ia32 && npm run make_windows_appx_arm64"
   },
   "author": "Robinson Arysseril",
   "license": "GPL-3.0",
   "devDependencies": {
     "@electron-forge/publisher-github": "^6.4.1",
-    "electron": "^26.1.0"
+    "electron": "^26.1.0",
+    "electron-builder": "^24.6.3"
   },
   "dependencies": {
     "electron-forge": "^5.2.4",
     "os": "^0.1.2",
     "os-utils": "^0.0.14"
+  },
+  "build": {
+    "buildVersion": "26",
+    "appId": "org.chrultrabookcontroller.chrultrabookcontroller",
+    "productName": "Chrultrabook Windows Controller",
+    "copyright": "GPL-3.0",
+    "files": [
+      "./app/**",
+      "./backend/**",
+      "./main.js"
+    ],
+    "win": {
+      "icon": "app/Icons/app-icon.ico",
+      "publisherName": "Chrultrabook Windows Controller"
+    },
+    "nsis": {
+      "createDesktopShortcut": "always",
+      "artifactName": "${productName} Installer ${version} ${arch}.${ext}",
+      "license": "LICENSE"
+    },
+    "linux": {
+      "icon": "app/Icons/app-icon.png",
+      "category": "Development",
+      "vendor": "Chrultrabook Windows Controller"
+    },
+    "appx": {
+      "publisherDisplayName": "Robinson Arysseril",
+      "displayName": "Chrultrabook Windows Controller",
+      "applicationId": "org.chrultrabookcontroller.chrultrabookcontroller",
+      "languages": ["en-US"]
+    }
   }
 }
