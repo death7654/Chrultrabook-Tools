@@ -39,7 +39,7 @@ function createWindow(){
       contextIsolation: true,
     }
   })
-  mainWindow.loadFile(path.join(__dirname, "app/dashboard/index.html"));
+  mainWindow.loadFile(path.join(__dirname, "app/index.html"));
 }
 app.on('ready', createWindow);
 

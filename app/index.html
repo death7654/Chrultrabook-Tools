@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="Dashboard/style.index.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+        
+    <script src="script.js"></script>
+
+    <title>Chrultrabook Tools</title>
+</head>
+<body style="overflow: hidden;">
+    <nav>
+        <div class="logo-name">
+            <div class="logo-image">
+               <img class src="Icons/chrome.svg" alt="">
+            </div>
+
+            <span class="logo_name">Chrultrabook Tools</span>
+        </div>
+        <div class="menu-items">
+            <ul class="nav-links">
+                <li><a>
+                    <img class="navbarimg" src="Icons/home.svg" alt="">
+                    <span class="link-name">Dashboard</span>
+                </a></li>
+                <li><a>
+                    <img class="navbarimg" src="Icons/fan.svg" alt="">
+                    <span class="link-name">Fan Control</span>
+                </a></li>
+                <li><a>
+                    <img class="navbarimg" src="Icons/Diagnostics.svg" alt="">
+                    <span class="link-name">Memory Diagnostics</span>
+                </a></li>            
+              </ul>
+            
+                <ul class="dark-mode">
+
+                <!--<li class="mode">
+                    <a href="#">
+                        <i class="uil uil-moon"></i>
+                    <span class="link-name">Dark Mode</span>
+                </a>
+                -->
+
+                <div class="mode-toggle">
+                  <span class="switch"></span>
+                </div>
+            </li>
+            </ul> 
+        </div>
+    </nav>
+    <section class="dashboard" style="min-height: unset; height: unset; overflow: hidden;">
+        <div class="top">
+            <i class="uil uil-bars sidebar-toggle"></i>
+        </div>
+    </section>
+    <iframe src="Dashboard/index.html" style="width:100%; height: 98vh;display:float; overflow: hidden;" class="view_frame"></iframe>
+
+</body>
+</html>
