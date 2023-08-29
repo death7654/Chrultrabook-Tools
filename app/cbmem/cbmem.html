@@ -51,12 +51,27 @@
             </ul>
         </div>
     </nav>
-
     <section class="dashboard">
         <div class="top">
             <i class="uil uil-bars sidebar-toggle"></i>
         </div>
+        <button id="cbMem" href="#" class="cbMem">Run Memory Diagnostics</button>
+        <h2 class="h2title">Memory Diagnostics</h2>
+        <code class="code" id="cbMem">the result will appear below</code>
+
     </section>
+    <span class ="hiddentext" id="cpuLoad">0%</span>
+    <span class = "hiddentext" id="ramPercentage">0%</span>
+    <span class = "hiddentext" id="cpuTemps">0%</span>
+    <span class = "hiddentext" id="fanSpeed">0%</span>
+
+
+    <script>
+        const modeFour = 4;
+        const buttoncbMem = document.getElementById('cbMem');
+        buttoncbMem.addEventListener('click', () => window.electronAPI.ectool(modeFour));
+ 
+    </script>
     <script src="../script.js"></script>
 
 

@@ -330,12 +330,8 @@ nav.close ~ .dashboard .top{
     font-weight: 500;
     color: var(--text-color);
 }
-.cpuLoad{
-    font-size: 0px;
-    color: white;
- 
-}
-.ramPercentage{
+
+.hiddentext{
     font-size: 0px;
     color: white;
 

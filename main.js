@@ -8,6 +8,7 @@ const fanSpeed = require('./app/ectools/fanRPM.js');
 const fanMax = require('./app/ectools/setFanMaxSpeed.js');
 const fanAuto = require('./app/ectools/setFanAuto.js');
 const fanOff = require('./app/ectools/setFanOff.js');
+const cbMem = require('./app/ectools/cbmem.js')
 
 
 
@@ -57,7 +58,7 @@ setInterval(() => {
   fanSpeed.getFanSpeed();
 },1000);
 
-ipcMain.on('setFan', (event, mode) => {
+ipcMain.on('ectool', (event, mode) => {
   //console.log('recieved');
   if (mode === 1)  {
     fanMax.setFanSpeedMax();
@@ -72,6 +73,10 @@ ipcMain.on('setFan', (event, mode) => {
     fanAuto.setFanAuto();
     //console.log(mode);
 
+  }
+  else if (mode === 4){
+    console.log(mode);
+    cbMem.cbMem();
   }
 
 });

@@ -36,8 +36,9 @@
                 </a></li>            
               </ul>
               <!--to remove console errors -->
-              <span class ="cpuLoad" id="cpuLoad">0%</span>
-              <span class = "ramPercentage" id="ramPercentage">0%</span>
+              <span class ="hiddentext" id="cpuLoad">0%</span>
+              <span class = "hiddentext" id="ramPercentage">0%</span>
+
 
             <ul class="dark-mode">
 
@@ -73,21 +74,6 @@
                 <button id="fanOff" href="#" class="FanOff"> Off </button>
                 <button id="fanMax" href="#" class="FanMax"> Max </button>
 
-                <script>
-                    const modeOne = 1;
-                    const modeTwo = 2;
-                    const modeThree = 3;
-                    const buttonfanMax = document.getElementById('fanMax');
-                    buttonfanMax.addEventListener('click', () => window.electronAPI.setFan(modeOne));
-                    const buttonfanOff = document.getElementById('fanOff');
-                    buttonfanOff.addEventListener('click', () =>  window.electronAPI.setFan(modeTwo));
-                    const buttonfanAuto = document.getElementById('fanAuto');
-                    buttonfanAuto.addEventListener('click', () =>  window.electronAPI.setFan(modeThree));
-
-                </script>
-
-
-
                 <div class="boxes">
                     <div class="box box1">
                         <img src="../Icons/animatedfan.svg" alt="">
@@ -107,6 +93,7 @@
 
 
     <script  src="../script.js"></script>
+    <script src="./fancontrol.js"></script>
 
 </body>
 </html>
