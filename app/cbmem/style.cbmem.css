@@ -420,6 +420,28 @@ nav.close ~ .dashboard .top{
     visibility: visible;
     opacity: 1;
   }
+  .dashboard .pre .copyButton {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    left: 550px;
+    bottom: 80px;
+    background-color: wheat;
+    border: wheat;
+  }
+
+
+  .dashboard .pre .copy {
+    background-color: white;
+    position: relative;
+    right: 10px;
+    border-radius: 10px;
+    padding: 5px;
+  }
+
+  .dashboard .pre .copy:hover, .dashboard .pre .copy:focus, .dashboard .pre .copy:active{
+    background-color: grey;
+}
 @media (max-width: 1000px) {
     nav{
         width: 73px;

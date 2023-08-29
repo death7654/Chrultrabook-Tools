@@ -291,7 +291,7 @@ nav.close ~ .dashboard .top{
     font-size: 24px;
 }
 .dash-content .title .text{
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 500;
     color: var(--text-color);
     margin-left: 10px;

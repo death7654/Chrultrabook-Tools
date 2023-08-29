@@ -22,17 +22,11 @@
             <span class="cbmem">
                 <code class ="code" id="cbMemInfo"></code>
             </span>
+            <button class="copyButton">
+                <img class ="copy" src="../Icons/copyicon.svg">
+            </button>
             <!--<button onclick="textCopy()">Copy text</button> -->
         </pre>
-
-        <script>
-            function textCopy() {
-                var copyText = document.getElementById("cbMemInfo");
-                copyText.select();             
-                navigator.clipboard.writeText(copyText.value);
-                alert("Copied the text: " + copyText.value);
-              }
-        </script>
 
         <span class ="hiddentext" id="cpuLoad">0%</span>
         <span class = "hiddentext" id="ramPercentage">0%</span>
