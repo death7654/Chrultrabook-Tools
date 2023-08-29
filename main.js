@@ -27,7 +27,7 @@ function createWindow(){
     height: 600, //px
     autoHideMenuBar: true,
     webPreferences: {
-      devTools: true,
+      devTools: false,
       sandbox: false,
       nodeIntegration: true,
       preload: path.join(__dirname, "./backend/preload.js"),
