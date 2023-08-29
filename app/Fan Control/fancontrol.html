@@ -11,7 +11,6 @@
     <title>Fan Control</title>
 </head>
 <body>
-    <nav></nav>
     <script>document.querySelector("nav").classList.toggle("close", window.parent.document.querySelector("nav").classList.contains("close"));</script>
 
     <section class="dashboard">
@@ -43,9 +42,6 @@
                     buttonfanAuto.addEventListener('click', () =>  window.parent.electronAPI.setFan(modeThree));
 
                 </script>
-
-
-
                 <div class="boxes">
                     <div class="box box1">
                         <img src="../Icons/animatedfan.svg" alt="">
@@ -61,6 +57,6 @@
             </div>
         </div>
     </section>
-
+    <script src="./fancontrol.js"></script>
 </body>
 </html>

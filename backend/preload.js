@@ -32,5 +32,5 @@ ipcRenderer.on('fanSpeed',(event,data) => {
 
 contextBridge.exposeInMainWorld('electronAPI',{
   setFan: (mode) => ipcRenderer.send('setFan', mode),
-  requestData: () => ipcRenderer.send('requestData'),
+  requestData: () => ipcRenderer.send('requestData')
 })

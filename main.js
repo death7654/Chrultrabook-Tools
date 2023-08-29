@@ -7,6 +7,7 @@ const fanSpeed = require('./app/ectools/fanRPM.js');
 const fanMax = require('./app/ectools/setFanMaxSpeed.js');
 const fanAuto = require('./app/ectools/setFanAuto.js');
 const fanOff = require('./app/ectools/setFanOff.js');
+const cbMem = require('./app/ectools/cbmem.js')
 
 app.whenReady().then(() => {
   ipcMain.on('sentcommand', handleSetTitle)
