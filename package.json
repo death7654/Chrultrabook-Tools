@@ -4,9 +4,9 @@
   "description": "UI for CrosEC",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
+    "start": "electron-forge start",
     "publish": "electron-forge publish",
-    "make": "electron-builder",
+    "make": "electron-forge make",
     "make_windows_x64": "electron-builder --windows nsis --x64",
     "make_windows_ia32": "electron-builder --windows nsis --ia32",
     "make_windows_arm64": "electron-builder --windows nsis --arm64",
@@ -23,17 +23,24 @@
     "make_linux_targz_ia32": "electron-builder --linux targz --ia32",
     "make_linux_targz_arm64": "electron-builder --linux targz --arm64",
     "make_all_windows": "npm run make_windows_x64 && npm run make_windows_ia32 && npm run make_windows_arm64 && npm run make_windows_zip_x64 && npm run make_windows_zip_ia32 && npm run make_windows_zip_arm64",
-    "make_all_windows_appx": "npm run make_windows_appx_x64 && npm run make_windows_appx_ia32 && npm run make_windows_appx_arm64"
+    "make_all_windows_appx": "npm run make_windows_appx_x64 && npm run make_windows_appx_ia32 && npm run make_windows_appx_arm64",
+    "package": "electron-forge package"
+  
   },
   "author": "Robinson Arysseril",
   "license": "GPL-3.0",
   "devDependencies": {
+    "@electron-forge/cli": "^6.4.1",
+    "@electron-forge/maker-deb": "^6.4.1",
+    "@electron-forge/maker-rpm": "^6.4.1",
+    "@electron-forge/maker-squirrel": "^6.4.1",
+    "@electron-forge/maker-zip": "^6.4.1",
+    "@electron-forge/plugin-auto-unpack-natives": "^6.4.1",
     "@electron-forge/publisher-github": "^6.4.1",
-    "electron": "^26.1.0",
-    "electron-builder": "^24.6.3"
+    "electron": "^26.1.0"
   },
   "dependencies": {
-    "electron-forge": "^5.2.4",
+    "electron-squirrel-startup": "^1.0.0",
     "os": "^0.1.2",
     "os-utils": "^0.0.14"
   },
@@ -53,6 +60,7 @@
     },
     "nsis": {
       "createDesktopShortcut": "always",
+      "createStartMenuShortchut": "true",
       "artifactName": "${productName} Installer ${version} ${arch}.${ext}",
       "license": "LICENSE"
     },
@@ -65,7 +73,9 @@
       "publisherDisplayName": "Robinson Arysseril",
       "displayName": "Chrultrabook Windows Controller",
       "applicationId": "org.chrultrabookcontroller.chrultrabookcontroller",
-      "languages": ["en-US"]
+      "languages": [
+        "en-US"
+      ]
     }
   }
 }
