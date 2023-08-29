@@ -14,6 +14,12 @@ html {
   height: 100%;
   width: 100%;
 }
+iframe {
+    width: 100%;
+    height: 98vh;
+    display: float;
+    overflow: hidden;
+}
  h1{
     padding-left: 25%;
  }
