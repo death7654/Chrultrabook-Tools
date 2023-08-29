@@ -2,6 +2,7 @@ const exec = require("child_process").exec;
 var child;
 
 function getFanSpeed(){
+    if (!mainWindow) return;
     child = exec('ectool pwmgetfanrpm',
       function fanSpeed(error, stdout) {
         const fanSpeedLong = stdout.toString();

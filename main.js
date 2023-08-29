@@ -1,4 +1,3 @@
-
 const { app, BrowserWindow, ipcMain, contextBridge } = require('electron');
 const path = require('path');
 const os = require('os');
@@ -10,16 +9,9 @@ const fanAuto = require('./app/ectools/setFanAuto.js');
 const fanOff = require('./app/ectools/setFanOff.js');
 const cbMem = require('./app/ectools/cbmem.js')
 
-
-
 app.whenReady().then(() => {
   ipcMain.on('sentcommand', handleSetTitle)
 })
-app.on('ready', createWindow);
-app.on('activate', () => {
-    if (mainWindow === null) createWindow();
-})
-
 
 global.mainWindow = null;
 
@@ -44,43 +36,43 @@ function createWindow(){
       contextIsolation: true,
     }
   })
-  mainWindow.loadFile(path.join(__dirname, "app/dashboard/index.html"));
+  mainWindow.loadFile(path.join(__dirname, "app/index.html"));
 }
+app.on('ready', createWindow);
+app.on('window-all-closed', function() {
+    app.quit();
+})
 
 //update functions for index.html
 
-setInterval(() => {
-  os2.cpuUsage(function(v){
-    mainWindow.webContents.send('cpu',v*100);
-    mainWindow.webContents.send('mem',os2.freememPercentage()*100);
-  })  
-  temps.getTemps(); // makes cpu temps work, a highly botched solution
-  fanSpeed.getFanSpeed();
-},1000);
+function sendData() {
+    if (!mainWindow) return;
+    os2.cpuUsage(function(v){
+        mainWindow.webContents.send('cpu',v*100);
+        mainWindow.webContents.send('mem',os2.freememPercentage()*100);
+    })  
+    temps.getTemps(); // makes cpu temps work, a highly botched solution
+    fanSpeed.getFanSpeed();
+}
 
-ipcMain.on('ectool', (event, mode) => {
-  //console.log('recieved');
-  if (mode === 1)  {
-    fanMax.setFanSpeedMax();
-    //console.log(mode);
-  }
-  else if (mode === 2) {
-    fanOff.setFanOff();
-    //console.log(mode);
+setInterval(sendData, 1000);
 
-  }
-  else if (mode === 3){
+ipcMain.on('setFan', (event, mode) => {
+    //console.log('recieved');
+    if (mode === 1)  {
+        fanMax.setFanSpeedMax();
+        //console.log(mode);
+    }
+    else if (mode === 2) {
+        fanOff.setFanOff();
+        //console.log(mode);
+    } else if (mode === 3) {
     fanAuto.setFanAuto();
     //console.log(mode);
-
-  }
-  else if (mode === 4){
-    console.log(mode);
-    cbMem.cbMem();
-  }
-
+    }
 });
 
-
-
-  
+ipcMain.on('requestData', (e) => {
+    //new iframe loading...
+    sendData();
+})
