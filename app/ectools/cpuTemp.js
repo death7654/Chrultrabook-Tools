@@ -9,6 +9,8 @@ function getTemps(){
         const cpuTempFunctionSpecfic = cpuTempFunction.substring(131, 134);
         mainWindow.webContents.send('cpuTemp',cpuTempFunctionSpecfic);
         //console.log(cpuTempFunctionSpecfic);
+        //global.mainWindow.webContents.send('cpuTemp',cpuTempFunctionSpecfic);
+        //console.log(cpuTempFunctionSpecfic);
         return cpuTempFunctionSpecfic;
         
       });
