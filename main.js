@@ -1,13 +1,12 @@
 const { app, BrowserWindow, ipcMain, contextBridge } = require('electron');
 const path = require('path');
-const os = require('os');
 const os2 = require('os-utils');
 const temps = require('./app/ectools/cpuTemp.js');
 const fanSpeed = require('./app/ectools/fanRPM.js');
 const fanMax = require('./app/ectools/setFanMaxSpeed.js');
 const fanAuto = require('./app/ectools/setFanAuto.js');
 const fanOff = require('./app/ectools/setFanOff.js');
-const cbMem = require('./app/ectools/cbmem.js')
+const memcb = require('./app/ectools/cbmem.js')
 
 app.whenReady().then(() => {
   ipcMain.on('sentcommand', handleSetTitle)
@@ -57,19 +56,8 @@ function sendData() {
 
 setInterval(sendData, 1000);
 
-ipcMain.on('ectool', (event, mode) => {
-  //console.log('recieved');
-  if (mode === 1)  {
-    fanMax.setFanSpeedMax();
-    //console.log(mode);
-  }
-  else if (mode === 2) {
-    fanOff.setFanOff();
-    //console.log(mode);
-  }
-})
 
-ipcMain.on('setFan', (event, mode) => {
+ipcMain.on('ectool', (event, mode) => {
     //console.log('recieved');
     if (mode === 1)  {
         fanMax.setFanSpeedMax();
@@ -82,8 +70,8 @@ ipcMain.on('setFan', (event, mode) => {
     fanAuto.setFanAuto();
     //console.log(mode);
     }else if (mode === 4){
-        console.log(mode);
-        cbMem.cbMem();
+        //console.log(mode);
+        memcb.cbMem();
     }
 });
 

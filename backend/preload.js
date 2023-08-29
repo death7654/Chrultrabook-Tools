@@ -29,8 +29,15 @@ ipcRenderer.on('fanSpeed',(event,data) => {
     if (element) element.innerText = data + " RPM";
 });
 
+ipcRenderer.on('cbMemInfo',(event,data) => {
+    //console.log(data + " C");
+    const element = document.querySelector(".view_frame").contentDocument.getElementById('cbMemInfo');
+    if (element) element.innerText = data;
+});
+
+
 
 contextBridge.exposeInMainWorld('electronAPI',{
-  setFan: (mode) => ipcRenderer.send('setFan', mode),
+  ectool: (mode) => ipcRenderer.send('ectool', mode),
   requestData: () => ipcRenderer.send('requestData')
 })
