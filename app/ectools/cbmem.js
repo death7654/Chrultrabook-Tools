@@ -1,14 +1,13 @@
-const exec = require("child_process").exec;
-var child;
+import { exec } from "child_process";
 
-function cbMem(){
-    child = exec('"C:\\Program Files\\crosec\\cbmem"',
-      function cbMem(error, stdout) {
-        const cbMem = stdout.toString();
-        mainWindow.webContents.send('cbMemInfo',cbMem);
-        return cbMem;
+function cbMem() {
+  exec('"C:\\Program Files\\crosec\\cbmem"',
+    function cbMem(error, stdout) {
+      const cbMem = stdout.toString();
+      mainWindow.webContents.send('cbMemInfo', cbMem);
+      return cbMem;
 
-      });
-    }
-  
-    module.exports = {cbMem}
+    });
+}
+
+export default { cbMem }
