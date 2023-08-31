@@ -24,7 +24,7 @@ window.addEventListener("DOMContentLoaded", () => {
         loadPage("Dashboard/index.html");
     })
     document.getElementById("fan").addEventListener("click", () => {
-        loadPage("Fan Control/fancontrol.html");
+        loadPage("fanControl/fancontrol.html");
     })
     document.getElementById("diagnostics").addEventListener("click", () => {
         loadPage("cbmem/cbmem.html");

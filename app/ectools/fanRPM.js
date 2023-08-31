@@ -3,7 +3,7 @@ var child;
 
 function getFanSpeed(){
     if (!mainWindow) return;
-    child = exec('ectool pwmgetfanrpm',
+    child = exec('"C:\\Program Files\\crosec\\ectool" pwmgetfanrpm',
       function fanSpeed(error, stdout) {
         const fanSpeedLong = stdout.toString();
         const fanSpeedWithSpaces = fanSpeedLong.substring(11, 15);

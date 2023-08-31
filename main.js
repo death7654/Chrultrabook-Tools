@@ -7,7 +7,6 @@ const fanMax = require('./app/ectools/setFanMaxSpeed.js');
 const fanAuto = require('./app/ectools/setFanAuto.js');
 const fanOff = require('./app/ectools/setFanOff.js');
 const memcb = require('./app/ectools/cbmem.js')
-const evSet = require('./app/ectools/setev.js')
 
 app.whenReady().then(() => {
   ipcMain.on('sentcommand', handleSetTitle)
@@ -44,10 +43,8 @@ function createWindow(){
   })
   mainWindow.loadFile(path.join(__dirname, "app/index.html"));
 }
-function setEV(){
-  evSet.setev();
-}
-app.on('ready', createWindow, setEV);
+
+app.on('ready', createWindow);
 app.on('window-all-closed', function() {
     app.quit();
 })
