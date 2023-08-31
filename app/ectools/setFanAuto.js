@@ -1,5 +1,4 @@
 const exec = require("child_process").exec;
-const electron = require('electron');
 var child;
 
 function setFanAuto(){
