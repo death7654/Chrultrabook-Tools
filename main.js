@@ -1,5 +1,6 @@
-const { app, BrowserWindow, ipcMain, contextBridge } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
+const os = require('os')
 const os2 = require('os-utils');
 const temps = require('./app/ectools/cpuTemp.js');
 const fanSpeed = require('./app/ectools/fanRPM.js');
@@ -7,6 +8,12 @@ const fanMax = require('./app/ectools/setFanMaxSpeed.js');
 const fanAuto = require('./app/ectools/setFanAuto.js');
 const fanOff = require('./app/ectools/setFanOff.js');
 const memcb = require('./app/ectools/cbmem.js')
+const nameCPU = require('./app/systemInformation/cpuName.js')
+const hostname = require('./app/systemInformation/hostname.js')
+const cpuCore = require('./app/systemInformation/cores.js')
+const boardname = require('./app/systemInformation/boardName.js')
+const osName = require('./app/systemInformation/os.js')
+const biosVersion = require('./app/systemInformation/biosVersion.js')
 
 app.whenReady().then(() => {
   ipcMain.on('sentcommand', handleSetTitle)
@@ -43,12 +50,29 @@ function createWindow(){
   })
   mainWindow.loadFile(path.join(__dirname, "app/index.html"));
 }
+function systemInfo(){
+  if (!mainWindow) return;
+  nameCPU.cpuName();
+  hostname.hostname();
+  cpuCore.coreCPU();
+  boardname.boardname();
+}
 
 app.on('ready', createWindow);
 app.on('window-all-closed', function() {
     app.quit();
 })
+function systemInfo(){
+  if (!mainWindow) return;
+  nameCPU.cpuName();
+  hostname.hostname();
+  cpuCore.coreCPU();
+  boardname.boardname();
+  osName.osName();
+  biosVersion.biosVersion();
+}
 
+setTimeout(systemInfo, 1500)
 //update functions for index.html
 
 function sendData() {
@@ -59,9 +83,11 @@ function sendData() {
     })  
     temps.getTemps(); // makes cpu temps work, a highly botched solution
     fanSpeed.getFanSpeed();
+
 }
 
 setInterval(sendData, 1000);
+
 
 
 ipcMain.on('ectool', (event, mode) => {

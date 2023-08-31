@@ -30,7 +30,7 @@ window.addEventListener("DOMContentLoaded", () => {
         loadPage("cbmem/cbmem.html");
     })
     document.getElementById("information").addEventListener("click", () => {
-        loadPage("information/info.html");
+        loadPage("about/info.html");
     })    
     let getMode = localStorage.getItem("mode");
     if (getMode && getMode ==="dark") {

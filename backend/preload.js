@@ -34,6 +34,36 @@ ipcRenderer.on('cbMemInfo',(event,data) => {
     const element = document.querySelector(".view_frame").contentDocument.getElementById('cbMemInfo');
     if (element) element.innerText = data;
 });
+ipcRenderer.on('cpuName',(event,data) => {
+    //console.log(data + " C");
+    const element = document.querySelector(".view_frame").contentDocument.getElementById('cpuName');
+    if (element) element.innerText = "CPU: " + data;
+});
+ipcRenderer.on('hostname',(event,data) => {
+    //console.log(data + " C");
+    const element = document.querySelector(".view_frame").contentDocument.getElementById('hostname');
+    if (element) element.innerText = "Hostname: " + data;
+});
+ipcRenderer.on('coreCPU',(event,data) => {
+    //console.log(data + " C");
+    const element = document.querySelector(".view_frame").contentDocument.getElementById('coreCPU');
+    if (element) element.innerText = "Cores: " + data;
+});
+ipcRenderer.on('boardname',(event,data) => {
+    //console.log(data + " C");
+    const element = document.querySelector(".view_frame").contentDocument.getElementById('boardname');
+    if (element) element.innerText = "Boardname: " + data;
+});
+ipcRenderer.on('OS',(event,data) => {
+    //console.log(data + " C");
+    const element = document.querySelector(".view_frame").contentDocument.getElementById('OS');
+    if (element) element.innerText = "OS: " + data;
+});
+ipcRenderer.on('biosVersion',(event,data) => {
+    //console.log(data + " C");
+    const element = document.querySelector(".view_frame").contentDocument.getElementById('biosVersion');
+    if (element) element.innerText = "Bios Version: " + data;
+});
 
 
 
