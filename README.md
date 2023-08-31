@@ -10,12 +10,6 @@
 https://github.com/coolstar/driverinstallers/raw/master/crosec/crosec.2.0.2-installer.exe
 ```
 
-<p>2. Set Enviorment Variables</p>
-
-```
-set PATH=c:\myBin;C:\Program Files\crosec
-```
-
 <h2>🍰 Contribution Guidelines:</h2>
 
 Coolstar - Providing Chromebook Windows Drivers
