@@ -4,9 +4,8 @@
   "description": "UI for CrosEC",
   "main": "main.js",
   "scripts": {
-    "start": "electron-forge start",
-    "publish": "electron-forge publish",
-    "make": "electron-forge make",
+    "start": "electron .",
+    "buildwindows": "electron-builder --windows nsis --x64",
     "make_windows_x64": "electron-builder --windows nsis --x64",
     "make_windows_ia32": "electron-builder --windows nsis --ia32",
     "make_windows_arm64": "electron-builder --windows nsis --arm64",
@@ -24,7 +23,8 @@
     "make_linux_targz_arm64": "electron-builder --linux targz --arm64",
     "make_all_windows": "npm run make_windows_x64 && npm run make_windows_ia32 && npm run make_windows_arm64 && npm run make_windows_zip_x64 && npm run make_windows_zip_ia32 && npm run make_windows_zip_arm64",
     "make_all_windows_appx": "npm run make_windows_appx_x64 && npm run make_windows_appx_ia32 && npm run make_windows_appx_arm64",
-    "package": "electron-forge package"
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "author": "Robinson Arysseril",
   "license": "GPL-3.0",
@@ -36,7 +36,8 @@
     "@electron-forge/maker-zip": "^6.4.1",
     "@electron-forge/plugin-auto-unpack-natives": "^6.4.1",
     "@electron-forge/publisher-github": "^6.4.1",
-    "electron": "^26.1.0"
+    "electron": "^26.1.0",
+    "electron-builder": "^24.6.3"
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
@@ -55,13 +56,20 @@
     ],
     "win": {
       "icon": "app/Icons/app/icon.ico",
-      "publisherName": "Chrultrabook Windows Controller"
+      "publisherName": "Chrultrabook Windows Controller",
+      "target": [
+        "nsis"
+      ]
     },
     "nsis": {
       "createDesktopShortcut": "always",
-      "createStartMenuShortchut": "true",
       "artifactName": "${productName} Installer ${version} ${arch}.${ext}",
-      "license": "LICENSE"
+      "license": "LICENSE",
+      "installerIcon": "app/Icons/app/icon.ico",
+      "uninstallerIcon": "app/Icons/app/icon.ico",
+      "oneClick": "true",
+      "allowToChangeInstallationDirectory": "false",
+      "createStartMenuShortcut": "true"
     },
     "linux": {
       "icon": "app/Icons/app/icon.png",
@@ -76,5 +84,6 @@
         "en-US"
       ]
     }
-  }
+  },
+  "repository": "https://github.com/death7654/Chultrabook-Windows-Controller"
 }
