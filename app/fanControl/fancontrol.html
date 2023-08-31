@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,14 +10,13 @@
 
     <title>Fan Control</title>
 </head>
-
 <body>
     <nav></nav>
     <script>document.querySelector("nav").classList.toggle("close", window.parent.document.querySelector("nav").classList.contains("close"));</script>
     <script src="./fancontrol.js"></script>
     <section class="dashboard">
 
-        <div class="dash-content">
+       <div class="dash-content">
             <div class="overview">
                 <div class="title">
                     <img src="../Icons/fancontrol/fancontroldash.svg">
@@ -37,9 +35,9 @@
                     const buttonfanMax = document.getElementById('fanMax');
                     buttonfanMax.addEventListener('click', () => window.parent.electronAPI.ectool(modeOne));
                     const buttonfanOff = document.getElementById('fanOff');
-                    buttonfanOff.addEventListener('click', () => window.parent.electronAPI.ectool(modeTwo));
+                    buttonfanOff.addEventListener('click', () =>  window.parent.electronAPI.ectool(modeTwo));
                     const buttonfanAuto = document.getElementById('fanAuto');
-                    buttonfanAuto.addEventListener('click', () => window.parent.electronAPI.ectool(modeThree));
+                    buttonfanAuto.addEventListener('click', () =>  window.parent.electronAPI.ectool(modeThree));
                 </script>
 
                 <div class="boxes">
@@ -59,5 +57,4 @@
         </div>
     </section>
 </body>
-
 </html>
