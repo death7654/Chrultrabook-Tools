@@ -328,7 +328,7 @@ nav.close ~ .dashboard .top{
     color: var(--text-color);
 }
 .boxes .box .number{
-    font-size: 40px;
+    font-size: 48px;
     font-weight: 500;
     color: var(--text-color);
 }
@@ -343,8 +343,6 @@ nav.close ~ .dashboard .top{
     background-color: #1DA462;
     position: relative;
     bottom: 100px;
-    
-
 
 }
 .boxes .box.box1{
