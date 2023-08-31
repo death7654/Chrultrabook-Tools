@@ -13,36 +13,59 @@
 <body>
     <nav></nav>
     <script>document.querySelector("nav").classList.toggle("close", window.parent.document.querySelector("nav").classList.contains("close"));</script>
-  
-    <section class="dashboard">
-      
-        <button id="cbMem" href="#" class="cbMem">Run Memory Diagnostics</button>
-        <h2 class="h2title">Memory Diagnostics</h2>
-        <pre class = "pre" style="height: 250px; overflow: scroll;">
+  <section class="dashboard">
+
+    <div class="dash-content">
+         <div class="overview">
+             <div class="title">
+                 <img src="../Icons/cbmem/bugcbmemdash.svg">
+                 <span class="text">Memory Diagnostics</span>
+             </div>
+             <span class ="hiddentext" id="cpuLoad">0%</span>
+             <span class = "hiddentext" id="ramPercentage">0%</span>
+             <span class = "hiddentext" id="cpuTemps">0%</span>
+             <span class = "hiddentext" id="fanSpeed">0%</span>
+
+     </div>
+     <button id="cbMem" href="#" class="cbMem">Run Memory Diagnostics</button>
+     <button id="copyButton" class="copyButton">Copy</button>
+        <pre class = "pre">
             <span class="cbmem">
                 <code class ="code" id="cbMemInfo"></code>
             </span>
-            <button class="copyButton">
-                <img class ="copy" src="../Icons/copyicon.svg">
-            </button>
-            <!--<button onclick="textCopy()">Copy text</button> -->
         </pre>
 
-        <span class ="hiddentext" id="cpuLoad">0%</span>
-        <span class = "hiddentext" id="ramPercentage">0%</span>
-        <span class = "hiddentext" id="cpuTemps">0%</span>
-        <span class = "hiddentext" id="fanSpeed">0%</span>
-    </section>
+        <script>
+            const modeFour = 4;
+            const buttoncbMem = document.getElementById('cbMem');
+            buttoncbMem.addEventListener('click', () => window.parent.electronAPI.ectool(modeFour));
+    
+            function copyTxt(htmlElement) {
+                if(!htmlElement){
+                    return;
+                }
+    
+                let elementText = htmlElement.innerText;
+    
+                let inputElement = document.createElement('input');
+                inputElement.setAttribute('value', elementText);
+                document.body.appendChild(inputElement);
+                inputElement.select();
+                document.execCommand('copy');
+                inputElement.parentElement.removeChild(inputElement);
+    
+            }
+            document.querySelector('#copyButton').onclick = 
+            function () {
+                copyTxt(document.querySelector('#cbMemInfo'))
+            }
+     
+         </script>
+ </section>
 
 
-
-    <script>
-        const modeFour = 4;
-        const buttoncbMem = document.getElementById('cbMem');
-        buttoncbMem.addEventListener('click', () => window.parent.electronAPI.ectool(modeFour));
- 
-    </script>
 
 
 </body>
 </html>
+

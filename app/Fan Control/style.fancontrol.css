@@ -311,6 +311,7 @@ nav.close ~ .dashboard .top{
     padding: 15px 20px;
     /*background-color: var(--box1-color);*/
     transition: var(--tran-05);
+    color: #000;
 }
 .dash-content .boxes .box1{
     background-color:  #DD5144;
@@ -325,7 +326,7 @@ nav.close ~ .dashboard .top{
     white-space: nowrap;
     font-size: 18px;
     font-weight: 500;
-    color: var(--text-color);
+    color: black;
 }
 .boxes .box .number{
     font-size: 48px;
@@ -340,13 +341,13 @@ nav.close ~ .dashboard .top{
 }
 .boxes .box.box2{
     display: flex;
-    background-color: #1DA462;
+    background-color: #06D6A0;
     position: relative;
     bottom: 100px;
 
 }
 .boxes .box.box1{
-    background-color: #DD5144;
+    background-color: #EF476F;
     position: relative;
     bottom: 100px;
  
@@ -365,7 +366,7 @@ nav.close ~ .dashboard .top{
     font-family: "Roboto", sans-serif;
     font-size: 18px;
     font-weight: bold;
-    background: #1DA462;
+    background: #239C00;
     width: 160px;
     padding: 20px;
     text-align: center;
@@ -393,7 +394,7 @@ nav.close ~ .dashboard .top{
     font-family: "Roboto", sans-serif;
     font-size: 18px;
     font-weight: bold;
-    background: #FFCD46;
+    background: #F04F00;
     width: 160px;
     padding: 20px;
     text-align: center;
@@ -421,7 +422,7 @@ nav.close ~ .dashboard .top{
     font-family: "Roboto", sans-serif;
     font-size: 18px;
     font-weight: bold;
-    background: #DD5144;
+    background: #9C0000;
     width: 160px;
     padding: 20px;
     text-align: center;

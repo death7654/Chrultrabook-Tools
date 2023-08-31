@@ -343,18 +343,17 @@ nav.close ~ .dashboard .top{
 }
 .cbMem {
     position: relative;
-    top: 120px;
-    left: 175px;
+    top: -30px;
     font-family: "Roboto", sans-serif;
     font-size: 18px;
     font-weight: bold;
-    background: #1DA462;
+    background: #F04F00;
     width: 300px;
     padding: 20px;
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
-    color: #fff;
+    color: #ffffff;
     border-radius: 5px;
     cursor: pointer;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -362,8 +361,9 @@ nav.close ~ .dashboard .top{
     transition-duration: 0.3s;
     -webkit-transition-property: box-shadow, transform;
     transition-property: box-shadow, transform;
+    border-color: #000000;
 }
-.cbMem:hover, .cbMem:focus, .cbMem:active{
+.cbMem:hover, .cbMem:active{
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
@@ -371,12 +371,14 @@ nav.close ~ .dashboard .top{
 
 
 .pre {
-    overflow: scroll;
     height: 500px;
     position: relative;
-    top: 160px;
-    background-color: wheat;
+    top: 30px;
+    background-color: #BDA79E;
     border-radius: 10px;
+    height: 150px; 
+    width: 630px;
+    overflow: hidden;
   }
 /*main html file ends */
 .hiddentext{
@@ -420,27 +422,34 @@ nav.close ~ .dashboard .top{
     visibility: visible;
     opacity: 1;
   }
-  .dashboard .pre .copyButton {
-    width: 24px;
-    height: 24px;
+  .copyButton {
     position: relative;
-    left: 550px;
-    bottom: 80px;
-    background-color: wheat;
-    border: wheat;
-  }
+    left: 30px;
+    top: -30px;
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    background: #007FFF;
+    width: 300px;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: box-shadow, transform;
+    transition-property: box-shadow, transform;
+    border-color: #000000;
 
-
-  .dashboard .pre .copy {
-    background-color: white;
-    position: relative;
-    right: 10px;
-    border-radius: 10px;
-    padding: 5px;
-  }
-
-  .dashboard .pre .copy:hover, .dashboard .pre .copy:focus, .dashboard .pre .copy:active{
-    background-color: grey;
+}
+.copyButton:hover, .copyButton:focus, .copyButton:active{
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
 }
 @media (max-width: 1000px) {
     nav{

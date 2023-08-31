@@ -349,11 +349,14 @@ nav.close ~ .dashboard .top{
     font-weight: 500;
     color: var(--text-color);
 }
+.boxes .box.box1{
+    background-color: #EF476F;
+}
 .boxes .box.box2{
-    background-color: var(--box2-color);
+    background-color: #06D6A0;
 }
 .boxes .box.box3{
-    background-color: var(--box3-color);
+    background-color: #FFD166;
 }
 /*main html file ends */
 

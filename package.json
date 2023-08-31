@@ -54,7 +54,7 @@
       "./main.js"
     ],
     "win": {
-      "icon": "app/Icons/app-icon.ico",
+      "icon": "app/Icons/app/icon.ico",
       "publisherName": "Chrultrabook Windows Controller"
     },
     "nsis": {
@@ -64,7 +64,7 @@
       "license": "LICENSE"
     },
     "linux": {
-      "icon": "app/Icons/app-icon.png",
+      "icon": "app/Icons/app/icon.png",
       "category": "Development",
       "vendor": "Chrultrabook Windows Controller"
     },

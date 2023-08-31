@@ -22,14 +22,14 @@ function handleSetTitle (event, title) {
 
 function createWindow(){
   global.mainWindow = new BrowserWindow({
-    icon: path.join(__dirname, "/app/Icons/app-icon.ico"),
+    icon: path.join(__dirname, "/app/Icons/app/icon.ico"),
     width: 800, //px
     height: 550, //px
     autoHideMenuBar: true,
     webPreferences: {
-      devTools: true,
+      devTools: false,
       sandbox: false,
-      nodeIntegration: true,
+      nodeIntegration: false,
       preload: path.join(__dirname, "./backend/preload.js"),
       enableRemoteModule: false,
       contextIsolation: true,
