@@ -6,7 +6,7 @@ function cpuName(){
       function cpuName(error, stdout) {
         const cpuNamefull = stdout.toString();
         const nameCPU = cpuNamefull.substring(45,85);
-        console.log(nameCPU);
+        //console.log(nameCPU);
         mainWindow.webContents.send('cpuName',nameCPU);
         return nameCPU;
 
