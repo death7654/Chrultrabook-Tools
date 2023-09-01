@@ -33,6 +33,7 @@ function createWindow(){
     width: 800, //px
     height: 550, //px
     autoHideMenuBar: true,
+    //frame: false,
     webPreferences: {
       devTools: false,
       sandbox: false,
@@ -60,6 +61,7 @@ function systemInfo(){
 
 app.on('ready', createWindow);
 app.on('window-all-closed', function() {
+    i18nextBackend.clearMainBindings(ipcMain); 
     app.quit();
 })
 function systemInfo(){
@@ -105,7 +107,7 @@ ipcMain.on('ectool', (event, mode) => {
         //console.log(mode);
         memcb.cbMem();
     }else if (mode === 5){
-      console.log(mode);
+      //console.log(mode);
       setTimeout(systemInfo, 1000)
 
     }
