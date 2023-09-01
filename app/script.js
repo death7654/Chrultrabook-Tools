@@ -31,7 +31,9 @@ window.addEventListener("DOMContentLoaded", () => {
     })
     document.getElementById("information").addEventListener("click", () => {
         loadPage("about/info.html");
-    })    
+    })
+    
+    
     let getMode = localStorage.getItem("mode");
     if (getMode && getMode ==="dark") {
         body.classList.toggle("dark");

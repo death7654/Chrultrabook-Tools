@@ -72,7 +72,6 @@ function systemInfo(){
   biosVersion.biosVersion();
 }
 
-setTimeout(systemInfo, 1500)
 //update functions for index.html
 
 function sendData() {
@@ -105,6 +104,10 @@ ipcMain.on('ectool', (event, mode) => {
     }else if (mode === 4){
         //console.log(mode);
         memcb.cbMem();
+    }else if (mode === 5){
+      console.log(mode);
+      setTimeout(systemInfo, 1000)
+
     }
 });
 

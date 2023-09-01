@@ -32,12 +32,14 @@
                     const modeOne = 1;
                     const modeTwo = 2;
                     const modeThree = 3;
+                    //mode four used for cbmem
                     const buttonfanMax = document.getElementById('fanMax');
                     buttonfanMax.addEventListener('click', () => window.parent.electronAPI.ectool(modeOne));
                     const buttonfanOff = document.getElementById('fanOff');
                     buttonfanOff.addEventListener('click', () =>  window.parent.electronAPI.ectool(modeTwo));
                     const buttonfanAuto = document.getElementById('fanAuto');
                     buttonfanAuto.addEventListener('click', () =>  window.parent.electronAPI.ectool(modeThree));
+
                 </script>
 
                 <div class="boxes">

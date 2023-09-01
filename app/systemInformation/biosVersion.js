@@ -7,7 +7,6 @@ function biosVersion(){
         const biosVersionFull = stdout.toString();
         const biosVersion = biosVersionFull.substring(25, 44);
         //console.log(biosVersion);
-        mainWindow.webContents.send('biosVersion',biosVersion);
         return biosVersion;
 
       });

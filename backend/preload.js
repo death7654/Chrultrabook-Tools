@@ -47,7 +47,7 @@ ipcRenderer.on('hostname',(event,data) => {
 ipcRenderer.on('coreCPU',(event,data) => {
     //console.log(data + " C");
     const element = document.querySelector(".view_frame").contentDocument.getElementById('coreCPU');
-    if (element) element.innerText = "Cores: " + data;
+    if (element) element.innerText = "Cores: " + data + "Cores";
 });
 ipcRenderer.on('boardname',(event,data) => {
     //console.log(data + " C");
