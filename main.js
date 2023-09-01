@@ -21,13 +21,13 @@ app.whenReady().then(() => {
 
 global.mainWindow = null;
 
-function handleSetTitle (event, title) {
+function handleSetTitle(event, title) {
   const webContents = event.sender
   const win = BrowserWindow.fromWebContents(webContents)
   win.setTitle(title)
 }
 
-function createWindow(){
+function createWindow() {
   global.mainWindow = new BrowserWindow({
     icon: path.join(__dirname, "/app/Icons/app/icon.ico"),
     width: 800, //px
@@ -50,7 +50,7 @@ function createWindow(){
   })
   mainWindow.loadFile(path.join(__dirname, "app/index.html"));
 }
-function systemInfo(){
+function systemInfo() {
   if (!mainWindow) return;
   nameCPU.cpuName();
   hostname.hostname();
@@ -59,10 +59,10 @@ function systemInfo(){
 }
 
 app.on('ready', createWindow);
-app.on('window-all-closed', function() {
-    app.quit();
+app.on('window-all-closed', function () {
+  app.quit();
 })
-function systemInfo(){
+function systemInfo() {
   if (!mainWindow) return;
   nameCPU.cpuName();
   hostname.hostname();
@@ -76,13 +76,13 @@ setTimeout(systemInfo, 1500)
 //update functions for index.html
 
 function sendData() {
-    if (!mainWindow) return;
-    os2.cpuUsage(function(v){
-        mainWindow.webContents.send('cpu',v*100);
-        mainWindow.webContents.send('mem',os2.freememPercentage()*100);
-    })  
-    temps.getTemps(); // makes cpu temps work, a highly botched solution
-    fanSpeed.getFanSpeed();
+  if (!mainWindow) return;
+  os2.cpuUsage(function (v) {
+    mainWindow.webContents.send('cpu', v * 100);
+    mainWindow.webContents.send('mem', os2.freememPercentage() * 100);
+  })
+  temps.getTemps(); // makes cpu temps work, a highly botched solution
+  fanSpeed.getFanSpeed();
 
 }
 
@@ -91,24 +91,24 @@ setInterval(sendData, 1000);
 
 
 ipcMain.on('ectool', (event, mode) => {
-    //console.log('recieved');
-    if (mode === 1)  {
-        fanMax.setFanSpeedMax();
-        //console.log(mode);
-    }
-    else if (mode === 2) {
-        fanOff.setFanOff();
-        //console.log(mode);
-    } else if (mode === 3) {
+  //console.log('recieved');
+  if (mode === 1) {
+    fanMax.setFanSpeedMax();
+    //console.log(mode);
+  }
+  else if (mode === 2) {
+    fanOff.setFanOff();
+    //console.log(mode);
+  } else if (mode === 3) {
     fanAuto.setFanAuto();
     //console.log(mode);
-    }else if (mode === 4){
-        //console.log(mode);
-        memcb.cbMem();
-    }
+  } else if (mode === 4) {
+    //console.log(mode);
+    memcb.cbMem();
+  }
 });
 
 ipcMain.on('requestData', (e) => {
-    //new iframe loading...
-    sendData();
+  //new iframe loading...
+  sendData();
 })

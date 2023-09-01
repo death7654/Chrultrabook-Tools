@@ -1,10 +1,10 @@
 window.addEventListener("DOMContentLoaded", () => {
     window.currentFrame = document.querySelector(".view_frame");
     const body = document.body,
-          modeToggle = body.querySelector(".mode-toggle");
-          sidebar = body.querySelector("nav");
-          sidebarToggle = body.querySelector(".sidebar-toggle");
-    
+        modeToggle = body.querySelector(".mode-toggle");
+    sidebar = body.querySelector("nav");
+    sidebarToggle = body.querySelector(".sidebar-toggle");
+
     function loadPage(path) {
         if (window.currentFrame.src.endsWith(path)) return;
         const newFrame = document.createElement("iframe");
@@ -19,7 +19,7 @@ window.addEventListener("DOMContentLoaded", () => {
         newFrame.src = path;
         window.currentFrame.parentElement.insertBefore(newFrame, window.currentFrame);
     }
-    
+
     document.getElementById("home").addEventListener("click", () => {
         loadPage("Dashboard/index.html");
     })
@@ -31,18 +31,18 @@ window.addEventListener("DOMContentLoaded", () => {
     })
     document.getElementById("information").addEventListener("click", () => {
         loadPage("about/info.html");
-    })    
+    })
     let getMode = localStorage.getItem("mode");
-    if (getMode && getMode ==="dark") {
+    if (getMode && getMode === "dark") {
         body.classList.toggle("dark");
     }
 
     let getStatus = localStorage.getItem("status");
-    if (getStatus && getStatus ==="close") {
+    if (getStatus && getStatus === "close") {
         sidebar.classList.toggle("close");
     }
 
-    modeToggle.addEventListener("click", () =>{
+    modeToggle.addEventListener("click", () => {
         body.classList.toggle("dark");
         if (body.classList.contains("dark")) {
             localStorage.setItem("mode", "dark");
