@@ -6,15 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="Dashboard/style.index.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-    <script src="script.js"></script>
+    <script src="./script.js"></script>
+
 
     <title>Chrultrabook Tools</title>
 </head>
 
 <body style="overflow: hidden;">
+
     <nav>
         <div class="logo-name">
             <div class="logo-image">
@@ -65,7 +67,180 @@
         </div>
 
     </section>
-    <iframe src="Dashboard/index.html" class="view_frame"></iframe>
+    <section onload="loadSystemInfo()" id="sectionDashboard" class="dashboard">
+        <!---->
+        <div class="dash-content">
+            <div class="overview">
+                <div class="title">
+                    <img src="./Icons/dashboard/tachometer.svg">
+                    <span class="text">Dashboard</span>
+                </div>
+
+                <div class="boxes">
+                    <div class="box cpuLoad">
+                        <img src="./Icons/dashboard/cpu.svg" alt="">
+                        <span class="text">CPU Load</span>
+                        <span id="cpuLoad">0%</span>
+                    </div>
+                    <div class="box cpuTemps">
+                        <img src="./Icons/dashboard/thermometer.svg" alt="">
+                        <span class="text">CPU TEMPS</span>
+                        <span id="cpuTemp">0°C</span>
+                    </div>
+                    <div class="box ram">
+                        <img src="./Icons/dashboard/ram.svg" alt="">
+                        <span class="text">RAM USAGE</span>
+                        <span id="ramPercentage">0%</span>
+                    </div>
+                </div>
+                <div id="onLoad" class="systemInfo">
+                    <br>
+                    <h4 id="biosVersion"></h4>
+                    <hr>
+                    <h4 id="boardname"></h4>
+                    <hr>
+                    <h4 id="OS"></h4>
+                    <hr>
+                    <h4 id="hostname"></h4>
+                    <hr>
+                    <h4 id="cpuName"> </h4>
+                    <hr>
+                    <h4 id="coreCPU"></h4>
+                    <hr>
+                </div>
+            </div>
+        </div>
+        <script>
+            function loadSystemInfo() {
+                const modeFive = 5;
+                window.electronAPI.ectool(modeFive);
+            }
+        </script>
+    </section>
+
+    <section id="sectionFan" class="dashboard">
+
+        <div class="dash-content">
+            <div class="overview">
+                <div class="title">
+                    <img src="./Icons/fancontrol/fancontroldash.svg">
+                    <span class="text">Fan Control</span>
+                </div>
+                <h2 class="FanSpeedText">Fan Speeds</h2>
+                <div class="fanButtons">
+
+                    <button id="fanAuto" href="#" class="FanAuto">Auto</button>
+                    <button id="fanOff" href="#" class="FanOff"> Off </button>
+                    <button id="fanMax" href="#" class="FanMax"> Max </button>
+                </div>
+
+                <script>
+                    const modeOne = 1;
+                    const modeTwo = 2;
+                    const modeThree = 3;
+                    //mode four used for cbmem
+                    const buttonfanMax = document.getElementById('fanMax');
+                    buttonfanMax.addEventListener('click', () => window.parent.electronAPI.ectool(modeOne));
+                    const buttonfanOff = document.getElementById('fanOff');
+                    buttonfanOff.addEventListener('click', () => window.parent.electronAPI.ectool(modeTwo));
+                    const buttonfanAuto = document.getElementById('fanAuto');
+                    buttonfanAuto.addEventListener('click', () => window.parent.electronAPI.ectool(modeThree));
+
+                </script>
+
+                <div class="boxes">
+                    <div class="box fanSpeed">
+                        <img src="./Icons/fancontrol/animatedfan.svg" alt="">
+                        <span class="text">Fan Speed</span>
+                        <span id="fanSpeed">Unknown</span>
+                    </div>
+                    <div class="box tempCPU">
+                        <img src="./Icons/fancontrol/thermometer(white).svg" alt="">
+                        <span class="text">CPU TEMPS</span>
+                        <span id="cpuTempFan">0°C</span>
+                    </div>
+                    <div class="box hidden"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="sectionCbmem" class="dashboard">
+
+        <div class="dash-content">
+            <div class="overview">
+                <div class="title">
+                    <img src="./Icons/cbmem/bugcbmemdash.svg">
+                    <span class="text">Memory Diagnostics</span>
+                </div>
+
+            </div>
+            <div class="cbmemButtons">
+                <button id="cbMem" href="#" class="cbMem">Run Memory Diagnostics</button>
+                <button id="copyButton" class="copyButton">Copy</button>
+            </div>
+            <pre class="pre">
+            <span class="cbmem">
+                <code class ="code" id="cbMemInfo"></code>
+            </span>
+        </pre>
+
+            <script>
+                const modeFour = 4;
+                const buttoncbMem = document.getElementById('cbMem');
+                buttoncbMem.addEventListener('click', () => window.parent.electronAPI.ectool(modeFour));
+
+                function copyTxt(htmlElement) {
+                    if (!htmlElement) {
+                        return;
+                    }
+
+                    let elementText = htmlElement.innerText;
+
+                    let inputElement = document.createElement('input');
+                    inputElement.setAttribute('value', elementText);
+                    document.body.appendChild(inputElement);
+                    inputElement.select();
+                    document.execCommand('copy');
+                    inputElement.parentElement.removeChild(inputElement);
+
+                }
+                document.querySelector('#copyButton').onclick =
+                    function () {
+                        copyTxt(document.querySelector('#cbMemInfo'))
+                    }
+
+            </script>
+        </div>
+    </section>
+    <section id="sectionAbout" class="dashboard">
+
+        <br>
+        <br>
+        <h2 style="text-align: center; position: relative; right: 40px;">About</h2>
+
+        <br> This project is an opensource project, and serves the purpose of providing system information and controls
+        in a visually pleasing manner.
+        <br>
+        <br>
+        <h2>🍰 Contributions</h2>
+
+        Coolstar - Providing Chromebook Windows Drivers
+        <br>Death7654 - Making the Chromebook Windows Controller App
+        <br>
+        <br> From the Chrultrabook Server
+        <br>&nbsp; &nbsp; &nbsp; &nbsp;Ninelore - for fixes, optimization, and help
+        <br>&nbsp; &nbsp; &nbsp; &nbsp;Ethanaobrien - for fixes, and help
+        <br>
+        <br> From Electron's Discord Server
+        <br>&nbsp; &nbsp; &nbsp; &nbsp;Timosh - Help with Debugging and help in general
+        <br>&nbsp; &nbsp; &nbsp; &nbsp;ArKellys - Help with Debugging and help in general
+        <br>
+        <br>
+        <h2>🛡️ License:</h2>
+
+        This project is licensed under the GNU General Public License v3.0
+
+    </section>
 
 </body>
 

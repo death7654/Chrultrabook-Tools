@@ -1,6 +1,7 @@
 /* ===== Google Font Import - Poppins ===== */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
 *{
+    user-drag: none;
     user-select: none;
     -webkit-app-region: none;
     -webkit-user-select: none;
@@ -13,13 +14,27 @@ html {
   height: 100%;
   width: 100%;
 }
+iframe {
+    width: 100%;
+    height: 98vh;
+    display: float;
+    overflow: hidden;
+
+}
  h1{
     padding-left: 25%;
+ }
+
+ .frame {
+    position: relative;
+    top: 0px;
+    right: 1000px;
  }
  
  .menu-items .nav-links .navbarimg{
     padding-left: 8px;
     padding-right: 8px;
+
  }
 /*default colors */
 :root{
@@ -227,14 +242,15 @@ body.dark .nav-links li a:hover .link-name{
 body.dark .switch:before{
     left: 20px;
 }
-/*side nav end */
 
+/*sidnav ends */
 /*Main HTML File begins */
 .dashboard{
     position: relative;
     left: 250px;
     background-color: var(--panel-color);
     min-height: 100vh;
+    height: 100vh;
     width: calc(100% - 250px);
     padding: 10px 14px;
     transition: var(--tran-05);
@@ -291,7 +307,7 @@ nav.close ~ .dashboard .top{
     font-size: 24px;
 }
 .dash-content .title .text{
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 500;
     color: var(--text-color);
     margin-left: 10px;
@@ -309,11 +325,41 @@ nav.close ~ .dashboard .top{
     border-radius: 12px;
     width: calc(100% / 3 - 15px);
     padding: 15px 20px;
-    /*background-color: var(--box1-color);*/
+    background-color: var(--box1-color);
     transition: var(--tran-05);
-    color: #000;
 }
-.dash-content .boxes .box1{
+.boxes .box i{
+    font-size: 35px;
+    color: var(--text-color);
+}
+.boxes .box .text{
+    white-space: nowrap;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+.boxes .box .number{
+    font-size: 40px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+.boxes .box .cpuLoad{
+    font-size: 40px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+.boxes .box.cpuLoad{
+    background-color: #EF476F;
+}
+.boxes .box.cpuTemps{
+    background-color: #06D6A0;
+}
+.boxes .box.ram{
+    background-color: #FFD166;
+}
+/*fan section */
+
+.dash-content .boxes.fanSpeed{
     background-color:  #DD5144;
  
 }
@@ -339,30 +385,34 @@ nav.close ~ .dashboard .top{
     color: white;
 
 }
-.boxes .box.box2{
+.boxes .box.tempCPU{
     display: flex;
     background-color: #06D6A0;
     position: relative;
-    bottom: 100px;
+    bottom: 102px;
 
 }
-.boxes .box.box1{
+.boxes .box.fanSpeed{
     background-color: #EF476F;
     position: relative;
-    bottom: 100px;
+    bottom: 102px;
  
 }
-.boxes .box.box3{
+.boxes .box.hidden{
     background-color: white;
 }
 .FanSpeedText{
     position: relative;
-    top: 175px;
+    top: 140px;
+}
+
+.fanButtons {
+    position: relative;
+    top: 160px;
 }
 
 .FanAuto {
     position: relative;
-    top: 200px;
     font-family: "Roboto", sans-serif;
     font-size: 18px;
     font-weight: bold;
@@ -389,7 +439,6 @@ nav.close ~ .dashboard .top{
 
 .FanOff {
     position: relative;
-    top: 200px;
     left: 10px;
     font-family: "Roboto", sans-serif;
     font-size: 18px;
@@ -417,7 +466,6 @@ nav.close ~ .dashboard .top{
 
 .FanMax {
     position: relative;
-    top: 200px;
     left: 20px;
     font-family: "Roboto", sans-serif;
     font-size: 18px;
@@ -442,7 +490,122 @@ nav.close ~ .dashboard .top{
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
 }
+/*cbmem section */
+.cbmemButtons{
+    position: relative;
+    top: -10px;
+}
+.cbMem {
+    position: relative;
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    background: #F04F00;
+    width: 300px;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #ffffff;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: box-shadow, transform;
+    transition-property: box-shadow, transform;
+    border-color: #000000;
+}
+.cbMem:hover, .cbMem:active{
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+.copyButton {
+    position: relative;
+    left: 30px;
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    background: #007FFF;
+    width: 300px;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: box-shadow, transform;
+    transition-property: box-shadow, transform;
+    border-color: #000000;
+
+}
+.copyButton:hover, .copyButton:focus, .copyButton:active{
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+
+.pre {
+    height: 500px;
+    position: relative;
+    top: 30px;
+    background-color: #BDA79E;
+    border-radius: 10px;
+    height: 150px; 
+    width: 630px;
+    overflow: hidden;
+  }
 /*main html file ends */
+.hiddentext{
+    font-size: 0px;
+    color: white;
+}
+.tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 140px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -75px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+/*main html file ends */
+
 
 @media (max-width: 1000px) {
     nav{

@@ -33,6 +33,7 @@ function createWindow() {
     width: 800, //px
     height: 550, //px
     autoHideMenuBar: true,
+    //frame: false,
     webPreferences: {
       devTools: false,
       sandbox: false,
@@ -48,22 +49,15 @@ function createWindow() {
       color: '#ffffff',
     }
   })
-  mainWindow.loadFile(path.join(__dirname, "app/index.html"));
+  mainWindow.loadFile(path.join(__dirname, "./app/index.html"));
 }
-function systemInfo() {
-  if (!mainWindow) return;
-  nameCPU.cpuName();
-  hostname.hostname();
-  cpuCore.coreCPU();
-  boardname.boardname();
-}
+
 
 app.on('ready', createWindow);
 app.on('window-all-closed', function () {
   app.quit();
 })
-function systemInfo() {
-  if (!mainWindow) return;
+function systemInfo(){
   nameCPU.cpuName();
   hostname.hostname();
   cpuCore.coreCPU();
@@ -72,21 +66,21 @@ function systemInfo() {
   biosVersion.biosVersion();
 }
 
-setTimeout(systemInfo, 1500)
 //update functions for index.html
 
 function sendData() {
-  if (!mainWindow) return;
-  os2.cpuUsage(function (v) {
-    mainWindow.webContents.send('cpu', v * 100);
-    mainWindow.webContents.send('mem', os2.freememPercentage() * 100);
-  })
-  temps.getTemps(); // makes cpu temps work, a highly botched solution
-  fanSpeed.getFanSpeed();
+    os2.cpuUsage(function(v){
+        mainWindow.webContents.send('cpu',v*100);
+        mainWindow.webContents.send('mem',os2.freememPercentage()*100);
+    })  
+    temps.getTemps(); // makes cpu temps work, a highly botched solution
+    fanSpeed.getFanSpeed();
 
 }
 
 setInterval(sendData, 1000);
+setTimeout(systemInfo, 1000)
+
 
 
 
@@ -102,10 +96,14 @@ ipcMain.on('ectool', (event, mode) => {
   } else if (mode === 3) {
     fanAuto.setFanAuto();
     //console.log(mode);
-  } else if (mode === 4) {
-    //console.log(mode);
-    memcb.cbMem();
-  }
+    }else if (mode === 4){
+        //console.log(mode);
+        memcb.cbMem();
+    }else if (mode === 5){
+      //console.log(mode);
+      setTimeout(systemInfo, 1000)
+
+    }
 });
 
 ipcMain.on('requestData', (e) => {

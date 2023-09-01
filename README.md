@@ -17,6 +17,7 @@ Coolstar - Providing Chromebook Windows Drivers
 <br>
 <br> From the Chrultrabook Server
 <br>
+<br> Ninelore - for fixes, optimization, and help
 <br> Ethanaobrien - for fixes, and help
 <br>
 <br> From Electron's Discord Server

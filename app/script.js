@@ -20,18 +20,58 @@ window.addEventListener("DOMContentLoaded", () => {
         window.currentFrame.parentElement.insertBefore(newFrame, window.currentFrame);
     }
 
+    var home = document.getElementById("sectionDashboard");
+    var fan = document.getElementById("sectionFan");
+    var cbmem = document.getElementById("sectionCbmem");
+    var about = document.getElementById("sectionAbout");
+    
+    home.style.display = "block";
+    fan.style.display = "none";
+    cbmem.style.display = "none";
+    about.style.display = "none";
+
+    function homeButton()
+    {
+        home.style.display = "block";
+        fan.style.display = "none";
+        cbmem.style.display = "none";
+        about.style.display = "none";
+    }
+    function fanButton()
+    {
+        home.style.display = "none";
+        fan.style.display = "block";
+        cbmem.style.display = "none";
+        about.style.display = "none";
+    }
+    function cbmemButton()
+    {
+        home.style.display = "none";
+        fan.style.display = "none";
+        cbmem.style.display = "block";
+        about.style.display = "none";
+    }
+    function infoButton()
+    {
+        home.style.display = "none";
+        fan.style.display = "none";
+        cbmem.style.display = "none";
+        about.style.display = "block";
+    }
     document.getElementById("home").addEventListener("click", () => {
-        loadPage("Dashboard/index.html");
+        homeButton();
     })
     document.getElementById("fan").addEventListener("click", () => {
-        loadPage("fanControl/fancontrol.html");
+        fanButton();
     })
     document.getElementById("diagnostics").addEventListener("click", () => {
-        loadPage("cbmem/cbmem.html");
+        cbmemButton();
     })
     document.getElementById("information").addEventListener("click", () => {
-        loadPage("about/info.html");
-    })
+        infoButton();
+    })    
+    
+    
     let getMode = localStorage.getItem("mode");
     if (getMode && getMode === "dark") {
         body.classList.toggle("dark");
