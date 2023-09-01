@@ -2,7 +2,6 @@ const exec = require("child_process").exec;
 var child;
 
 function getFanSpeed(){
-    if (!mainWindow) return;
     child = exec('"C:\\Program Files\\crosec\\ectool" pwmgetfanrpm',
       function fanSpeed(error, stdout) {
         const fanSpeedLong = stdout.toString();

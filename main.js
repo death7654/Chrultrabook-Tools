@@ -49,22 +49,15 @@ function createWindow(){
       color: '#ffffff',
     }
   })
-  mainWindow.loadFile(path.join(__dirname, "app/index.html"));
+  mainWindow.loadFile(path.join(__dirname, "./app/index.html"));
 }
-function systemInfo(){
-  if (!mainWindow) return;
-  nameCPU.cpuName();
-  hostname.hostname();
-  cpuCore.coreCPU();
-  boardname.boardname();
-}
+
 
 app.on('ready', createWindow);
 app.on('window-all-closed', function() {
     app.quit();
 })
 function systemInfo(){
-  if (!mainWindow) return;
   nameCPU.cpuName();
   hostname.hostname();
   cpuCore.coreCPU();
@@ -76,7 +69,6 @@ function systemInfo(){
 //update functions for index.html
 
 function sendData() {
-    if (!mainWindow) return;
     os2.cpuUsage(function(v){
         mainWindow.webContents.send('cpu',v*100);
         mainWindow.webContents.send('mem',os2.freememPercentage()*100);
@@ -87,6 +79,8 @@ function sendData() {
 }
 
 setInterval(sendData, 1000);
+setTimeout(systemInfo, 1000)
+
 
 
 
