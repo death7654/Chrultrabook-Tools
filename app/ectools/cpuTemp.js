@@ -2,7 +2,7 @@ const exec = require("child_process").exec;
 
 //temps for cpu via ectools
 function getTemps() {
-  child = exec('"C:\\Program Files\\crosec\\ectool" temps 2',
+  exec('"C:\\Program Files\\crosec\\ectool" temps 2',
     function tempCPU(error, stdout) {
       const cpuTempFunction = stdout.toString();
       const cpuTempFunctionSpecfic = cpuTempFunction.substring(131, 134);
