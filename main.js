@@ -61,7 +61,6 @@ function systemInfo(){
 
 app.on('ready', createWindow);
 app.on('window-all-closed', function() {
-    i18nextBackend.clearMainBindings(ipcMain); 
     app.quit();
 })
 function systemInfo(){
