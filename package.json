@@ -1,6 +1,6 @@
 {
   "name": "chultrabook-windows-controller",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "UI for CrosEC",
   "main": "main.js",
   "scripts": {
@@ -40,6 +40,7 @@
     "electron-builder": "^24.6.3"
   },
   "dependencies": {
+    "bootstrap": "^5.3.1",
     "electron-squirrel-startup": "^1.0.0",
     "os": "^0.1.2",
     "os-utils": "^0.0.14"

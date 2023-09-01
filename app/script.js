@@ -70,6 +70,8 @@ window.addEventListener("DOMContentLoaded", () => {
     document.getElementById("information").addEventListener("click", () => {
         infoButton();
     })    
+
+    
     
     
     let getMode = localStorage.getItem("mode");
@@ -96,4 +98,6 @@ window.addEventListener("DOMContentLoaded", () => {
         window.currentFrame.contentDocument.querySelector("nav").classList.toggle("close", sidebar.classList.contains("close"));
         localStorage.setItem("status", sidebar.classList.contains("close") ? "close" : "open");
     });
+
 })
+
