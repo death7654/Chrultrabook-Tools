@@ -21,10 +21,10 @@ app.whenReady().then(() => {
 
 global.mainWindow = null;
 
-function handleSetTitle (event, title) {
-  const webContents = event.sender
-  const win = BrowserWindow.fromWebContents(webContents)
-  win.setTitle(title)
+function handleSetTitle(event, title) {
+    const webContents = event.sender;
+    const win = BrowserWindow.fromWebContents(webContents);
+    win.setTitle(title);
 }
 
 function createWindow(){
