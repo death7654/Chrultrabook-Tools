@@ -130,9 +130,8 @@ window.addEventListener("DOMContentLoaded", () => {
         inputElement.parentElement.removeChild(inputElement);
 
     }
-    document.querySelector('#copyButton').onclick = 
-    function () {
+    document.querySelector('#copyButton').addEventListener("click", () => {
         copyTxt(document.querySelector('#cbMemInfo'))
-    }
+    })
 
 })
