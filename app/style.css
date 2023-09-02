@@ -1,6 +1,7 @@
 /* ===== Google Font Import - Poppins ===== */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
 *{
+
     user-drag: none;
     user-select: none;
     -webkit-app-region: none;
@@ -12,29 +13,10 @@
 }
 
 
-html {
-  height: 100%;
-  width: 100%;
-}
-iframe {
-    width: 100%;
-    height: 98vh;
-    display: float;
-    overflow: hidden;
-
-}
- h1{
-    padding-left: 25%;
- }
-
- .frame {
-    position: relative;
-    top: 0px;
-    right: 1000px;
- }
  
  .menu-items .nav-links .navbarimg{
-    padding-left: 8px;
+
+    padding-left: 6px;
     padding-right: 8px;
 
  }
@@ -58,10 +40,7 @@ iframe {
     --tran-03: all 0.2s ease;
 }
 
-body{
-    min-height: 100vh;
-    background-color: var(--primary-color);
-}
+
 /* colors for dark mode
 body.dark{
     --primary-color: #3A3B3C;
@@ -90,7 +69,7 @@ body.dark{
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #0b3cc1;
+    background: white;
 }
 
 body.dark::-webkit-scrollbar-thumb:hover,
@@ -112,7 +91,6 @@ nav{
 nav.close{
     width: 73px;
 }
-
 
 nav .logo-name{
     display: flex;
@@ -419,7 +397,7 @@ nav.close ~ .dashboard .top{
     font-size: 18px;
     font-weight: bold;
     background: #239C00;
-    width: 160px;
+    width: calc(30% - 15px);    
     padding: 20px;
     text-align: center;
     text-decoration: none;
@@ -446,7 +424,7 @@ nav.close ~ .dashboard .top{
     font-size: 18px;
     font-weight: bold;
     background: #F04F00;
-    width: 160px;
+    width: calc(30% - 15px);    
     padding: 20px;
     text-align: center;
     text-decoration: none;
@@ -473,7 +451,7 @@ nav.close ~ .dashboard .top{
     font-size: 18px;
     font-weight: bold;
     background: #9C0000;
-    width: 160px;
+    width: calc(30% - 15px);    
     padding: 20px;
     text-align: center;
     text-decoration: none;
@@ -503,7 +481,7 @@ nav.close ~ .dashboard .top{
     font-size: 18px;
     font-weight: bold;
     background: #F04F00;
-    width: 300px;
+    width: calc(45% - 15px);    
     padding: 20px;
     text-align: center;
     text-decoration: none;
@@ -530,7 +508,7 @@ nav.close ~ .dashboard .top{
     font-size: 18px;
     font-weight: bold;
     background: #007FFF;
-    width: 300px;
+    width: calc(45% - 15px);    
     padding: 20px;
     text-align: center;
     text-decoration: none;
@@ -560,7 +538,7 @@ nav.close ~ .dashboard .top{
     background-color: #BDA79E;
     border-radius: 10px;
     height: 150px; 
-    width: 630px;
+    width: calc(100% - 15px);    
     overflow: hidden;
   }
 /*main html file ends */
@@ -605,6 +583,20 @@ nav.close ~ .dashboard .top{
     visibility: visible;
     opacity: 1;
   }
+
+.about {
+    color: white;
+    overflow-y: auto;
+}
+
+.dash-content .overview .systemInfo{
+    width: calc(75% - 15px);
+    font-weight: 40;    
+    
+}
+.hr {
+    color: grey;
+}
   
 /*main html file ends */
 
