@@ -1,24 +1,9 @@
 window.addEventListener("DOMContentLoaded", () => {
-    window.currentFrame = document.querySelector(".view_frame");
     const body = document.body,
           modeToggle = body.querySelector(".mode-toggle");
           sidebar = body.querySelector("nav");
           sidebarToggle = body.querySelector(".sidebar-toggle");
     
-    function loadPage(path) {
-        if (window.currentFrame.src.endsWith(path)) return;
-        const newFrame = document.createElement("iframe");
-        newFrame.classList.add("view_frame");
-        newFrame.addEventListener("load", () => {
-            newFrame.style.display = "";
-            window.currentFrame.remove();
-            window.electronAPI.requestData();
-            window.currentFrame = newFrame;
-        })
-        newFrame.style.display = "none";
-        newFrame.src = path;
-        window.currentFrame.parentElement.insertBefore(newFrame, window.currentFrame);
-    }
 
     var home = document.getElementById("sectionDashboard");
     var fan = document.getElementById("sectionFan");
@@ -95,12 +80,11 @@ window.addEventListener("DOMContentLoaded", () => {
 
     sidebarToggle.addEventListener("click", () => {
         sidebar.classList.toggle("close");
-        window.currentFrame.contentDocument.querySelector("nav").classList.toggle("close", sidebar.classList.contains("close"));
         localStorage.setItem("status", sidebar.classList.contains("close") ? "close" : "open");
     });
     function loadSystemInfo(){
-         window.electronAPI.ectool(modeFive);
-        }
+        window.electronAPI.ectool(modeFive);
+    }
 
     const modeOne = 1;
     const modeTwo = 2;
@@ -128,10 +112,8 @@ window.addEventListener("DOMContentLoaded", () => {
     buttonMinimize.addEventListener('click', () =>  window.parent.electronAPI.ectool(modeSix));
 
 
-    function copyTxt(htmlElement) {
-        if(!htmlElement){
-            return;
-        }
+    function copyTxt (htmlElement) {
+        if(!htmlElement) return;
 
         let elementText = htmlElement.innerText;
 
@@ -149,4 +131,3 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
 })
-
