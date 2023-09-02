@@ -49,7 +49,7 @@
     transition-property: box-shadow, transform;
 }
 .appFrame .closeButton:hover{
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     background-color: red;
     color: white;
     transition: all 0.3s ease-out;
@@ -81,7 +81,7 @@
     transition-property: box-shadow, transform;
 }
 .appFrame .minimizeButton:hover{
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     background-color: #FFC300;
     color: white;
     transition: all 0.3s ease-out;
