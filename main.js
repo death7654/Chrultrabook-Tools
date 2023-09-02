@@ -83,22 +83,24 @@ setTimeout(systemInfo, 1000)
 ipcMain.on('ectool', (event, mode) => {
     //console.log('recieved');
     if (mode === 1)  {
-        fanMax.setFanSpeedMax();
-        //console.log(mode);
-    }
-    else if (mode === 2) {
-        fanOff.setFanOff();
-        //console.log(mode);
-    } else if (mode === 3) {
-    fanAuto.setFanAuto();
-    //console.log(mode);
-    }else if (mode === 4){
-        //console.log(mode);
-        memcb.cbMem();
-    }else if (mode === 5){
+      fanMax.setFanSpeedMax();
       //console.log(mode);
-      setTimeout(systemInfo, 1000)
+    } else if (mode === 2) {
+      fanOff.setFanOff();
+      //console.log(mode);
+    } else if (mode === 3) {
+      fanAuto.setFanAuto();
+      //console.log(mode);
+    } else if (mode === 4){
+      //console.log(mode);
+      memcb.cbMem();
+    } else if (mode === 5){
+      //console.log(mode);
+      app.quit();
 
+    } else if (mode === 6){
+      //console.log(mode);
+      mainWindow.minimize();
     }
 });
 

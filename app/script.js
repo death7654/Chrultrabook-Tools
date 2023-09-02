@@ -98,6 +98,55 @@ window.addEventListener("DOMContentLoaded", () => {
         window.currentFrame.contentDocument.querySelector("nav").classList.toggle("close", sidebar.classList.contains("close"));
         localStorage.setItem("status", sidebar.classList.contains("close") ? "close" : "open");
     });
+    function loadSystemInfo(){
+         window.electronAPI.ectool(modeFive);
+        }
+
+    const modeOne = 1;
+    const modeTwo = 2;
+    const modeThree = 3;
+    const modeFour = 4;
+    const modeFive = 5;
+    const modeSix = 6;
+
+    const buttonfanMax = document.getElementById('fanMax');
+    buttonfanMax.addEventListener('click', () => window.parent.electronAPI.ectool(modeOne));
+
+    const buttonfanOff = document.getElementById('fanOff');
+    buttonfanOff.addEventListener('click', () =>  window.parent.electronAPI.ectool(modeTwo));
+
+    const buttonfanAuto = document.getElementById('fanAuto');
+    buttonfanAuto.addEventListener('click', () =>  window.parent.electronAPI.ectool(modeThree));
+
+    const buttoncbMem = document.getElementById('cbMem');
+    buttoncbMem.addEventListener('click', () => window.parent.electronAPI.ectool(modeFour));
+
+    const buttonClose = document.getElementById('close');
+    buttonClose.addEventListener('click', () => window.parent.electronAPI.ectool(modeFive));
+
+    const buttonMinimize = document.getElementById('minimize');
+    buttonMinimize.addEventListener('click', () =>  window.parent.electronAPI.ectool(modeSix));
+
+
+    function copyTxt(htmlElement) {
+        if(!htmlElement){
+            return;
+        }
+
+        let elementText = htmlElement.innerText;
+
+        let inputElement = document.createElement('input');
+        inputElement.setAttribute('value', elementText);
+        document.body.appendChild(inputElement);
+        inputElement.select();
+        document.execCommand('copy');
+        inputElement.parentElement.removeChild(inputElement);
+
+    }
+    document.querySelector('#copyButton').onclick = 
+    function () {
+        copyTxt(document.querySelector('#cbMemInfo'))
+    }
 
 })
 
