@@ -13,12 +13,31 @@
 }
 
 
- 
- .menu-items .nav-links .navbarimg{
+.appFrame{
+    background-color: white;
+    color: white;
+    padding: 10px;
+    width: 200px;
+    position: absolute;
+    right: 0px;
+    z-index: 100;
+    -webkit-user-drag:auto;
+}
+.appFrame .close {
+    width: 30px;
 
+}
+.appframe .minimize {
+    width: 60px;
+
+
+}
+
+
+ .menu-items .nav-links .navbarimg{
     padding-left: 6px;
     padding-right: 8px;
-
+    text-align: right;
  }
 /*default colors */
 :root{
@@ -79,7 +98,7 @@ body.dark .activity-data::-webkit-scrollbar-thumb:hover{
 /*side nav begins*/
 nav{
     position: fixed;
-    top: 0;
+    top: 10px;
     left: 0;
     height: 100%;
     width: 250px;
@@ -95,6 +114,8 @@ nav.close{
 nav .logo-name{
     display: flex;
     align-items: center;
+    position: relative;
+    top:0px;
 }
 nav .logo-image{
     display: flex;
@@ -241,7 +262,7 @@ nav.close ~ .dashboard{
 }
 .dashboard .top{
     position: fixed;
-    top: 0;
+    top: 10px;
     left: 250px;
     display: flex;
     width: calc(100% - 250px);

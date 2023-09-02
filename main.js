@@ -33,7 +33,7 @@ function createWindow(){
     width: 800, //px
     height: 550, //px
     autoHideMenuBar: true,
-    //frame: false,
+    frame: false,
     webPreferences: {
       devTools: true,
       sandbox: false,
@@ -42,12 +42,7 @@ function createWindow(){
       enableRemoteModule: false,
       contextIsolation: true,
     },
-    //frame: false,
     resizable: false,
-    titleBarStyle: 'hidden',
-    titleBarOverlay: {
-      color: '#ffffff',
-    }
   })
   mainWindow.loadFile(path.join(__dirname, "./app/index.html"));
 }
