@@ -11,7 +11,7 @@
 <body style="overflow: hidden;">
     <div class="appFrame">
         <div class="appFunctionButtons">
-            <button class="minimizeButton" id="minimize">🗕</button>
+            <button class="minimizeButton" id="minimize">━</button>
             <button class="closeButton" id="close">✖</button>
         </div>
     </div>
@@ -52,7 +52,7 @@
                 </a>
                 -->
 
-                <div class="mode-toggle">
+                <div class="mode-toggle" style="display: none;">
                   <span class="switch"></span>
                 </div>
             </li>
@@ -65,8 +65,8 @@
         </div>
 
     </section>
-    <section onload="loadSystemInfo()" id="sectionDashboard" class="dashboard">
-        <!----> <div class="dash-content">
+    <section id="sectionDashboard" class="dashboard">
+        <div class="dash-content">
              <div class="overview">
                  <div class="title">
                      <img src="./Icons/dashboard/tachometer.svg">
@@ -106,7 +106,7 @@
                      <hr>
                  </div>
              </div>
-         </div>    
+         </div>
      </section>
 
     <section id="sectionFan" class="dashboard">
