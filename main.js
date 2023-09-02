@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, shell } = require('electron');
 const path = require('path');
 const os = require('os')
 const os2 = require('os-utils');
@@ -107,4 +107,8 @@ ipcMain.on('ectool', (event, mode) => {
 ipcMain.on('requestData', (e) => {
     //new iframe loading...
     sendData();
+})
+
+ipcMain.on("openExternal", (e, url) => {
+    shell.openExternal(url);
 })

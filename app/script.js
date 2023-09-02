@@ -110,6 +110,10 @@ window.addEventListener("DOMContentLoaded", () => {
 
     const buttonMinimize = document.getElementById('minimize');
     buttonMinimize.addEventListener('click', () =>  window.parent.electronAPI.ectool(modeSix));
+    
+    window.openExternal = (url) => {
+        window.electronAPI.openExternal(url);
+    }
 
 
     function copyTxt (htmlElement) {
