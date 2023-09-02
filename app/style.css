@@ -33,15 +33,15 @@
     height: 20px;
     width: 20px;
     font-weight: bold;
-    background: red;
-    border-color: red;
+    background: white;
+    border-color: black;
+    border: none;
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
-    color: #fff;
+    color: black;
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     -webkit-transition-duration: 0.3s;
     transition-duration: 0.3s;
     -webkit-transition-property: box-shadow, transform;
@@ -49,7 +49,9 @@
 }
 .appFrame .closeButton:hover{
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    -webkit-transform: scale(1.1);
+    background-color: red;
+    color: white;
+    transition: all 0.3s ease-out;
     transform: scale(1.1);
 }
 
@@ -63,15 +65,15 @@
     height: 20px;
     width: 20px;
     font-weight: bold;
-    background: #FFC300;
-    border-color: #FFC300;
+    background: white;
+    border-color: black;
+    border: none;
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
     color: black;
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     -webkit-transition-duration: 0.3s;
     transition-duration: 0.3s;
     -webkit-transition-property: box-shadow, transform;
@@ -79,8 +81,11 @@
 }
 .appFrame .minimizeButton:hover{
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    -webkit-transform: scale(1.1);
+    background-color: #FFC300;
+    color: white;
+    transition: all 0.3s ease-out;
     transform: scale(1.1);
+    
 }
 
 
