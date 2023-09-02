@@ -1,4 +1,5 @@
 window.addEventListener("DOMContentLoaded", () => {
+    window.electronAPI.requestSystemInfo();
     const body = document.body,
           modeToggle = body.querySelector(".mode-toggle");
           sidebar = body.querySelector("nav");

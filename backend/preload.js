@@ -63,5 +63,6 @@ ipcRenderer.on('biosVersion',(event,data) => {
 contextBridge.exposeInMainWorld('electronAPI',{
   ectool: (mode) => ipcRenderer.send('ectool', mode),
   requestData: () => ipcRenderer.send('requestData'),
-  openExternal: (url) => ipcRenderer.send("openExternal", url)
+  openExternal: (url) => ipcRenderer.send("openExternal", url),
+  requestSystemInfo: () => ipcRenderer.send("requestSystemInfo")
 })

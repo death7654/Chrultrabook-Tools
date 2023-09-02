@@ -28,24 +28,24 @@ function handleSetTitle (event, title) {
 }
 
 function createWindow(){
-  global.mainWindow = new BrowserWindow({
-    icon: path.join(__dirname, "/app/Icons/app/icon.ico"),
-    width: 800, //px
-    height: 550, //px
-    autoHideMenuBar: true,
-    frame: false,
-    transparent: true,
-    webPreferences: {
-      devTools: true,
-      sandbox: false,
-      nodeIntegration: false,
-      preload: path.join(__dirname, "./backend/preload.js"),
-      enableRemoteModule: false,
-      contextIsolation: true,
-    },
-    resizable: false,
-  })
-  mainWindow.loadFile(path.join(__dirname, "./app/index.html"));
+    global.mainWindow = new BrowserWindow({
+        icon: path.join(__dirname, "/app/Icons/app/icon.ico"),
+        width: 800, //px
+        height: 550, //px
+        autoHideMenuBar: true,
+        frame: false,
+        transparent: true,
+        webPreferences: {
+            devTools: true,
+            sandbox: false,
+            nodeIntegration: false,
+            preload: path.join(__dirname, "./backend/preload.js"),
+            enableRemoteModule: false,
+            contextIsolation: true,
+        },
+        resizable: false,
+    })
+    mainWindow.loadFile(path.join(__dirname, "./app/index.html"));
 }
 
 
@@ -54,12 +54,12 @@ app.on('window-all-closed', function() {
     app.quit();
 })
 function systemInfo(){
-  nameCPU.cpuName();
-  hostname.hostname();
-  cpuCore.coreCPU();
-  boardname.boardname();
-  osName.osName();
-  biosVersion.biosVersion();
+    nameCPU.cpuName();
+    hostname.hostname();
+    cpuCore.coreCPU();
+    boardname.boardname();
+    osName.osName();
+    biosVersion.biosVersion();
 }
 
 //update functions for index.html
@@ -75,7 +75,6 @@ function sendData() {
 }
 
 setInterval(sendData, 1000);
-setTimeout(systemInfo, 1000)
 
 
 
@@ -107,6 +106,10 @@ ipcMain.on('ectool', (event, mode) => {
 ipcMain.on('requestData', (e) => {
     //new iframe loading...
     sendData();
+})
+
+ipcMain.on("requestSystemInfo", (e) => {
+    systemInfo();
 })
 
 ipcMain.on("openExternal", (e, url) => {
