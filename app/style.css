@@ -488,7 +488,7 @@ nav.close ~ .dashboard .top{
     -webkit-transition-property: box-shadow, transform;
     transition-property: box-shadow, transform;
 }
-.FanAuto:hover, .FanAuto:focus, .FanAuto:active{
+.FanAuto:hover, .FanAuto:active{
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
@@ -515,7 +515,7 @@ nav.close ~ .dashboard .top{
     -webkit-transition-property: box-shadow, transform;
     transition-property: box-shadow, transform;
 }
-.FanOff:hover, .FanOff:focus, .FanOff:active{
+.FanOff:hover, .FanOff:active{
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
@@ -542,7 +542,7 @@ nav.close ~ .dashboard .top{
     -webkit-transition-property: box-shadow, transform;
     transition-property: box-shadow, transform;
 }
-.FanMax:hover, .FanMax:focus, .FanMax:active{
+.FanMax:hover, .FanMax:active{
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
