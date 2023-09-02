@@ -34,6 +34,7 @@ function createWindow(){
     height: 550, //px
     autoHideMenuBar: true,
     frame: false,
+    transparent: true,
     webPreferences: {
       devTools: true,
       sandbox: false,
