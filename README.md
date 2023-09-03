@@ -15,11 +15,14 @@
 
 <h1>Project Screenshots</h1>
 
-![image](https://github.com/death7654/Chrultrabook-Windows-Controller/assets/72635727/75a488d9-0951-411b-8937-11f2be16ad99)
+<img src="https://github.com/death7654/Chrultrabook-Windows-Controller/assets/72635727/75a488d9-0951-411b-8937-11f2be16ad99" width="500">
 
-![image](https://github.com/death7654/Chrultrabook-Windows-Controller/assets/72635727/55025d2b-57f6-4cbd-9df1-04593c7903aa)
+<img src="https://github.com/death7654/Chrultrabook-Windows-Controller/assets/72635727/55025d2b-57f6-4cbd-9df1-04593c7903aa" width="500">
 
-![image](https://github.com/death7654/Chrultrabook-Windows-Controller/assets/72635727/965acfed-3b37-4052-ac3c-2f4bdc5fddb9)
+<img src="https://github.com/death7654/Chrultrabook-Windows-Controller/assets/72635727/965acfed-3b37-4052-ac3c-2f4bdc5fddb9" width="500">
+
+<img src="https://github.com/death7654/Chrultrabook-Windows-Controller/assets/72635727/4a4ee5b2-b2ed-4c59-ac46-0903c6f1a3c3" width="500">
+
 
 <h2>🛠️ Installation Steps:</h2>
 
