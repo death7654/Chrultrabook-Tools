@@ -1,16 +1,13 @@
 const exec = require("child_process").exec;
-var child;
+let child;
 
 function osName(){
-    child = exec('systeminfo | findstr /B /C:"OS Name"',
-      function osName(error, stdout) {
-        const osNameFull = stdout.toString();
-        const osName = osNameFull.substring(27, );
+    child = exec('systeminfo | findstr /B /C:"OS Name"', (error, stdout) => {
+        const osName = stdout.toString().substring(8).trim();
         //console.log(osName);
         mainWindow.webContents.send('OS',osName);
         return osName;
-
-      });
-    }
+    });
+}
   
-    module.exports = {osName}
+module.exports = {osName}

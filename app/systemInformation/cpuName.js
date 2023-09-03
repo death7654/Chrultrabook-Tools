@@ -1,16 +1,12 @@
 const exec = require("child_process").exec;
-var child;
+let child;
 
 function cpuName(){
-    child = exec('wmic cpu get name',
-      function cpuName(error, stdout) {
-        const cpuNamefull = stdout.toString();
-        const nameCPU = cpuNamefull.substring(45,85);
-        //console.log(nameCPU);
-        mainWindow.webContents.send('cpuName',nameCPU);
-        return nameCPU;
-
-      });
-    }
+    child = exec('wmic cpu get name', (error, stdout) => {
+        const cpuName = stdout.toString().split("\n")[1].trim();
+        mainWindow.webContents.send('cpuName', cpuName);
+        return cpuName;
+    });
+}
   
-    module.exports = {cpuName}
+module.exports = {cpuName}

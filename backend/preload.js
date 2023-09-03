@@ -43,7 +43,7 @@ ipcRenderer.on('hostname',(event,data) => {
 });
 ipcRenderer.on('coreCPU',(event,data) => {
     //console.log(data + " C");
-    document.getElementById('coreCPU').innerText = "Cores: " + data + "Cores";
+    document.getElementById('coreCPU').innerText = "Cores: " + data + " Cores";
 });
 ipcRenderer.on('boardname',(event,data) => {
     //console.log(data + " C");
@@ -62,5 +62,7 @@ ipcRenderer.on('biosVersion',(event,data) => {
 
 contextBridge.exposeInMainWorld('electronAPI',{
   ectool: (mode) => ipcRenderer.send('ectool', mode),
-  requestData: () => ipcRenderer.send('requestData')
+  requestData: () => ipcRenderer.send('requestData'),
+  openExternal: (url) => ipcRenderer.send("openExternal", url),
+  requestSystemInfo: () => ipcRenderer.send("requestSystemInfo")
 })

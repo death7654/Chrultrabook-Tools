@@ -49,7 +49,7 @@
     transition-property: box-shadow, transform;
 }
 .appFrame .closeButton:hover{
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     background-color: red;
     color: white;
     transition: all 0.3s ease-out;
@@ -81,7 +81,7 @@
     transition-property: box-shadow, transform;
 }
 .appFrame .minimizeButton:hover{
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     background-color: #FFC300;
     color: white;
     transition: all 0.3s ease-out;
@@ -307,7 +307,7 @@ body.dark .switch:before{
     left: 250px;
     background-color: var(--panel-color);
     min-height: 100vh;
-    height: 100vh;
+    height: fit-content;
     width: calc(100% - 250px);
     padding: 10px 14px;
     transition: var(--tran-05);
@@ -468,12 +468,11 @@ nav.close ~ .dashboard .top{
     top: 160px;
 }
 
-.FanAuto {
+.FanAuto, .FanOff, .FanMax {
     position: relative;
     font-family: "Roboto", sans-serif;
     font-size: 18px;
     font-weight: bold;
-    background: #239C00;
     width: calc(30% - 15px);    
     padding: 20px;
     text-align: center;
@@ -488,65 +487,24 @@ nav.close ~ .dashboard .top{
     -webkit-transition-property: box-shadow, transform;
     transition-property: box-shadow, transform;
 }
-.FanAuto:hover, .FanAuto:focus, .FanAuto:active{
+.FanAuto:hover, .FanAuto:active, .FanOff:hover, .FanOff:active, .FanMax:hover, .FanMax:active {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
+}
+
+.FanAuto {
+    background: #239C00;
 }
 
 .FanOff {
-    position: relative;
-    left: 10px;
-    font-family: "Roboto", sans-serif;
-    font-size: 18px;
-    font-weight: bold;
     background: #F04F00;
-    width: calc(30% - 15px);    
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    color: #fff;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    -webkit-transition-duration: 0.3s;
-    transition-duration: 0.3s;
-    -webkit-transition-property: box-shadow, transform;
-    transition-property: box-shadow, transform;
-}
-.FanOff:hover, .FanOff:focus, .FanOff:active{
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
 }
 
 .FanMax {
-    position: relative;
-    left: 20px;
-    font-family: "Roboto", sans-serif;
-    font-size: 18px;
-    font-weight: bold;
     background: #9C0000;
-    width: calc(30% - 15px);    
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    color: #fff;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    -webkit-transition-duration: 0.3s;
-    transition-duration: 0.3s;
-    -webkit-transition-property: box-shadow, transform;
-    transition-property: box-shadow, transform;
 }
-.FanMax:hover, .FanMax:focus, .FanMax:active{
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
-}
+
 /*cbmem section */
 .cbmemButtons{
     position: relative;
