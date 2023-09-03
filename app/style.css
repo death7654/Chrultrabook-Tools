@@ -30,17 +30,17 @@
     right: 10px;
     top: 10px;
     font-family: "Roboto", sans-serif;
-    font-size: 10px;
-    height: 20px;
-    width: 20px;
+    font-size: 6px;
+    height: 12px;
+    width: 12px;
     font-weight: bold;
-    background: white;
+    background:  #ff6159;
     border-color: black;
     border: none;
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
-    color: black;
+    color:  #ff6159;
     border-radius: 50%;
     cursor: pointer;
     -webkit-transition-duration: 0.3s;
@@ -49,30 +49,31 @@
     transition-property: box-shadow, transform;
 }
 .appFrame .closeButton:hover{
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    background-color: red;
-    color: white;
+    color: black;
     transition: all 0.3s ease-out;
     transform: scale(1.1);
+}
+.appFrame .closeButton:active{
+    background-color:  #bf4942;
 }
 
 .appFrame .minimizeButton {
     -webkit-app-region: none; 
     position: absolute;
-    right: 35px;
+    right: 27.5px;
     top: 10px;
     font-family: "Roboto", sans-serif;
-    font-size: 10px;
-    height: 20px;
-    width: 20px;
+    font-size: 6px;
+    height: 12px;
+    width: 12px;
     font-weight: bold;
-    background: white;
+    background:  #ffbd2e;
     border-color: black;
     border: none;
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
-    color: black;
+    color:  #ffbd2e;
     border-radius: 50%;
     cursor: pointer;
     -webkit-transition-duration: 0.3s;
@@ -80,13 +81,14 @@
     -webkit-transition-property: box-shadow, transform;
     transition-property: box-shadow, transform;
 }
-.appFrame .minimizeButton:hover{
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    background-color: #FFC300;
-    color: white;
+.appFrame .minimizeButton:hover {
+    color: black;
     transition: all 0.3s ease-out;
     transform: scale(1.1);
     
+}
+.appFrame .minimizeButton:active {
+    background-color:  #bf8e22;
 }
 
 
