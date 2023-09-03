@@ -59,7 +59,7 @@ Note: Until Microsoft Verifys that this project is not a virus, it will be ident
   
 ## Acknowledgements
 
-* [Coolstar](https://github.com/coolstar) - *Creating and Publishing the ChromeOS EC Driver for Windows*
+* **Coolstar** - [Coolstar](https://github.com/coolstar) - *Creating and Publishing the ChromeOS EC Driver for Windows*
 
 <h2>🛡️ License:</h2>
 
