@@ -76,34 +76,29 @@
                      <div class="boxes">
                          <div class="box cpuLoad">
                              <img src="./Icons/dashboard/cpu.svg" alt="">
-                             <span class="text">CPU Load</span>
-                             <span id="cpuLoad">0%</span>
+                             <span class="text" style="color: var(--textbox-color);">CPU Load</span>
+                             <span id="cpuLoad" style="color: var(--textbox-color);">0%</span>
                          </div>
                          <div class="box cpuTemps">
                              <img src="./Icons/dashboard/thermometer.svg" alt="">
-                             <span class="text">CPU TEMPS</span>
-                             <span id="cpuTemp">0°C</span>
+                             <span class="text" style="color: var(--textbox-color);">CPU TEMPS</span>
+                             <span id="cpuTemp" style="color: var(--textbox-color);">0°C</span>
                          </div>
                          <div class="box ram">
                              <img src="./Icons/dashboard/ram.svg" alt="">
-                             <span class="text">RAM USAGE</span>
-                             <span id="ramPercentage">0%</span>
+                             <span class="text" style="color: var(--textbox-color);">RAM USAGE</span>
+                             <span id="ramPercentage" style="color: var(--textbox-color);">0%</span>
                          </div>
                      </div>
                      <div id = "onLoad" class="systemInfo">
-                         <br>
-                         <h4 id="biosVersion"></h4>
-                         <hr>
+                        <div class="systemInfoText">
+                         <h4 id="cpuName"></h4>
+                         <h4 id="biosVersion"></h4>                         
+                         <h4 id="hostname"></h4>                         
+                         <h4 id="OS"></h4>                        
                          <h4 id="boardname"></h4>
-                         <hr>
-                         <h4 id="OS"></h4>
-                         <hr>
-                         <h4 id="hostname"></h4>
-                         <hr>
-                         <h4 id="cpuName"> </h4>
-                         <hr>
-                         <h4 id="coreCPU"></h4>
-                         <hr>
+                         <h4 id="coreCPU"> </h4>
+                         </div>
                      </div>
                  </div>
              </div>
@@ -129,12 +124,12 @@
                         <div class="box fanSpeed">
                             <img src="./Icons/fancontrol/animatedfan.svg" alt="">
                             <span class="text">Fan Speed</span>
-                            <span id="fanSpeed">Unknown</span>
+                            <span id="fanSpeed" style="color: var(--textbox-color);">Unknown</span>
                         </div>
                         <div class="box tempCPU">
                             <img src="./Icons/fancontrol/thermometer(white).svg" alt="">
                             <span class="text">CPU TEMPS</span>
-                            <span id="cpuTempFan">0°C</span>
+                            <span id="cpuTempFan" style="color: var(--textbox-color);">0°C</span>
                         </div>
                         <div class="box hidden"></div>
                     </div>
@@ -163,11 +158,11 @@
 
          
      </section>
-        <section id="sectionAbout" class="dashboard" style="overflow-y: auto;">
-         
+        <section id="sectionAbout" class="dashboard" style="overflow-y:scroll; overflow-x:hidden">
+         <div class="aboutText">
             <br>
             <br>
-            <h2 style="text-align: center;">About</h2>
+            <h2 style="position: relative; left:calc(100%/2 - 60px)">About</h2>
 
             <br> This project is an opensource project, and serves the purpose of providing system information and controls in a visually pleasing manner.
             <br>
@@ -192,7 +187,7 @@
             <br>
             <p><a href="https://github.com/death7654/Chultrabook-Windows-Controller/" onclick="window.openExternal(this.href);event.preventDefault();">View on GitHub</a></p>
             <br>
-            
+            </div>
            
         </section>
         <script src="./script.js"></script>

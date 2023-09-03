@@ -8,6 +8,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+    color: var(--text-color)
 }
 
 .appFrame{
@@ -98,15 +99,25 @@
 :root{
     /* ===== Colors ===== */
     --primary-color: #0E4BF1;
-    --panel-color: #FFF;
-    --text-color: #000;
-    --black-light-color: #707070;
-    --border-color: #e6e5e5;
+    --panel-color: #2b2a2a;
+    --text-color: #FFF;
+    --textbox-color: #000;
+    --black-light-color: #bdbdbd;
+    --border-color: #4D4C4C;
     --toggle-color: #DDD;
-    --box1-color: #4DA3FF;
-    --box2-color: #FFE6AC;
-    --box3-color: #E7D1FC;
-    --title-icon-color: #fff;
+    --box1-color: #3BD5F6;
+    --box2-color: #19E7E3;
+    --box3-color: #AEFA92;
+    --box4-color: #64F3BE;
+    --box5-color: #F9F871;
+    --fanAuto-color:#01B38C;
+    --fanMax-color:#F27B71;
+    --fanOff-color: #E89B26;
+    --getcbMem-color: #EBA4CB;
+    --copy-color: #78C1F3;
+    --cbmemCode-color: #3d3c3c;
+    --systeminfo-color:#3d3c3c;
+    --title-icon-color: #CCC;
     
     /* ====== Transition ====== */
     --tran-05: all 0.5s ease;
@@ -409,21 +420,27 @@ nav.close ~ .dashboard .top{
 .boxes .box .cpuLoad{
     font-size: 40px;
     font-weight: 500;
-    color: var(--text-color);
+    
 }
 .boxes .box.cpuLoad{
-    background-color: #EF476F;
+    background-color: var(--box1-color);
+    color: var(--text-color);
+
 }
 .boxes .box.cpuTemps{
-    background-color: #06D6A0;
+    background-color: var(--box2-color);
+    color: var(--text-color);
+
 }
 .boxes .box.ram{
-    background-color: #FFD166;
+    background-color: var(--box3-color);
+    color: var(--text-color);
+
 }
 /*fan section */
 
 .dash-content .boxes.fanSpeed{
-    background-color:  #DD5144;
+    background-color: var(--box4-color);
  
 }
 
@@ -450,19 +467,19 @@ nav.close ~ .dashboard .top{
 }
 .boxes .box.tempCPU{
     display: flex;
-    background-color: #06D6A0;
+    background-color: var(--box5-color);
     position: relative;
     bottom: 102px;
 
 }
 .boxes .box.fanSpeed{
-    background-color: #EF476F;
+    background-color: var(--box4-color);
     position: relative;
     bottom: 102px;
  
 }
 .boxes .box.hidden{
-    background-color: white;
+    background-color: var(--panel-color);
 }
 .FanSpeedText{
     position: relative;
@@ -500,15 +517,18 @@ nav.close ~ .dashboard .top{
 }
 
 .FanAuto {
-    background: #239C00;
+    background: var(--fanAuto-color);
+    left: 10px;
 }
 
 .FanOff {
-    background: #F04F00;
+    background: var(--fanOff-color);
+    left: 20px;
 }
 
 .FanMax {
-    background: #9C0000;
+    background: var(--fanMax-color);
+    left: 30px;
 }
 
 /*cbmem section */
@@ -518,16 +538,17 @@ nav.close ~ .dashboard .top{
 }
 .cbMem {
     position: relative;
+    left: 10px;
     font-family: "Roboto", sans-serif;
     font-size: 18px;
     font-weight: bold;
-    background: #F04F00;
+    background: var(--getcbMem-color);
     width: calc(45% - 15px);    
     padding: 20px;
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
-    color: #ffffff;
+    color: var(--text-color);
     border-radius: 5px;
     cursor: pointer;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -544,17 +565,17 @@ nav.close ~ .dashboard .top{
 }
 .copyButton {
     position: relative;
-    left: 30px;
+    left: 35px;
     font-family: "Roboto", sans-serif;
     font-size: 18px;
     font-weight: bold;
-    background: #007FFF;
+    background: var(--copy-color);
     width: calc(45% - 15px);    
     padding: 20px;
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
-    color: #fff;
+    color: var(--text-color);
     border-radius: 5px;
     cursor: pointer;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -576,16 +597,16 @@ nav.close ~ .dashboard .top{
     height: 500px;
     position: relative;
     top: 30px;
-    background-color: #BDA79E;
+    background-color: var(--cbmemCode-color);
     border-radius: 10px;
     height: 150px; 
     width: calc(100% - 15px);    
-    overflow: hidden;
+    overflow-y:scroll;
   }
 /*main html file ends */
 .hiddentext{
     font-size: 0px;
-    color: white;
+    color: var(--panel-color);
 }
 .tooltip {
     position: relative;
@@ -596,7 +617,7 @@ nav.close ~ .dashboard .top{
     visibility: hidden;
     width: 140px;
     background-color: #555;
-    color: #fff;
+    color: var(--text-color);
     text-align: center;
     border-radius: 6px;
     padding: 5px;
@@ -626,18 +647,30 @@ nav.close ~ .dashboard .top{
   }
 
 .about {
-    color: white;
+    color: var(--text-color);
     overflow-y: auto;
 }
 
+.about .aboutText {
+   color: var(--text-color);
+
+}
+
+
 .dash-content .overview .systemInfo{
-    width: calc(75% - 15px);
-    font-weight: 40;    
+    width: calc(100% - 15px);
+    font-weight: normal;  
+    font-size: 15;
+    background-color: var(--systeminfo-color); 
+    position: relative; 
+    top: 40px;
+    border-radius: 20px;
     
 }
-.hr {
-    color: grey;
+.dash-content .overview .systemInfoText{
+    padding: 20px;
 }
+
   
 /*main html file ends */
 
