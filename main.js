@@ -36,7 +36,7 @@ function createWindow(){
         frame: false,
         transparent: true,
         webPreferences: {
-            devTools: true,
+            devTools: false,
             sandbox: false,
             nodeIntegration: false,
             preload: path.join(__dirname, "./backend/preload.js"),
