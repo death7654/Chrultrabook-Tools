@@ -17,11 +17,11 @@ ipcRenderer.on('mem',(event, data) => {
 //index.html cpu temperatures
 ipcRenderer.on('cpuTemp',(event,data) => {
     //console.log(data + " C");
-    document.getElementById('cpuTemp').innerText = data + "°C";
+    document.getElementById('cpuTemp').innerText = data.toFixed(0) + "°C";
 });
 ipcRenderer.on('cpuTempFan',(event,data) => {
     //console.log(data + " C");
-    document.getElementById('cpuTempFan').innerText = data + "°C";
+    document.getElementById('cpuTempFan').innerText = data.toFixed(0) + "°C";
 });
 
 ipcRenderer.on('fanSpeed',(event,data) => {
