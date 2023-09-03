@@ -14,9 +14,13 @@
 
 
 <h1>Project Screenshots</h1>
+
 ![image](https://github.com/death7654/Chrultrabook-Windows-Controller/assets/72635727/75a488d9-0951-411b-8937-11f2be16ad99)
+
 ![image](https://github.com/death7654/Chrultrabook-Windows-Controller/assets/72635727/55025d2b-57f6-4cbd-9df1-04593c7903aa)
+
 ![image](https://github.com/death7654/Chrultrabook-Windows-Controller/assets/72635727/965acfed-3b37-4052-ac3c-2f4bdc5fddb9)
+
 <h2>🛠️ Installation Steps:</h2>
 
 <p>1. Install Coolstar's Chromebook EC Drivers</p>
