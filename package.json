@@ -1,6 +1,6 @@
 {
   "name": "chultrabook-windows-controller",
-  "version": "1.1.1",
+  "version": "1.1.2git",
   "description": "UI for CrosEC",
   "main": "main.js",
   "scripts": {
