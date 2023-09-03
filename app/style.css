@@ -113,8 +113,8 @@
     --fanAuto-color:#01B38C;
     --fanMax-color:#F27B71;
     --fanOff-color: #E89B26;
-    --getcbMem-color: #EBA4CB;
-    --copy-color: #78C1F3;
+    --getcbMem-color: #a83e3e;
+    --copy-color: #5c0e6d;
     --cbmemCode-color: #3d3c3c;
     --systeminfo-color:#3d3c3c;
     --title-icon-color: #CCC;
@@ -510,16 +510,18 @@ nav.close ~ .dashboard .top{
     -webkit-transition-property: box-shadow, transform;
     transition-property: box-shadow, transform;
 }
-.FanAuto:hover, .FanAuto:active, .FanOff:hover, .FanOff:active, .FanMax:hover, .FanMax:active {
+.FanAuto:hover, .FanAuto:active, .FanAuto:focus, .FanOff:hover, .FanOff:active, .FanOff:focus, .FanMax:hover, .FanMax:active, .FanMax:focus {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
 }
 
+
 .FanAuto {
     background: var(--fanAuto-color);
     left: 10px;
 }
+
 
 .FanOff {
     background: var(--fanOff-color);
