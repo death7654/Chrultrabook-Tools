@@ -527,6 +527,12 @@ nav.close ~ .dashboard .top{
     top: 140px;
 }
 
+.activeButton{
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
 .fanButtons {
     position: relative;
     top: 160px;
@@ -551,7 +557,7 @@ nav.close ~ .dashboard .top{
     -webkit-transition-property: box-shadow, transform;
     transition-property: box-shadow, transform;
 }
-.FanAuto:hover, .FanAuto:active, .FanAuto:focus, .FanOff:hover, .FanOff:active, .FanOff:focus, .FanMax:hover, .FanMax:active, .FanMax:focus {
+.FanAuto:hover, .FanAuto:active, .FanOff:hover, .FanOff:focus, .FanMax:hover, .FanMax:active{
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     -webkit-transform: scale(1.1);
     transform: scale(1.1);

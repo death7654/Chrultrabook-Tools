@@ -97,7 +97,6 @@ ipcMain.on('ectool', (event, mode) => {
     } else if (mode === 5){
       //console.log(mode);
       clearInterval(data);
-      setInterval(data, 10000000)
       app.quit();
     } else if (mode === 6){
       //console.log(mode);

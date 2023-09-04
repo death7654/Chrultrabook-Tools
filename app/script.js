@@ -85,6 +85,28 @@ window.addEventListener("DOMContentLoaded", () => {
         sidebar.classList.toggle("close");
         localStorage.setItem("status", sidebar.classList.contains("close") ? "close" : "open");
     });
+        var autoFan = document.getElementById("fanAuto");
+        var offFan = document.getElementById("fanOff");
+        var maxFan = document.getElementById("fanMax");
+
+    function fanMax(){
+        window.parent.electronAPI.ectool(modeOne);
+        autoFan.classList.remove("activeButton");
+        offFan.classList.remove("activeButton");
+        maxFan.classList.add("activeButton");
+    }
+    function fanOff(){
+        window.parent.electronAPI.ectool(modeTwo);
+        autoFan.classList.remove("activeButton");
+        offFan.classList.add("activeButton");
+        maxFan.classList.remove("activeButton");
+    }
+    function fanAuto(){
+        window.parent.electronAPI.ectool(modeThree);
+        autoFan.classList.add("activeButton");
+        offFan.classList.remove("activeButton");
+        maxFan.classList.remove("activeButton");
+    }
 
     //information senter and getter
     const modeOne = 1;
@@ -95,13 +117,13 @@ window.addEventListener("DOMContentLoaded", () => {
     const modeSix = 6;
 
     const buttonfanMax = document.getElementById('fanMax');
-    buttonfanMax.addEventListener('click', () => window.parent.electronAPI.ectool(modeOne));
+    buttonfanMax.addEventListener('click', () => fanMax());
 
     const buttonfanOff = document.getElementById('fanOff');
-    buttonfanOff.addEventListener('click', () =>  window.parent.electronAPI.ectool(modeTwo));
+    buttonfanOff.addEventListener('click', () => fanOff());
 
     const buttonfanAuto = document.getElementById('fanAuto');
-    buttonfanAuto.addEventListener('click', () =>  window.parent.electronAPI.ectool(modeThree));
+    buttonfanAuto.addEventListener('click', () =>  fanAuto());
 
     const buttoncbMem = document.getElementById('cbMem');
     buttoncbMem.addEventListener('click', () => window.parent.electronAPI.ectool(modeFour));
