@@ -104,7 +104,7 @@
     --textbox-color: #000;
     --black-light-color: #bdbdbd;
     --border-color: #4D4C4C;
-    --toggle-color: #DDD;
+    --toggle-color: #ff7f50;
     --box1-color: #EF476F;
     --box2-color: #06D6A0;
     --box3-color: #00ACC2;
@@ -118,8 +118,9 @@
     --cbmemCode-color: #D6D9DE;
     --systeminfo-color:#D6D9DE;
     --title-icon-color: #CCC;
+    --switch-color: #fcefef;
     --homeFilter: invert(27%) sepia(74%) saturate(4443%) hue-rotate(119deg) brightness(97%) contrast(73%);
-    --fanFilter: invert(43%) sepia(88%) saturate(3557%) hue-rotate(186deg) brightness(105%) contrast(107%);
+    --fanFilter: invert(54%) sepia(61%) saturate(595%) hue-rotate(186deg) brightness(95%) contrast(94%);
     --diagnosticFilter: invert(88%) sepia(31%) saturate(6481%) hue-rotate(343deg) brightness(103%) contrast(101%);
     --aboutFilter: invert(39%) sepia(80%) saturate(4385%) hue-rotate(349deg) brightness(102%) contrast(87%);
     
@@ -137,7 +138,7 @@ body.dark{
     --textbox-color: #000;
     --black-light-color: #7e7e7e;
     --border-color: #4D4C4C;
-    --toggle-color: #DDD;
+    --toggle-color: #c438fb;
     --box1-color: #3BD5F6;
     --box2-color: #19E7E3;
     --box3-color: #AEFA92;
@@ -146,11 +147,12 @@ body.dark{
     --fanAuto-color:#01B38C;
     --fanMax-color:#F27B71;
     --fanOff-color: #E89B26;
-    --getcbMem-color: #a83e3e;
-    --copy-color: #5c0e6d;
+    --getcbMem-color: #fc3b52;
+    --copy-color: #00BAE2;
     --cbmemCode-color: #3d3c3c;
     --systeminfo-color:#3d3c3c;
     --title-icon-color: #CCC;
+    --switch-color: #221824;
     --logoFilter:invert(100%) sepia(0%) saturate(0%) hue-rotate(95deg) brightness(103%) contrast(107%);
     --homeFilter: invert(82%) sepia(53%) saturate(335%) hue-rotate(97deg) brightness(101%) contrast(102%);
     --fanFilter: invert(44%) sepia(33%) saturate(4509%) hue-rotate(182deg) brightness(99%) contrast(108%);
@@ -343,7 +345,7 @@ body.dark .nav-links li a:hover .link-name{
     transform: translateY(-50%);
     height: 15px;
     width: 15px;
-    background-color: var(--panel-color);
+    background-color: var(--switch-color);
     border-radius: 50%;
     transition: var(--tran-03);
 }
