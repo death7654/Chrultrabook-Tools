@@ -74,7 +74,7 @@ function sendData() {
 
 }
 
-setInterval(sendData, 1000);
+const data = setInterval(sendData, 1000);
 
 
 
@@ -95,8 +95,9 @@ ipcMain.on('ectool', (event, mode) => {
       memcb.cbMem();
     } else if (mode === 5){
       //console.log(mode);
+      clearInterval(data);
+      setTimeout(sendData, 100000)
       app.quit();
-
     } else if (mode === 6){
       //console.log(mode);
       mainWindow.minimize();
