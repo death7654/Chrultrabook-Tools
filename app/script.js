@@ -6,6 +6,8 @@ window.addEventListener("DOMContentLoaded", () => {
           sidebarToggle = body.querySelector(".sidebar-toggle");
     
 
+    //changing menus
+
     var home = document.getElementById("sectionDashboard");
     var fan = document.getElementById("sectionFan");
     var cbmem = document.getElementById("sectionCbmem");
@@ -58,7 +60,7 @@ window.addEventListener("DOMContentLoaded", () => {
     })    
 
     
-    
+    //mode toggles
     
     let getMode = localStorage.getItem("mode");
     if (getMode && getMode ==="dark") {
@@ -83,10 +85,8 @@ window.addEventListener("DOMContentLoaded", () => {
         sidebar.classList.toggle("close");
         localStorage.setItem("status", sidebar.classList.contains("close") ? "close" : "open");
     });
-    function loadSystemInfo(){
-        window.electronAPI.ectool(modeFive);
-    }
 
+    //information senter and getter
     const modeOne = 1;
     const modeTwo = 2;
     const modeThree = 3;
