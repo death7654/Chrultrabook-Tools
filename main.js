@@ -96,6 +96,7 @@ ipcMain.on('ectool', (event, mode) => {
       memcb.cbMem();
     } else if (mode === 5){
       //console.log(mode);
+      global.mainWindow = null;
       clearInterval(data);
       app.quit();
     } else if (mode === 6){
