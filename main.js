@@ -47,6 +47,7 @@ function createWindow(){
     })
     mainWindow.loadFile(path.join(__dirname, "./app/index.html"));
 }
+app.commandLine.appendSwitch('js-flags', '--max-old-space-size=30');
 
 
 app.on('ready', createWindow);

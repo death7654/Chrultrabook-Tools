@@ -5,6 +5,7 @@ const ipcRenderer = electron.ipcRenderer;
 
 
 //index.html cpu load
+
 ipcRenderer.on('cpu',(event,data) => {
     //console.log(data + " %");
     document.getElementById('cpuLoad').innerText = data.toFixed(0) + "%";
@@ -66,3 +67,5 @@ contextBridge.exposeInMainWorld('electronAPI',{
   openExternal: (url) => ipcRenderer.send("openExternal", url),
   requestSystemInfo: () => ipcRenderer.send("requestSystemInfo")
 })
+
+
