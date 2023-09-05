@@ -1,19 +1,21 @@
 const { app, BrowserWindow, ipcMain, shell } = require('electron');
 const path = require('path');
-const os = require('os')
+const os = require('os');
 const os2 = require('os-utils');
 const temps = require('./app/ectools/cpuTemp.js');
 const fanSpeed = require('./app/ectools/fanRPM.js');
 const fanMax = require('./app/ectools/setFanMaxSpeed.js');
 const fanAuto = require('./app/ectools/setFanAuto.js');
 const fanOff = require('./app/ectools/setFanOff.js');
-const memcb = require('./app/ectools/cbmem.js')
-const nameCPU = require('./app/systemInformation/cpuName.js')
-const hostname = require('./app/systemInformation/hostname.js')
-const cpuCore = require('./app/systemInformation/cores.js')
-const boardname = require('./app/systemInformation/boardName.js')
-const osName = require('./app/systemInformation/os.js')
-const biosVersion = require('./app/systemInformation/biosVersion.js')
+const memcb = require('./app/ectools/cbmem.js');
+const nameCPU = require('./app/systemInformation/cpuName.js');
+const hostname = require('./app/systemInformation/hostname.js');
+const cpuCore = require('./app/systemInformation/cores.js');
+const boardname = require('./app/systemInformation/boardName.js');
+const osName = require('./app/systemInformation/os.js');
+const biosVersion = require('./app/systemInformation/biosVersion.js');
+
+if (!app.requestSingleInstanceLock()) app.quit();
 
 app.whenReady().then(() => {
   ipcMain.on('sentcommand', handleSetTitle)
@@ -53,6 +55,11 @@ app.commandLine.appendSwitch('js-flags', '--max-old-space-size=30');
 app.on('ready', createWindow);
 app.on('window-all-closed', function() {
     app.quit();
+})
+app.on('second-instance', () => {
+    if (global.mainWindow) {
+        mainWindow.show();
+    }
 })
 function systemInfo(){
     nameCPU.cpuName();
