@@ -13,7 +13,7 @@ fn greet(name: &str) -> String {
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![greet, get_cpu_temp,get_fan_rpm,set_fan_max, set_fan_off,set_fan_auto, cbmem ])
+        .invoke_handler(tauri::generate_handler![greet, get_cpu_temp,get_fan_rpm,set_fan_max, set_fan_off,set_fan_auto, get_cbmem ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -72,7 +72,17 @@ fn set_fan_auto(){
         return;
 }
 #[tauri::command]
-async fn cbmem(){
-    std::process::Command::new("C:\\Program Files\\crosec\\cbmem")
-    .output();
+async fn get_cbmem() -> String {
+    let cmd_cbmem: Result<std::process::Output, std::io::Error> =
+        std::process::Command::new("C:\\Program Files\\crosec\\cbmem")
+            .output();
+    let cbmem: String = match cmd_cbmem {
+        Ok(output) => String::from_utf8_lossy(&output.stdout)
+            .to_string(),
+        Err(e) => {
+            println!("cbmemError `{}`.", e);
+            String::from("") // This match returns a blank string.
+        }
+    };
+    return String::from(cbmem);
 }

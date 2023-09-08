@@ -7,7 +7,7 @@ document.getElementById("minimize").addEventListener("click", () => appWindow.mi
 
 document.getElementById("close").addEventListener("click", () => appWindow.close());
 
-//cputemps
+//homepage
 setInterval(async () => {
   const cpuTempFunction = await invoke("get_cpu_temp");
   let sensors = 0;
@@ -21,6 +21,7 @@ setInterval(async () => {
   });
   const averageTemp = temps / sensors;
   document.getElementById("cpuTemp").innerText = averageTemp.toFixed(0) + "°C";
+  //sends information to fancontrol.html
   document.getElementById("cpuTempFan").innerText = averageTemp.toFixed(0) + "°C";
 
 },1000);
@@ -30,6 +31,8 @@ setInterval(async () => {
   const fanSpeed = stdout.toString().split(":").pop().trim();
   document.getElementById("fanSpeed").innerText = fanSpeed + " RPM";
 },1000);
+
+
 //setFanSpeeds
 
 var autoFan = document.getElementById("fanAuto");
@@ -65,8 +68,13 @@ const buttonfanAuto = document.getElementById('fanAuto');
 buttonfanAuto.addEventListener('click', () =>  fanAuto());
 
 //cbmem
+function cbmemDataTransfer(){
+  const cbmemdata = invoke('cbmem')
+  document.getElementById("cbMemInfo").innerText = cbmemdata;
+}
+
 const buttoncbMem = document.getElementById('cbMem');
-buttoncbMem.addEventListener('click', () => invoke('cbmem'))
+buttoncbMem.addEventListener('click', () => cbmemDataTransfer())
 
 function copyTxt (htmlElement) {
   if(!htmlElement) return;
