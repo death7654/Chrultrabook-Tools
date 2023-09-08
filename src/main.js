@@ -31,7 +31,19 @@ setInterval(async () => {
   const fanSpeed = stdout.toString().split(":").pop().trim();
   document.getElementById("fanSpeed").innerText = fanSpeed + " RPM";
 },1000);
+function systeminfodatatransfer(){
+  document.getElementById("biosVersion").innerText = "Bios Version: " + invoke('get_bios_version');
+  document.getElementById("OS").innerText = "OS: " + invoke('get_os');
+  document.getElementById("boardname").innerText = "Boardname: " + invoke('get_board_name');
+  document.getElementById("coreCPU").innerText = "Cores: " + invoke('get_cpu_cores') + " Cores";
+  document.getElementById("hostname").innerText = "Hostname: " + invoke('get_hostname');
+  document.getElementById("cpuName").innerText = "CPU: " + invoke('get_cpu_name');
 
+
+
+
+}
+window.addEventListener("DOMContentLoaded", () => systeminfodatatransfer())
 
 //setFanSpeeds
 
@@ -69,7 +81,7 @@ buttonfanAuto.addEventListener('click', () =>  fanAuto());
 
 //cbmem
 function cbmemDataTransfer(){
-  const cbmemdata = invoke('cbmem')
+  const cbmemdata = invoke('get_cbmem')
   document.getElementById("cbMemInfo").innerText = cbmemdata;
 }
 
