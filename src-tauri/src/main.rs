@@ -4,19 +4,11 @@
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 use std::process::{Command, Stdio};
 
-use tauri::Invoke;
-
-#[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
-}
 
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
-            greet,
             get_bios_version,
-            get_os,
             get_hostname,
             get_cpu_name,
             get_cpu_cores,
@@ -38,27 +30,29 @@ async fn get_cpu_temp() -> String {
         std::process::Command::new("C:\\Program Files\\crosec\\ectool")
             .args(["temps", "all"])
             .output();
-    let cpu_temp: String = match cmd_cpu_temp {
+    let cpu_temp_long: String = match cmd_cpu_temp {
         Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
         Err(e) => {
             println!("cpuTempError `{}`.", e);
             String::from("") // This match returns a blank string.
         }
     };
+    let cpu_temp = cpu_temp_long.trim();
     return String::from(cpu_temp);
 }
 #[tauri::command]
 async fn get_bios_version() -> String {
     let cmd_bios: Result<std::process::Output, std::io::Error> = std::process::Command::new("wmic")
-        .args(["get", "bios", "smbiosbiosversion"])
+        .args(["bios", "get", "smbiosbiosversion"])
         .output();
-    let bios: String = match cmd_bios {
+    let bioslong: String = match cmd_bios {
         Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
         Err(e) => {
             println!("biosError `{}`.", e);
             String::from("") // This match returns a blank string.
         }
     };
+    let bios = bioslong.trim();
     return String::from(bios);
 }
 #[tauri::command]
@@ -67,13 +61,14 @@ async fn get_board_name() -> String {
         std::process::Command::new("wmic")
             .args(["baseboard", "get", "Product"])
             .output();
-    let boardname: String = match cmd_boardname {
+    let boardnamelong: String = match cmd_boardname {
         Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
         Err(e) => {
             println!("boardnameError `{}`.", e);
             String::from("") // This match returns a blank string.
         }
     };
+    let boardname = boardnamelong.trim();
     return String::from(boardname);
 }
 #[tauri::command]
@@ -82,57 +77,45 @@ async fn get_cpu_cores() -> String {
         std::process::Command::new("wmic")
             .args(["cpu", "get", "NumberOfCores"])
             .output();
-    let cpuCores: String = match cmd_core_count {
+    let cpu_cores_long: String = match cmd_core_count {
         Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
         Err(e) => {
             println!("cpuCoresError `{}`.", e);
             String::from("") // This match returns a blank string.
         }
     };
-    return String::from(cpuCores);
+    let cpu_cores = cpu_cores_long.trim();
+    return String::from(cpu_cores);
 }
 #[tauri::command]
 async fn get_cpu_name() -> String {
     let cmd_core_name: Result<std::process::Output, std::io::Error> =
         std::process::Command::new("wmic")
-            .args(["cpu", "get", "NumberOfCores"])
+            .args(["cpu", "get", "name"])
             .output();
-    let cpuName: String = match cmd_core_name {
+    let cpu_name_long: String = match cmd_core_name {
         Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
         Err(e) => {
             println!("cpunamesError `{}`.", e);
             String::from("") // This match returns a blank string.
         }
     };
-    return String::from(cpuName);
+    let cpu_name= cpu_name_long.trim();
+    return String::from(cpu_name);
 }
 #[tauri::command]
 async fn get_hostname() -> String {
     let cmd_hostname: Result<std::process::Output, std::io::Error> =
-        std::process::Command::new("wmic").output();
-    let hostname: String = match cmd_hostname {
+        std::process::Command::new("hostname").output();
+    let hostnamelong: String = match cmd_hostname {
         Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
         Err(e) => {
             println!("hostnameError `{}`.", e);
             String::from("") // This match returns a blank string.
         }
     };
+    let hostname = hostnamelong.trim();
     return String::from(hostname);
-}
-#[tauri::command]
-async fn get_os() -> String {
-    let cmd_os: Result<std::process::Output, std::io::Error> =
-        std::process::Command::new("systeminfo")
-            .args(["|", "/B", "/C:'OS Name'"])
-            .output();
-    let os: String = match cmd_os {
-        Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
-        Err(e) => {
-            println!("osError `{}`.", e);
-            String::from("") // This match returns a blank string.
-        }
-    };
-    return String::from(os);
 }
 
 #[tauri::command]
@@ -153,21 +136,21 @@ async fn get_fan_rpm() -> String {
 
 #[tauri::command]
 fn set_fan_max() {
-    std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+   let _ = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
         .args(["fanduty", "100"])
         .output();
     return;
 }
 #[tauri::command]
 fn set_fan_off() {
-    std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+    let _ = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
         .args(["fanduty", "0"])
         .output();
     return;
 }
 #[tauri::command]
 fn set_fan_auto() {
-    std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+    let _ = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
         .args(["autofanctrl"])
         .output();
     return;

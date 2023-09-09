@@ -4,10 +4,9 @@ import { emit, listen } from '@tauri-apps/api/event'
 import { os } from "os-utils";
 import "./styles.css";
 const bioslong = await invoke("get_bios_version");
-const oslong = await invoke("get_os");
 const boardnamelong = await invoke("get_board_name");
 const coreslong = await invoke("get_cpu_cores");
-const hostnamelong = await invoke("get_hostname");
+const hostname = await invoke("get_hostname");
 const cpunamelong = await invoke("get_cpu_name");
 const cbmemdata = await invoke("get_cbmem");
 
@@ -46,21 +45,22 @@ setInterval(async () => {
 }, 1000);
 
 function systeminfodatatransfer() {
-  const bios = bioslong.catchtoString().split("\n")[1].trim();
-  const os = oslong.toString().substring(8).trim();
-  const boardname = boardnamelong.toString().split("\n")[1].trim();
-  const cores = coreslong.toString().split("\n")[1].trim();
-  const hostname = hostnamelong.toString().trim();
-  const cpuname = cpunamelong.toString().split("\n")[1].trim();
+  console.log(bioslong)
+  const bios = bioslong.split("\n")[1];
+  const boardname = boardnamelong.split("\n")[1];
+  const cores = coreslong.split("\n")[1];
+  const cpuname = cpunamelong.split("\n")[1];
 
   document.getElementById("biosVersion").innerText = "Bios Version: " + bios;
-  document.getElementById("OS").innerText = "OS: " + os;
   document.getElementById("boardname").innerText = "Boardname: " + boardname;
   document.getElementById("coreCPU").innerText = "Cores: " + cores + " Cores";
   document.getElementById("hostname").innerText = "Hostname: " + hostname;
   document.getElementById("cpuName").innerText = "CPU: " + cpuname;
 }
-appWindow.emit('load', systeminfodatatransfer())
+
+setTimeout(() => { systeminfodatatransfer();
+  
+}, 1500);
 //setFanSpeeds
 
 var autoFan = document.getElementById("fanAuto");
