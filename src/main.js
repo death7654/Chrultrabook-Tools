@@ -3,12 +3,6 @@ import { invoke } from "@tauri-apps/api/tauri";
 import { emit, listen } from "@tauri-apps/api/event";
 import { os } from "os-utils";
 import "./styles.css";
-const bioslong = await invoke("get_bios_version");
-const boardnamelong = await invoke("get_board_name");
-const coreslong = await invoke("get_cpu_cores");
-const hostname = await invoke("get_hostname");
-const cpunamelong = await invoke("get_cpu_name");
-const cbmemdata = await invoke("get_cbmem");
 
 document
   .getElementById("minimize")
@@ -61,7 +55,25 @@ function systeminfodatatransfer() {
   document.getElementById("cpuName").innerText = "CPU: " + cpuname;
 }
 
-setTimeout(() => {
+setTimeout(async () => {
+  const bioslong = await invoke("get_bios_version");
+  const boardnamelong = await invoke("get_board_name");
+  const coreslong = await invoke("get_cpu_cores");
+  const hostname = await invoke("get_hostname");
+  const cpunamelong = await invoke("get_cpu_name");
+  function systeminfodatatransfer() {
+    console.log(bioslong);
+    const bios = bioslong.split("\n")[1];
+    const boardname = boardnamelong.split("\n")[1];
+    const cores = coreslong.split("\n")[1];
+    const cpuname = cpunamelong.split("\n")[1];
+
+    document.getElementById("biosVersion").innerText = "Bios Version: " + bios;
+    document.getElementById("boardname").innerText = "Boardname: " + boardname;
+    document.getElementById("coreCPU").innerText = "Cores: " + cores + " Cores";
+    document.getElementById("hostname").innerText = "Hostname: " + hostname;
+    document.getElementById("cpuName").innerText = "CPU: " + cpuname;
+  }
   systeminfodatatransfer();
 }, 1500);
 //setFanSpeeds
@@ -98,13 +110,17 @@ buttonfanOff.addEventListener("click", () => fanOff());
 const buttonfanAuto = document.getElementById("fanAuto");
 buttonfanAuto.addEventListener("click", () => fanAuto());
 
-//cbmem
-function cbmemDataTransfer() {
-  document.getElementById("cbMemInfo").innerText = cbmemdata;
+//
+function getcbMem(){
+  setTimeout(async ()=>{
+    const cbmemdata = await invoke("get_cbmem");
+    document.getElementById("cbMemInfo").innerText = cbmemdata;
+
+  }, 1000)
 }
 
 const buttoncbMem = document.getElementById("cbMem");
-buttoncbMem.addEventListener("click", () => cbmemDataTransfer());
+buttoncbMem.addEventListener("click", () => getcbMem());
 
 function copyTxt(htmlElement) {
   if (!htmlElement) return;

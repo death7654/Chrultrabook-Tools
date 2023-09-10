@@ -2,8 +2,11 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-use std::process::{Command, Stdio};
-use sysinfo::{NetworkExt, NetworksExt, ProcessExt, System, SystemExt, CpuExt};
+use std::{
+    os::windows::process::CommandExt,
+    process::{Command, Stdio},
+};
+use sysinfo::{CpuExt, NetworkExt, NetworksExt, ProcessExt, System, SystemExt};
 
 fn main() {
     tauri::Builder::default()
@@ -46,17 +49,17 @@ async fn get_cpu_usage() -> String {
     for cpu in sys.cpus() {
         let cpu_usage = cpu.cpu_usage();
         total += 1;
-        num = num  + (cpu_usage as i32);
+        num = num + (cpu_usage as i32);
     }
 
     return (num / total).to_string();
 }
 
-
 #[tauri::command]
 async fn get_cpu_temp() -> String {
     let cmd_cpu_temp: Result<std::process::Output, std::io::Error> =
         std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+            .creation_flags(0x08000000)
             .args(["temps", "all"])
             .output();
     let cpu_temp_long: String = match cmd_cpu_temp {
@@ -72,6 +75,7 @@ async fn get_cpu_temp() -> String {
 #[tauri::command]
 async fn get_bios_version() -> String {
     let cmd_bios: Result<std::process::Output, std::io::Error> = std::process::Command::new("wmic")
+        .creation_flags(0x08000000)
         .args(["bios", "get", "smbiosbiosversion"])
         .output();
     let bioslong: String = match cmd_bios {
@@ -88,6 +92,7 @@ async fn get_bios_version() -> String {
 async fn get_board_name() -> String {
     let cmd_boardname: Result<std::process::Output, std::io::Error> =
         std::process::Command::new("wmic")
+            .creation_flags(0x08000000)
             .args(["baseboard", "get", "Product"])
             .output();
     let boardnamelong: String = match cmd_boardname {
@@ -104,6 +109,7 @@ async fn get_board_name() -> String {
 async fn get_cpu_cores() -> String {
     let cmd_core_count: Result<std::process::Output, std::io::Error> =
         std::process::Command::new("wmic")
+            .creation_flags(0x08000000)
             .args(["cpu", "get", "NumberOfCores"])
             .output();
     let cpu_cores_long: String = match cmd_core_count {
@@ -120,6 +126,7 @@ async fn get_cpu_cores() -> String {
 async fn get_cpu_name() -> String {
     let cmd_core_name: Result<std::process::Output, std::io::Error> =
         std::process::Command::new("wmic")
+            .creation_flags(0x08000000)
             .args(["cpu", "get", "name"])
             .output();
     let cpu_name_long: String = match cmd_core_name {
@@ -135,7 +142,9 @@ async fn get_cpu_name() -> String {
 #[tauri::command]
 async fn get_hostname() -> String {
     let cmd_hostname: Result<std::process::Output, std::io::Error> =
-        std::process::Command::new("hostname").output();
+        std::process::Command::new("hostname")
+            .creation_flags(0x08000000)
+            .output();
     let hostnamelong: String = match cmd_hostname {
         Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
         Err(e) => {
@@ -151,6 +160,7 @@ async fn get_hostname() -> String {
 async fn get_fan_rpm() -> String {
     let cmd_fan_rpm: Result<std::process::Output, std::io::Error> =
         std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+            .creation_flags(0x08000000)
             .args(["pwmgetfanrpm"])
             .output();
     let fan_rpm: String = match cmd_fan_rpm {
@@ -164,22 +174,25 @@ async fn get_fan_rpm() -> String {
 }
 
 #[tauri::command]
-fn set_fan_max() {
+async fn set_fan_max() {
     let _ = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+        .creation_flags(0x08000000)
         .args(["fanduty", "100"])
         .output();
     return;
 }
 #[tauri::command]
-fn set_fan_off() {
+async fn set_fan_off() {
     let _ = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+        .creation_flags(0x08000000)
         .args(["fanduty", "0"])
         .output();
     return;
 }
 #[tauri::command]
-fn set_fan_auto() {
+async fn set_fan_auto() {
     let _ = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+        .creation_flags(0x08000000)
         .args(["autofanctrl"])
         .output();
     return;
@@ -187,7 +200,9 @@ fn set_fan_auto() {
 #[tauri::command]
 async fn get_cbmem() -> String {
     let cmd_cbmem: Result<std::process::Output, std::io::Error> =
-        std::process::Command::new("C:\\Program Files\\crosec\\cbmem").output();
+        std::process::Command::new("C:\\Program Files\\crosec\\cbmem")
+            .creation_flags(0x08000000)
+            .output();
     let cbmem: String = match cmd_cbmem {
         Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
         Err(e) => {
