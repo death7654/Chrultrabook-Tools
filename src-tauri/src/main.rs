@@ -3,12 +3,14 @@
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 use std::process::{Command, Stdio};
-
+use sysinfo::{NetworkExt, NetworksExt, ProcessExt, System, SystemExt, CpuExt};
 
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
             get_bios_version,
+            get_cpu_usage,
+            get_ram_usage,
             get_hostname,
             get_cpu_name,
             get_cpu_cores,
@@ -23,6 +25,33 @@ fn main() {
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
+
+#[tauri::command]
+async fn get_ram_usage() -> String {
+    let mut sys = System::new_all();
+    sys.refresh_all();
+    let ram_total = sys.total_memory();
+    let ram_usage = sys.used_memory();
+    let ram_percent = (ram_usage * 100 / ram_total);
+    return ram_percent.to_string();
+}
+
+#[tauri::command]
+async fn get_cpu_usage() -> String {
+    let mut sys = System::new_all();
+    sys.refresh_cpu(); // Refreshing CPU information.
+
+    let mut num: i32 = 0;
+    let mut total: i32 = 0;
+    for cpu in sys.cpus() {
+        let cpu_usage = cpu.cpu_usage();
+        total += 1;
+        num = num  + (cpu_usage as i32);
+    }
+
+    return (num / total).to_string();
+}
+
 
 #[tauri::command]
 async fn get_cpu_temp() -> String {
@@ -100,7 +129,7 @@ async fn get_cpu_name() -> String {
             String::from("") // This match returns a blank string.
         }
     };
-    let cpu_name= cpu_name_long.trim();
+    let cpu_name = cpu_name_long.trim();
     return String::from(cpu_name);
 }
 #[tauri::command]
@@ -136,7 +165,7 @@ async fn get_fan_rpm() -> String {
 
 #[tauri::command]
 fn set_fan_max() {
-   let _ = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+    let _ = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
         .args(["fanduty", "100"])
         .output();
     return;

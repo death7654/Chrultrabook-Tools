@@ -36,10 +36,6 @@
       "targets": "all",
       "identifier": "com.tauri.dev",
       "icon": [
-        "icons/32x32.png",
-        "icons/128x128.png",
-        "icons/128x128@2x.png",
-        "icons/icon.icns",
         "icons/icon.ico"
       ]
     },
@@ -53,7 +49,7 @@
         "resizable": false,
         "title": "chrultrabook-windows-controller",
         "width": 800,
-        "height": 600,
+        "height": 550,
         "transparent": true
       }
     ]

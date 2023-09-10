@@ -1,6 +1,6 @@
 import { appWindow } from "@tauri-apps/api/window";
 import { invoke } from "@tauri-apps/api/tauri";
-import { emit, listen } from '@tauri-apps/api/event'
+import { emit, listen } from "@tauri-apps/api/event";
 import { os } from "os-utils";
 import "./styles.css";
 const bioslong = await invoke("get_bios_version");
@@ -9,7 +9,6 @@ const coreslong = await invoke("get_cpu_cores");
 const hostname = await invoke("get_hostname");
 const cpunamelong = await invoke("get_cpu_name");
 const cbmemdata = await invoke("get_cbmem");
-
 
 document
   .getElementById("minimize")
@@ -22,6 +21,13 @@ document
 //homepage
 setInterval(async () => {
   const cpuTempFunction = await invoke("get_cpu_temp");
+  const ramUsage = await invoke("get_ram_usage");
+  const cpuUsage = await invoke("get_cpu_usage");
+  const stdout = await invoke("get_fan_rpm");
+
+  document.getElementById("ramPercentage").innerText = ramUsage + "%";
+  document.getElementById("cpuLoad").innerText = cpuUsage + "%";
+
   let sensors = 0;
   let temps = 0;
   cpuTempFunction.split("\n").forEach((line) => {
@@ -33,19 +39,16 @@ setInterval(async () => {
   });
   const averageTemp = temps / sensors;
   document.getElementById("cpuTemp").innerText = averageTemp.toFixed(0) + "°C";
+
   //sends information to fancontrol.html
+  const fanSpeed = stdout.toString().split(":").pop().trim();
+  document.getElementById("fanSpeed").innerText = fanSpeed + " RPM";
   document.getElementById("cpuTempFan").innerText =
     averageTemp.toFixed(0) + "°C";
 }, 1000);
-//fanspeed rpm
-setInterval(async () => {
-  const stdout = await invoke("get_fan_rpm");
-  const fanSpeed = stdout.toString().split(":").pop().trim();
-  document.getElementById("fanSpeed").innerText = fanSpeed + " RPM";
-}, 1000);
 
 function systeminfodatatransfer() {
-  console.log(bioslong)
+  console.log(bioslong);
   const bios = bioslong.split("\n")[1];
   const boardname = boardnamelong.split("\n")[1];
   const cores = coreslong.split("\n")[1];
@@ -58,8 +61,8 @@ function systeminfodatatransfer() {
   document.getElementById("cpuName").innerText = "CPU: " + cpuname;
 }
 
-setTimeout(() => { systeminfodatatransfer();
-  
+setTimeout(() => {
+  systeminfodatatransfer();
 }, 1500);
 //setFanSpeeds
 
