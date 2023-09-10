@@ -57,6 +57,7 @@ Note: Until Microsoft Verifys that this project is not a virus, it will be ident
 ## Authors
 
 * **Death7654** -  [Death7654](https://github.com/death7654) - *Frontend and Backend Development*
+* **AHQ Softwares** - [AHQ Softwares](https://github.com/ahqsoftwares) - *Backend optimization and development*
 * **Ethan O'Brien** - [Ethan O'Brien](https://github.com/ethanaobrien) - *Helped with frontend and backed optimizations, as well as bug fixes*
 * **Ingo Reitz** -  [Ingo Reitz](https://github.com/ninelore) - *Helped with frontend and backed optimizations, as well as bug fixes*
   
