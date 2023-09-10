@@ -1,9 +1,9 @@
 [package]
 name = "chrultrabook-windows-controller"
-version = "0.0.0"
-description = "A Tauri App"
+version = "2.0.0"
+description = "Chrultrabook Windows Controller"
 authors = ["Robinson Arysseril"]
-license = ""
+license = "GPL-3.0"
 repository = ""
 edition = "2021"
 

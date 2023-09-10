@@ -7,7 +7,7 @@
     "withGlobalTauri": false
   },
   "package": {
-    "productName": "chrultrabook-windows-controller",
+    "productName": "Chrultrabook Windows Controller",
     "version": "2.0.0"
   },
   "tauri": {
@@ -48,7 +48,7 @@
         "decorations": false,
         "fullscreen": false,
         "resizable": false,
-        "title": "chrultrabook-windows-controller",
+        "title": "Chrultrabook Windows Controller",
         "width": 800,
         "height": 550,
         "transparent": true

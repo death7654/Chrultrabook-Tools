@@ -41,19 +41,7 @@ setInterval(async () => {
     averageTemp.toFixed(0) + "°C";
 }, 1000);
 
-function systeminfodatatransfer() {
-  console.log(bioslong);
-  const bios = bioslong.split("\n")[1];
-  const boardname = boardnamelong.split("\n")[1];
-  const cores = coreslong.split("\n")[1];
-  const cpuname = cpunamelong.split("\n")[1];
 
-  document.getElementById("biosVersion").innerText = "Bios Version: " + bios;
-  document.getElementById("boardname").innerText = "Boardname: " + boardname;
-  document.getElementById("coreCPU").innerText = "Cores: " + cores + " Cores";
-  document.getElementById("hostname").innerText = "Hostname: " + hostname;
-  document.getElementById("cpuName").innerText = "CPU: " + cpuname;
-}
 
 setTimeout(async () => {
   const bioslong = await invoke("get_bios_version");
@@ -137,3 +125,5 @@ function copyTxt(htmlElement) {
 document.querySelector("#copyButton").addEventListener("click", () => {
   copyTxt(document.querySelector("#cbMemInfo"));
 });
+
+document.getElementById("githuburl").addEventListener('click', invoke('open_link'))
