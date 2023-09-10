@@ -12,6 +12,7 @@ fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
             get_bios_version,
+            open_link,
             get_cpu_usage,
             get_ram_usage,
             get_hostname,
@@ -212,3 +213,9 @@ async fn get_cbmem() -> String {
     };
     return String::from(cbmem);
 }
+#[tauri::command]
+async fn open_link(){
+    open::that("https://github.com/death7654/Chrultrabook-Windows-Controller");
+    return;
+}
+
