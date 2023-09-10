@@ -214,8 +214,7 @@ async fn get_cbmem() -> String {
     return String::from(cbmem);
 }
 #[tauri::command]
-async fn open_link(){
+async fn open_link() {
     open::that("https://github.com/death7654/Chrultrabook-Windows-Controller");
     return;
 }
-

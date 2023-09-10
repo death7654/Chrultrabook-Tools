@@ -41,8 +41,6 @@ setInterval(async () => {
     averageTemp.toFixed(0) + "°C";
 }, 1000);
 
-
-
 setTimeout(async () => {
   const bioslong = await invoke("get_bios_version");
   const boardnamelong = await invoke("get_board_name");
@@ -99,12 +97,11 @@ const buttonfanAuto = document.getElementById("fanAuto");
 buttonfanAuto.addEventListener("click", () => fanAuto());
 
 //
-function getcbMem(){
-  setTimeout(async ()=>{
+function getcbMem() {
+  setTimeout(async () => {
     const cbmemdata = await invoke("get_cbmem");
     document.getElementById("cbMemInfo").innerText = cbmemdata;
-
-  }, 1000)
+  }, 1000);
 }
 
 const buttoncbMem = document.getElementById("cbMem");
@@ -126,4 +123,6 @@ document.querySelector("#copyButton").addEventListener("click", () => {
   copyTxt(document.querySelector("#cbMemInfo"));
 });
 
-document.getElementById("githuburl").addEventListener('click', invoke('open_link'))
+document
+  .getElementById("githuburl")
+  .addEventListener("click", invoke("open_link"));
