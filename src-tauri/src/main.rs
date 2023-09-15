@@ -5,6 +5,7 @@
 use std::{
     os::windows::process::CommandExt,
     process::{Command, Stdio},
+    string,
 };
 use sysinfo::{CpuExt, NetworkExt, NetworksExt, ProcessExt, System, SystemExt};
 
@@ -24,7 +25,14 @@ fn main() {
             set_fan_max,
             set_fan_off,
             set_fan_auto,
-            get_cbmem
+            get_cbmem,
+            get_battery,
+            get_flash_chip,
+            get_ec_console,
+            get_spi_info,
+            get_ec_protocol,
+            get_temp_sensor,
+            get_power_delivery
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
@@ -214,9 +222,118 @@ async fn get_cbmem() -> String {
     return String::from(cbmem);
 }
 #[tauri::command]
-async fn get_battery_info(){
-    
+async fn get_ec_console() -> String {
+    let cmd_output: Result<std::process::Output, std::io::Error> =
+        std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+            .creation_flags(0x08000000)
+            .args(["console"])
+            .output();
+    let output: String = match cmd_output {
+        Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
+        Err(e) => {
+            println!("cbmemError `{}`.", e);
+            String::from("") // This match returns a blank string.
+        }
+    };
+    return String::from(output);
 }
+#[tauri::command]
+async fn get_battery() -> String {
+    let cmd_battery: Result<std::process::Output, std::io::Error> =
+        std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+            .creation_flags(0x08000000)
+            .args(["battery"])
+            .output();
+    let battery: String = match cmd_battery {
+        Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
+        Err(e) => {
+            println!("cbmemError `{}`.", e);
+            String::from("") // This match returns a blank string.
+        }
+    };
+    return String::from(battery);
+}
+#[tauri::command]
+async fn get_flash_chip() -> String {
+    let cmd_output: Result<std::process::Output, std::io::Error> =
+        std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+            .creation_flags(0x08000000)
+            .args(["chipinfo"])
+            .output();
+    let output: String = match cmd_output {
+        Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
+        Err(e) => {
+            println!("cbmemError `{}`.", e);
+            String::from("") // This match returns a blank string.
+        }
+    };
+    return String::from(output);
+}
+#[tauri::command]
+async fn get_spi_info() -> String {
+    let cmd_output: Result<std::process::Output, std::io::Error> =
+        std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+            .creation_flags(0x08000000)
+            .args(["flashspiinfo"])
+            .output();
+    let output: String = match cmd_output {
+        Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
+        Err(e) => {
+            println!("cbmemError `{}`.", e);
+            String::from("") // This match returns a blank string.
+        }
+    };
+    return String::from(output);
+}
+#[tauri::command]
+async fn get_ec_protocol() -> String {
+    let cmd_output: Result<std::process::Output, std::io::Error> =
+        std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+            .creation_flags(0x08000000)
+            .args(["protoinfo"])
+            .output();
+    let output: String = match cmd_output {
+        Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
+        Err(e) => {
+            println!("cbmemError `{}`.", e);
+            String::from("") // This match returns a blank string.
+        }
+    };
+    return String::from(output);
+}
+#[tauri::command]
+async fn get_temp_sensor() -> String {
+    let cmd_output: Result<std::process::Output, std::io::Error> =
+        std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+            .creation_flags(0x08000000)
+            .args(["tempsinfo", "all"])
+            .output();
+    let output: String = match cmd_output {
+        Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
+        Err(e) => {
+            println!("cbmemError `{}`.", e);
+            String::from("") // This match returns a blank string.
+        }
+    };
+    return String::from(output);
+}
+#[tauri::command]
+async fn get_power_delivery() -> String {
+    let cmd_output: Result<std::process::Output, std::io::Error> =
+        std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+            .creation_flags(0x08000000)
+            .args(["pdlog"])
+            .output();
+    let output: String = match cmd_output {
+        Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
+        Err(e) => {
+            println!("cbmemError `{}`.", e);
+            String::from("") // This match returns a blank string.
+        }
+    };
+    return String::from(output);
+}
+
 #[tauri::command]
 async fn open_link() {
     open::that("https://github.com/death7654/Chrultrabook-Windows-Controller");

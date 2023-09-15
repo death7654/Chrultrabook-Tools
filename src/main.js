@@ -1,7 +1,5 @@
 import { appWindow } from "@tauri-apps/api/window";
 import { invoke } from "@tauri-apps/api/tauri";
-import { emit, listen } from "@tauri-apps/api/event";
-import { os } from "os-utils";
 import "./styles.css";
 
 document
@@ -96,16 +94,59 @@ buttonfanOff.addEventListener("click", () => fanOff());
 const buttonfanAuto = document.getElementById("fanAuto");
 buttonfanAuto.addEventListener("click", () => fanAuto());
 
-//
-function getcbMem() {
-  setTimeout(async () => {
-    const cbmemdata = await invoke("get_cbmem");
-    document.getElementById("cbMemInfo").innerText = cbmemdata;
-  }, 1000);
+//system infopage
+const selected = document.querySelector(".selected");
+
+function getSystemInfo() {
+  if (selected.innerText == "Ram Info") {
+    setTimeout(async () => {
+      const cbmemdata = await invoke("get_cbmem");
+      document.getElementById("cbMemInfo").innerText = cbmemdata;
+    }, 1000);
+  } else if (selected.innerText == "EC Console Log") {
+    setTimeout(async () => {
+      const console = await invoke("get_ec_console");
+      document.getElementById("cbMemInfo").innerText = console;
+    }, 1000);
+  } else if (selected.innerText == "Battery Info") {
+    setTimeout(async () => {
+      const battery = await invoke("get_battery");
+      document.getElementById("cbMemInfo").innerText = battery;
+    }, 1000);
+  } else if (selected.innerText == "Flash Chip Info") {
+    setTimeout(async () => {
+      const flashChip = await invoke("get_flash_chip");
+      document.getElementById("cbMemInfo").innerText = flashChip;
+    }, 1000);
+  } else if (selected.innerText == "SPI Info") {
+    setTimeout(async () => {
+      const spi = await invoke("get_spi_info");
+      document.getElementById("cbMemInfo").innerText = spi;
+    }, 1000);
+  } else if (selected.innerText == "EC Protocol Info") {
+    setTimeout(async () => {
+      const protocol = await invoke("get_ec_protocol");
+      document.getElementById("cbMemInfo").innerText = protocol;
+    }, 1000);
+  } else if (selected.innerText == "Temp Sensor Info") {
+    setTimeout(async () => {
+      const temp_sensor = await invoke("get_temp_sensor");
+      document.getElementById("cbMemInfo").innerText = temp_sensor;
+    }, 1000);
+  } else if (selected.innerText == "Power Delivery Info") {
+    setTimeout(async () => {
+      const power_delivery = await invoke("get_power_delivery");
+      document.getElementById("cbMemInfo").innerText = power_delivery;
+    }, 1000);
+  } else {
+    document.getElementById("cbMemInfo").innerText = "Select Something";
+  }
 }
 
+//copy
+
 const buttoncbMem = document.getElementById("cbMem");
-buttoncbMem.addEventListener("click", () => getcbMem());
+buttoncbMem.addEventListener("click", () => getSystemInfo());
 
 function copyTxt(htmlElement) {
   if (!htmlElement) return;

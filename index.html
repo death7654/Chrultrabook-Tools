@@ -17,13 +17,12 @@
             <button class="closeButton" id="close">✖</button>
         </div>
     </div>
-    <div style="overflow-y: scroll; height: 100vh; border-bottom-right-radius: 20px;">
+    <div style="overflow-y: scroll; height: 100vh; border-bottom-right-radius: 20px;  border-top-right-radius: 20px;">
         <nav>
             <div class="logo-name">
                 <div class="logo-image">
                     <img class="logoFilter" src="./src/assets/Icons/sidenavbar/chrome.svg" alt="">
                 </div>
-
                 <span class="logo_name">Chrultrabook Tools</span>
             </div>
             <div class="menu-items">
@@ -134,28 +133,58 @@
                 </div>
             </div>
         </section>
+        <!--system information-->
         <section id="sectionCbmem" class="dashboard">
 
             <div class="dash-content">
                 <div class="overview">
                     <div class="title">
                         <img src="./src/assets/Icons/cbmem/bugcbmemdash.svg">
-                        <span class="text">Memory Diagnostics</span>
+                        <span class="text">System Information</span>
                     </div>
 
                 </div>
+
                 <div class="cbmemButtons">
-                    <button id="cbMem" href="#" class="cbMem">Run Diagnostics</button>
-                    <button id="copyButton" class="copyButton">Copy</button>
+                    <div class="dropdown">
+                        <div class="select">
+                            <span class="selected">Select</span>
+                            <div class="caret"></div>
+                        </div>
+                        <ul class="menu">
+                            <!--If you change anything here make sure to change the name in main.js-->
+                            <li>Ram Info</li>
+                            <li>EC Console Log</li>
+                            <li>Battery Info</li>
+                            <li>Flash Chip Info</li>
+                            <li>SPI Info</li>
+                            <li>EC Protocol Info</li>
+                            <li>Temp Sensor Info</li>
+                            <li>Power Delivery Info</li>
+                            <!--everything else shold be fine, unless you change the class names-->
+                        </ul>
+                    </div>
+                    <button id="cbMem" href="#" class="cbMem">Get Info</button>
+                    <button id="copyButton" class="copyButton">
+                        <svg aria-hidden="true" focusable="false" role="img" class="octicon octicon-copy"
+                            viewBox="0 0 16 16" width="16" height="16" fill="currentColor"
+                            style="display: inline-block; user-select: none; vertical-align: text-bottom;">
+                            <path
+                                d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z">
+                            </path>
+                            <path
+                                d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z">
+                            </path>
+                        </svg></button>
                 </div>
                 <pre class="pre">
-                <span class="cbmem">
-                    <code class ="code" id="cbMemInfo"></code>
-                </span>
-            </pre>
-
+                        <span class="cbmem">
+                            <code class ="code" id="cbMemInfo"></code>
+                        </span>
+                    </pre>
 
         </section>
+
         <section id="sectionAbout" class="dashboard" style="overflow-y:scroll; overflow-x:hidden">
             <div class="aboutText">
                 <br>
@@ -287,6 +316,35 @@
 
         });
 
+        const dropdowns = document.querySelectorAll('.dropdown');
+        dropdowns.forEach(dropdown => {
+            const select = dropdown.querySelector('.select');
+            const caret = dropdown.querySelector('.caret');
+            const menu = dropdown.querySelector('.menu');
+            const options = dropdown.querySelectorAll('.menu li');
+            const selected = dropdown.querySelector('.selected');
+
+            select.addEventListener('click', () => {
+                select.classList.toggle('select-clicked');
+                caret.classList.toggle('caret-rotate');
+                menu.classList.toggle('menu-open');
+            });
+
+            options.forEach(option => {
+                option.addEventListener('click', () => {
+                    selected.innerText = option.innerText;
+                    select.classList.remove('select-clicked');
+                    caret.classList.remove('caret-rotate');
+                    menu.classList.remove('menu-open');
+
+                    options.forEach(option => {
+                        option.classList.remove('active')
+                    });
+                    option.classList.add('active');
+                });
+            });
+        });
     </script>
+</body>
 
 </html>

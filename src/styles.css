@@ -1,10 +1,12 @@
 /* ===== Google Font Import - Poppins ===== */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap");
+
 * {
   user-select: none;
   -webkit-user-select: none;
   margin: 0;
   padding: 0;
+  border: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
   color: var(--text-color);
@@ -20,6 +22,7 @@
   z-index: 100;
   -webkit-app-region: drag;
 }
+
 .appFrame .closeButton {
   -webkit-app-region: none;
   position: absolute;
@@ -44,11 +47,13 @@
   -webkit-transition-property: box-shadow, transform;
   transition-property: box-shadow, transform;
 }
+
 .appFrame .closeButton:hover {
   color: black;
   transition: all 0.3s ease-out;
   transform: scale(1.1);
 }
+
 .appFrame .closeButton:active {
   background-color: #bf4942;
 }
@@ -77,11 +82,13 @@
   -webkit-transition-property: box-shadow, transform;
   transition-property: box-shadow, transform;
 }
+
 .appFrame .minimizeButton:hover {
   color: black;
   transition: all 0.3s ease-out;
   transform: scale(1.1);
 }
+
 .appFrame .minimizeButton:active {
   background-color: #bf8e22;
 }
@@ -91,6 +98,7 @@
   padding-right: 8px;
   text-align: right;
 }
+
 /*default colors */
 :root {
   /* ===== Colors ===== */
@@ -112,17 +120,16 @@
   --getcbMem-color: #d170e9;
   --copy-color: #007fff;
   --cbmemCode-color: #d6d9de;
+  --dropdown-color: #d5d5d5;
+  --hover-color: #b3b4b6;
   --systeminfo-color: #d6d9de;
   --title-icon-color: #ccc;
   --switch-color: #fcefef;
-  --homeFilter: invert(27%) sepia(74%) saturate(4443%) hue-rotate(119deg)
-    brightness(97%) contrast(73%);
-  --fanFilter: invert(54%) sepia(61%) saturate(595%) hue-rotate(186deg)
-    brightness(95%) contrast(94%);
-  --diagnosticFilter: invert(88%) sepia(31%) saturate(6481%) hue-rotate(343deg)
-    brightness(103%) contrast(101%);
-  --aboutFilter: invert(39%) sepia(80%) saturate(4385%) hue-rotate(349deg)
-    brightness(102%) contrast(87%);
+  --select-color: #f2f2f2;
+  --homeFilter: invert(27%) sepia(74%) saturate(4443%) hue-rotate(119deg) brightness(97%) contrast(73%);
+  --fanFilter: invert(54%) sepia(61%) saturate(595%) hue-rotate(186deg) brightness(95%) contrast(94%);
+  --diagnosticFilter: invert(88%) sepia(31%) saturate(6481%) hue-rotate(343deg) brightness(103%) contrast(101%);
+  --aboutFilter: invert(39%) sepia(80%) saturate(4385%) hue-rotate(349deg) brightness(102%) contrast(87%);
 
   /* ====== Transition ====== */
   --tran-05: all 0.5s ease;
@@ -149,43 +156,48 @@ body.dark {
   --getcbMem-color: #fc3b52;
   --copy-color: #00bae2;
   --cbmemCode-color: #3d3c3c;
+  --hover-color: #343333;
+  --dropdown-color: #413f3f;
   --systeminfo-color: #3d3c3c;
   --title-icon-color: #ccc;
   --switch-color: #221824;
-  --logoFilter: invert(100%) sepia(0%) saturate(0%) hue-rotate(95deg)
-    brightness(103%) contrast(107%);
-  --homeFilter: invert(82%) sepia(53%) saturate(335%) hue-rotate(97deg)
-    brightness(101%) contrast(102%);
-  --fanFilter: invert(44%) sepia(33%) saturate(4509%) hue-rotate(182deg)
-    brightness(99%) contrast(108%);
-  --diagnosticFilter: invert(74%) sepia(25%) saturate(5073%) hue-rotate(339deg)
-    brightness(95%) contrast(99%);
-  --aboutFilter: invert(27%) sepia(79%) saturate(1994%) hue-rotate(320deg)
-    brightness(90%) contrast(93%);
+  --select-color: #353434;
+  --logoFilter: invert(100%) sepia(0%) saturate(0%) hue-rotate(95deg) brightness(103%) contrast(107%);
+  --homeFilter: invert(82%) sepia(53%) saturate(335%) hue-rotate(97deg) brightness(101%) contrast(102%);
+  --fanFilter: invert(44%) sepia(33%) saturate(4509%) hue-rotate(182deg) brightness(99%) contrast(108%);
+  --diagnosticFilter: invert(74%) sepia(25%) saturate(5073%) hue-rotate(339deg) brightness(95%) contrast(99%);
+  --aboutFilter: invert(27%) sepia(79%) saturate(1994%) hue-rotate(320deg) brightness(90%) contrast(93%);
 }
 
 .logoFilter {
   filter: var(--logoFilter);
 }
+
 .homeFilter {
   filter: var(--homeFilter);
 }
+
 .fanFilter {
   filter: var(--fanFilter);
 }
+
 .diagnosticFilter {
   filter: var(--diagnosticFilter);
 }
+
 .aboutFilter {
   filter: var(--aboutFilter);
 }
+
 /* === Custom Scroll Bar CSS === */
 ::-webkit-scrollbar {
   width: 100%;
 }
+
 ::-webkit-scrollbar-track {
   background: white;
 }
+
 ::-webkit-scrollbar-thumb {
   background: lightslategray;
   border-radius: 12px;
@@ -200,6 +212,7 @@ body.dark::-webkit-scrollbar-thumb:hover,
 body.dark .activity-data::-webkit-scrollbar-thumb:hover {
   background: #3a3b3c;
 }
+
 /*side nav begins*/
 nav {
   border-top-left-radius: 20px;
@@ -214,6 +227,7 @@ nav {
   border-right: 1px solid var(--border-color);
   transition: var(--tran-05);
 }
+
 nav.close {
   width: 73px;
 }
@@ -224,6 +238,7 @@ nav .logo-name {
   position: relative;
   top: 0px;
 }
+
 nav .logo-image {
   display: flex;
   justify-content: center;
@@ -231,6 +246,7 @@ nav .logo-image {
   color: var(--text-color);
   transition: var(--tran-05);
 }
+
 nav .logo-image img {
   width: 40px;
   object-fit: cover;
@@ -246,10 +262,12 @@ nav .logo-name .logo_name {
   margin-left: 14px;
   transition: var(--tran-05);
 }
+
 nav.close .logo_name {
   opacity: 0;
   pointer-events: none;
 }
+
 nav .menu-items {
   margin-top: 40px;
   height: calc(100% - 90px);
@@ -257,9 +275,11 @@ nav .menu-items {
   flex-direction: column;
   justify-content: space-between;
 }
+
 .menu-items li {
   list-style: none;
 }
+
 .menu-items li a {
   display: flex;
   align-items: center;
@@ -267,6 +287,7 @@ nav .menu-items {
   text-decoration: none;
   position: relative;
 }
+
 .nav-links li a:hover:before {
   content: "";
   position: absolute;
@@ -276,9 +297,11 @@ nav .menu-items {
   border-radius: 50%;
   background-color: var(--primary-color);
 }
+
 body.dark li a:hover:before {
   background-color: var(--text-color);
 }
+
 .menu-items li a i {
   font-size: 24px;
   min-width: 45px;
@@ -288,6 +311,7 @@ body.dark li a:hover:before {
   justify-content: center;
   color: var(--black-light-color);
 }
+
 .menu-items li a .link-name {
   font-size: 18px;
   font-weight: 400;
@@ -295,27 +319,33 @@ body.dark li a:hover:before {
   color: var(--black-light-color);
   transition: var(--tran-05);
 }
+
 nav.close li a .link-name {
   opacity: 0;
   pointer-events: none;
 }
+
 .nav-links li a:hover i,
 .nav-links li a:hover .link-name {
   color: var(--primary-color);
 }
+
 body.dark .nav-links li a:hover i,
 body.dark .nav-links li a:hover .link-name {
   color: var(--text-color);
 }
+
 .menu-items .dark-mode {
   padding-top: 10px;
   border-top: 1px solid var(--border-color);
 }
+
 .menu-items .mode {
   display: flex;
   align-items: center;
   white-space: nowrap;
 }
+
 .menu-items .mode-toggle {
   position: absolute;
   left: 14px;
@@ -336,6 +366,7 @@ body.dark .nav-links li a:hover .link-name {
   border-radius: 25px;
   background-color: var(--toggle-color);
 }
+
 .switch:before {
   content: "";
   position: absolute;
@@ -348,6 +379,7 @@ body.dark .nav-links li a:hover .link-name {
   border-radius: 50%;
   transition: var(--tran-03);
 }
+
 body.dark .switch:before {
   left: 20px;
 }
@@ -366,10 +398,12 @@ body.dark .switch:before {
   padding: 10px 14px;
   transition: var(--tran-05);
 }
-nav.close ~ .dashboard {
+
+nav.close~.dashboard {
   left: 73px;
   width: calc(100% - 73px);
 }
+
 .dashboard .top {
   border-top-right-radius: 20px;
   position: fixed;
@@ -384,10 +418,12 @@ nav.close ~ .dashboard {
   transition: var(--tran-05);
   z-index: 10;
 }
-nav.close ~ .dashboard .top {
+
+nav.close~.dashboard .top {
   left: 73px;
   width: calc(100% - 73px);
 }
+
 .dashboard .top .sidebar-toggle {
   font-size: 26px;
   color: var(--text-color);
@@ -400,14 +436,17 @@ nav.close ~ .dashboard .top {
   width: 40px;
   border-radius: 50%;
 }
+
 .dashboard .dash-content {
   padding-top: 50px;
 }
+
 .dash-content .title {
   display: flex;
   align-items: center;
   margin: 60px 0 30px 0;
 }
+
 .dash-content .title i {
   position: relative;
   height: 35px;
@@ -420,18 +459,21 @@ nav.close ~ .dashboard .top {
   justify-content: center;
   font-size: 24px;
 }
+
 .dash-content .title .text {
   font-size: 24px;
   font-weight: 500;
   color: var(--text-color);
   margin-left: 10px;
 }
+
 .dash-content .boxes {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
 }
+
 .dash-content .boxes .box {
   display: flex;
   flex-direction: column;
@@ -442,37 +484,45 @@ nav.close ~ .dashboard .top {
   background-color: var(--box1-color);
   transition: var(--tran-05);
 }
+
 .boxes .box i {
   font-size: 35px;
   color: var(--text-color);
 }
+
 .boxes .box .text {
   white-space: nowrap;
   font-size: 18px;
   font-weight: 500;
   color: var(--text-color);
 }
+
 .boxes .box .number {
   font-size: 40px;
   font-weight: 500;
   color: var(--text-color);
 }
+
 .boxes .box .cpuLoad {
   font-size: 40px;
   font-weight: 500;
 }
+
 .boxes .box.cpuLoad {
   background-color: var(--box1-color);
   color: var(--text-color);
 }
+
 .boxes .box.cpuTemps {
   background-color: var(--box2-color);
   color: var(--text-color);
 }
+
 .boxes .box.ram {
   background-color: var(--box3-color);
   color: var(--text-color);
 }
+
 /*fan section */
 
 .dash-content .boxes.fanSpeed {
@@ -483,12 +533,14 @@ nav.close ~ .dashboard .top {
   font-size: 35px;
   color: var(--text-color);
 }
+
 .boxes .box .text {
   white-space: nowrap;
   font-size: 18px;
   font-weight: 500;
   color: black;
 }
+
 .boxes .box .number {
   font-size: 48px;
   font-weight: 500;
@@ -499,20 +551,24 @@ nav.close ~ .dashboard .top {
   font-size: 0px;
   color: white;
 }
+
 .boxes .box.tempCPU {
   display: flex;
   background-color: var(--box5-color);
   position: relative;
   bottom: 102px;
 }
+
 .boxes .box.fanSpeed {
   background-color: var(--box4-color);
   position: relative;
   bottom: 102px;
 }
+
 .boxes .box.hidden {
   background-color: var(--panel-color);
 }
+
 .FanSpeedText {
   position: relative;
   top: 140px;
@@ -521,7 +577,7 @@ nav.close ~ .dashboard .top {
 .activeButton {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   -webkit-transform: scale(1.1);
-  transform: scale(1.1);
+  transform: scale(1.07);
 }
 
 .fanButtons {
@@ -550,6 +606,7 @@ nav.close ~ .dashboard .top {
   -webkit-transition-property: box-shadow, transform;
   transition-property: box-shadow, transform;
 }
+
 .FanAuto:hover,
 .FanAuto:active,
 .FanOff:hover,
@@ -558,7 +615,7 @@ nav.close ~ .dashboard .top {
 .FanMax:active {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   -webkit-transform: scale(1.1);
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .FanAuto {
@@ -581,20 +638,22 @@ nav.close ~ .dashboard .top {
   position: relative;
   top: -10px;
 }
+
 .cbMem {
   position: relative;
-  left: 10px;
+  top: 185px;
   font-family: "Roboto", sans-serif;
   font-size: 18px;
   font-weight: bold;
-  background: var(--getcbMem-color);
-  width: calc(45% - 15px);
+  background: var(--cbmemCode-color);
+  color: white;
+  width: calc(100%);
   padding: 20px;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
-  color: white;
-  border-radius: 5px;
+  border: #000;
+  border-radius: 8px;
   cursor: pointer;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   -webkit-transition-duration: 0.3s;
@@ -603,57 +662,145 @@ nav.close ~ .dashboard .top {
   transition-property: box-shadow, transform;
   border-color: #000000;
 }
+
 .cbMem:hover,
 .cbMem:active {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   -webkit-transform: scale(1.1);
-  transform: scale(1.1);
+  transform: scale(1.01);
+  background: var(--getcbMem-color);
+  color: white;
+  transition: 0.3s;
 }
+
 .copyButton {
   position: relative;
-  left: 35px;
+  top: -40px;
+  left: calc(95%);
   font-family: "Roboto", sans-serif;
-  font-size: 18px;
   font-weight: bold;
-  background: var(--copy-color);
-  width: calc(45% - 15px);
-  padding: 20px;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
+  font-size: 10%;
+  background: transparent;
+  width: calc(1% - 15);
+  padding: 5px;
   color: white;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  -webkit-transition-duration: 0.3s;
   transition-duration: 0.3s;
-  -webkit-transition-property: box-shadow, transform;
-  transition-property: box-shadow, transform;
-  border-color: #000000;
+  z-index: 1;
+  border: none;
 }
+
 .copyButton:hover,
-.copyButton:focus,
-.copyButton:active {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
+.copyButton:focus {
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
 }
+
+.dropdown * {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.select {
+  background: var(--dropdown-color);
+  color: var(--text-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px #2a2f3b;
+  border-radius: 0.5em;
+  padding: 1em;
+  cursor: pointer;
+  transition: var(--tran-03);
+}
+
+.select-clicked {
+  border: 2px transparent solid;
+  box-shadow: 0 0 0.8em transparent;
+}
+
+.select:hover {
+  background: var(--hover-color);
+}
+
+.caret {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #fff;
+  transition: var(--tran-05);
+}
+
+.caret-rotate {
+  transform: rotate(180deg);
+}
+
+.menu {
+  list-style: none;
+  padding: 0.2em 0.5em;
+  background: var(--dropdown-color);
+  border: 1px #323741 solid;
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+  border-radius: 0.5em;
+  color: var(--text-color);
+  position: absolute;
+  top: 4em;
+  left: 50%;
+  width: 100%;
+  transform: translateX(-50%);
+  opacity: 0;
+  display: none;
+  transition: 0.2s;
+  z-index: 25;
+}
+
+.menu li {
+  padding: 0.7em 0.5em;
+  margin: 0.3em 0;
+  border-radius: 0.5em;
+  cursor: pointer;
+}
+
+.menu li:hover {
+  background-color: var(--hover-color);
+}
+
+.active {
+  background-color: var(--hover-color);
+}
+
+.menu-open {
+  display: block;
+  opacity: 1;
+  height: 140px;
+  overflow-y: scroll;
+}
+
 
 .pre {
   height: 500px;
   position: relative;
-  top: 30px;
+  top: -80px;
   background-color: var(--cbmemCode-color);
   border-radius: 10px;
   height: 150px;
-  width: calc(100% - 15px);
+  width: calc(100%);
   overflow-y: scroll;
 }
+
+.code {
+  padding: 20px;
+}
+
+
 /*main html file ends */
 .hiddentext {
   font-size: 0px;
   color: var(--panel-color);
 }
+
 .tooltip {
   position: relative;
   display: inline-block;
@@ -710,9 +857,11 @@ nav.close ~ .dashboard .top {
   top: 40px;
   border-radius: 20px;
 }
+
 .dash-content .overview .systemInfoText {
   padding: 20px;
 }
+
 #githuburl {
   display: none;
   position: relative;
@@ -734,6 +883,7 @@ nav.close ~ .dashboard .top {
   -webkit-transition-property: box-shadow, transform;
   transition-property: box-shadow, transform;
 }
+
 #githuburl:hover,
 #githuburl:active {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -747,41 +897,51 @@ nav.close ~ .dashboard .top {
   nav {
     width: 73px;
   }
+
   nav.close {
     width: 250px;
   }
+
   nav .logo_name {
     opacity: 0;
     pointer-events: none;
   }
+
   nav.close .logo_name {
     opacity: 1;
     pointer-events: auto;
   }
+
   nav li a .link-name {
     opacity: 0;
     pointer-events: none;
   }
+
   nav.close li a .link-name {
     opacity: 1;
     pointer-events: auto;
   }
-  nav ~ .dashboard {
+
+  nav~.dashboard {
     left: 73px;
     width: calc(100% - 73px);
   }
-  nav.close ~ .dashboard {
+
+  nav.close~.dashboard {
     left: 250px;
     width: calc(100% - 250px);
   }
-  nav ~ .dashboard .top {
+
+  nav~.dashboard .top {
     left: 73px;
     width: calc(100% - 73px);
   }
-  nav.close ~ .dashboard .top {
+
+  nav.close~.dashboard .top {
     left: 250px;
     width: calc(100% - 250px);
   }
+
   .activity .activity-data {
     overflow-x: scroll;
   }
@@ -793,47 +953,58 @@ nav.close ~ .dashboard .top {
     margin-top: 15px;
   }
 }
+
 @media (max-width: 560px) {
   .dash-content .boxes .box {
     width: 100%;
   }
 }
+
 @media (max-width: 400px) {
   nav {
     width: 0px;
   }
+
   nav.close {
     width: 73px;
   }
+
   nav .logo_name {
     opacity: 0;
     pointer-events: none;
   }
+
   nav.close .logo_name {
     opacity: 0;
     pointer-events: none;
   }
+
   nav li a .link-name {
     opacity: 0;
     pointer-events: none;
   }
+
   nav.close li a .link-name {
     opacity: 0;
     pointer-events: none;
   }
-  nav ~ .dashboard {
+
+  nav~.dashboard {
     left: 0;
     width: 100%;
   }
-  nav.close ~ .dashboard {
+
+  nav.close~.dashboard {
     left: 73px;
     width: calc(100% - 73px);
   }
-  nav ~ .dashboard .top {
+
+  nav~.dashboard .top {
     left: 0;
     width: 100%;
   }
-  nav.close ~ .dashboard .top {
+
+  nav.close~.dashboard .top {
     left: 0;
     width: 100%;
   }
