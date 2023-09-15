@@ -98,12 +98,22 @@ buttonfanAuto.addEventListener("click", () => fanAuto());
 const selected = document.querySelector(".selected");
 
 function getSystemInfo() {
-  if (selected.innerText == "Ram Info") {
+  if (selected.innerText == "Boot Timestamps") {
     setTimeout(async () => {
       const cbmemdata = await invoke("get_cbmem");
       document.getElementById("cbMemInfo").innerText = cbmemdata;
     }, 1000);
-  } else if (selected.innerText == "EC Console Log") {
+  } else if (selected.innerText == "Coreboot Log") {
+    setTimeout(async () => {
+      const coreboot = await invoke("get_coreboot");
+      document.getElementById("cbMemInfo").innerText = coreboot;
+    }, 1000);
+  }else if (selected.innerText == "Coreboot Extended Log") {
+    setTimeout(async () => {
+      const corebootlong = await invoke("get_coreboot_long");
+      document.getElementById("cbMemInfo").innerText = corebootlong;
+    }, 1000);
+  }else if (selected.innerText == "EC Console Log") {
     setTimeout(async () => {
       const console = await invoke("get_ec_console");
       document.getElementById("cbMemInfo").innerText = console;
@@ -113,7 +123,7 @@ function getSystemInfo() {
       const battery = await invoke("get_battery");
       document.getElementById("cbMemInfo").innerText = battery;
     }, 1000);
-  } else if (selected.innerText == "Flash Chip Info") {
+  } else if (selected.innerText == "EC Chip Info") {
     setTimeout(async () => {
       const flashChip = await invoke("get_flash_chip");
       document.getElementById("cbMemInfo").innerText = flashChip;

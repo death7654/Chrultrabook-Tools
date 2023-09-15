@@ -26,6 +26,8 @@ fn main() {
             set_fan_off,
             set_fan_auto,
             get_cbmem,
+            get_coreboot,
+            get_coreboot_long,
             get_battery,
             get_flash_chip,
             get_ec_console,
@@ -220,6 +222,38 @@ async fn get_cbmem() -> String {
         }
     };
     return String::from(cbmem);
+}
+#[tauri::command]
+async fn get_coreboot() -> String {
+    let cmd_output: Result<std::process::Output, std::io::Error> =
+        std::process::Command::new("C:\\Program Files\\crosec\\cbmem")
+            .creation_flags(0x08000000)
+            .args(["-c1"])
+            .output();
+    let output: String = match cmd_output {
+        Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
+        Err(e) => {
+            println!("cbmemError `{}`.", e);
+            String::from("") // This match returns a blank string.
+        }
+    };
+    return String::from(output);
+}
+#[tauri::command]
+async fn get_coreboot_long() -> String {
+    let cmd_output: Result<std::process::Output, std::io::Error> =
+        std::process::Command::new("C:\\Program Files\\crosec\\cbmem")
+            .creation_flags(0x08000000)
+            .args(["-c"])
+            .output();
+    let output: String = match cmd_output {
+        Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
+        Err(e) => {
+            println!("cbmemError `{}`.", e);
+            String::from("") // This match returns a blank string.
+        }
+    };
+    return String::from(output);
 }
 #[tauri::command]
 async fn get_ec_console() -> String {
