@@ -646,7 +646,7 @@ nav.close~.dashboard .top {
   font-size: 18px;
   font-weight: bold;
   background: var(--cbmemCode-color);
-  color: white;
+  color: var(--text-color);
   width: calc(100%);
   padding: 20px;
   text-align: center;
@@ -683,7 +683,6 @@ nav.close~.dashboard .top {
   background: transparent;
   width: calc(1% - 15);
   padding: 5px;
-  color: white;
   border-radius: 10px;
   cursor: pointer;
   transition-duration: 0.3s;
