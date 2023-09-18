@@ -252,7 +252,21 @@ async fn get_hostname() -> String {
 #[tauri::command]
 async fn get_fan_rpm() -> String {
     #[cfg(target_os = "linux")]
-    return "Unknown".into();
+    {
+        let cmd_fan_rpm: Result<std::process::Output, std::io::Error> =
+            std::process::Command::new("./src-tauri/bin/ectool")
+                .creation_flags(0x08000000)
+                .args(["pwmgetfanrpm"])
+                .output();
+        let fan_rpm: String = match cmd_fan_rpm {
+            Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
+            Err(e) => {
+                println!("fanRPMError `{}`.", e);
+                String::from("") // This match returns a blank string.
+            }
+        };
+        String::from(fan_rpm)
+    }
 
     #[cfg(windows)]
     {
