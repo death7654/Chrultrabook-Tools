@@ -255,7 +255,6 @@ async fn get_fan_rpm() -> String {
     {
         let cmd_fan_rpm: Result<std::process::Output, std::io::Error> =
             std::process::Command::new("./src-tauri/bin/ectool")
-                .creation_flags(0x08000000)
                 .args(["pwmgetfanrpm"])
                 .output();
         let fan_rpm: String = match cmd_fan_rpm {
