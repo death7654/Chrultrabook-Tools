@@ -53,24 +53,15 @@ setInterval(async () => {
 
 setTimeout(async () => {
   const hostname = await invoke("get_hostname");
-  const bioslong = await invoke("get_bios_version");
-  const boardnamelong = await invoke("get_board_name");
-  const coreslong = await invoke("get_cpu_cores");
-  const cpunamelong = await invoke("get_cpu_name");
-
-  function systeminfodatatransfer() {
-    const bios = bioslong.split("\n")[1];
-    const boardname = boardnamelong.split("\n")[1];
-    const cores = coreslong.split("\n")[1];
-    const cpuname = cpunamelong.split("\n")[1];
-
-    document.getElementById("biosVersion").innerText = "Bios Version: " + bios;
-    document.getElementById("boardname").innerText = "Boardname: " + boardname;
-    document.getElementById("coreCPU").innerText = "Cores: " + cores + " Cores";
-    document.getElementById("hostname").innerText = "Hostname: " + hostname;
-    document.getElementById("cpuName").innerText = "CPU: " + cpuname;
-  }
-  systeminfodatatransfer();
+  const bios = await invoke("get_bios_version");
+  const boardname = await invoke("get_board_name");
+  const cores = await invoke("get_cpu_cores");
+  const cpuname = await invoke("get_cpu_name");
+  document.getElementById("biosVersion").innerText = "Bios Version: " + bios;
+  document.getElementById("boardname").innerText = "Boardname: " + boardname;
+  document.getElementById("coreCPU").innerText = "Cores: " + cores + " Cores";
+  document.getElementById("hostname").innerText = "Hostname: " + hostname;
+  document.getElementById("cpuName").innerText = "CPU: " + cpuname;
 }, 1500);
 //setFanSpeeds
 

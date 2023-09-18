@@ -113,15 +113,15 @@ async fn get_bios_version() -> String {
                 .creation_flags(0x08000000)
                 .args(["bios", "get", "smbiosbiosversion"])
                 .output();
-        let bioslong: String = match cmd_bios {
-            Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
-            Err(e) => {
-                println!("biosError `{}`.", e);
-                String::from("") // This match returns a blank string.
-            }
-        };
-        let bios = bioslong.trim();
-        return String::from(bios);
+            let bioslong: String = match cmd_bios {
+            Ok(output) => String::from_utf8_lossy(&output.stdout).split("\n").map(|x| x.to_string()).collect::<Vec<String>>()[1].clone(),
+                    Err(e) => {
+                    println!("biosError `{}`.", e);
+                    String::from(" ") // This match returns a blank string.
+                }
+            };
+            let bios = bioslong.trim();
+            return String::from(bios);
     }
 }
 #[tauri::command]
@@ -138,7 +138,7 @@ async fn get_board_name() -> String {
                 .output();
 
         let boardnamelong: String = match cmd_boardname {
-            Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
+            Ok(output) => String::from_utf8_lossy(&output.stdout).split("\n").map(|x| x.to_string()).collect::<Vec<String>>()[1].clone(),
             Err(e) => {
                 println!("boardnameError `{}`.", e);
                 String::from("") // This match returns a blank string.
@@ -177,7 +177,7 @@ async fn get_cpu_cores() -> String {
                 .args(["cpu", "get", "NumberOfLogicalProcessors"])
                 .output();
         let cpu_cores_long: String = match cmd_core_count {
-            Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
+            Ok(output) => String::from_utf8_lossy(&output.stdout).split("\n").map(|x| x.to_string()).collect::<Vec<String>>()[1].clone(),
             Err(e) => {
                 println!("cpuCoresError `{}`.", e);
                 String::from("") // This match returns a blank string.
@@ -215,7 +215,7 @@ async fn get_cpu_name() -> String {
                 .args(["cpu", "get", "name"])
                 .output();
         let cpu_name_long: String = match cmd_core_name {
-            Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
+            Ok(output) => String::from_utf8_lossy(&output.stdout).split("\n").map(|x| x.to_string()).collect::<Vec<String>>()[1].clone(),
             Err(e) => {
                 println!("cpunamesError `{}`.", e);
                 String::from("") // This match returns a blank string.
