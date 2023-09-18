@@ -155,7 +155,6 @@ async fn get_cpu_cores() -> String {
     {
         let cmd_core_count: Result<std::process::Output, std::io::Error> =
             std::process::Command::new("grep")
-                .creation_flags(0x08000000)
                 .args(["-c", "'model name'", "/proc/cpuinfo"])
                 .output();
         let cpu_cores_long: String = match cmd_core_count {
@@ -194,7 +193,6 @@ async fn get_cpu_name() -> String {
     {
         let cmd_core_name: Result<std::process::Output, std::io::Error> =
             std::process::Command::new("grep")
-                .creation_flags(0x08000000)
                 .args(["-m", "1", "'model name'", "/proc/cpuinfo"])
                 .output();
         let cpu_name_long: String = match cmd_core_name {
