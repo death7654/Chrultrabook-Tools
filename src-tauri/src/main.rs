@@ -253,8 +253,8 @@ async fn get_hostname() -> String {
 async fn get_fan_rpm() -> String {
     #[cfg(target_os = "linux")]
     {
-        let cmd_fan_rpm: Result<std::process::Output, std::io::Error> =
-            std::process::Command::new("./src-tauri/bin/ectool")
+        let cmd_fan_rpm (mut rx, mut child): Result<std::process::Output, std::io::Error> =
+        Command::new_sidecar("ectool")
                 .args(["pwmgetfanrpm"])
                 .output();
         let fan_rpm: String = match cmd_fan_rpm {
