@@ -219,8 +219,8 @@ async fn get_cpu_name() -> String {
     #[cfg(target_os = "linux")]
     {
         let cmd_core_name: Result<std::process::Output, std::io::Error> =
-            std::process::Command::new("grep")
-                .args(["-m", "1", "'model name'", "/proc/cpuinfo"])
+            std::process::Command::new("lscpu")
+                .args(["--parse=MODELNAME"])
                 .output();
         let cpu_name_long: String = match cmd_core_name {
             Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
@@ -229,7 +229,7 @@ async fn get_cpu_name() -> String {
                 String::from("") // This match returns a blank string.
             }
         };
-        let cpu_name = cpu_name_long.substring(18, 100).trim();
+        let cpu_name = cpu_name_long.split('\n').collect::<Vec<_>>()[4];
         return String::from(cpu_name);
     }
     #[cfg(windows)]
