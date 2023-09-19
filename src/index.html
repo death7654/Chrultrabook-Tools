@@ -274,16 +274,16 @@
                 cbmem.style.display = "none";
                 about.style.display = "block";
             }
-            document.getElementById("home").addEventListener("click", () => {
+            document.getElementById("home").addEventListener("mousedown", () => {
                 homeButton();
             });
-            document.getElementById("fan").addEventListener("click", () => {
+            document.getElementById("fan").addEventListener("mousedown", () => {
                 fanButton();
             });
-            document.getElementById("diagnostics").addEventListener("click", () => {
+            document.getElementById("diagnostics").addEventListener("mousedown", () => {
                 cbmemButton();
             });
-            document.getElementById("information").addEventListener("click", () => {
+            document.getElementById("information").addEventListener("mousedown", () => {
                 infoButton();
             });
 
@@ -299,7 +299,7 @@
                 sidebar.classList.toggle("close");
             }
 
-            modeToggle.addEventListener("click", () => {
+            modeToggle.addEventListener("mousedown", () => {
                 body.classList.toggle("dark");
                 if (body.classList.contains("dark")) {
                     localStorage.setItem("mode", "dark");
@@ -308,7 +308,7 @@
                 }
             });
 
-            sidebarToggle.addEventListener("click", () => {
+            sidebarToggle.addEventListener("mousedown", () => {
                 sidebar.classList.toggle("close");
                 localStorage.setItem(
                     "status",
@@ -327,14 +327,14 @@
             const options = dropdown.querySelectorAll('.menu li');
             const selected = dropdown.querySelector('.selected');
 
-            select.addEventListener('click', () => {
+            select.addEventListener('mousedown', () => {
                 select.classList.toggle('select-clicked');
                 caret.classList.toggle('caret-rotate');
                 menu.classList.toggle('menu-open');
             });
 
             options.forEach(option => {
-                option.addEventListener('click', () => {
+                option.addEventListener('mousedown', () => {
                     selected.innerText = option.innerText;
                     select.classList.remove('select-clicked');
                     caret.classList.remove('caret-rotate');

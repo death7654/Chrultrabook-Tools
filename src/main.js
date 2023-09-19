@@ -16,11 +16,11 @@ setTimeout(async () => {
 
 document
   .getElementById("minimize")
-  .addEventListener("click", () => appWindow.minimize());
+  .addEventListener("mousedown", () => appWindow.minimize());
 
 document
   .getElementById("close")
-  .addEventListener("click", () => appWindow.close());
+  .addEventListener("mousedown", () => appWindow.close());
 
 //homepage
 setInterval(async () => {
@@ -90,13 +90,13 @@ function fanAuto() {
 }
 
 const buttonfanMax = document.getElementById("fanMax");
-buttonfanMax.addEventListener("click", () => fanMax());
+buttonfanMax.addEventListener("mousedown", () => fanMax());
 
 const buttonfanOff = document.getElementById("fanOff");
-buttonfanOff.addEventListener("click", () => fanOff());
+buttonfanOff.addEventListener("mousedown", () => fanOff());
 
 const buttonfanAuto = document.getElementById("fanAuto");
-buttonfanAuto.addEventListener("click", () => fanAuto());
+buttonfanAuto.addEventListener("mousedown", () => fanAuto());
 
 //system infopage
 const selected = document.querySelector(".selected");
@@ -160,7 +160,7 @@ function getSystemInfo() {
 
 //copy
 const buttoncbMem = document.getElementById("cbMem");
-buttoncbMem.addEventListener("click", () => getSystemInfo());
+buttoncbMem.addEventListener("mousedown", () => getSystemInfo());
 
 function copyTxt(htmlElement) {
   if (!htmlElement) return;
@@ -174,6 +174,6 @@ function copyTxt(htmlElement) {
   document.execCommand("copy");
   inputElement.parentElement.removeChild(inputElement);
 }
-document.querySelector("#copyButton").addEventListener("click", () => {
+document.querySelector("#copyButton").addEventListener("mousedown", () => {
   copyTxt(document.querySelector("#cbMemInfo"));
 });
