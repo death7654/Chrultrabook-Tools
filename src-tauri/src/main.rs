@@ -104,7 +104,21 @@ async fn get_cpu_temp() -> Option<String> {
 #[tauri::command]
 async fn get_bios_version() -> String {
     #[cfg(target_os = "linux")]
-    return "Unknown - Unsupported on Linux".into();
+    {
+        let cmd_bios: Result<std::process::Output, std::io::Error> =
+            std::process::Command::new("cat")
+                .args(["/sys/class/dmi/id/bios_version"])
+                .output();
+            let bioslong: String = match cmd_bios {
+            Ok(output) => String::from_utf8_lossy(&output.stdout).split("\n").map(|x| x.to_string()).collect::<Vec<String>>()[1].clone(),
+                    Err(e) => {
+                    println!("biosError `{}`.", e);
+                    String::from(" ") // This match returns a blank string.
+                }
+            };
+            let bios = bioslong.trim();
+            return String::from(bios);
+    }
 
     #[cfg(windows)]
     {
