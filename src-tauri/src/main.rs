@@ -141,7 +141,22 @@ async fn get_bios_version() -> String {
 #[tauri::command]
 async fn get_board_name() -> String {
     #[cfg(target_os = "linux")]
-    return "Unknown".into();
+    {
+        let cmd_boardname: Result<std::process::Output, std::io::Error> =
+            std::process::Command::new("cat")
+                .args(["/sys/class/dmi/id/product_name"])
+                .output();
+
+        let boardnamelong: String = match cmd_boardname {
+            Ok(output) => String::from_utf8_lossy(&output.stdout).split("\n").map(|x| x.to_string()).collect::<Vec<String>>()[1].clone(),
+            Err(e) => {
+                println!("boardnameError `{}`.", e);
+                String::from("") // This match returns a blank string.
+            }
+        };
+        let boardname = boardnamelong.trim();
+        return String::from(boardname);
+    }
 
     #[cfg(windows)]
     {
