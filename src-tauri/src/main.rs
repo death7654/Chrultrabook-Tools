@@ -104,7 +104,21 @@ async fn get_cpu_temp() -> Option<String> {
 #[tauri::command]
 async fn get_bios_version() -> String {
     #[cfg(target_os = "linux")]
-    return "Unknown - Unsupported on Linux".into();
+    {
+        let cmd_bios: Result<std::process::Output, std::io::Error> =
+            std::process::Command::new("cat")
+                .args(["/sys/class/dmi/id/bios_version"])
+                .output();
+            let bioslong: String = match cmd_bios {
+            Ok(output) => String::from_utf8_lossy(&output.stdout).split("\n").map(|x| x.to_string()).collect::<Vec<String>>()[1].clone(),
+                    Err(e) => {
+                    println!("biosError `{}`.", e);
+                    String::from(" ") // This match returns a blank string.
+                }
+            };
+            let bios = bioslong.trim();
+            return String::from(bios);
+    }
 
     #[cfg(windows)]
     {
@@ -127,7 +141,22 @@ async fn get_bios_version() -> String {
 #[tauri::command]
 async fn get_board_name() -> String {
     #[cfg(target_os = "linux")]
-    return "Unknown".into();
+    {
+        let cmd_boardname: Result<std::process::Output, std::io::Error> =
+            std::process::Command::new("cat")
+                .args(["/sys/class/dmi/id/product_name"])
+                .output();
+
+        let boardnamelong: String = match cmd_boardname {
+            Ok(output) => String::from_utf8_lossy(&output.stdout).split("\n").map(|x| x.to_string()).collect::<Vec<String>>()[1].clone(),
+            Err(e) => {
+                println!("boardnameError `{}`.", e);
+                String::from("") // This match returns a blank string.
+            }
+        };
+        let boardname = boardnamelong.trim();
+        return String::from(boardname);
+    }
 
     #[cfg(windows)]
     {
@@ -154,10 +183,7 @@ async fn get_cpu_cores() -> String {
     #[cfg(target_os = "linux")]
     {
         let cmd_core_count: Result<std::process::Output, std::io::Error> =
-            std::process::Command::new("grep")
-                .creation_flags(0x08000000)
-                .args(["-c", "'model name'", "/proc/cpuinfo"])
-                .output();
+            std::process::Command::new("nproc").output();
         let cpu_cores_long: String = match cmd_core_count {
             Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
             Err(e) => {
@@ -194,7 +220,6 @@ async fn get_cpu_name() -> String {
     {
         let cmd_core_name: Result<std::process::Output, std::io::Error> =
             std::process::Command::new("grep")
-                .creation_flags(0x08000000)
                 .args(["-m", "1", "'model name'", "/proc/cpuinfo"])
                 .output();
         let cpu_name_long: String = match cmd_core_name {
