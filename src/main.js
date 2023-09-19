@@ -9,7 +9,6 @@ setTimeout(async () => {
     document.getElementById("noLinux").style.display = "none";
     document.getElementById("noLinux2").style.display = "none";
     document.getElementById("noLinux3").style.display = "none";
-    document.getElementById("biosVersion").style.display = "none";
   }
 
 }, 1000);
