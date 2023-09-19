@@ -183,9 +183,7 @@ async fn get_cpu_cores() -> String {
     #[cfg(target_os = "linux")]
     {
         let cmd_core_count: Result<std::process::Output, std::io::Error> =
-            std::process::Command::new("grep")
-                .args(["-c", "'model name'", "/proc/cpuinfo"])
-                .output();
+            std::process::Command::new("nproc").output();
         let cpu_cores_long: String = match cmd_core_count {
             Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
             Err(e) => {
