@@ -110,8 +110,8 @@ async fn get_bios_version() -> String {
                 .args(["/sys/class/dmi/id/bios_version"])
                 .output();
             let bioslong: String = match cmd_bios {
-            Ok(output) => String::from_utf8_lossy(&output.stdout).split("\n").map(|x| x.to_string()).collect::<Vec<String>>()[1].clone(),
-                    Err(e) => {
+                Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
+                Err(e) => {
                     println!("biosError `{}`.", e);
                     String::from(" ") // This match returns a blank string.
                 }
@@ -148,7 +148,7 @@ async fn get_board_name() -> String {
                 .output();
 
         let boardnamelong: String = match cmd_boardname {
-            Ok(output) => String::from_utf8_lossy(&output.stdout).split("\n").map(|x| x.to_string()).collect::<Vec<String>>()[1].clone(),
+            Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
             Err(e) => {
                 println!("boardnameError `{}`.", e);
                 String::from("") // This match returns a blank string.
