@@ -1,6 +1,6 @@
-import { appWindow } from "@tauri-apps/api/window";
-import { invoke } from "@tauri-apps/api/tauri";
-import "./styles.css";
+const { invoke } = window.__TAURI__.tauri;
+const { appWindow } = window.__TAURI__.window;
+
 //app close and open functions
 document
   .getElementById("minimize")
@@ -12,9 +12,9 @@ document
 
 //check for os type and hides things incompaitable
 setTimeout(async () => {
-  const os = await invoke("get_os");
+  const isWin = await invoke("is_windows");
   //hides items not compatiable with linux
-  if (os !== "Windows") {
+  if (!isWin) {
     document.getElementById("noLinux").style.display = "none";
     document.getElementById("noLinux2").style.display = "none";
     document.getElementById("noLinux3").style.display = "none";
@@ -114,7 +114,13 @@ const buttonfanAuto = document.getElementById("fanAuto");
 buttonfanAuto.addEventListener("mousedown", () => fanAuto());
 
 
+const chart = document.getElementById("fancurves")
+console.log(chart);
+
+//let line
+
 //system infopage
+const selected = document.querySelector(".selected");
 //keyboard backlight slider
 var sliderBacklight = document.getElementById("backlightRangeSlider");
 var outputBacklight = document.getElementById("backlightRangeSliderText");
@@ -135,7 +141,6 @@ sliderBacklight.oninput = function () {
 //sends infrom from html to ec
 
 //sends info from ec to html
-const selected = document.querySelector(".selected");
 function getSystemInfo() {
   if (selected.innerText == "Boot Timestamps") {
     setTimeout(async () => {
