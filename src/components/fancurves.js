@@ -1,34 +1,36 @@
 import Chart from 'chart.js/auto'
 
 (async function() {
-  const data = [
-    { temp: 30, count: 10 },
-    { temp: 35, count: 20 },
-    { temp: 40, count: 15 },
-    { temp: 45, count: 25 },
-    { temp: 50, count: 22 },
-    { temp: 55, count: 30 },
-    { temp: 60, count: 28 },
-    { temp: 65, count: 28 },
-    { temp: 70, count: 28 },
-    { temp: 75, count: 28 },
-    { temp: 80, count: 28 },
-
-  ];
 
   new Chart(
     document.getElementById('fancurves'),
     {
       type: 'line',
+      options:{
+        scales: {
+          y: {
+            title: {
+              display:true,
+              text: 'Fan Speed in Percentage'
+            }
+          },
+          x: {
+            title: {
+              display:true,
+              text:'CPU Temperature in Celsius'
+            }
+          }
+        }
+      },
       data: {
-        labels: data.map(row => row.temp),
+        labels:[0, 30, 35, 40, 45, 50, 55, 60, 65, 70],
         datasets: [
           {
             label: 'Fan Curves',
-            data: data.map(row => row.count)
+            data: [0, 10, 20, 30, 40, 50, 60, 100, 100, 100],
           }
         ]
-      }
+      },
     }
   );
 })();

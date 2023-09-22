@@ -1,9 +1,9 @@
 [package]
-name = "chrultrabook-controller-vue"
-version = "0.0.0"
-description = "A Tauri App"
-authors = ["you"]
-license = ""
+name = "chrultrabook-controller"
+version = "2.2.0"
+description = "chrultrabook-controller"
+authors = ["Robinson Arysseril"]
+license = "gpl-3.0"
 repository = ""
 edition = "2021"
 
