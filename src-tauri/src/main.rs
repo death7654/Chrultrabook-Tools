@@ -82,6 +82,9 @@ async fn get_cpu_temp() -> Option<String> {
         cmd = std::process::Command::new("cat")
             .args(["/sys/class/thermal/thermal_zone*/temp"])
             .output();
+        return Some(String::from(
+            match_result(cmd).parse::<i16>().unwrap() / 1000,
+        ));
     }
 
     #[cfg(windows)]
@@ -90,9 +93,8 @@ async fn get_cpu_temp() -> Option<String> {
             .creation_flags(0x08000000)
             .args(["temps", "all"])
             .output();
+        return Some(match_result(cmd));
     }
-
-    return Some(match_result(cmd));
 }
 
 #[tauri::command]
