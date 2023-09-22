@@ -12,7 +12,7 @@ document
 
 //check for os type and hides things incompaitable
 setTimeout(async () => {
-  const isWin = await invoke("is_windws");
+  const isWin = await invoke("is_windows");
   //hides items not compatiable with linux
   if (!isWin) {
     document.getElementById("noLinux").style.display = "none";
