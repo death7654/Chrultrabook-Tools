@@ -1,7 +1,53 @@
-# Tauri + Vue 3
+<br/>
+<p align="center">
+  <h3 align="center">Chrultrabook Controller</h3>
 
-This template should help get you started developing with Tauri + Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+  <p align="center">
+    A UI for Chrultrabooks
+    <br/>
+    <br/>
+    <a href="https://github.com/Death7654/Chrultrabook-Controller/issues">Report Bug</a>
+    .
+    <a href="https://github.com/Death7654/Chrultrabook-Controller/issues">Request Feature</a>
+  </p>
+</p>
 
-## Recommended IDE Setup
+![Downloads](https://img.shields.io/github/downloads/Death7654/Chrultrabook-Controller/total) ![Contributors](https://img.shields.io/github/contributors/Death7654/Chrultrabook-Controller?color=dark-green) ![Forks](https://img.shields.io/github/forks/Death7654/Chrultrabook-Controller?style=social) ![Stargazers](https://img.shields.io/github/stars/Death7654/Chrultrabook-Controller?style=social)
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+## Virus Total Scan Results
+
+## Screenshots
+<img width="400" alt="image" src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/2e14d0b3-095e-4513-9419-6cff63576208">
+<img width="400" alt="image" src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/5e9c9cd5-d024-4a02-94fa-cce5f5de4b9a">
+<img width="400" alt="image" src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/cd055783-e7df-4f1c-991f-bd1ede556931">
+<img width="400" alt="image" src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/f1182743-763b-4472-b886-d866b4921ec3">
+
+
+
+
+
+
+## Table Of Contents
+
+* [About the Project](#about-the-project)
+* [Built With](#built-with)
+* [License](#license)
+
+## About The Project
+
+This project allows you to control your Chrultrabook with a GUI
+
+## Built With
+
+This project was built using
+
+* [Tauri](https://tauri.app/)
+* [Html]()
+* [CSS]()
+* [Javascript]()
+* [Rust]()
+
+
+## License
+                This project is licensed under the GNU General Public License v3.0
+
