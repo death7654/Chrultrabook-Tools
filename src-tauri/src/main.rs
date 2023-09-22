@@ -459,7 +459,7 @@ fn match_result(result: Result<std::process::Output, std::io::Error>) -> String 
             String::new()
         }
     };
-    return str;
+    return str.trim().to_string();
 }
 
 fn match_result_vec(result: Result<std::process::Output, std::io::Error>) -> String {
