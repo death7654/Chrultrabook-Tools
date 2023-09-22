@@ -15,6 +15,7 @@
 ![Downloads](https://img.shields.io/github/downloads/Death7654/Chrultrabook-Controller/total) ![Contributors](https://img.shields.io/github/contributors/Death7654/Chrultrabook-Controller?color=dark-green) ![Forks](https://img.shields.io/github/forks/Death7654/Chrultrabook-Controller?style=social) ![Stargazers](https://img.shields.io/github/stars/Death7654/Chrultrabook-Controller?style=social)
 
 ## Virus Total Scan Results
+https://www.virustotal.com/gui/file/0fea6d18912fea20cc8e6d6558abbcfeec6fcd305534cc2bf27c584bc63c4a6a/detection
 
 ## Screenshots
 <img width="400" alt="image" src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/2e14d0b3-095e-4513-9419-6cff63576208">
