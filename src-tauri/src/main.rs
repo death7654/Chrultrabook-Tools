@@ -80,11 +80,11 @@ async fn get_cpu_temp() -> Option<String> {
     #[cfg(target_os = "linux")]
     {
         cmd = std::process::Command::new("cat")
-            .args(["/sys/class/thermal/thermal_zone*/temp"])
+            .args(["/sys/class/thermal/thermal_zone0/temp"]) // this is just a placeholder until a proper detction system is in place
             .output();
-        return Some(String::from(
-            match_result(cmd).parse::<i16>().unwrap() / 1000,
-        ));
+        return Some(
+            (match_result(cmd).parse::<i32>().unwrap() / 1000).to_string()
+        );
     }
 
     #[cfg(windows)]
