@@ -1,7 +1,7 @@
 window.addEventListener("DOMContentLoaded", () => {
   const body = document.body,
-    modeToggle = body.querySelector(".mode-toggle");
-  sidebar = body.querySelector("nav");
+  modeToggle = body.querySelector(".mode-toggle"),
+  sidebar = body.querySelector("nav"),
   sidebarToggle = body.querySelector(".sidebar-toggle");
 
   //changing menus
