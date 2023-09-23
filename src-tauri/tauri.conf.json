@@ -27,7 +27,7 @@
         "unmaximize": true,
         "unminimize": true,
         "startDragging": true,
-        "center": true      
+        "center": true
       }
       
     },
@@ -55,7 +55,8 @@
         "title": "Chrultrabook Controller",
         "width": 800,
         "height": 550,
-        "transparent": true
+        "transparent": true,
+        "fileDropEnabled": false    
       }
     ]
   }

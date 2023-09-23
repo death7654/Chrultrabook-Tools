@@ -651,6 +651,39 @@ nav.close~.dashboard .top {
   top: 90px;
  
 }
+.setFan{
+  position: relative;
+  top: 10px;
+  left: 50px;
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  background: var(--dropdown-color);
+  color: var(--text-color);
+  width: 80%;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: #000;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: box-shadow, transform;
+  transition-property: box-shadow, transform;
+  border-color: #000000;
+
+}
+.setFan:hover,
+.setFan:active {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  -webkit-transform: scale(1.1);
+  transform: scale(1.05);
+  background-color: var(--fanMax-color);
+  color: var(--text-color)
+}
 
 
 
@@ -734,7 +767,6 @@ nav.close~.dashboard .top {
   right: -43px;
 }
 .rangeBacklight input{
-  -webkit-appearance: none;
   width: 100%;
   height: 2px;
   background: var(--text-color);
@@ -753,7 +785,6 @@ nav.close~.dashboard .top {
   cursor: pointer;
 }
 .rangeBacklight input::-moz-range-thumb{
-  -webkit-appearance: none;
   width: 20px;
   height: 20px;
   background: red;
