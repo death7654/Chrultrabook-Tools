@@ -170,7 +170,7 @@ async fn get_cpu_name() -> String {
         cmd = std::process::Command::new("lscpu")
             .args(["--parse=MODELNAME"])
             .output();
-        return match_result(cmd);
+        return match_result(cmd).split('\n').collect::<Vec<_>>()[4].to_string();
     }
 
     #[cfg(windows)]
