@@ -649,12 +649,15 @@ nav.close~.dashboard .top {
   width: 90%;
   height: 400px;
   top: 90px;
+  left: 1%;
+  background-color: var(--cbmemCode-color);
+  border-radius: 20px;
  
 }
 .setFan{
   position: relative;
   top: 10px;
-  left: 50px;
+  left: 40px;
   font-family: "Roboto", sans-serif;
   font-size: 18px;
   font-weight: bold;
