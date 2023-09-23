@@ -24,6 +24,7 @@ fn main() {
             get_fan_rpm,
             set_fan_max,
             set_fan_off,
+            set_fan_speed,
             set_fan_auto,
             set_keyboard_backlight,
             get_cbmem,
@@ -254,6 +255,18 @@ async fn set_fan_auto() {
         std::process::Command::new("C:\\Program Files\\crosec\\ectool")
             .creation_flags(0x08000000)
             .args(["autofanctrl"])
+            .spawn()
+            .unwrap();
+    }
+}
+#[tauri::command]
+fn set_fan_speed(value: String) {
+    #[cfg(windows)]
+    {
+        std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+            .creation_flags(0x08000000)
+            .arg("fanduty")
+            .arg(value)
             .spawn()
             .unwrap();
     }
