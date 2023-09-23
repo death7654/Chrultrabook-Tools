@@ -578,6 +578,10 @@ nav.close~.dashboard .top {
   position: relative;
   top: 140px;
 }
+.customFanSpeedText {
+  position: absolute;
+  top: 475px;
+}
 
 .activeButton {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -648,7 +652,7 @@ nav.close~.dashboard .top {
   position: relative;
   width: 90%;
   height: 400px;
-  top: 90px;
+  top: 130px;
   left: 1%;
   background-color: var(--cbmemCode-color);
   border-radius: 20px;
@@ -656,7 +660,7 @@ nav.close~.dashboard .top {
 }
 .setFan{
   position: relative;
-  top: 10px;
+  top: 60px;
   left: 40px;
   font-family: "Roboto", sans-serif;
   font-size: 18px;
@@ -712,7 +716,7 @@ nav.close~.dashboard .top {
   background: transparent;
   border-radius: 10px;
   padding: 0 65px 0 45px;
-  border: 2px solid var(--text-color);
+  border: 2px solid var(--dropdown-color);
   transition: var(--tran-03);
 }
 .sliderValue{
