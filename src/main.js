@@ -1,5 +1,5 @@
-import { appWindow } from "@tauri-apps/api/window";
-import { invoke } from "@tauri-apps/api/tauri";
+import {appWindow} from "@tauri-apps/api/window";
+import {invoke} from "@tauri-apps/api/tauri";
 import "./styles.css";
 //app close and open functions
 document
@@ -21,17 +21,10 @@ setTimeout(async () => {
   }
 }, 1000);
 
-//function to check if a number exist
-function containsNumber(str) {
-  return /\d/.test(str);
-}
+
 //checks if fan exists
-var fan = null;
-const fanExist = await invoke("get_fan_rpm");
-if (containsNumber(fanExist) == true) {
-  fan = true;
-} else {
-  fan = false;
+const fan = await invoke("get_fan_rpm")
+if (isNaN(fan)) {
   document.getElementById("fan").style.display = "none";
 }
 
@@ -57,7 +50,7 @@ setInterval(async () => {
   document.getElementById("cpuTemp").innerText = averageTemp.toFixed(0) + "°C";
 
   //sends information to fan control if it exists
-  if ((fan = true)) {
+  if ((!isNaN(fan))) {
     const fanRPM = await invoke("get_fan_rpm");
     const fanSpeed = fanRPM.toString().split(":").pop().trim();
     document.getElementById("fanSpeed").innerText = fanSpeed + " RPM";
@@ -80,9 +73,9 @@ setTimeout(async () => {
 }, 0);
 //setFanSpeeds
 
-var autoFan = document.getElementById("fanAuto");
-var offFan = document.getElementById("fanOff");
-var maxFan = document.getElementById("fanMax");
+let autoFan = document.getElementById("fanAuto");
+let offFan = document.getElementById("fanOff");
+let maxFan = document.getElementById("fanMax");
 
 function fanMax() {
   invoke("set_fan_max");
@@ -116,8 +109,8 @@ buttonfanAuto.addEventListener("mousedown", () => fanAuto());
 
 //system infopage
 //keyboard backlight slider
-var sliderBacklight = document.getElementById("backlightRangeSlider");
-var outputBacklight = document.getElementById("backlightRangeSliderText");
+let sliderBacklight = document.getElementById("backlightRangeSlider");
+let outputBacklight = document.getElementById("backlightRangeSliderText");
 outputBacklight.innerHTML = sliderBacklight.value;
 
 sliderBacklight.oninput = function () {
@@ -137,55 +130,45 @@ sliderBacklight.oninput = function () {
 //sends info from ec to html
 const selected = document.querySelector(".selected");
 function getSystemInfo() {
-  if (selected.innerText == "Boot Timestamps") {
+  if (selected.innerText === "Boot Timestamps") {
     setTimeout(async () => {
-      const cbmemdata = await invoke("get_cbmem");
-      document.getElementById("cbMemInfo").innerText = cbmemdata;
+        document.getElementById("cbMemInfo").innerText = await invoke("get_cbmem");
     }, 0);
-  } else if (selected.innerText == "Coreboot Log") {
+  } else if (selected.innerText === "Coreboot Log") {
     setTimeout(async () => {
-      const coreboot = await invoke("get_coreboot");
-      document.getElementById("cbMemInfo").innerText = coreboot;
+        document.getElementById("cbMemInfo").innerText = await invoke("get_coreboot");
     }, 0);
-  } else if (selected.innerText == "Coreboot Extended Log") {
+  } else if (selected.innerText === "Coreboot Extended Log") {
     setTimeout(async () => {
-      const corebootlong = await invoke("get_coreboot_long");
-      document.getElementById("cbMemInfo").innerText = corebootlong;
+        document.getElementById("cbMemInfo").innerText = await invoke("get_coreboot_long");
     }, 0);
-  } else if (selected.innerText == "EC Console Log") {
+  } else if (selected.innerText === "EC Console Log") {
     setTimeout(async () => {
-      const console = await invoke("get_ec_console");
-      document.getElementById("cbMemInfo").innerText = console;
+        document.getElementById("cbMemInfo").innerText = await invoke("get_ec_console");
     }, 0);
-  } else if (selected.innerText == "Battery Info") {
+  } else if (selected.innerText === "Battery Info") {
     setTimeout(async () => {
-      const battery = await invoke("get_battery");
-      document.getElementById("cbMemInfo").innerText = battery;
+        document.getElementById("cbMemInfo").innerText = await invoke("get_battery");
     }, 0);
-  } else if (selected.innerText == "EC Chip Info") {
+  } else if (selected.innerText === "EC Chip Info") {
     setTimeout(async () => {
-      const flashChip = await invoke("get_flash_chip");
-      document.getElementById("cbMemInfo").innerText = flashChip;
+        document.getElementById("cbMemInfo").innerText = await invoke("get_flash_chip");
     }, 0);
-  } else if (selected.innerText == "SPI Info") {
+  } else if (selected.innerText === "SPI Info") {
     setTimeout(async () => {
-      const spi = await invoke("get_spi_info");
-      document.getElementById("cbMemInfo").innerText = spi;
+        document.getElementById("cbMemInfo").innerText = await invoke("get_spi_info");
     }, 0);
-  } else if (selected.innerText == "EC Protocol Info") {
+  } else if (selected.innerText === "EC Protocol Info") {
     setTimeout(async () => {
-      const protocol = await invoke("get_ec_protocol");
-      document.getElementById("cbMemInfo").innerText = protocol;
+        document.getElementById("cbMemInfo").innerText = await invoke("get_ec_protocol");
     }, 0);
-  } else if (selected.innerText == "Temp Sensor Info") {
+  } else if (selected.innerText === "Temp Sensor Info") {
     setTimeout(async () => {
-      const temp_sensor = await invoke("get_temp_sensor");
-      document.getElementById("cbMemInfo").innerText = temp_sensor;
+        document.getElementById("cbMemInfo").innerText = await invoke("get_temp_sensor");
     }, 0);
-  } else if (selected.innerText == "Power Delivery Info") {
+  } else if (selected.innerText === "Power Delivery Info") {
     setTimeout(async () => {
-      const power_delivery = await invoke("get_power_delivery");
-      document.getElementById("cbMemInfo").innerText = power_delivery;
+        document.getElementById("cbMemInfo").innerText = await invoke("get_power_delivery");
     }, 0);
   } else {
     document.getElementById("cbMemInfo").innerText = "Select Something";

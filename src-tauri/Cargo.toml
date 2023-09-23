@@ -4,7 +4,7 @@ version = "2.2.0"
 description = "chrultrabook-controller"
 authors = ["Robinson Arysseril"]
 license = "gpl-3.0"
-repository = ""
+repository = "https://github.com/death7654/Chrultrabook-Controller"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

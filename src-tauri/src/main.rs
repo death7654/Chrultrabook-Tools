@@ -1,18 +1,17 @@
-// Prevents additional console window on Windows in release, DO NOT REMOVE!!
-#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+#![cfg_attr(
+    all(not(debug_assertions), target_os = "windows"),
+    windows_subsystem = "windows"
+)]
 
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-use os_info::{Bitness, Info, Type, Version};
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
 
-use substring::Substring;
-use sysinfo::{CpuExt, NetworkExt, NetworksExt, ProcessExt, System, SystemExt};
+use sysinfo::{CpuExt, System, SystemExt};
 
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
-            get_os,
+            is_windows,
             get_bios_version,
             open_link,
             get_cpu_usage,
@@ -43,12 +42,8 @@ fn main() {
 }
 
 #[tauri::command]
-async fn get_os() -> String {
-    #[cfg(windows)]
-    return "Windows".into();
-
-    #[cfg(target_os = "linux")]
-    "Linux".into()
+async fn is_windows() -> bool {
+    return os_info::get().os_type() == os_info::Type::Windows;
 }
 
 #[tauri::command]
@@ -80,503 +75,406 @@ async fn get_cpu_usage() -> String {
 
 #[tauri::command]
 async fn get_cpu_temp() -> Option<String> {
+    let cmd: Result<std::process::Output, std::io::Error>;
+
     #[cfg(target_os = "linux")]
-    return None;
+    {
+        cmd = std::process::Command::new("cat")
+            .args(["/sys/class/thermal/thermal_zone*/temp"])
+            .output();
+        return Some(String::from(
+            match_result(cmd).parse::<i16>().unwrap() / 1000,
+        ));
+    }
 
     #[cfg(windows)]
     {
-        let cmd_cpu_temp: Result<std::process::Output, std::io::Error> =
-            std::process::Command::new("C:\\Program Files\\crosec\\ectool")
-                .creation_flags(0x08000000)
-                .args(["temps", "all"])
-                .output();
-        let cpu_temp_long: String = match cmd_cpu_temp {
-            Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
-            Err(e) => {
-                println!("cpuTempError `{}`.", e);
-                String::from("") // This match returns a blank string.
-            }
-        };
-        let cpu_temp = cpu_temp_long.trim();
-        Some(cpu_temp.to_string())
+        cmd = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+            .creation_flags(0x08000000)
+            .args(["temps", "all"])
+            .output();
+        return Some(match_result(cmd));
     }
 }
 
 #[tauri::command]
 async fn get_bios_version() -> String {
+    let cmd: Result<std::process::Output, std::io::Error>;
+
     #[cfg(target_os = "linux")]
     {
-        let cmd_bios: Result<std::process::Output, std::io::Error> =
-            std::process::Command::new("cat")
-                .args(["/sys/class/dmi/id/bios_version"])
-                .output();
-            let bioslong: String = match cmd_bios {
-                Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
-                Err(e) => {
-                    println!("biosError `{}`.", e);
-                    String::from(" ") // This match returns a blank string.
-                }
-            };
-            let bios = bioslong.trim();
-            return String::from(bios);
+        cmd = std::process::Command::new("cat")
+            .args(["/sys/class/dmi/id/bios_version"])
+            .output();
+        return match_result(cmd_bios);
     }
 
     #[cfg(windows)]
     {
-        let cmd_bios: Result<std::process::Output, std::io::Error> =
-            std::process::Command::new("wmic")
-                .creation_flags(0x08000000)
-                .args(["bios", "get", "smbiosbiosversion"])
-                .output();
-            let bioslong: String = match cmd_bios {
-            Ok(output) => String::from_utf8_lossy(&output.stdout).split("\n").map(|x| x.to_string()).collect::<Vec<String>>()[1].clone(),
-                    Err(e) => {
-                    println!("biosError `{}`.", e);
-                    String::from(" ") // This match returns a blank string.
-                }
-            };
-            let bios = bioslong.trim();
-            return String::from(bios);
+        cmd = std::process::Command::new("wmic")
+            .creation_flags(0x08000000)
+            .args(["bios", "get", "smbiosbiosversion"])
+            .output();
+        return match_result_vec(cmd);
     }
 }
 #[tauri::command]
 async fn get_board_name() -> String {
+    let cmd: Result<std::process::Output, std::io::Error>;
+
     #[cfg(target_os = "linux")]
     {
-        let cmd_boardname: Result<std::process::Output, std::io::Error> =
-            std::process::Command::new("cat")
-                .args(["/sys/class/dmi/id/product_name"])
-                .output();
-
-        let boardnamelong: String = match cmd_boardname {
-            Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
-            Err(e) => {
-                println!("boardnameError `{}`.", e);
-                String::from("") // This match returns a blank string.
-            }
-        };
-        let boardname = boardnamelong.trim();
-        return String::from(boardname);
+        let cmd: Result<std::process::Output, std::io::Error> = std::process::Command::new("cat")
+            .args(["/sys/class/dmi/id/product_name"])
+            .output();
+        return match_result(cmd_boardname);
     }
 
     #[cfg(windows)]
     {
-        let cmd_boardname: Result<std::process::Output, std::io::Error> =
-            std::process::Command::new("wmic")
-                .creation_flags(0x08000000)
-                .args(["baseboard", "get", "Product"])
-                .output();
-
-        let boardnamelong: String = match cmd_boardname {
-            Ok(output) => String::from_utf8_lossy(&output.stdout).split("\n").map(|x| x.to_string()).collect::<Vec<String>>()[1].clone(),
-            Err(e) => {
-                println!("boardnameError `{}`.", e);
-                String::from("") // This match returns a blank string.
-            }
-        };
-        let boardname = boardnamelong.trim();
-        return String::from(boardname);
+        cmd = std::process::Command::new("wmic")
+            .creation_flags(0x08000000)
+            .args(["baseboard", "get", "Product"])
+            .output();
+        return match_result_vec(cmd);
     }
 }
 
 #[tauri::command]
 async fn get_cpu_cores() -> String {
+    let cmd: Result<std::process::Output, std::io::Error>;
+
     #[cfg(target_os = "linux")]
     {
-        let cmd_core_count: Result<std::process::Output, std::io::Error> =
-            std::process::Command::new("nproc").output();
-        let cpu_cores_long: String = match cmd_core_count {
-            Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
-            Err(e) => {
-                println!("cpuCoresError `{}`.", e);
-                String::from("") // This match returns a blank string.
-            }
-        };
-        let cpu_cores = cpu_cores_long.trim();
-        return String::from(cpu_cores);
+        cmd = std::process::Command::new("nproc").output();
+        return match_result(cmd);
     }
 
     #[cfg(windows)]
     {
-        let cmd_core_count: Result<std::process::Output, std::io::Error> =
-            std::process::Command::new("wmic")
-                .creation_flags(0x08000000)
-                .args(["cpu", "get", "NumberOfLogicalProcessors"])
-                .output();
-        let cpu_cores_long: String = match cmd_core_count {
-            Ok(output) => String::from_utf8_lossy(&output.stdout).split("\n").map(|x| x.to_string()).collect::<Vec<String>>()[1].clone(),
-            Err(e) => {
-                println!("cpuCoresError `{}`.", e);
-                String::from("") // This match returns a blank string.
-            }
-        };
-        let cpu_cores = cpu_cores_long.trim();
-        return String::from(cpu_cores);
+        cmd = std::process::Command::new("wmic")
+            .creation_flags(0x08000000)
+            .args(["cpu", "get", "NumberOfLogicalProcessors"])
+            .output();
+        return match_result_vec(cmd);
     }
 }
 
 #[tauri::command]
 async fn get_cpu_name() -> String {
+    let cmd: Result<std::process::Output, std::io::Error>;
+
     #[cfg(target_os = "linux")]
     {
-        let cmd_core_name: Result<std::process::Output, std::io::Error> =
-            std::process::Command::new("lscpu")
-                .args(["--parse=MODELNAME"])
-                .output();
-        let cpu_name_long: String = match cmd_core_name {
-            Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
-            Err(e) => {
-                println!("cpunamesError `{}`.", e);
-                String::from("") // This match returns a blank string.
-            }
-        };
-        let cpu_name = cpu_name_long.split('\n').collect::<Vec<_>>()[4];
-        return String::from(cpu_name);
+        cmd = std::process::Command::new("lscpu")
+            .args(["--parse=MODELNAME"])
+            .output();
+        return match_result(cmd);
     }
+
     #[cfg(windows)]
     {
-        let cmd_core_name: Result<std::process::Output, std::io::Error> =
-            std::process::Command::new("wmic")
-                .creation_flags(0x08000000)
-                .args(["cpu", "get", "name"])
-                .output();
-        let cpu_name_long: String = match cmd_core_name {
-            Ok(output) => String::from_utf8_lossy(&output.stdout).split("\n").map(|x| x.to_string()).collect::<Vec<String>>()[1].clone(),
-            Err(e) => {
-                println!("cpunamesError `{}`.", e);
-                String::from("") // This match returns a blank string.
-            }
-        };
-        let cpu_name = cpu_name_long.trim();
-        return String::from(cpu_name);
+        cmd = std::process::Command::new("wmic")
+            .creation_flags(0x08000000)
+            .args(["cpu", "get", "name"])
+            .output();
+        return match_result_vec(cmd);
     }
 }
 
 #[tauri::command]
 async fn get_hostname() -> String {
-    #[cfg(windows)]
-    let cmd_hostname: Result<std::process::Output, std::io::Error> =
-        std::process::Command::new("hostname")
-            .creation_flags(0x08000000)
-            .output();
+    let cmd: Result<std::process::Output, std::io::Error>;
 
     #[cfg(target_os = "linux")]
-    let cmd_hostname: Result<std::process::Output, std::io::Error> =
-        std::process::Command::new("hostname").output();
+    {
+        cmd = std::process::Command::new("hostname").output();
+    }
 
-    let hostnamelong: String = match cmd_hostname {
-        Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
-        Err(e) => {
-            println!("hostnameError `{}`.", e);
-            String::from("") // This match returns a blank string.
-        }
-    };
-    let hostname = hostnamelong.trim();
-    return String::from(hostname);
+    #[cfg(windows)]
+    {
+        cmd = std::process::Command::new("hostname")
+            .creation_flags(0x08000000)
+            .output();
+    }
+
+    return match_result(cmd);
 }
 
 #[tauri::command]
 async fn get_fan_rpm() -> String {
+    let cmd: Result<std::process::Output, std::io::Error>;
+
     #[cfg(target_os = "linux")]
     {
-        let cmd_fan_rpm (mut rx, mut child): Result<std::process::Output, std::io::Error> =
-        Command::new_sidecar("ectool")
-                .args(["pwmgetfanrpm"])
-                .output();
-        let fan_rpm: String = match cmd_fan_rpm {
-            Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
-            Err(e) => {
-                println!("fanRPMError `{}`.", e);
-                String::from("") // This match returns a blank string.
-            }
-        };
-        String::from(fan_rpm)
+        cmd = Command::new_sidecar("ectool")
+            .args(["pwmgetfanrpm"])
+            .output();
     }
 
     #[cfg(windows)]
     {
-        let cmd_fan_rpm: Result<std::process::Output, std::io::Error> =
-            std::process::Command::new("C:\\Program Files\\crosec\\ectool")
-                .creation_flags(0x08000000)
-                .args(["pwmgetfanrpm"])
-                .output();
-        let fan_rpm: String = match cmd_fan_rpm {
-            Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
-            Err(e) => {
-                println!("fanRPMError `{}`.", e);
-                String::from("") // This match returns a blank string.
-            }
-        };
-        String::from(fan_rpm)
+        cmd = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+            .creation_flags(0x08000000)
+            .args(["pwmgetfanrpm"])
+            .output();
     }
+    return match_result(cmd);
 }
 
 #[tauri::command]
 async fn set_fan_max() {
     #[cfg(windows)]
     {
-        let _ = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+        std::process::Command::new("C:\\Program Files\\crosec\\ectool")
             .creation_flags(0x08000000)
             .args(["fanduty", "100"])
-            .output();
+            .spawn()
+            .unwrap();
     }
 }
+
 #[tauri::command]
 async fn set_fan_off() {
     #[cfg(windows)]
     {
-        let _ = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+        std::process::Command::new("C:\\Program Files\\crosec\\ectool")
             .creation_flags(0x08000000)
             .args(["fanduty", "0"])
-            .output();
+            .spawn()
+            .unwrap();
     }
 }
+
 #[tauri::command]
 async fn set_fan_auto() {
     #[cfg(windows)]
     {
-        let _ = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+        std::process::Command::new("C:\\Program Files\\crosec\\ectool")
             .creation_flags(0x08000000)
             .args(["autofanctrl"])
-            .output();
+            .spawn()
+            .unwrap();
     }
 }
-#[tauri::command]
-fn set_keyboard_backlight(value: String){
 
+#[tauri::command]
+fn set_keyboard_backlight(value: String) {
     #[cfg(windows)]
     {
-        let _ = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+        std::process::Command::new("C:\\Program Files\\crosec\\ectool")
             .creation_flags(0x08000000)
             .arg("pwmsetkblight")
             .arg(value)
-            .spawn();
+            .spawn()
+            .unwrap();
     }
-    return;
 }
 
 #[tauri::command]
 async fn get_cbmem() -> String {
+    let cmd: Result<std::process::Output, std::io::Error>;
+
     #[cfg(target_os = "linux")]
-    return "0".into();
+    return String::new();
 
     #[cfg(windows)]
     {
-        let cmd_cbmem: Result<std::process::Output, std::io::Error> =
-            std::process::Command::new("C:\\Program Files\\crosec\\cbmem")
-                .creation_flags(0x08000000)
-                .output();
-        let cbmem: String = match cmd_cbmem {
-            Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
-            Err(e) => {
-                println!("cbmemError `{}`.", e);
-                String::from("") // This match returns a blank string.
-            }
-        };
-        return String::from(cbmem);
+        cmd = std::process::Command::new("C:\\Program Files\\crosec\\cbmem")
+            .creation_flags(0x08000000)
+            .output();
     }
+
+    return match_result(cmd);
 }
+
 #[tauri::command]
 async fn get_coreboot() -> String {
+    let cmd: Result<std::process::Output, std::io::Error>;
+
     #[cfg(target_os = "linux")]
-    return "0".into();
+    return String::new();
 
     #[cfg(windows)]
     {
-        let cmd_output: Result<std::process::Output, std::io::Error> =
-            std::process::Command::new("C:\\Program Files\\crosec\\cbmem")
-                .creation_flags(0x08000000)
-                .args(["-c1"])
-                .output();
-        let output: String = match cmd_output {
-            Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
-            Err(e) => {
-                println!("cbmemError `{}`.", e);
-                String::from("") // This match returns a blank string.
-            }
-        };
-        return String::from(output);
+        cmd = std::process::Command::new("C:\\Program Files\\crosec\\cbmem")
+            .creation_flags(0x08000000)
+            .args(["-c1"])
+            .output();
     }
+
+    return match_result(cmd);
 }
+
 #[tauri::command]
 async fn get_coreboot_long() -> String {
+    let cmd: Result<std::process::Output, std::io::Error>;
+
     #[cfg(target_os = "linux")]
-    return "0".into();
+    return String::new();
 
     #[cfg(windows)]
     {
-        let cmd_output: Result<std::process::Output, std::io::Error> =
-            std::process::Command::new("C:\\Program Files\\crosec\\cbmem")
-                .creation_flags(0x08000000)
-                .args(["-c"])
-                .output();
-        let output: String = match cmd_output {
-            Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
-            Err(e) => {
-                println!("cbmemError `{}`.", e);
-                String::from("") // This match returns a blank string.
-            }
-        };
-        return String::from(output);
+        cmd = std::process::Command::new("C:\\Program Files\\crosec\\cbmem")
+            .creation_flags(0x08000000)
+            .args(["-c"])
+            .output();
     }
+
+    return match_result(cmd);
 }
+
 #[tauri::command]
 async fn get_ec_console() -> String {
+    let cmd: Result<std::process::Output, std::io::Error>;
+
     #[cfg(target_os = "linux")]
-    return "0".into();
+    return String::new();
 
     #[cfg(windows)]
     {
-        let cmd_output: Result<std::process::Output, std::io::Error> =
-            std::process::Command::new("C:\\Program Files\\crosec\\ectool")
-                .creation_flags(0x08000000)
-                .args(["console"])
-                .output();
-        let output: String = match cmd_output {
-            Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
-            Err(e) => {
-                println!("cbmemError `{}`.", e);
-                String::from("") // This match returns a blank string.
-            }
-        };
-        return String::from(output);
+        cmd = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+            .creation_flags(0x08000000)
+            .args(["console"])
+            .output();
     }
+
+    return match_result(cmd);
 }
 #[tauri::command]
 async fn get_battery() -> String {
+    let cmd: Result<std::process::Output, std::io::Error>;
+
     #[cfg(target_os = "linux")]
-    return "0".into();
+    return String::new();
 
     #[cfg(windows)]
     {
-        let cmd_battery: Result<std::process::Output, std::io::Error> =
-            std::process::Command::new("C:\\Program Files\\crosec\\ectool")
-                .creation_flags(0x08000000)
-                .args(["battery"])
-                .output();
-        let battery: String = match cmd_battery {
-            Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
-            Err(e) => {
-                println!("cbmemError `{}`.", e);
-                String::from("") // This match returns a blank string.
-            }
-        };
-        return String::from(battery);
+        cmd = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+            .creation_flags(0x08000000)
+            .args(["battery"])
+            .output();
     }
+    return match_result(cmd);
 }
 #[tauri::command]
 async fn get_flash_chip() -> String {
+    let cmd: Result<std::process::Output, std::io::Error>;
+
     #[cfg(target_os = "linux")]
-    return "0".into();
+    return String::new();
 
     #[cfg(windows)]
     {
-        let cmd_output: Result<std::process::Output, std::io::Error> =
-            std::process::Command::new("C:\\Program Files\\crosec\\ectool")
-                .creation_flags(0x08000000)
-                .args(["chipinfo"])
-                .output();
-        let output: String = match cmd_output {
-            Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
-            Err(e) => {
-                println!("cbmemError `{}`.", e);
-                String::from("") // This match returns a blank string.
-            }
-        };
-        return String::from(output);
+        cmd = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+            .creation_flags(0x08000000)
+            .args(["chipinfo"])
+            .output();
     }
+
+    return match_result(cmd);
 }
+
 #[tauri::command]
 async fn get_spi_info() -> String {
+    let cmd: Result<std::process::Output, std::io::Error>;
+
     #[cfg(target_os = "linux")]
-    return "0".into();
+    return String::new();
 
     #[cfg(windows)]
     {
-        let cmd_output: Result<std::process::Output, std::io::Error> =
-            std::process::Command::new("C:\\Program Files\\crosec\\ectool")
-                .creation_flags(0x08000000)
-                .args(["flashspiinfo"])
-                .output();
-        let output: String = match cmd_output {
-            Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
-            Err(e) => {
-                println!("cbmemError `{}`.", e);
-                String::from("") // This match returns a blank string.
-            }
-        };
-        return String::from(output);
+        cmd = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+            .creation_flags(0x08000000)
+            .args(["flashspiinfo"])
+            .output();
     }
+
+    return match_result(cmd);
 }
+
 #[tauri::command]
 async fn get_ec_protocol() -> String {
+    let cmd: Result<std::process::Output, std::io::Error>;
+
     #[cfg(target_os = "linux")]
-    return "0".into();
+    return String::new();
 
     #[cfg(windows)]
     {
-        let cmd_output: Result<std::process::Output, std::io::Error> =
-            std::process::Command::new("C:\\Program Files\\crosec\\ectool")
-                .creation_flags(0x08000000)
-                .args(["protoinfo"])
-                .output();
-        let output: String = match cmd_output {
-            Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
-            Err(e) => {
-                println!("cbmemError `{}`.", e);
-                String::from("") // This match returns a blank string.
-            }
-        };
-        return String::from(output);
+        cmd = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+            .creation_flags(0x08000000)
+            .args(["protoinfo"])
+            .output();
     }
+
+    return match_result(cmd);
 }
+
 #[tauri::command]
 async fn get_temp_sensor() -> String {
+    let cmd: Result<std::process::Output, std::io::Error>;
+
     #[cfg(target_os = "linux")]
-    return "0".into();
+    return String::new();
 
     #[cfg(windows)]
     {
-        let cmd_output: Result<std::process::Output, std::io::Error> =
-            std::process::Command::new("C:\\Program Files\\crosec\\ectool")
-                .creation_flags(0x08000000)
-                .args(["tempsinfo", "all"])
-                .output();
-        let output: String = match cmd_output {
-            Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
-            Err(e) => {
-                println!("cbmemError `{}`.", e);
-                String::from("") // This match returns a blank string.
-            }
-        };
-        return String::from(output);
+        cmd = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+            .creation_flags(0x08000000)
+            .args(["tempsinfo", "all"])
+            .output();
     }
+
+    return match_result(cmd);
 }
+
 #[tauri::command]
 async fn get_power_delivery() -> String {
+    let cmd: Result<std::process::Output, std::io::Error>;
+
     #[cfg(target_os = "linux")]
-    return "0".into();
+    return String::new();
 
     #[cfg(windows)]
     {
-        let cmd_output: Result<std::process::Output, std::io::Error> =
-            std::process::Command::new("C:\\Program Files\\crosec\\ectool")
-                .creation_flags(0x08000000)
-                .args(["pdlog"])
-                .output();
-        let output: String = match cmd_output {
-            Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
-            Err(e) => {
-                println!("cbmemError `{}`.", e);
-                String::from("") // This match returns a blank string.
-            }
-        };
-        return String::from(output);
+        cmd = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+            .creation_flags(0x08000000)
+            .args(["pdlog"])
+            .output();
+        return match_result(cmd);
     }
 }
 
 #[tauri::command]
 async fn open_link() {
-    open::that("https://github.com/death7654/Chrultrabook-Windows-Controller");
-    return;
+    open::that("https://github.com/death7654/Chrultrabook-Windows-Controller").unwrap();
+}
+
+// Helper functions
+
+fn match_result(result: Result<std::process::Output, std::io::Error>) -> String {
+    let str = match result {
+        Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
+        Err(e) => {
+            println!("Error `{}`.", e);
+            String::new()
+        }
+    };
+    return str.trim().to_string();
+}
+
+fn match_result_vec(result: Result<std::process::Output, std::io::Error>) -> String {
+    let str = match result {
+        Ok(output) => String::from_utf8_lossy(&output.stdout)
+            .split("\n")
+            .map(|x| x.to_string())
+            .collect::<Vec<String>>()[1]
+            .clone(),
+        Err(e) => {
+            println!("Error `{}`.", e);
+            String::from("") // This match returns a blank string.
+        }
+    };
+    return str.trim().to_string();
 }
