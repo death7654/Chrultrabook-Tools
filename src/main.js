@@ -12,20 +12,26 @@ document
 
 //check for os type and hides things incompaitable
 setTimeout(async () => {
-  const os = await invoke("get_os");
+  const os = await invoke("is_windows");
   //hides items not compatiable with linux
-  if (os !== "Windows") {
+  if (os == "true") {
     document.getElementById("noLinux").style.display = "none";
     document.getElementById("noLinux2").style.display = "none";
     document.getElementById("noLinux3").style.display = "none";
   }
 }, 1000);
-
-
+//function to check if a number exist
+function containsNumber(str) {
+    return /\d/.test(str);
+}
 //checks if fan exists
-const fan = await invoke("get_fan_rpm")
-if (isNaN(fan)) {
-  document.getElementById("fan").style.display = "none";
+let fan = null;
+const fanExist = await invoke("get_fan_rpm");
+if (containsNumber(fanExist)) {
+    fan = true;
+} else {
+    fan = false;
+    document.getElementById("fan").style.display = "none";
 }
 
 //homepage
@@ -50,7 +56,7 @@ setInterval(async () => {
   document.getElementById("cpuTemp").innerText = averageTemp.toFixed(0) + "°C";
 
   //sends information to fan control if it exists
-  if ((!isNaN(fan))) {
+  if (fan==true) {
     const fanRPM = await invoke("get_fan_rpm");
     const fanSpeed = fanRPM.toString().split(":").pop().trim();
     document.getElementById("fanSpeed").innerText = fanSpeed + " RPM";
