@@ -208,8 +208,8 @@ async fn get_fan_rpm() -> String {
 
     #[cfg(target_os = "linux")]
     {
-        cmd = Command::new_sidecar("ectool")
-            .args(["pwmgetfanrpm"])
+        cmd = std::process::Command::new("ectool")
+            .args(["--interface=dev", "pwmgetfanrpm"])
             .output();
     }
 
