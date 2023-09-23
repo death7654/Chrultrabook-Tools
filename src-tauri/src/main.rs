@@ -81,11 +81,11 @@ async fn get_cpu_temp() -> Option<String> {
     #[cfg(target_os = "linux")]
     {
         cmd = std::process::Command::new("cat")
-            .args(["/sys/class/thermal/thermal_zone*/temp"])
+            .args(["/sys/class/thermal/thermal_zone0/temp"]) // this is just a placeholder until a proper detction system is in place
             .output();
-        return Some(String::from(
-            match_result(cmd).parse::<i16>().unwrap() / 1000,
-        ));
+        return Some(
+            (match_result(cmd).parse::<i32>().unwrap() / 1000).to_string()
+        );
     }
 
     #[cfg(windows)]
@@ -107,7 +107,7 @@ async fn get_bios_version() -> String {
         cmd = std::process::Command::new("cat")
             .args(["/sys/class/dmi/id/bios_version"])
             .output();
-        return match_result(cmd_bios);
+        return match_result(cmd);
     }
 
     #[cfg(windows)]
@@ -119,16 +119,17 @@ async fn get_bios_version() -> String {
         return match_result_vec(cmd);
     }
 }
+
 #[tauri::command]
 async fn get_board_name() -> String {
     let cmd: Result<std::process::Output, std::io::Error>;
 
     #[cfg(target_os = "linux")]
     {
-        let cmd: Result<std::process::Output, std::io::Error> = std::process::Command::new("cat")
+        cmd = std::process::Command::new("cat")
             .args(["/sys/class/dmi/id/product_name"])
             .output();
-        return match_result(cmd_boardname);
+        return match_result(cmd);
     }
 
     #[cfg(windows)]
@@ -170,7 +171,7 @@ async fn get_cpu_name() -> String {
         cmd = std::process::Command::new("lscpu")
             .args(["--parse=MODELNAME"])
             .output();
-        return match_result(cmd);
+        return match_result(cmd).split('\n').collect::<Vec<_>>()[4].to_string();
     }
 
     #[cfg(windows)]
@@ -208,8 +209,8 @@ async fn get_fan_rpm() -> String {
 
     #[cfg(target_os = "linux")]
     {
-        cmd = Command::new_sidecar("ectool")
-            .args(["pwmgetfanrpm"])
+        cmd = std::process::Command::new("ectool")
+            .args(["--interface=dev", "pwmgetfanrpm"])
             .output();
     }
 
