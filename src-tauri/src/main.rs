@@ -106,7 +106,7 @@ async fn get_bios_version() -> String {
         cmd = std::process::Command::new("cat")
             .args(["/sys/class/dmi/id/bios_version"])
             .output();
-        return match_result(cmd_bios);
+        return match_result(cmd);
     }
 
     #[cfg(windows)]
@@ -118,16 +118,17 @@ async fn get_bios_version() -> String {
         return match_result_vec(cmd);
     }
 }
+
 #[tauri::command]
 async fn get_board_name() -> String {
     let cmd: Result<std::process::Output, std::io::Error>;
 
     #[cfg(target_os = "linux")]
     {
-        let cmd: Result<std::process::Output, std::io::Error> = std::process::Command::new("cat")
+        cmd = std::process::Command::new("cat")
             .args(["/sys/class/dmi/id/product_name"])
             .output();
-        return match_result(cmd_boardname);
+        return match_result(cmd);
     }
 
     #[cfg(windows)]
