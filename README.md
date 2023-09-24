@@ -5,7 +5,7 @@
 <p align="center"><img src="https://img.shields.io/github/downloads/Death7654/Chrultrabook-Controller/total" alt="shields"><img src="https://img.shields.io/github/contributors/Death7654/Chrultrabook-Controller?color=dark-green" alt="shields"><img src="https://img.shields.io/github/forks/Death7654/Chrultrabook-Controller?style=social" alt="shields"><img src="https://img.shields.io/github/stars/Death7654/Chrultrabook-Controller?style=social" alt="shields"></p>
 
 <h2>Virus Total</h2>
-<a href="https://www.virustotal.com/gui/file/b88310161a1e66b6a1ab3e4c3c318f3d63ec9516e5ae17ee5c0f31c1c35481b1/detection">Scan Results</a>
+<a href="https://www.virustotal.com/gui/file/b88310161a1e66b6a1ab3e4c3c318f3d63ec9516e5ae17ee5c0f31c1c35481b1/detection" target="_blank" rel="noopener noreferrer">Scan Results</a>
 
 <h2>Project Screenshots:</h2>
 
