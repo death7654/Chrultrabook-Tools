@@ -166,36 +166,30 @@ let maxFan = document.getElementById("fanMax");
 let setFan = document.getElementById("setFan");
 
 async function setTemps() {
-  var cpuTemp = parseInt(averageTemp);
-  let tempA = myChart.data.datasets[0].data[0];
-  let tempB = myChart.data.datasets[0].data[1];
-  let tempC = myChart.data.datasets[0].data[2];
-  let tempD = myChart.data.datasets[0].data[3];
-  let tempE = myChart.data.datasets[0].data[4];
-
-  if (cpuTemp < 35) {
+  const cpuTemp = parseInt(averageTemp);
+  const tempA = myChart.data.datasets[0].data[0];
+  const tempB = myChart.data.datasets[0].data[1];
+  const tempC = myChart.data.datasets[0].data[2];
+  const tempD = myChart.data.datasets[0].data[3];
+  const tempE = myChart.data.datasets[0].data[4];
+  
+  if (cpuTemp <= 35) {
     invoke("set_fan_off");
-  } else if (cpuTemp >= 35 && cpuTemp < 40) {
-    invoke("set_fan_speed", { value: tempA.toString() });
-    console.log("less than 45");
-  } else if (cpuTemp >= 40 && cpuTemp < 45) {
-    invoke("set_fan_speed", { value: tempB.toString() });
-    console.log(averageTemp);
-    console.log("less than 50");
-  } else if (cpuTemp >= 45 && cpuTemp < 50) {
-    invoke("set_fan_speed", { value: tempC.toString() });
-    console.log(tempC);
-    console.log("less than 50");
-  } else if (cpuTemp >= 50 && cpuTemp < 55) {
-    invoke("set_fan_speed", { value: tempD.toString() });
-    console.log(tempD);
-    console.log("less than 55");
-  } else if (cpuTemp >= 55 && cpuTemp < 60) {
-    invoke("set_fan_speed", { value: tempE.toString() });
-    console.log("less than 60");
-  } else if (cpuTemp > 60) {
-    invoke("set_fan_max");
+    return;
   }
+  if (cpuTemp >= 60) {
+    invoke("set_fan_max");
+    return;
+  }
+  const base = cpuTemp - 35;
+  const percentage = [1, 0.2, 0.4, 0.6, 0.8][base % 5];
+  let index = (base - (base % 5)) / 5;
+  if (base % 5 === 0) index--;
+  let temp = myChart.data.datasets[0].data[index];
+  
+  const tempBetween = ((temp*percentage) + temp).toFixed(0);
+  invoke("set_fan_speed", { value: tempbetween });
+  
 }
 var clearcustomFan;
 
