@@ -2,7 +2,10 @@
 
 <p id="description">A UI System Controller for modded Chromebooks</p>
 
-<p align="center"><img src="https://img.shields.io/github/downloads/Death7654/Chrultrabook-Controller/total" alt="shields"><img src="https://img.shields.io/github/contributors/Death7654/Chrultrabook-Controller?color=dark-green" alt="shields"><img src="https://img.shields.io/github/forks/Death7654/Chrultrabook-Controller?style=social" alt="shields"><img src="https://img.shields.io/github/stars/Death7654/Chrultrabook-Controller?style=social" alt="shields"></p>
+<p align="center"><img src="https://img.shields.io/github/downloads/Death7654/Chrultrabook-Controller/total" alt="shields">&nbsp;&nbsp;<img src="https://img.shields.io/github/contributors/Death7654/Chrultrabook-Controller?color=dark-green" alt="shields">&nbsp;&nbsp;<img src="https://img.shields.io/github/forks/Death7654/Chrultrabook-Controller?style=social" alt="shields">&nbsp;&nbsp;<img src="https://img.shields.io/github/stars/Death7654/Chrultrabook-Controller?style=social" alt="shields"></p>
+
+<h2>Virus Total</h2>
+<a href="https://www.virustotal.com/gui/file/b88310161a1e66b6a1ab3e4c3c318f3d63ec9516e5ae17ee5c0f31c1c35481b1/detection" target="_blank" rel="noopener noreferrer">Scan Results</a>
 
 <h2>Project Screenshots:</h2>
 
@@ -10,7 +13,7 @@
 
 <img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/502bd188-f8da-467b-a09e-d4d7a22e8c69" alt="project-screenshot" width="400">
 
-<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/96d17875-2c38-4999-83d8-ffb3c0acefa5" alt="project-screenshot" width="400">
+<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/00241ab3-315c-4b06-9c34-57f62bab2c3a" alt="project-screenshot" width="400">
 
 <img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/9499df2b-a597-4ad6-bf59-13f0008365aa" alt="project-screenshot" width="400">
 
@@ -20,7 +23,7 @@
 
   
   
-<h2>🧐 Features</h2>
+<h2>Features</h2>
 
 Here're some of the project's best features:
 
