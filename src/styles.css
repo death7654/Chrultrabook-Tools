@@ -10,6 +10,7 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
   color: var(--text-color);
+  transition: var(--tran-03);
 }
 
 .appFrame {
@@ -117,6 +118,7 @@
   --fanAuto-color: #239c00;
   --fanMax-color: #9c0000;
   --fanOff-color: #f04f00;
+  --fanCurves-color:#eef1f7;
   --getcbMem-color: #d170e9;
   --copy-color: #007fff;
   --cbmemCode-color: #d6d9de;
@@ -154,6 +156,7 @@ body.dark {
   --fanAuto-color: #01b38c;
   --fanMax-color: #f27b71;
   --fanOff-color: #e89b26;
+  --fanCurves-color: #313030;
   --getcbMem-color: #fc3b52;
   --copy-color: #00bae2;
   --cbmemCode-color: #313030;
@@ -654,7 +657,8 @@ nav.close~.dashboard .top {
   height: 400px;
   top: 130px;
   left: 1%;
-  background-color: var(--cbmemCode-color);
+  background-color: var(--fanCurves-color);
+  transition: var(--tran-05);
   border-radius: 20px;
  
 }
@@ -1024,6 +1028,7 @@ nav.close~.dashboard .top {
   font-weight: normal;
   font-size: 15;
   background-color: var(--systeminfo-color);
+  transition: var(--tran-05);
   position: relative;
   top: 40px;
   border-radius: 20px;

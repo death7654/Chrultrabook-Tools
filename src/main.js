@@ -113,7 +113,7 @@ const data = {
     },
   ],
 };
-
+//chart config
 const config = {
   type: "line",
   data: data,
@@ -130,12 +130,6 @@ const config = {
         round: 0,
         showTooltip: true,
         onDragStart: (event) => {
-          if (element.datasetIndex === 5 && element.index === 5) {
-            return false;
-          }
-          else {
-            return true;
-          }
         },
       },
     },
@@ -165,14 +159,15 @@ let offFan = document.getElementById("fanOff");
 let maxFan = document.getElementById("fanMax");
 let setFan = document.getElementById("setFan");
 
-async function setTemps() {
-  const cpuTemp = parseInt(averageTemp);
-  const tempA = myChart.data.datasets[0].data[0];
-  const tempB = myChart.data.datasets[0].data[1];
-  const tempC = myChart.data.datasets[0].data[2];
-  const tempD = myChart.data.datasets[0].data[3];
-  const tempE = myChart.data.datasets[0].data[4];
-  
+function setTemps() {
+  var cpuTemp = parseInt(averageTemp);
+
+  let tempA = myChart.data.datasets[0].data[0];
+  let tempB = myChart.data.datasets[0].data[1];
+  let tempC = myChart.data.datasets[0].data[2];
+  let tempD = myChart.data.datasets[0].data[3];
+  let tempE = myChart.data.datasets[0].data[4];
+
   if (cpuTemp <= 35) {
     invoke("set_fan_off");
     return;
@@ -181,15 +176,19 @@ async function setTemps() {
     invoke("set_fan_max");
     return;
   }
-  const base = cpuTemp - 35;
+  let base = cpuTemp - 35;
   const percentage = [1, 0.2, 0.4, 0.6, 0.8][base % 5];
   let index = (base - (base % 5)) / 5;
-  if (base % 5 === 0) index--;
   let temp = myChart.data.datasets[0].data[index];
-  
-  const tempBetween = ((temp*percentage) + temp).toFixed(0);
-  invoke("set_fan_speed", { value: tempbetween });
-  
+  console.log(index);
+  index++;
+  let temp2 = myChart.data.datasets[0].data[index];
+  console.log(index);
+
+  var tempBetween = (((temp2 - temp)*percentage) + temp);
+  invoke("set_fan_speed", { value: tempBetween.toString() });
+  console.log(myChart.data.datasets[0].data);
+  console.log('tempbetween ' + tempBetween);
 }
 var clearcustomFan;
 
@@ -198,6 +197,7 @@ function customFan() {
   offFan.classList.remove("activeButton");
   maxFan.classList.remove("activeButton");
   setFan.classList.add("activeButton");
+  clearInterval(clearcustomFan);
   clearcustomFan = setInterval(async () =>{setTemps()},2000);
 }
 function fanMax() {
