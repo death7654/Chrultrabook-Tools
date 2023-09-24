@@ -88,7 +88,7 @@ const data = {
   datasets: [
     {
       label: "Fan Speed",
-      data: [0, 20, 40, 60, 80, 100, 100],
+      data: [0, 0, 50, 90, 100, 100, 100],
       backgroundColor: [
         "rgba(255, 26, 104, 0.2)",
         "rgba(54, 162, 235, 0.2)",
@@ -162,12 +162,6 @@ let setFan = document.getElementById("setFan");
 function setTemps() {
   var cpuTemp = parseInt(averageTemp);
 
-  let tempA = myChart.data.datasets[0].data[0];
-  let tempB = myChart.data.datasets[0].data[1];
-  let tempC = myChart.data.datasets[0].data[2];
-  let tempD = myChart.data.datasets[0].data[3];
-  let tempE = myChart.data.datasets[0].data[4];
-
   if (cpuTemp <= 35) {
     invoke("set_fan_off");
     return;
@@ -180,15 +174,20 @@ function setTemps() {
   const percentage = [1, 0.2, 0.4, 0.6, 0.8][base % 5];
   let index = (base - (base % 5)) / 5;
   let temp = myChart.data.datasets[0].data[index];
-  console.log(index);
   index++;
   let temp2 = myChart.data.datasets[0].data[index];
-  console.log(index);
 
-  var tempBetween = (((temp2 - temp)*percentage) + temp);
+  var tempBetween;
+  if(cpuTemp % 5 == 0)
+  {
+    index--;
+    tempBetween = myChart.data.datasets[0].data[index];
+  }
+  else {
+    tempBetween = (((temp2 - temp)*percentage) + temp);
+  }
+
   invoke("set_fan_speed", { value: tempBetween.toString() });
-  console.log(myChart.data.datasets[0].data);
-  console.log('tempbetween ' + tempBetween);
 }
 var clearcustomFan;
 
@@ -207,6 +206,10 @@ function fanMax() {
   maxFan.classList.add("activeButton");
   setFan.classList.remove("activeButton");
   clearInterval(clearcustomFan);
+  const fanMaxArray = [100,100,100,100,100,100,100];
+  myChart.config.data.datasets[0].data = fanMaxArray;
+  myChart.update();
+
 }
 function fanOff() {
   invoke("set_fan_off");
@@ -215,6 +218,10 @@ function fanOff() {
   maxFan.classList.remove("activeButton");
   setFan.classList.remove("activeButton");
   clearInterval(clearcustomFan);
+
+  const fanOffArray = [0,0,0,0,0,0,100];
+  myChart.config.data.datasets[0].data = fanOffArray;
+  myChart.update();
 }
 function fanAuto() {
   invoke("set_fan_auto");
@@ -223,6 +230,10 @@ function fanAuto() {
   maxFan.classList.remove("activeButton");
   setFan.classList.remove("activeButton");
   clearInterval(clearcustomFan);
+
+  const fanAutoArray = [0, 0, 50, 90, 100, 100, 100];
+  myChart.config.data.datasets[0].data = fanAutoArray;
+  myChart.update();
 }
 
 const buttonfanMax = document.getElementById("fanMax");
