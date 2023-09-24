@@ -88,7 +88,7 @@ const data = {
   datasets: [
     {
       label: "Fan Speed",
-      data: [0, 20, 20, 50, 50, 100, 100],
+      data: [0, 20, 40, 60, 80, 100, 100],
       backgroundColor: [
         "rgba(255, 26, 104, 0.2)",
         "rgba(54, 162, 235, 0.2)",
