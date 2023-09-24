@@ -6,17 +6,17 @@
 
 <h2>Project Screenshots:</h2>
 
-<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/5924dde4-2759-4560-b749-2fd8bebf2d7d" alt="project-screenshot" width="400" height="400/">
+<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/5924dde4-2759-4560-b749-2fd8bebf2d7d" alt="project-screenshot" width="400">
 
-<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/502bd188-f8da-467b-a09e-d4d7a22e8c69" alt="project-screenshot" width="400" height="400/">
+<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/502bd188-f8da-467b-a09e-d4d7a22e8c69" alt="project-screenshot" width="400">
 
-<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/96d17875-2c38-4999-83d8-ffb3c0acefa5" alt="project-screenshot" width="400" height="400/">
+<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/96d17875-2c38-4999-83d8-ffb3c0acefa5" alt="project-screenshot" width="400">
 
-<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/9499df2b-a597-4ad6-bf59-13f0008365aa" alt="project-screenshot" width="400" height="400/">
+<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/9499df2b-a597-4ad6-bf59-13f0008365aa" alt="project-screenshot" width="400">
 
-<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/3cfa5581-8694-4fe6-ab1c-4df49db6d225" alt="project-screenshot" width="400" height="400/">
+<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/3cfa5581-8694-4fe6-ab1c-4df49db6d225" alt="project-screenshot" width="400">
 
-<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/a2c8d962-e76a-4108-b3d6-316aa2097e68" alt="project-screenshot" width="400" height="400/">
+<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/a2c8d962-e76a-4108-b3d6-316aa2097e68" alt="project-screenshot" width="400">
 
   
   
