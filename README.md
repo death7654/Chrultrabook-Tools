@@ -1,54 +1,60 @@
-<br/>
-<p align="center">
-  <h3 align="center">Chrultrabook Controller</h3>
+<h1 align="center" id="title">Chrultrabook-Controller</h1>
 
-  <p align="center">
-    A UI for Chrultrabooks
-    <br/>
-    <br/>
-    <a href="https://github.com/Death7654/Chrultrabook-Controller/issues">Report Bug</a>
-    .
-    <a href="https://github.com/Death7654/Chrultrabook-Controller/issues">Request Feature</a>
-  </p>
-</p>
+<p id="description">A UI System Controller for modded Chromebooks</p>
 
-![Downloads](https://img.shields.io/github/downloads/Death7654/Chrultrabook-Controller/total) ![Contributors](https://img.shields.io/github/contributors/Death7654/Chrultrabook-Controller?color=dark-green) ![Forks](https://img.shields.io/github/forks/Death7654/Chrultrabook-Controller?style=social) ![Stargazers](https://img.shields.io/github/stars/Death7654/Chrultrabook-Controller?style=social)
+<p align="center"><img src="https://img.shields.io/github/downloads/Death7654/Chrultrabook-Controller/total" alt="shields"><img src="https://img.shields.io/github/contributors/Death7654/Chrultrabook-Controller?color=dark-green" alt="shields"><img src="https://img.shields.io/github/forks/Death7654/Chrultrabook-Controller?style=social" alt="shields"><img src="https://img.shields.io/github/stars/Death7654/Chrultrabook-Controller?style=social" alt="shields"></p>
 
-## Virus Total Scan Results
-https://www.virustotal.com/gui/file/0fea6d18912fea20cc8e6d6558abbcfeec6fcd305534cc2bf27c584bc63c4a6a/detection
+<h2>Project Screenshots:</h2>
 
-## Screenshots
-<img width="400" alt="image" src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/2e14d0b3-095e-4513-9419-6cff63576208">
-<img width="400" alt="image" src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/5e9c9cd5-d024-4a02-94fa-cce5f5de4b9a">
-<img width="400" alt="image" src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/cd055783-e7df-4f1c-991f-bd1ede556931">
-<img width="400" alt="image" src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/f1182743-763b-4472-b886-d866b4921ec3">
+<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/5924dde4-2759-4560-b749-2fd8bebf2d7d" alt="project-screenshot" width="400" height="400/">
 
+<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/502bd188-f8da-467b-a09e-d4d7a22e8c69" alt="project-screenshot" width="400" height="400/">
 
+<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/96d17875-2c38-4999-83d8-ffb3c0acefa5" alt="project-screenshot" width="400" height="400/">
 
+<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/9499df2b-a597-4ad6-bf59-13f0008365aa" alt="project-screenshot" width="400" height="400/">
 
+<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/3cfa5581-8694-4fe6-ab1c-4df49db6d225" alt="project-screenshot" width="400" height="400/">
 
+<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/a2c8d962-e76a-4108-b3d6-316aa2097e68" alt="project-screenshot" width="400" height="400/">
 
-## Table Of Contents
+  
+  
+<h2>🧐 Features</h2>
 
-* [About the Project](#about-the-project)
-* [Built With](#built-with)
-* [License](#license)
+Here're some of the project's best features:
 
-## About The Project
+*   System Information
+*   CPU Temps
+*   CPU Usage
+*   Ram Usage
+*   Fan Speeds
+*   Custom Fan Curves
+*   Keyboard Backlight Controls
+*   Hardware Information
 
-This project allows you to control your Chrultrabook with a GUI
+<h2>🛠️ Installation Steps:</h2>
 
-## Built With
+<p>1. Install Coolstar's EC Driver</p>
 
-This project was built using
+```
+https://raw.githubusercontent.com/coolstar/driverinstallers/master/crosec/crosec.2.0.2-installer.exe
+```
 
-* [Tauri](https://tauri.app/)
-* [Html]()
-* [CSS]()
-* [Javascript]()
-* [Rust]()
+<p>2. Restart your laptop</p>
 
+  
+  
+<h2>💻 Built with</h2>
 
-## License
-                This project is licensed under the GNU General Public License v3.0
+Technologies used in the project:
 
+*   Tauri
+*   Rust
+*   HTML5
+*   JS
+*   CSS
+
+<h2>🛡️ License:</h2>
+
+This project is licensed under the GNU General Public Licence v3.0
