@@ -1,6 +1,6 @@
 [package]
 name = "chrultrabook-controller"
-version = "2.3.1"
+version = "2.3.2"
 description = "chrultrabook-controller"
 authors = ["Robinson Arysseril"]
 license = "gpl-3.0"
