@@ -22,21 +22,9 @@ fn main() {
             get_board_name,
             get_cpu_temp,
             get_fan_rpm,
-            set_fan_max,
-            set_fan_off,
-            set_fan_speed,
-            set_fan_auto,
-            set_keyboard_backlight,
-            get_cbmem,
-            get_coreboot,
-            get_coreboot_long,
-            get_battery,
-            get_flash_chip,
-            get_ec_console,
-            get_spi_info,
-            get_ec_protocol,
-            get_temp_sensor,
-            get_power_delivery
+            ectool,
+            cbmem,
+            get_boot_timestamps
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
@@ -225,239 +213,56 @@ async fn get_fan_rpm() -> String {
 }
 
 #[tauri::command]
-async fn set_fan_max() {
+async fn get_boot_timestamps() -> String {
+    let cmd: Result<std::process::Output, std::io::Error>;
+
+    #[cfg(target_os = "linux")]
+    return String::new();
+
     #[cfg(windows)]
     {
-        std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+        cmd = std::process::Command::new("C:\\Program Files\\crosec\\cbmem")
             .creation_flags(0x08000000)
-            .args(["fanduty", "100"])
-            .spawn()
-            .unwrap();
+            .output();
     }
+
+    return match_result(cmd);
 }
 
 #[tauri::command]
-async fn set_fan_off() {
-    #[cfg(windows)]
-    {
-        std::process::Command::new("C:\\Program Files\\crosec\\ectool")
-            .creation_flags(0x08000000)
-            .args(["fanduty", "0"])
-            .spawn()
-            .unwrap();
-    }
-}
+async fn ectool(value: String, value2: String) -> String {
+    let cmd: Result<std::process::Output, std::io::Error>;
 
-#[tauri::command]
-async fn set_fan_auto() {
+    #[cfg(target_os = "linux")]
+    return String::new();
+
     #[cfg(windows)]
     {
-        std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+        cmd = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
             .creation_flags(0x08000000)
-            .args(["autofanctrl"])
-            .spawn()
-            .unwrap();
-    }
-}
-#[tauri::command]
-fn set_fan_speed(value: String) {
-    #[cfg(windows)]
-    {
-        std::process::Command::new("C:\\Program Files\\crosec\\ectool")
-            .creation_flags(0x08000000)
-            .arg("fanduty")
             .arg(value)
-            .spawn()
-            .unwrap();
+            .arg(value2)
+            .output();
     }
-}
 
+    return match_result(cmd);
+}
 #[tauri::command]
-fn set_keyboard_backlight(value: String) {
+async fn cbmem(value: String) -> String {
+    let cmd: Result<std::process::Output, std::io::Error>;
+
+    #[cfg(target_os = "linux")]
+    return String::new();
+
     #[cfg(windows)]
     {
-        std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+        cmd = std::process::Command::new("C:\\Program Files\\crosec\\cbmem")
             .creation_flags(0x08000000)
-            .arg("pwmsetkblight")
             .arg(value)
-            .spawn()
-            .unwrap();
-    }
-}
-
-#[tauri::command]
-async fn get_cbmem() -> String {
-    let cmd: Result<std::process::Output, std::io::Error>;
-
-    #[cfg(target_os = "linux")]
-    return String::new();
-
-    #[cfg(windows)]
-    {
-        cmd = std::process::Command::new("C:\\Program Files\\crosec\\cbmem")
-            .creation_flags(0x08000000)
             .output();
     }
 
     return match_result(cmd);
-}
-
-#[tauri::command]
-async fn get_coreboot() -> String {
-    let cmd: Result<std::process::Output, std::io::Error>;
-
-    #[cfg(target_os = "linux")]
-    return String::new();
-
-    #[cfg(windows)]
-    {
-        cmd = std::process::Command::new("C:\\Program Files\\crosec\\cbmem")
-            .creation_flags(0x08000000)
-            .args(["-c1"])
-            .output();
-    }
-
-    return match_result(cmd);
-}
-
-#[tauri::command]
-async fn get_coreboot_long() -> String {
-    let cmd: Result<std::process::Output, std::io::Error>;
-
-    #[cfg(target_os = "linux")]
-    return String::new();
-
-    #[cfg(windows)]
-    {
-        cmd = std::process::Command::new("C:\\Program Files\\crosec\\cbmem")
-            .creation_flags(0x08000000)
-            .args(["-c"])
-            .output();
-    }
-
-    return match_result(cmd);
-}
-
-#[tauri::command]
-async fn get_ec_console() -> String {
-    let cmd: Result<std::process::Output, std::io::Error>;
-
-    #[cfg(target_os = "linux")]
-    return String::new();
-
-    #[cfg(windows)]
-    {
-        cmd = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
-            .creation_flags(0x08000000)
-            .args(["console"])
-            .output();
-    }
-
-    return match_result(cmd);
-}
-#[tauri::command]
-async fn get_battery() -> String {
-    let cmd: Result<std::process::Output, std::io::Error>;
-
-    #[cfg(target_os = "linux")]
-    return String::new();
-
-    #[cfg(windows)]
-    {
-        cmd = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
-            .creation_flags(0x08000000)
-            .args(["battery"])
-            .output();
-    }
-    return match_result(cmd);
-}
-#[tauri::command]
-async fn get_flash_chip() -> String {
-    let cmd: Result<std::process::Output, std::io::Error>;
-
-    #[cfg(target_os = "linux")]
-    return String::new();
-
-    #[cfg(windows)]
-    {
-        cmd = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
-            .creation_flags(0x08000000)
-            .args(["chipinfo"])
-            .output();
-    }
-
-    return match_result(cmd);
-}
-
-#[tauri::command]
-async fn get_spi_info() -> String {
-    let cmd: Result<std::process::Output, std::io::Error>;
-
-    #[cfg(target_os = "linux")]
-    return String::new();
-
-    #[cfg(windows)]
-    {
-        cmd = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
-            .creation_flags(0x08000000)
-            .args(["flashspiinfo"])
-            .output();
-    }
-
-    return match_result(cmd);
-}
-
-#[tauri::command]
-async fn get_ec_protocol() -> String {
-    let cmd: Result<std::process::Output, std::io::Error>;
-
-    #[cfg(target_os = "linux")]
-    return String::new();
-
-    #[cfg(windows)]
-    {
-        cmd = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
-            .creation_flags(0x08000000)
-            .args(["protoinfo"])
-            .output();
-    }
-
-    return match_result(cmd);
-}
-
-#[tauri::command]
-async fn get_temp_sensor() -> String {
-    let cmd: Result<std::process::Output, std::io::Error>;
-
-    #[cfg(target_os = "linux")]
-    return String::new();
-
-    #[cfg(windows)]
-    {
-        cmd = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
-            .creation_flags(0x08000000)
-            .args(["tempsinfo", "all"])
-            .output();
-    }
-
-    return match_result(cmd);
-}
-
-#[tauri::command]
-async fn get_power_delivery() -> String {
-    let cmd: Result<std::process::Output, std::io::Error>;
-
-    #[cfg(target_os = "linux")]
-    return String::new();
-
-    #[cfg(windows)]
-    {
-        cmd = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
-            .creation_flags(0x08000000)
-            .args(["pdlog"])
-            .output();
-        return match_result(cmd);
-    }
 }
 
 #[tauri::command]
