@@ -23,8 +23,7 @@ fn main() {
             get_cpu_temp,
             get_fan_rpm,
             ectool,
-            cbmem,
-            get_boot_timestamps
+            cbmem
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
@@ -207,23 +206,6 @@ async fn get_fan_rpm() -> String {
             .args(["pwmgetfanrpm"])
             .output();
     }
-    return match_result(cmd);
-}
-
-#[tauri::command]
-async fn get_boot_timestamps() -> String {
-    let cmd: Result<std::process::Output, std::io::Error>;
-
-    #[cfg(target_os = "linux")]
-    return String::new();
-
-    #[cfg(windows)]
-    {
-        cmd = std::process::Command::new("C:\\Program Files\\crosec\\cbmem")
-            .creation_flags(0x08000000)
-            .output();
-    }
-
     return match_result(cmd);
 }
 

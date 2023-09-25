@@ -276,7 +276,7 @@ const selected = document.querySelector(".selected");
 function getSystemInfo() {
   if (selected.innerText === "Boot Timestamps") {
     setTimeout(async () => {
-      document.getElementById("cbMemInfo").innerText = await invoke("get_boot_timestamps");
+      document.getElementById("cbMemInfo").innerText = await invoke("cbmem", { value: "-t"});
     }, 0);
   } else if (selected.innerText === "Coreboot Log") {
     setTimeout(async () => {
