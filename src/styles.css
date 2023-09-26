@@ -220,7 +220,7 @@ body.dark {
 
 body.dark::-webkit-scrollbar-thumb:hover,
 body.dark .activity-data::-webkit-scrollbar-thumb:hover {
-  background: #3a3b3c;
+  background: transparent;
 }
 
 /*side nav begins*/
