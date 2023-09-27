@@ -1,5 +1,6 @@
 /* ===== Google Font Import - Poppins ===== */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');	
 
 * {
   user-select: none;
@@ -216,7 +217,7 @@ body.dark {
 ::-webkit-scrollbar-thumb:hover {
   background: transparent;
   color: transparent;
-}
+} 
 
 body.dark::-webkit-scrollbar-thumb:hover,
 body.dark .activity-data::-webkit-scrollbar-thumb:hover {
@@ -810,6 +811,144 @@ nav.close~.dashboard .top {
 }
 
 
+/*keyboard Remap*/
+.remapText{
+  position: relative;
+  font-size: 20px;
+  font-weight: 400;
+  top: 170px;
+  left: -460px;
+}
+.remapText img{
+  position: relative;
+  top:8px;
+  left: -18px;
+}
+.main-container {
+  position: absolute;
+  top: 325px;
+  width: 700px;
+  padding: 2px;
+  box-sizing: border-box;
+  font-size: 6px;
+  margin: 20px auto 0;
+  background-color: var(--cbmemCode-color);
+  border-radius: 20px;
+  font-family: 'Open Sans', sans-serif;
+  color: #000000;
+  transition: var(--tran-03 );
+}
+.main-container .row {
+  margin: 6px 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.main-container .col {
+  padding: 2px;
+  background-color: var(--panel-color);
+  font-size: 11px;
+  text-align: center;
+  border-radius: 6px;
+  margin: 3px;
+  cursor: pointer;
+  width: 40px;
+  flex-wrap: wrap;
+  min-height: 20px;
+  display: inline-block;
+  text-transform: capitalize;
+  font-weight: 500;
+  transition: var(--tran-03 );
+}
+.main-container .col_function {
+  padding: 2px;
+  background-color: var(--panel-color);
+  font-size: 12px;
+  text-align: center;
+  border-radius: 6px;
+  margin: 3px;
+  cursor: pointer;
+  width: 50px;
+  flex-wrap: wrap;
+  min-height: 25px;
+  display: inline-block;
+  text-transform: capitalize;
+  font-weight: 500;
+  padding-top: 4px;
+  transition: var(--tran-03 );
+
+}
+.main-container .col span{
+  display: block;
+}
+.main-container .col.backspace {
+  width: 65px;
+  text-align: center;
+  font-size: 9px;
+  padding-top: 12px;
+}
+
+.col.search{
+  width: 75px;
+  text-align: center;
+}
+.main-container .col.tab,.main-container .col.slace{
+  width: 65px;
+}
+.col.shift,
+.col.enter{
+  width: 75px;
+  text-align: right;
+  padding-right: 10px;
+  padding-top: 9px;;
+}
+.col.space {
+  width: 400px;
+}
+.col.alt {
+  width: 80px;
+  height: 40px;;
+  padding-top: 10px;
+  text-align: left;
+  padding-left: 10px;
+}
+.col.alt.right {
+  width: 40px;
+  height: 40px;;
+  padding-top: 10px;
+  text-align: right;
+  padding-right: 10px;
+}
+.col.ctrl {
+  width: 80px;
+  height: 40px;;
+  padding-top: 10px;
+  text-align: left;
+  padding-left: 10px;
+}
+.col.ctrl.right {
+  width: 40px;
+  height: 40px;;
+  padding-top: 10px;
+  text-align: right;
+  padding-right: 10px;
+}
+.main-container .col.tab, .main-container .col.slace {
+  width: 53px;
+  text-align: center;
+}
+.input-wrapper #input {
+  padding: 13px;
+  display: block;
+  width: 30%;
+  margin: 0 auto;
+  background-color: #f1f1f1;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  height: 20px;
+}
 /*cbmem section */
 .cbmemButtons {
   position: relative;

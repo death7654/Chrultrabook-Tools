@@ -16,7 +16,7 @@ document
 //check for os type and hides things incompaitable
 setTimeout(async () => {
   const os = await invoke("is_windows");
-  //hides items not compatiable with linux
+  //hides items not compatiable with linux 
   if (os == "true") {
     document.getElementById("noLinux").style.display = "none";
     document.getElementById("noLinux2").style.display = "none";
@@ -268,6 +268,7 @@ sliderBacklight.oninput = function () {
     invoke("ectool", { value: "pwmsetkblight", value2:sliderBacklight.value});
   }
 };
+
 
 //sends infrom from html to ec
 
