@@ -902,7 +902,13 @@ nav.close~.dashboard .top {
   width: 75px;
   text-align: right;
   padding-right: 10px;
-  padding-top: 9px;;
+  padding-top: 9px;
+}
+.col.shift.left{
+  width: 75px;
+  text-align: right;
+  padding-right: 40px;
+  padding-top: 9px;
 }
 .col.space {
   width: 400px;
