@@ -120,6 +120,7 @@
   --fanMax-color: #9c0000;
   --fanOff-color: #f04f00;
   --fanCurves-color:#eef1f7;
+  --fanCurvesHover-color:#06d6a0;
   --getcbMem-color: #d170e9;
   --copy-color: #007fff;
   --cbmemCode-color: #d6d9de;
@@ -129,6 +130,9 @@
   --title-icon-color: #ccc;
   --switch-color: #fcefef;
   --select-color: #f2f2f2;
+  --accent-color: #78e5a3;
+  --slider-color:#9f9ef2;
+  --remap-color: #00BAE2;
   --homeFilter: invert(27%) sepia(74%) saturate(4443%) hue-rotate(119deg) brightness(97%) contrast(73%);
   --fanFilter: invert(54%) sepia(61%) saturate(595%) hue-rotate(186deg) brightness(95%) contrast(94%);
   --optionsFilter:invert(39%) sepia(10%) saturate(771%) hue-rotate(168deg) brightness(89%) contrast(87%);
@@ -158,6 +162,7 @@ body.dark {
   --fanMax-color: #f27b71;
   --fanOff-color: #e89b26;
   --fanCurves-color: #313030;
+  --fanCurvesHover-color:#FC3B52;
   --getcbMem-color: #fc3b52;
   --copy-color: #00bae2;
   --cbmemCode-color: #313030;
@@ -167,6 +172,9 @@ body.dark {
   --title-icon-color: #ccc;
   --switch-color: #221824;
   --select-color: #353434;
+  --slider-color:#F5AAA7;
+  --accent-color: #FC3B52;
+  --remap-color: #ff3d54;
   --logoFilter: invert(100%) sepia(0%) saturate(0%) hue-rotate(95deg) brightness(103%) contrast(107%);
   --homeFilter: invert(82%) sepia(53%) saturate(335%) hue-rotate(97deg) brightness(101%) contrast(102%);
   --fanFilter: invert(44%) sepia(33%) saturate(4509%) hue-rotate(182deg) brightness(99%) contrast(108%);
@@ -662,6 +670,7 @@ nav.close~.dashboard .top {
   background-color: var(--fanCurves-color);
   transition: var(--tran-05);
   border-radius: 20px;
+  cursor: pointer;
  
 }
 .setFan{
@@ -694,10 +703,9 @@ nav.close~.dashboard .top {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   -webkit-transform: scale(1.1);
   transform: scale(1.05);
-  background-color: var(--fanMax-color);
-  color: var(--text-color)
+  background-color: var(--fanCurvesHover-color);
+  color: white;
 }
-
 
 
 /*system options*/
@@ -705,7 +713,7 @@ nav.close~.dashboard .top {
 .backlightText{
   position: relative;
   font-size: 20px;
-  font-weight: 400;
+  font-weight: 600;
   top: 50px;
   left: -240px;
 }
@@ -719,15 +727,24 @@ nav.close~.dashboard .top {
   top: 225px;
   height: 60px;
   width: calc(97%);
-  background: transparent;
-  border-radius: 10px;
+  background: var(--slider-color);
+  border-radius: 20px;
   padding: 0 65px 0 45px;
-  border: 2px solid var(--dropdown-color);
   transition: var(--tran-03);
+  accent-color: var(--accent-color);
+}
+.rangeBacklight input::-webkit-slider-runnable-track{
+  width: 100%;
+  border-radius: 20px;
+  height: 5px;
+  transition: var(--tran-03);
+  background: white;
+  border: var(--accent-color);
 }
 .sliderValue{
   position: relative;
   width: 100%;
+
 }
 .sliderValue span{
   position: absolute;
@@ -740,25 +757,9 @@ nav.close~.dashboard .top {
   z-index: 2;
   color: var(--text-color);
   transform-origin: bottom;
-  transition: transform 0.3s ease-in-out;
-}
-.sliderValue span.show{
-  transform: translateX(-70%) scale(1);
-}
-.sliderValue span:after{
-  position: absolute;
-  content: '';
-  height: 100%;
-  width: 100%;
-  background: var(--text-color);
-  border: 3px solid #fff;
-  z-index: -1;
-  left: 50%;
-  transform: translateX(-50%) rotate(45deg);
-  border-bottom-left-radius: 50%;
-  box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
-  border-top-left-radius: 50%;
-  border-top-right-radius: 50%;
+  transition: transform 0.2s ease-in-out;
+
+
 }
 .fieldBacklight{
   display: flex;
@@ -766,40 +767,45 @@ nav.close~.dashboard .top {
   justify-content: center;
   height: 100%;
   position: relative;
+
 }
 .fieldBacklight .value{
   position: absolute;
   font-size: 18px;
-  color: var(--text-color);
+  color: black;
   font-weight: 600;
+
 }
 .fieldBacklight .value.left{
   left: -22px;
+
 }
 .fieldBacklight .value.right{
   right: -43px;
 }
 .rangeBacklight input{
   width: 100%;
-  height: 2px;
-  background: var(--text-color);
-  border-radius: 5px;
-  outline: none;
-  border: none;
+  height: 5px;
   z-index: 2222;
+  border: red;
+  background-color: var(--slider-color);
+  z-index: 300;
 }
+
 .rangeBacklight input::-webkit-slider-thumb{
   -webkit-appearance: none;
-  width: 20px;
-  height: 20px;
-  background: red;
-  border-radius: 50%;
-  background: var(--box1-color);
+  appearance: none;
+  position: relative;
+  top: -5px;
+  width: 80px;
+  height: 80px;
+  background-color: var(--slider-color);
   cursor: pointer;
 }
+
 .rangeBacklight input::-moz-range-thumb{
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
   background: red;
   border-radius: 50%;
   background: #664AFF;
@@ -809,24 +815,27 @@ nav.close~.dashboard .top {
 .rangeBacklight input::-moz-range-progress{
   background: #664AFF;
 }
+.backlightRangeSlider {
+  background-color: red;
+}
 
 
 /*keyboard Remap*/
 .remapText{
   position: relative;
   font-size: 20px;
-  font-weight: 400;
-  top: 170px;
-  left: -460px;
+  font-weight: 600;
+  top: 180px;
+  left: -474px;
 }
 .remapText img{
   position: relative;
-  top:8px;
-  left: -18px;
+  top:12px;
+  left: -10px;
 }
 .main-container {
   position: absolute;
-  top: 325px;
+  top: 346px;
   width: 700px;
   padding: 2px;
   box-sizing: border-box;
@@ -899,7 +908,13 @@ nav.close~.dashboard .top {
 .main-container .col.tab,.main-container .col.slace{
   width: 65px;
 }
-.col.shift,
+.col.shift{
+  width:100px;
+  text-align: right;
+  padding-right: 10px;
+  padding-top: 9px;
+}
+
 .col.enter{
   width: 75px;
   text-align: right;
@@ -907,9 +922,9 @@ nav.close~.dashboard .top {
   padding-top: 9px;
 }
 .col.shift.left{
-  width: 75px;
+  width: 100px;
   text-align: right;
-  padding-right: 40px;
+  padding-right: 70px;
   padding-top: 9px;
 }
 .col.space {
@@ -957,6 +972,13 @@ nav.close~.dashboard .top {
   border-radius: 4px;
   height: 20px;
 }
+.col:hover {
+  background-color: var(--remap-color);
+}
+.col_function:hover {
+  background-color: var(--remap-color); 
+}
+
 /*cbmem section */
 .cbmemButtons {
   position: relative;
