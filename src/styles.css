@@ -893,6 +893,8 @@ nav.close~.dashboard .top {
 .col.search{
   width: 75px;
   text-align: center;
+  padding-right: 40px;
+  padding-top: 10px;
 }
 .main-container .col.tab,.main-container .col.slace{
   width: 65px;

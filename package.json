@@ -13,7 +13,6 @@
   "license": "GPL-3.0",
   "dependencies": {
     "@tauri-apps/api": "^1.4.0",
-    "bootstrap-icons": "^1.11.1",
     "chart.js": "^3.9.1",
     "chartjs-plugin-dragdata": "^2.2.5",
     "install": "^0.13.0",
