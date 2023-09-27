@@ -262,12 +262,20 @@ sliderBacklight.oninput = function () {
     outputBacklight.innerText = this.value;
     //sends infrom from html to ec
     invoke("ectool", { value: "pwmsetkblight", value2:sliderBacklight.value});
+    if(sliderBacklight.value < 25){
+      document.getElementById('key').style.filter  = "opacity(25%)";
+    }
+    else {
+      document.getElementById('key').style.filter  = "opacity("+sliderBacklight.value+"%)";
+    }
   } else {
     outputBacklight.innerText = "off";
     //sends infrom from html to ec
     invoke("ectool", { value: "pwmsetkblight", value2:sliderBacklight.value});
+    document.getElementById('key').style.filter  = "opacity(25%)";
   }
 };
+//changes text color 
 
 //sends infrom from html to ec
 

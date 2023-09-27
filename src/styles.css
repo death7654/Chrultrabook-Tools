@@ -962,6 +962,12 @@ nav.close~.dashboard .top {
   width: 53px;
   text-align: center;
 }
+.col.tab {
+  padding-top: 10px;
+}
+.col.col-key.letter{
+  padding-top: 10px;
+}
 .input-wrapper #input {
   padding: 13px;
   display: block;
