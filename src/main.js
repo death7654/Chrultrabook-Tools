@@ -258,24 +258,11 @@ let outputBacklight = document.getElementById("backlightRangeSliderText");
 outputBacklight.innerHTML = sliderBacklight.value;
 
 sliderBacklight.oninput = function () {
-  if (this.value !== "0") {
-    outputBacklight.innerText = this.value;
-    //sends infrom from html to ec
-    invoke("ectool", { value: "pwmsetkblight", value2:sliderBacklight.value});
-    if(sliderBacklight.value < 25){
-      document.getElementById('key').style.filter  = "opacity(25%)";
-    }
-    else {
-      document.getElementById('key').style.filter  = "opacity("+sliderBacklight.value+"%)";
-    }
-  } else {
-    outputBacklight.innerText = "off";
-    //sends infrom from html to ec
-    invoke("ectool", { value: "pwmsetkblight", value2:sliderBacklight.value});
-    document.getElementById('key').style.filter  = "opacity(25%)";
-  }
+  outputBacklight.innerText = (this.value === "0") ? "off" : this.value;
+  invoke("ectool", { value: "pwmsetkblight", value2:sliderBacklight.value});
+  document.getElementById('key').style.filter = (sliderBacklight.value < 25 || this.value === "0") ? "opacity(25%)" :"opacity("+sliderBacklight.value+"%)";
 };
-//changes text color 
+//changes text color
 
 //sends infrom from html to ec
 
