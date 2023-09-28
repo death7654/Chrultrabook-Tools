@@ -230,7 +230,7 @@ body.dark {
 
 body.dark::-webkit-scrollbar-thumb:hover,
 body.dark .activity-data::-webkit-scrollbar-thumb:hover {
-  background: transparent;
+  background: var(--pane-color);
 }
 
 /*side nav begins*/
@@ -357,7 +357,7 @@ body.dark .nav-links li a:hover .link-name {
 
 .menu-items .dark-mode {
   padding-top: 10px;
-  border-top: 1px solid var(--border-color);
+  /*border-top: 1px solid var(--border-color);*/
 }
 
 .menu-items .mode {
