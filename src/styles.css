@@ -936,7 +936,7 @@ nav.close~.dashboard .top {
   width: 65px;
 }
 
-.col.shift {
+.col.shift.right {
   width: 98px;
   text-align: right;
   padding-right: 10px;
@@ -955,6 +955,7 @@ nav.close~.dashboard .top {
   text-align: right;
   padding-right: 70px;
   padding-top: 9px;
+  padding-left: 10px
 }
 
 .col.space {
