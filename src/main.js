@@ -17,11 +17,6 @@ document
 setTimeout(async () => {
   const os = await invoke("is_windows");
   //hides items not compatiable with linux
-  if (os == "true") {
-    document.getElementById("noLinux").style.display = "none";
-    document.getElementById("noLinux2").style.display = "none";
-    document.getElementById("noLinux3").style.display = "none";
-  }
 }, 1000);
 //function to check if a number exist
 function containsNumber(str) {

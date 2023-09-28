@@ -195,7 +195,7 @@ async fn get_fan_rpm() -> String {
     #[cfg(target_os = "linux")]
     {
         cmd = std::process::Command::new("ectool")
-            .args(["--interface=dev", "pwmgetfanrpm"])
+            .args(["pwmgetfanrpm"])
             .output();
     }
 
@@ -216,7 +216,6 @@ async fn ectool(value: String, value2: String) -> String {
     #[cfg(target_os = "linux")]
     {
         cmd = std::process::Command::new("ectool")
-            .arg("--interface=dev")
             .arg(value)
             .arg(value2)
             .output();
@@ -238,7 +237,11 @@ async fn cbmem(value: String) -> String {
     let cmd: Result<std::process::Output, std::io::Error>;
 
     #[cfg(target_os = "linux")]
-    return String::new();
+    {
+        cmd = std::process::Command::new("cbmem")
+            .arg(value)
+            .output();
+    }
 
     #[cfg(windows)]
     {
