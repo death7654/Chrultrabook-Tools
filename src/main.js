@@ -253,6 +253,7 @@ buttonCustomFan.addEventListener("mousedown", () => customFan());
 let sliderBacklight = document.getElementById("backlightRangeSlider");
 let outputBacklight = document.getElementById("backlightRangeSliderText");
 outputBacklight.innerHTML = sliderBacklight.value;
+//sends infrom from html to ec
 
 sliderBacklight.oninput = function () {
   outputBacklight.innerText = (this.value === "0") ? "off" : this.value;
@@ -260,8 +261,6 @@ sliderBacklight.oninput = function () {
   document.getElementById('key').style.filter = (sliderBacklight.value < 25 || this.value === "0") ? "opacity(25%)" :"opacity("+sliderBacklight.value+"%)";
 };
 //changes text color
-
-//sends infrom from html to ec
 
 //sends info from ec to html
 const selected = document.querySelector(".selected");
