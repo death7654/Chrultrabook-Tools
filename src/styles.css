@@ -204,7 +204,7 @@ body.dark {
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--panel-color);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -214,8 +214,8 @@ body.dark {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: transparent;
-  color: transparent;
+  background: var(--panel-color);
+  color: var(--panel-color);
 }
 
 body.dark::-webkit-scrollbar-thumb:hover,
