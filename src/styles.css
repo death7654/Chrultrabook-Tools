@@ -937,7 +937,7 @@ nav.close~.dashboard .top {
 }
 
 .col.shift {
-  width: 100px;
+  width: 98px;
   text-align: right;
   padding-right: 10px;
   padding-top: 9px;
@@ -951,50 +951,86 @@ nav.close~.dashboard .top {
 }
 
 .col.shift.left {
-  width: 100px;
+  width: 98px;
   text-align: right;
   padding-right: 70px;
   padding-top: 9px;
 }
 
 .col.space {
-  width: 400px;
+  width: 224px;
+  position: relative;
+  left: 4px
 }
 
-.col.alt {
-  width: 80px;
+.col.alt.left {
+  width: 85px;
   height: 40px;
-  ;
   padding-top: 10px;
   text-align: left;
   padding-left: 10px;
+  position: relative;
+  left: 4px;
 }
 
 .col.alt.right {
   width: 40px;
   height: 40px;
-  ;
   padding-top: 10px;
   text-align: right;
   padding-right: 10px;
+  position: relative;
+  left: 4px;
 }
 
-.col.ctrl {
-  width: 80px;
+.col.ctrl.left {
+  width: 98px;
   height: 40px;
-  ;
   padding-top: 10px;
   text-align: left;
   padding-left: 10px;
+  position: relative;
+  left:4px;
 }
 
 .col.ctrl.right {
   width: 40px;
   height: 40px;
-  ;
   padding-top: 10px;
   text-align: right;
   padding-right: 10px;
+  position: relative;
+  left: 4px;
+}
+.col.up{
+  height: 20px;
+  width: 50px;
+  position: relative;
+  left: 3px;
+  bottom: 3px;
+  padding-top: 2px;
+}
+.col.down{
+  height: 20px;
+  width: 50px;
+  position: relative;
+  top: 20px;
+  left: -53px;
+  padding-top: 2px;
+}
+.col.arrow.left{
+  height: 20px;
+  position: relative;
+  left: 4px;
+  top: 20px;
+  padding-top: 2px;
+}
+.col.arrow.right{
+  height: 20px;
+  position: relative;
+  top: -26px;
+  right: -306px;
+  padding-top: 2px;
 }
 
 .main-container .col.tab,
