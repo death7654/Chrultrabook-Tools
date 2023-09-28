@@ -28,12 +28,9 @@ function containsNumber(str) {
   return /\d/.test(str);
 }
 //checks if fan exists
-let fan = null;
 const fanExist = await invoke("get_fan_rpm");
-if (containsNumber(fanExist)) {
-  fan = true;
-} else {
-  fan = false;
+let fan = !!containsNumber(fanExist);
+if (!fan) {
   document.getElementById("fan").style.display = "none";
 }
 
@@ -60,7 +57,7 @@ setInterval(async () => {
   document.getElementById("cpuTemp").innerText = averageTemp.toFixed(0) + "°C";
 
   //sends information to fan control if it exists
-  if (fan == true) {
+  if (fan === true) {
     const fanRPM = await invoke("get_fan_rpm");
     const fanSpeed = fanRPM.toString().split(":").pop().trim();
     document.getElementById("fanSpeed").innerText = fanSpeed + " RPM";
