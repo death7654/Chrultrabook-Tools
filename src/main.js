@@ -265,49 +265,40 @@ sliderBacklight.oninput = function () {
 
 //sends info from ec to html
 const selected = document.querySelector(".selected");
-function getSystemInfo() {
-  if (selected.innerText === "Boot Timestamps") {
-    setTimeout(async () => {
+async function getSystemInfo() {
+  switch(selected.innerText) {
+    case "Boot Timestamps":
       document.getElementById("cbMemInfo").innerText = await invoke("cbmem", { value: "-t"});
-    }, 0);
-  } else if (selected.innerText === "Coreboot Log") {
-    setTimeout(async () => {
+      break;
+    case "Coreboot Log":
       document.getElementById("cbMemInfo").innerText = await invoke("cbmem", { value: "-c1"});
-    }, 0);
-  } else if (selected.innerText === "Coreboot Extended Log") {
-    setTimeout(async () => {
+      break;
+    case "Coreboot Extended Log":
       document.getElementById("cbMemInfo").innerText = await invoke("cbmem", { value: "-c"});
-    }, 0);
-  } else if (selected.innerText === "EC Console Log") {
-    setTimeout(async () => {
+      break;
+    case "EC Console Log":
       document.getElementById("cbMemInfo").innerText = await invoke("ectool", { value: "console", value2:""});
-    }, 0);
-  } else if (selected.innerText === "Battery Info") {
-    setTimeout(async () => {
+      break;
+    case "Battery Info":
       document.getElementById("cbMemInfo").innerText = await invoke("ectool", { value: "battery", value2:""});
-    }, 0);
-  } else if (selected.innerText === "EC Chip Info") {
-    setTimeout(async () => {
+      break;
+    case "EC Chip Info":
       document.getElementById("cbMemInfo").innerText = await invoke("ectool", { value: "chipinfo", value2: ""});
-    }, 0);
-  } else if (selected.innerText === "SPI Info") {
-    setTimeout(async () => {
-      document.getElementById("cbMemInfo").innerText = await invoke("ectool", { value: "flashspiinfo", value2:""});
-    }, 0);
-  } else if (selected.innerText === "EC Protocol Info") {
-    setTimeout(async () => {
+      break;
+    case "SPI Info":
+      document.getElementById("cbMemInfo").innerText = await invoke("ectool", { value: "flashspiinfo", value2: ""});
+      break;
+    case "EC Protocol Info":
       document.getElementById("cbMemInfo").innerText = await invoke("ectool", { value: "protoinfo", value2:""});
-    }, 0);
-  } else if (selected.innerText === "Temp Sensor Info") {
-    setTimeout(async () => {
+      break;
+    case "Temp Sensor Info":
       document.getElementById("cbMemInfo").innerText = await invoke("ectool", { value: "tempsinfo", value2:"all"});
-    }, 0);
-  } else if (selected.innerText === "Power Delivery Info") {
-    setTimeout(async () => {
+      break;
+    case "Power Delivery Info":
       document.getElementById("cbMemInfo").innerText = await invoke("ectool", { value: "pdlog", value2:""});
-    }, 0);
-  } else {
-    document.getElementById("cbMemInfo").innerText = "Select Something";
+      break;
+    default:
+      document.getElementById("cbMemInfo").innerText = "Select Something";
   }
 }
 
