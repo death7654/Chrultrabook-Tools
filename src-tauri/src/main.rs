@@ -59,6 +59,8 @@ async fn get_cpu_usage() -> String {
     }
 
     return (num / total).to_string();
+    println!("{}", num);
+    println!("{}", total);
 }
 
 #[tauri::command]
