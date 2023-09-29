@@ -130,8 +130,9 @@
   --title-icon-color: #ccc;
   --switch-color: #fcefef;
   --select-color: #f2f2f2;
-  --accent-color: #78e5a3;
-  --slider-color: #9f9ef2;
+  --slider-knob-color: #E7001C;
+  --slider-color: #1F51FF;
+  --slider-text-color: #ffffff;
   --remap-color: #00BAE2;
   --homeFilter: invert(27%) sepia(74%) saturate(4443%) hue-rotate(119deg) brightness(97%) contrast(73%);
   --fanFilter: invert(54%) sepia(61%) saturate(595%) hue-rotate(186deg) brightness(95%) contrast(94%);
@@ -173,8 +174,9 @@ body.dark {
   --switch-color: #221824;
   --select-color: #353434;
   --slider-color: #F5AAA7;
-  --accent-color: #FC3B52;
+  --slider-knob-color: #FC3B52;
   --remap-color: #ff3d54;
+  --slider-text-color: #000000;
   --logoFilter: invert(100%) sepia(0%) saturate(0%) hue-rotate(95deg) brightness(103%) contrast(107%);
   --homeFilter: invert(82%) sepia(53%) saturate(335%) hue-rotate(97deg) brightness(101%) contrast(102%);
   --fanFilter: invert(44%) sepia(33%) saturate(4509%) hue-rotate(182deg) brightness(99%) contrast(108%);
@@ -230,7 +232,7 @@ body.dark {
 
 body.dark::-webkit-scrollbar-thumb:hover,
 body.dark .activity-data::-webkit-scrollbar-thumb:hover {
-  background: transparent;
+  background: var(--panel-color);
 }
 
 /*side nav begins*/
@@ -738,16 +740,7 @@ nav.close~.dashboard .top {
   border-radius: 20px;
   padding: 0 65px 0 45px;
   transition: var(--tran-03);
-  accent-color: var(--accent-color);
-}
-
-.rangeBacklight input::-webkit-slider-runnable-track {
-  width: 100%;
-  border-radius: 20px;
-  height: 5px;
-  transition: var(--tran-03);
-  background: white;
-  border: var(--accent-color);
+  accent-color: var(--slider-knob-color);
 }
 
 .sliderValue {
@@ -784,7 +777,7 @@ nav.close~.dashboard .top {
 .fieldBacklight .value {
   position: absolute;
   font-size: 18px;
-  color: black;
+  color: var(--slider-text-color);
   font-weight: 600;
 
 }
@@ -805,31 +798,7 @@ nav.close~.dashboard .top {
   border: red;
   background-color: var(--slider-color);
   z-index: 300;
-}
-
-.rangeBacklight input::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  position: relative;
-  top: -5px;
-  width: 20px;
-  height: 20px;
-  background-color: var(--slider-color);
-  cursor: pointer;
-}
-
-.rangeBacklight input::-moz-range-thumb {
-  width: 40px;
-  height: 40px;
-  background: red;
-  border-radius: 50%;
-  background: #664AFF;
-  border: 1px solid #664AFF;
-  cursor: pointer;
-}
-
-.rangeBacklight input::-moz-range-progress {
-  background: #664AFF;
+  transition: var(--tran-03);
 }
 
 .backlightRangeSlider {
