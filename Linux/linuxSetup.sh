@@ -19,5 +19,7 @@ export PATH=/usr/local/bin/CrosEC/ectool:$PATH
 export PATH=/usr/local/bin/CrosEC/cbmem:$PATH
 source ~/.bashrc
 echo "setup done"
+echo "Always start the Appimage as Root"
+
 
 
