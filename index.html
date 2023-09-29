@@ -5,10 +5,12 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./src/styles.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    <title>Chultrabook Controller</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./src/styles.css">
     <script type="module" src="./src/main.js"></script>
+    <title>Chultrabook Controller</title>
+
 <body style="overflow: hidden;">
     <div data-tauri-drag-region class="appFrame">
         <div class="appFunctionButtons">
@@ -157,8 +159,8 @@
                         <h2 class="backlightText"><img
                                 src="./src/assets/Icons/systemOptions/keyboard.svg">&nbsp;&nbsp;Keyboard
                             Backlight</h2>
-                        <h2 class="remapText"><img
-                            src="./src/assets/Icons/systemOptions/keyboard.svg">Keyboard Remap</h2>
+                        <h2 class="remapText"><img src="./src/assets/Icons/systemOptions/keyboard.svg">Keyboard Remap
+                        </h2>
                     </div>
                     <div class="rangeBacklight">
                         <div class="sliderValue">
@@ -174,92 +176,92 @@
                     </div>
                     <div class="main-container">
                         <div id="key">
-                        <div class="row">
-                            <div class="col_function">Esc</div>
-                            <div class="col_function"><i class="bi bi-arrow-left"></i></div>
-                            <div class="col_function"><i class="bi bi-arrow-right"></i></div>
-                            <div class="col_function"><i class="bi bi-arrow-clockwise"></i></div>
-                            <div class="col_function"><i class="bi bi-fullscreen"></i></div>
-                            <div class="col_function"><i class="bi bi-window-stack"></i></div>
-                            <div class="col_function"><i class="bi bi-brightness-low"></i></div>
-                            <div class="col_function"><i class="bi bi-brightness-high"></i></div>
-                            <div class="col_function"><i class="bi bi-volume-mute"></i></div>
-                            <div class="col_function"><i class="bi bi-volume-down"></i></div>
-                            <div class="col_function"><i class="bi bi-volume-up"></i></div>
-                            <div class="col_function"><i class="bi bi-lock"></i></div>
-                        </div>
-                        <div class="row">
-                            <div class="col symb"><span>~</span>`</div>
-                            <div class="col symb"><span>!</span>1</div>
-                            <div class="col symb"><span>@</span>2</div>
-                            <div class="col symb"><span>#</span>3</div>
-                            <div class="col symb"><span>$</span>4</div>
-                            <div class="col symb"><span>%</span>5</div>
-                            <div class="col symb"><span>^</span>6</div>
-                            <div class="col symb"><span>&</span>7</div>
-                            <div class="col symb"><span>*</span>8</div>
-                            <div class="col symb"><span>(</span>9</div>
-                            <div class="col symb"><span>)</span>0</div>
-                            <div class="col symb"><span>_</span>-</div>
-                            <div class="col symb"><span>+</span>=</div>
-                            <div class="col backspace">backspace</div>
-                        </div>
-                        <div class="row">
-                            <div class="col  tab">Tab</div>
-                            <div class="col col-key letter">q</div>
-                            <div class="col col-key letter">w</div>
-                            <div class="col col-key letter">e</div>
-                            <div class="col col-key letter">r</div>
-                            <div class="col col-key letter">t</div>
-                            <div class="col col-key letter">y</div>
-                            <div class="col col-key letter">u</div>
-                            <div class="col col-key letter">i</div>
-                            <div class="col col-key letter">o</div>
-                            <div class="col col-key letter">p</div>
-                            <div class="col"><span>{</span><span>[</span></div>
-                            <div class="col"><span>}</span><span>]</span></div>
-                            <div class="col slace"><span>|</span><span>\</span></div>
-                        </div>
-                        <div class="row">
-                            <div class="col search"><i class="bi bi-search"></i></div>
-                            <div class="col col-key letter">a</div>
-                            <div class="col col-key letter">s</div>
-                            <div class="col col-key letter">d</div>
-                            <div class="col col-key letter">f</div>
-                            <div class="col col-key letter">g</div>
-                            <div class="col col-key letter">h</div>
-                            <div class="col col-key letter">j</div>
-                            <div class="col col-key letter">k</div>
-                            <div class="col col-key letter">l</div>
-                            <div class="col"><span>:</span><span>;</span></div>
-                            <div class="col"><span>"</span><span>'</span></div>
-                            <div class="col enter">enter</div>
-                        </div>
-                        <div class="row">
-                            <div class="col shift left">shift</div>
-                            <div class="col col-key letter">z</div>
-                            <div class="col col-key letter">x</div>
-                            <div class="col col-key letter">c</div>
-                            <div class="col col-key letter">v</div>
-                            <div class="col col-key letter">b</div>
-                            <div class="col col-key letter">n</div>
-                            <div class="col col-key letter">m</div>
-                            <div class="col"><span>&lt;</span><span>,</span></div>
-                            <div class="col"><span>></span><span>.</span></div>
-                            <div class="col"><span>?</span><span>/</span></div>
-                            <div class="col shift right">shift</div>
-                        </div>
-                        <div class="row">
-                            <div class="col ctrl left">ctrl</div>
-                            <div class="col alt left">alt</div>
-                            <div class="col space"></div>
-                            <div class="col alt right">alt</div>
-                            <div class="col ctrl right">ctrl</div>
-                            <div class="col arrow left"><i class="bi bi-chevron-left"></i></div>
-                            <div class="col up"><i class="bi bi-chevron-up"></i></div>
-                            <div class="col down"><i class="bi bi-chevron-down"></i></div>
-                            <div class="col arrow right"><i class="bi bi-chevron-right"></i></div>
-                        </div>
+                            <div class="row">
+                                <div class="col_function">Esc</div>
+                                <div class="col_function"><i class="bi bi-arrow-left"></i></div>
+                                <div class="col_function"><i class="bi bi-arrow-right"></i></div>
+                                <div class="col_function"><i class="bi bi-arrow-clockwise"></i></div>
+                                <div class="col_function"><i class="bi bi-fullscreen"></i></div>
+                                <div class="col_function"><i class="bi bi-window-stack"></i></div>
+                                <div class="col_function"><i class="bi bi-brightness-low"></i></div>
+                                <div class="col_function"><i class="bi bi-brightness-high"></i></div>
+                                <div class="col_function"><i class="bi bi-volume-mute"></i></div>
+                                <div class="col_function"><i class="bi bi-volume-down"></i></div>
+                                <div class="col_function"><i class="bi bi-volume-up"></i></div>
+                                <div class="col_function"><i class="bi bi-lock"></i></div>
+                            </div>
+                            <div class="row">
+                                <div class="col symb"><span>~</span>`</div>
+                                <div class="col symb"><span>!</span>1</div>
+                                <div class="col symb"><span>@</span>2</div>
+                                <div class="col symb"><span>#</span>3</div>
+                                <div class="col symb"><span>$</span>4</div>
+                                <div class="col symb"><span>%</span>5</div>
+                                <div class="col symb"><span>^</span>6</div>
+                                <div class="col symb"><span>&</span>7</div>
+                                <div class="col symb"><span>*</span>8</div>
+                                <div class="col symb"><span>(</span>9</div>
+                                <div class="col symb"><span>)</span>0</div>
+                                <div class="col symb"><span>_</span>-</div>
+                                <div class="col symb"><span>+</span>=</div>
+                                <div class="col backspace">backspace</div>
+                            </div>
+                            <div class="row">
+                                <div class="col  tab">Tab</div>
+                                <div class="col col-key letter">q</div>
+                                <div class="col col-key letter">w</div>
+                                <div class="col col-key letter">e</div>
+                                <div class="col col-key letter">r</div>
+                                <div class="col col-key letter">t</div>
+                                <div class="col col-key letter">y</div>
+                                <div class="col col-key letter">u</div>
+                                <div class="col col-key letter">i</div>
+                                <div class="col col-key letter">o</div>
+                                <div class="col col-key letter">p</div>
+                                <div class="col"><span>{</span><span>[</span></div>
+                                <div class="col"><span>}</span><span>]</span></div>
+                                <div class="col slace"><span>|</span><span>\</span></div>
+                            </div>
+                            <div class="row">
+                                <div class="col search"><i class="bi bi-search"></i></div>
+                                <div class="col col-key letter">a</div>
+                                <div class="col col-key letter">s</div>
+                                <div class="col col-key letter">d</div>
+                                <div class="col col-key letter">f</div>
+                                <div class="col col-key letter">g</div>
+                                <div class="col col-key letter">h</div>
+                                <div class="col col-key letter">j</div>
+                                <div class="col col-key letter">k</div>
+                                <div class="col col-key letter">l</div>
+                                <div class="col"><span>:</span><span>;</span></div>
+                                <div class="col"><span>"</span><span>'</span></div>
+                                <div class="col enter">enter</div>
+                            </div>
+                            <div class="row">
+                                <div class="col shift left">shift</div>
+                                <div class="col col-key letter">z</div>
+                                <div class="col col-key letter">x</div>
+                                <div class="col col-key letter">c</div>
+                                <div class="col col-key letter">v</div>
+                                <div class="col col-key letter">b</div>
+                                <div class="col col-key letter">n</div>
+                                <div class="col col-key letter">m</div>
+                                <div class="col"><span>&lt;</span><span>,</span></div>
+                                <div class="col"><span>></span><span>.</span></div>
+                                <div class="col"><span>?</span><span>/</span></div>
+                                <div class="col shift right">shift</div>
+                            </div>
+                            <div class="row">
+                                <div class="col ctrl left">ctrl</div>
+                                <div class="col alt left">alt</div>
+                                <div class="col space"></div>
+                                <div class="col alt right">alt</div>
+                                <div class="col ctrl right">ctrl</div>
+                                <div class="col arrow left"><i class="bi bi-chevron-left"></i></div>
+                                <div class="col up"><i class="bi bi-chevron-up"></i></div>
+                                <div class="col down"><i class="bi bi-chevron-down"></i></div>
+                                <div class="col arrow right"><i class="bi bi-chevron-right"></i></div>
+                            </div>
                         </div>
                     </div>
                     <!--fixes the clear background-->
