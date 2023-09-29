@@ -46,7 +46,8 @@ https://raw.githubusercontent.com/coolstar/driverinstallers/master/crosec/crosec
 
 <p>2. Restart your laptop</p>
 
-  
+
+<p>3. Install this app.</p>
   
 <h2>💻 Built with</h2>
 
