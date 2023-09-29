@@ -51,7 +51,9 @@ async fn get_cpu_usage() -> String {
     sys.refresh_cpu(); // Refreshing CPU information.
 
     let mut num: i32 = 0;
+    println!("num: {}", num);
     let mut total: i32 = 0;
+    println!("total: {}", total);
     for cpu in sys.cpus() {
         let cpu_usage = cpu.cpu_usage();
         total += 1;
@@ -195,7 +197,7 @@ async fn get_fan_rpm() -> String {
     #[cfg(target_os = "linux")]
     {
         cmd = std::process::Command::new("ectool")
-            .args(["pwmgetfanrpm"])
+            .args(["--interface=dev", "pwmgetfanrpm"])
             .output();
     }
 
@@ -216,6 +218,7 @@ async fn ectool(value: String, value2: String) -> String {
     #[cfg(target_os = "linux")]
     {
         cmd = std::process::Command::new("ectool")
+            .arg("--interface=dev")
             .arg(value)
             .arg(value2)
             .output();
@@ -237,11 +240,7 @@ async fn cbmem(value: String) -> String {
     let cmd: Result<std::process::Output, std::io::Error>;
 
     #[cfg(target_os = "linux")]
-    {
-        cmd = std::process::Command::new("cbmem")
-            .arg(value)
-            .output();
-    }
+    return String::new();
 
     #[cfg(windows)]
     {
