@@ -10,8 +10,8 @@ mkdir -p /usr/local/bin/CrosEC
 echo "created"
 echo "downloading tools"
 cd /usr/local/bin/CrosEC
-curl "https://tree123.org/chrultrabook/utils/ectool"
-curl "https://tree123.org/chrultrabook/utils/cbmem"
+curl -o ectool https://tree123.org/chrultrabook/utils/ectool
+curl -o cbmem https://tree123.org/chrultrabook/utils/cbmem
 echo "setting up tools"
 sudo chmod u+s /usr/local/bin/CrosEC/ectool
 sudo chmod u+s /usr/local/bin/CrosEC/cbmem
