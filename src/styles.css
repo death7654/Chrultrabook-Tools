@@ -446,12 +446,11 @@ nav.close~.dashboard .top {
   width: calc(100% - 73px);
 }
 
-.dashboard .top .sidebar-toggle {
-  font-size: 26px;
+.sidebar-toggle {
+  font-size: 30px;
   color: var(--text-color);
   cursor: pointer;
-  position: relative;
-  top: 12.5px;
+  margin-left: 7px;
 }
 
 .top img {
@@ -460,7 +459,7 @@ nav.close~.dashboard .top {
 }
 
 .dashboard .dash-content {
-  padding-top: 50px;
+  padding-top: 30px;
 }
 
 .dash-content .title {
@@ -487,6 +486,20 @@ nav.close~.dashboard .top {
   font-weight: 500;
   color: var(--text-color);
   margin-left: 10px;
+}
+
+.about-content {
+  padding: 0 30px 20px;
+  & h2 {
+    margin: 25px 0 5px 0;
+  }
+  & h3 {
+    margin: 25px 0 5px 7px;
+  }
+}
+
+.about-content ul {
+  margin-left: 30px;
 }
 
 .dash-content .boxes {
