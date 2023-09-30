@@ -124,8 +124,7 @@ const config = {
       dragData: {
         round: 0,
         showTooltip: true,
-        onDragStart: (event) => {
-        },
+        onDragStart: (event) => {},
       },
     },
     scales: {
@@ -158,11 +157,11 @@ function setTemps() {
   var cpuTemp = parseInt(averageTemp);
 
   if (cpuTemp <= 35) {
-    invoke("ectool", { value: "fanduty", value2: "0"})
+    invoke("ectool", { value: "fanduty", value2: "0" });
     return;
   }
   if (cpuTemp >= 60) {
-    invoke("ectool", { value: "fanduty", value2: "100"})
+    invoke("ectool", { value: "fanduty", value2: "100" });
     return;
   }
   let base = cpuTemp - 35;
@@ -173,15 +172,14 @@ function setTemps() {
   let temp2 = myChart.data.datasets[0].data[index];
 
   var tempBetween;
-  if(cpuTemp % 5 == 0)
-  {
+  if (cpuTemp % 5 == 0) {
     index--;
     tempBetween = myChart.data.datasets[0].data[index];
+  } else {
+    tempBetween = (temp2 - temp) * percentage + temp;
   }
-  else {
-    tempBetween = (((temp2 - temp)*percentage) + temp);
-  }
-  invoke("ectool", { value: "fanduty", value2: tempBetween.toString()})}
+  invoke("ectool", { value: "fanduty", value2: tempBetween.toString() });
+}
 var clearcustomFan;
 
 function customFan() {
@@ -190,7 +188,9 @@ function customFan() {
   maxFan.classList.remove("activeButton");
   setFan.classList.add("activeButton");
   clearInterval(clearcustomFan);
-  clearcustomFan = setInterval(async () =>{setTemps()},2000);
+  clearcustomFan = setInterval(async () => {
+    setTemps();
+  }, 2000);
 }
 function fanMax() {
   autoFan.classList.remove("activeButton");
@@ -200,14 +200,15 @@ function fanMax() {
   clearInterval(clearcustomFan);
 
   //changes chart
-  const fanMaxArray = [100,100,100,100,100,100,100];
+  const fanMaxArray = [100, 100, 100, 100, 100, 100, 100];
   myChart.config.data.datasets[0].data = fanMaxArray;
   myChart.update();
-  clearcustomFan = setInterval(async () =>{setTemps()},2000);
-
+  clearcustomFan = setInterval(async () => {
+    setTemps();
+  }, 2000);
 }
 function fanOff() {
-  invoke("ectool", { value: "fanduty", value2: "0"})
+  invoke("ectool", { value: "fanduty", value2: "0" });
   autoFan.classList.remove("activeButton");
   offFan.classList.add("activeButton");
   maxFan.classList.remove("activeButton");
@@ -215,13 +216,15 @@ function fanOff() {
   clearInterval(clearcustomFan);
 
   //changes chart
-  const fanOffArray = [0,0,0,0,0,0,100];
+  const fanOffArray = [0, 0, 0, 0, 0, 0, 100];
   myChart.config.data.datasets[0].data = fanOffArray;
   myChart.update();
-  clearcustomFan = setInterval(async () =>{setTemps()},2000);
+  clearcustomFan = setInterval(async () => {
+    setTemps();
+  }, 2000);
 }
 function fanAuto() {
-  invoke("ectool", { value: "autofanctrl", value2: ""})
+  invoke("ectool", { value: "autofanctrl", value2: "" });
   autoFan.classList.add("activeButton");
   offFan.classList.remove("activeButton");
   maxFan.classList.remove("activeButton");
@@ -232,7 +235,9 @@ function fanAuto() {
   const fanAutoArray = [0, 0, 50, 90, 100, 100, 100];
   myChart.config.data.datasets[0].data = fanAutoArray;
   myChart.update();
-  clearcustomFan = setInterval(async () =>{setTemps()},2000);
+  clearcustomFan = setInterval(async () => {
+    setTemps();
+  }, 2000);
 }
 
 const buttonfanMax = document.getElementById("fanMax");
@@ -250,11 +255,14 @@ buttonCustomFan.addEventListener("mousedown", () => customFan());
 //system infopage
 //sets current percantage for backlight
 setTimeout(async () => {
-  let keyboardBackLight = await invoke("ectool", {value: "pwmgetkblight", value2:""})
-  let value = keyboardBackLight.split(" ")
+  let keyboardBackLight = await invoke("ectool", {
+    value: "pwmgetkblight",
+    value2: "",
+  });
+  let value = keyboardBackLight.split(" ");
   document.getElementById("backlightRangeSlider").value = value[4];
-  outputBacklight.innerText = value[4]
-},0);
+  outputBacklight.innerText = value[4];
+}, 0);
 //keyboard backlight slider
 let sliderBacklight = document.getElementById("backlightRangeSlider");
 let outputBacklight = document.getElementById("backlightRangeSliderText");
@@ -264,11 +272,11 @@ sliderBacklight.oninput = function () {
   if (this.value !== "0") {
     outputBacklight.innerText = this.value;
     //sends infrom from html to ec
-    invoke("ectool", { value: "pwmsetkblight", value2:sliderBacklight.value});
+    invoke("ectool", { value: "pwmsetkblight", value2: sliderBacklight.value });
   } else {
     outputBacklight.innerText = "off";
     //sends infrom from html to ec
-    invoke("ectool", { value: "pwmsetkblight", value2:sliderBacklight.value});
+    invoke("ectool", { value: "pwmsetkblight", value2: sliderBacklight.value });
   }
 };
 
@@ -279,43 +287,70 @@ const selected = document.querySelector(".selected");
 function getSystemInfo() {
   if (selected.innerText === "Boot Timestamps") {
     setTimeout(async () => {
-      document.getElementById("cbMemInfo").innerText = await invoke("cbmem", { value: "-t"});
+      document.getElementById("cbMemInfo").innerText = await invoke("cbmem", {
+        value: "-t",
+      });
     }, 0);
   } else if (selected.innerText === "Coreboot Log") {
     setTimeout(async () => {
-      document.getElementById("cbMemInfo").innerText = await invoke("cbmem", { value: "-c1"});
+      document.getElementById("cbMemInfo").innerText = await invoke("cbmem", {
+        value: "-c1",
+      });
     }, 0);
   } else if (selected.innerText === "Coreboot Extended Log") {
     setTimeout(async () => {
-      document.getElementById("cbMemInfo").innerText = await invoke("cbmem", { value: "-c"});
+      document.getElementById("cbMemInfo").innerText = await invoke("cbmem", {
+        value: "-c",
+      });
     }, 0);
   } else if (selected.innerText === "EC Console Log") {
     setTimeout(async () => {
-      document.getElementById("cbMemInfo").innerText = await invoke("ectool", { value: "console", value2:""});
+      document.getElementById("cbMemInfo").innerText = await invoke("ectool", {
+        value: "console",
+        value2: "",
+      });
     }, 0);
   } else if (selected.innerText === "Battery Info") {
     setTimeout(async () => {
-      document.getElementById("cbMemInfo").innerText = await invoke("ectool", { value: "battery", value2:""});
+      document.getElementById("cbMemInfo").innerText = await invoke("ectool", {
+        value: "battery",
+        value2: "",
+      });
     }, 0);
   } else if (selected.innerText === "EC Chip Info") {
     setTimeout(async () => {
-      document.getElementById("cbMemInfo").innerText = await invoke("ectool", { value: "chipinfo", value2: ""});
+      document.getElementById("cbMemInfo").innerText = await invoke("ectool", {
+        value: "chipinfo",
+        value2: "",
+      });
     }, 0);
   } else if (selected.innerText === "SPI Info") {
     setTimeout(async () => {
-      document.getElementById("cbMemInfo").innerText = await invoke("ectool", { value: "flashspiinfo", value2:""});
+      document.getElementById("cbMemInfo").innerText = await invoke("ectool", {
+        value: "flashspiinfo",
+        value2: "",
+      });
     }, 0);
   } else if (selected.innerText === "EC Protocol Info") {
     setTimeout(async () => {
-      document.getElementById("cbMemInfo").innerText = await invoke("ectool", { value: "protoinfo", value2:""});
+      document.getElementById("cbMemInfo").innerText = await invoke("ectool", {
+        value: "protoinfo",
+        value2: "",
+      });
     }, 0);
   } else if (selected.innerText === "Temp Sensor Info") {
     setTimeout(async () => {
-      document.getElementById("cbMemInfo").innerText = await invoke("ectool", { value: "tempsinfo", value2:"all"});
+      document.getElementById("cbMemInfo").innerText = await invoke("ectool", {
+        value: "tempsinfo",
+        value2: "all",
+      });
     }, 0);
   } else if (selected.innerText === "Power Delivery Info") {
     setTimeout(async () => {
-      document.getElementById("cbMemInfo").innerText = await invoke("ectool", { value: "pdlog", value2:""});
+      document.getElementById("cbMemInfo").innerText = await invoke("ectool", {
+        value: "pdlog",
+        value2: "",
+      });
     }, 0);
   } else {
     document.getElementById("cbMemInfo").innerText = "Select Something";
