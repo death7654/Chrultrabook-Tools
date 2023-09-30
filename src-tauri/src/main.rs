@@ -34,7 +34,6 @@ async fn is_windows() -> bool {
     return os_info::get().os_type() == os_info::Type::Windows;
 }
 
-
 #[tauri::command]
 async fn get_ram_usage() -> String {
     let mut sys = System::new();
@@ -68,27 +67,25 @@ async fn get_cpu_temp() -> Option<String> {
     {
         let paths = fs::read_dir("/sys/class/hwmon/").unwrap();
         for path in paths {
-            let name = fs::read_to_string(format!("{}/name", path.as_ref().unwrap().path().display())).unwrap();
+            let name =
+                fs::read_to_string(format!("{}/name", path.as_ref().unwrap().path().display()))
+                    .unwrap();
             if name.contains("k10temp") || name.contains("coretemp") {
                 return Some(
-                    (
-                        fs::read_to_string(
-                            format!(
-                                "{}/temp1_input",
-                                path.as_ref()
-                                .unwrap()
-                                .path()
-                                .display()
-                            )
-                        ).unwrap()
-                        .split('\n')
-                        .collect::<Vec<_>>()[0]
+                    (fs::read_to_string(format!(
+                        "{}/temp1_input",
+                        path.as_ref().unwrap().path().display()
+                    ))
+                    .unwrap()
+                    .split('\n')
+                    .collect::<Vec<_>>()[0]
                         .parse::<i32>()
-                        .unwrap() / 1000
-                    ).to_string()
+                        .unwrap()
+                        / 1000)
+                        .to_string(),
                 );
             };
-        };
+        }
         return None;
     };
 
@@ -194,7 +191,9 @@ async fn get_hostname() -> String {
 
     #[cfg(target_os = "linux")]
     {
-        cmd = std::process::Command::new("cat").args(["/proc/sys/kernel/hostname"]).output();
+        cmd = std::process::Command::new("cat")
+            .args(["/proc/sys/kernel/hostname"])
+            .output();
     }
 
     #[cfg(windows)]
@@ -252,6 +251,7 @@ async fn ectool(value: String, value2: String) -> String {
 
     return match_result(cmd);
 }
+
 #[tauri::command]
 async fn cbmem(value: String) -> String {
     let cmd: Result<std::process::Output, std::io::Error>;
