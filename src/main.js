@@ -13,24 +13,40 @@ document
   .getElementById("close")
   .addEventListener("mousedown", () => appWindow.close());
 
-//check for os type and hides things incompaitable
-setTimeout(async () => {
-  const os = await invoke("is_windows");
-  //hides items not compatiable with linux
-}, 1000);
 //function to check if a number exist
 function containsNumber(str) {
   return /\d/.test(str);
 }
 //checks if fan exists
-let fan = null;
+let fan = true;
 const fanExist = await invoke("get_fan_rpm");
-if (containsNumber(fanExist)) {
-  fan = true;
-} else {
+if (containsNumber(fanExist) == false) {
   fan = false;
   document.getElementById("fan").style.display = "none";
 }
+//sets current percantage for backlight and hides the slider if computer has no backlight
+setTimeout(async () => {
+  let keyboardBackLight = await invoke("ectool", {
+    value: "pwmgetkblight",
+    value2: "",
+  });
+  let value = keyboardBackLight.split(" ");
+  document.getElementById("backlightRangeSlider").value = value[4];
+  if (containsNumber(value[4]) == false){
+    document.getElementById('rangeBacklight').style.display = "none";
+    document.getElementById('rangeBacklightslider').style.display = "none";
+  };
+  console.log(value[4])
+  
+  //prevents laptops with no backlight form using this
+  if(value[4] !== "0")
+  {
+    document.getElementById("backlightRangeSliderText").innerText = value[4];
+  }
+  else{
+    document.getElementById("backlightRangeSliderText").innerText = "off";
+  }
+}, 0);
 
 //homepage
 var averageTemp;
@@ -253,16 +269,7 @@ const buttonCustomFan = document.getElementById("setFan");
 buttonCustomFan.addEventListener("mousedown", () => customFan());
 
 //system infopage
-//sets current percantage for backlight
-setTimeout(async () => {
-  let keyboardBackLight = await invoke("ectool", {
-    value: "pwmgetkblight",
-    value2: "",
-  });
-  let value = keyboardBackLight.split(" ");
-  document.getElementById("backlightRangeSlider").value = value[4];
-  outputBacklight.innerText = value[4];
-}, 0);
+
 //keyboard backlight slider
 let sliderBacklight = document.getElementById("backlightRangeSlider");
 let outputBacklight = document.getElementById("backlightRangeSliderText");
