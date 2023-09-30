@@ -247,6 +247,13 @@ const buttonCustomFan = document.getElementById("setFan");
 buttonCustomFan.addEventListener("mousedown", () => customFan());
 
 //system infopage
+//sets current percantage for backlight
+setTimeout(async () => {
+  let keyboardBackLight = await invoke("ectool", {value: "pwmgetkblight", value2:""})
+  let value = keyboardBackLight.split(" ")
+  document.getElementById("backlightRangeSlider").value = value[4];
+  outputBacklight.innerText = value[4]
+},0);
 //keyboard backlight slider
 let sliderBacklight = document.getElementById("backlightRangeSlider");
 let outputBacklight = document.getElementById("backlightRangeSliderText");
