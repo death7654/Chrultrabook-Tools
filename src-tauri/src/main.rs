@@ -64,7 +64,6 @@ async fn get_cpu_temp() -> Option<String> {
         for path in paths {
             let name = fs::read_to_string(format!("{}/name", path.as_ref().unwrap().path().display())).unwrap();
             if name.contains("k10temp") || name.contains("coretemp") {
-                println!("{}", fs::read_to_string(format!("{}/temp1_input", path.as_ref().unwrap().path().display())).unwrap());
                 return Some(
                     (
                         fs::read_to_string(
