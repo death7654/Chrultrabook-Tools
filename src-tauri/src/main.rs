@@ -11,6 +11,7 @@ use sysinfo::{CpuExt, System, SystemExt};
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
+            is_windows,
             get_bios_version,
             open_link,
             get_cpu_usage,
@@ -27,6 +28,12 @@ fn main() {
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
+
+#[tauri::command]
+async fn is_windows() -> bool {
+    return os_info::get().os_type() == os_info::Type::Windows;
+}
+
 
 #[tauri::command]
 async fn get_ram_usage() -> String {
@@ -63,7 +70,6 @@ async fn get_cpu_temp() -> Option<String> {
         for path in paths {
             let name = fs::read_to_string(format!("{}/name", path.as_ref().unwrap().path().display())).unwrap();
             if name.contains("k10temp") || name.contains("coretemp") {
-                println!("{}", fs::read_to_string(format!("{}/temp1_input", path.as_ref().unwrap().path().display())).unwrap());
                 return Some(
                     (
                         fs::read_to_string(
@@ -188,7 +194,7 @@ async fn get_hostname() -> String {
 
     #[cfg(target_os = "linux")]
     {
-        cmd = std::process::Command::new("cat").args(["cat /proc/sys/kernel/hostname"]).output();
+        cmd = std::process::Command::new("cat").args(["/proc/sys/kernel/hostname"]).output();
     }
 
     #[cfg(windows)]
