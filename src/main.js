@@ -13,16 +13,6 @@ document
   .getElementById("close")
   .addEventListener("mousedown", () => appWindow.close());
 
-//check for os type and hides things incompaitable
-setTimeout(async () => {
-  const os = await invoke("is_windows");
-  //hides items not compatiable with linux
-  if (os == "true") {
-    document.getElementById("noLinux").style.display = "none";
-    document.getElementById("noLinux2").style.display = "none";
-    document.getElementById("noLinux3").style.display = "none";
-  }
-}, 1000);
 //function to check if a number exist
 function containsNumber(str) {
   return /\d/.test(str);
@@ -33,6 +23,29 @@ let fan = !!containsNumber(fanExist);
 if (!fan) {
   document.getElementById("fan").style.display = "none";
 }
+//sets current percantage for backlight and hides the slider if computer has no backlight
+setTimeout(async () => {
+  let keyboardBackLight = await invoke("ectool", {
+    value: "pwmgetkblight",
+    value2: "",
+  });
+  let value = keyboardBackLight.split(" ");
+  document.getElementById("backlightRangeSlider").value = value[4];
+  if (containsNumber(value[4]) == false){
+    document.getElementById('rangeBacklight').style.display = "none";
+    document.getElementById('rangeBacklightslider').style.display = "none";
+  };
+  console.log(value[4])
+  
+  //prevents laptops with no backlight form using this
+  if(value[4] !== "0")
+  {
+    document.getElementById("backlightRangeSliderText").innerText = value[4];
+  }
+  else{
+    document.getElementById("backlightRangeSliderText").innerText = "off";
+  }
+}, 0);
 
 //homepage
 var averageTemp;
@@ -126,8 +139,7 @@ const config = {
       dragData: {
         round: 0,
         showTooltip: true,
-        onDragStart: (event) => {
-        },
+        onDragStart: (event) => {},
       },
     },
     scales: {
@@ -160,11 +172,11 @@ function setTemps() {
   var cpuTemp = parseInt(averageTemp);
 
   if (cpuTemp <= 35) {
-    invoke("ectool", { value: "fanduty", value2: "0"})
+    invoke("ectool", { value: "fanduty", value2: "0" });
     return;
   }
   if (cpuTemp >= 60) {
-    invoke("ectool", { value: "fanduty", value2: "100"})
+    invoke("ectool", { value: "fanduty", value2: "100" });
     return;
   }
   let base = cpuTemp - 35;
@@ -175,16 +187,14 @@ function setTemps() {
   let temp2 = myChart.data.datasets[0].data[index];
 
   var tempBetween;
-  if(cpuTemp % 5 == 0)
-  {
+  if (cpuTemp % 5 == 0) {
     index--;
     tempBetween = myChart.data.datasets[0].data[index];
+  } else {
+    tempBetween = (temp2 - temp) * percentage + temp;
   }
-  else {
-    tempBetween = (((temp2 - temp)*percentage) + temp);
-  }
-
-  invoke("ectool", { value: "fanduty", value2: tempBetween.toString()})}
+  invoke("ectool", { value: "fanduty", value2: tempBetween.toString() });
+}
 var clearcustomFan;
 
 function customFan() {
@@ -193,10 +203,11 @@ function customFan() {
   maxFan.classList.remove("activeButton");
   setFan.classList.add("activeButton");
   clearInterval(clearcustomFan);
-  clearcustomFan = setInterval(async () =>{setTemps()},2000);
+  clearcustomFan = setInterval(async () => {
+    setTemps();
+  }, 2000);
 }
 function fanMax() {
-  invoke("ectool", { value: "fanduty", value2: "100"})
   autoFan.classList.remove("activeButton");
   offFan.classList.remove("activeButton");
   maxFan.classList.add("activeButton");
@@ -204,13 +215,15 @@ function fanMax() {
   clearInterval(clearcustomFan);
 
   //changes chart
-  const fanMaxArray = [100,100,100,100,100,100,100];
+  const fanMaxArray = [100, 100, 100, 100, 100, 100, 100];
   myChart.config.data.datasets[0].data = fanMaxArray;
   myChart.update();
-
+  clearcustomFan = setInterval(async () => {
+    setTemps();
+  }, 2000);
 }
 function fanOff() {
-  invoke("ectool", { value: "fanduty", value2: "0"})
+  invoke("ectool", { value: "fanduty", value2: "0" });
   autoFan.classList.remove("activeButton");
   offFan.classList.add("activeButton");
   maxFan.classList.remove("activeButton");
@@ -218,12 +231,15 @@ function fanOff() {
   clearInterval(clearcustomFan);
 
   //changes chart
-  const fanOffArray = [0,0,0,0,0,0,100];
+  const fanOffArray = [0, 0, 0, 0, 0, 0, 100];
   myChart.config.data.datasets[0].data = fanOffArray;
   myChart.update();
+  clearcustomFan = setInterval(async () => {
+    setTemps();
+  }, 2000);
 }
 function fanAuto() {
-  invoke("ectool", { value: "autofanctrl", value2: ""})
+  invoke("ectool", { value: "autofanctrl", value2: "" });
   autoFan.classList.add("activeButton");
   offFan.classList.remove("activeButton");
   maxFan.classList.remove("activeButton");
@@ -234,6 +250,9 @@ function fanAuto() {
   const fanAutoArray = [0, 0, 50, 90, 100, 100, 100];
   myChart.config.data.datasets[0].data = fanAutoArray;
   myChart.update();
+  clearcustomFan = setInterval(async () => {
+    setTemps();
+  }, 2000);
 }
 
 const buttonfanMax = document.getElementById("fanMax");
@@ -249,6 +268,7 @@ const buttonCustomFan = document.getElementById("setFan");
 buttonCustomFan.addEventListener("mousedown", () => customFan());
 
 //system infopage
+
 //keyboard backlight slider
 let sliderBacklight = document.getElementById("backlightRangeSlider");
 let outputBacklight = document.getElementById("backlightRangeSliderText");
