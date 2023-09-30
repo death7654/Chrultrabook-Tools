@@ -3,7 +3,6 @@
     windows_subsystem = "windows"
 )]
 
-use std::fs;
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
 
@@ -12,6 +11,7 @@ use sysinfo::{CpuExt, System, SystemExt};
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
+            is_windows,
             get_bios_version,
             open_link,
             get_cpu_usage,
@@ -28,6 +28,12 @@ fn main() {
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
+
+#[tauri::command]
+async fn is_windows() -> bool {
+    return os_info::get().os_type() == os_info::Type::Windows;
+}
+
 
 #[tauri::command]
 async fn get_ram_usage() -> String {
