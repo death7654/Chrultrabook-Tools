@@ -3,7 +3,6 @@
     windows_subsystem = "windows"
 )]
 
-use std::fs;
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
 
