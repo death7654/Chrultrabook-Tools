@@ -3,6 +3,7 @@
     windows_subsystem = "windows"
 )]
 
+use std::fs;
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
 
@@ -57,19 +58,38 @@ async fn get_cpu_usage() -> String {
 
 #[tauri::command]
 async fn get_cpu_temp() -> Option<String> {
-    let cmd: Result<std::process::Output, std::io::Error>;
-
     #[cfg(target_os = "linux")]
     {
-        cmd = std::process::Command::new("cat")
-            .args(["/sys/class/thermal/thermal_zone0/temp"]) // this is just a placeholder until a proper detction system is in place
-            .output();
-        return Some((match_result(cmd).parse::<i32>().unwrap() / 1000).to_string());
-    }
+        let paths = fs::read_dir("/sys/class/hwmon/").unwrap();
+        for path in paths {
+            let name = fs::read_to_string(format!("{}/name", path.as_ref().unwrap().path().display())).unwrap();
+            if name.contains("k10temp") || name.contains("coretemp") {
+                println!("{}", fs::read_to_string(format!("{}/temp1_input", path.as_ref().unwrap().path().display())).unwrap());
+                return Some(
+                    (
+                        fs::read_to_string(
+                            format!(
+                                "{}/temp1_input",
+                                path.as_ref()
+                                .unwrap()
+                                .path()
+                                .display()
+                            )
+                        ).unwrap()
+                        .split('\n')
+                        .collect::<Vec<_>>()[0]
+                        .parse::<i32>()
+                        .unwrap() / 1000
+                    ).to_string()
+                );
+            };
+        };
+        return None;
+    };
 
     #[cfg(windows)]
     {
-        cmd = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+        let cmd = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
             .creation_flags(0x08000000)
             .args(["temps", "all"])
             .output();
