@@ -189,7 +189,7 @@ async fn get_hostname() -> String {
 
     #[cfg(target_os = "linux")]
     {
-        cmd = std::process::Command::new("cat").args(["cat /proc/sys/kernel/hostname"]).output();
+        cmd = std::process::Command::new("cat").args(["/proc/sys/kernel/hostname"]).output();
     }
 
     #[cfg(windows)]
