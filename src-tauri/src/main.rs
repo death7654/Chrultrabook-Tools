@@ -3,6 +3,8 @@
     windows_subsystem = "windows"
 )]
 
+mod kb_def;
+
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
 
