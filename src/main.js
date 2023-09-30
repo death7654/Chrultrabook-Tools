@@ -181,7 +181,6 @@ function setTemps() {
   else {
     tempBetween = (((temp2 - temp)*percentage) + temp);
   }
-
   invoke("ectool", { value: "fanduty", value2: tempBetween.toString()})}
 var clearcustomFan;
 
@@ -194,7 +193,6 @@ function customFan() {
   clearcustomFan = setInterval(async () =>{setTemps()},2000);
 }
 function fanMax() {
-  invoke("ectool", { value: "fanduty", value2: "100"})
   autoFan.classList.remove("activeButton");
   offFan.classList.remove("activeButton");
   maxFan.classList.add("activeButton");
@@ -205,6 +203,7 @@ function fanMax() {
   const fanMaxArray = [100,100,100,100,100,100,100];
   myChart.config.data.datasets[0].data = fanMaxArray;
   myChart.update();
+  clearcustomFan = setInterval(async () =>{setTemps()},2000);
 
 }
 function fanOff() {
@@ -219,6 +218,7 @@ function fanOff() {
   const fanOffArray = [0,0,0,0,0,0,100];
   myChart.config.data.datasets[0].data = fanOffArray;
   myChart.update();
+  clearcustomFan = setInterval(async () =>{setTemps()},2000);
 }
 function fanAuto() {
   invoke("ectool", { value: "autofanctrl", value2: ""})
@@ -232,6 +232,7 @@ function fanAuto() {
   const fanAutoArray = [0, 0, 50, 90, 100, 100, 100];
   myChart.config.data.datasets[0].data = fanAutoArray;
   myChart.update();
+  clearcustomFan = setInterval(async () =>{setTemps()},2000);
 }
 
 const buttonfanMax = document.getElementById("fanMax");
