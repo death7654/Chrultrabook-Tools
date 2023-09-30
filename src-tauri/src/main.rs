@@ -45,7 +45,9 @@ async fn get_cpu_usage() -> String {
     sys.refresh_cpu(); // Refreshing CPU information.
 
     let mut num: i32 = 0;
+    println!("num: {}", num);
     let mut total: i32 = 0;
+    println!("total: {}", total);
     for cpu in sys.cpus() {
         let cpu_usage = cpu.cpu_usage();
         total += 1;

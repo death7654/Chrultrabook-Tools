@@ -793,7 +793,7 @@ nav.close~.dashboard .top {
 
 .rangeBacklight input {
   -webkit-appearance: none;
-  appearance: none;
+  appearance: none; 
   width: 100%;
   cursor: pointer;
   outline: none;
@@ -801,10 +801,9 @@ nav.close~.dashboard .top {
   height: 6px;
   background: var(--slider-knob-color);
 }
-
 .rangeBacklight input::-webkit-slider-thumb {
   -webkit-appearance: none;
-  appearance: none;
+  appearance: none; 
   height: 15px;
   width: 15px;
   background-color: #fff;
@@ -970,7 +969,7 @@ nav.close~.dashboard .top {
   text-align: left;
   padding-left: 10px;
   position: relative;
-  left: 4px;
+  left:4px;
 }
 
 .col.ctrl.right {
@@ -982,8 +981,7 @@ nav.close~.dashboard .top {
   position: relative;
   left: 4px;
 }
-
-.col.up {
+.col.up{
   height: 20px;
   width: 50px;
   position: relative;
@@ -991,8 +989,7 @@ nav.close~.dashboard .top {
   bottom: 3px;
   padding-top: 2px;
 }
-
-.col.down {
+.col.down{
   height: 20px;
   width: 50px;
   position: relative;
@@ -1000,16 +997,14 @@ nav.close~.dashboard .top {
   left: -53px;
   padding-top: 2px;
 }
-
-.col.arrow.left {
+.col.arrow.left{
   height: 20px;
   position: relative;
   left: 4px;
   top: 20px;
   padding-top: 2px;
 }
-
-.col.arrow.right {
+.col.arrow.right{
   height: 20px;
   position: relative;
   top: -26px;

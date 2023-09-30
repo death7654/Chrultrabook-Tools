@@ -5,10 +5,11 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./src/styles.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    <title>Chultrabook Controller</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./src/styles.css">
     <script type="module" src="./src/main.js"></script>
+    <title>Chultrabook Controller</title>
 
 <body style="overflow: hidden;">
     <div data-tauri-drag-region class="appFrame">
@@ -19,12 +20,14 @@
     </div>
     <div style="overflow-y: scroll; height: 100vh; border-bottom-right-radius: 20px;  border-top-right-radius: 20px;">
         <nav>
+            <!--LogoName-->
             <div class="logo-name">
                 <div class="logo-image">
                     <img class="logoFilter" src="./src/assets/Icons/sidenavbar/chrome.svg" alt="">
                 </div>
                 <span class="logo_name">Chrultrabook Tools</span>
             </div>
+            <!--DashItems-->
             <div class="menu-items">
                 <ul class="nav-links">
                     <li><a id="home">
@@ -50,7 +53,7 @@
                             <span class="link-name">About</span>
                         </a></li>
                 </ul>
-
+                <!--DarkMode-->
                 <ul style="border: none" class="dark-mode">
                     <li class="mode">
 
@@ -68,6 +71,7 @@
                 <i class="uil uil-bars sidebar-toggle"></i>
             </div>
         </section>
+        <!--Dashboard-->
         <section id="sectionDashboard" class="dashboard">
             <div class="dash-content">
                 <div class="overview">
@@ -105,6 +109,7 @@
                 </div>
             </div>
         </section>
+        <!--fancontrols-->
         <section id="sectionFan" class="dashboard">
             <div class="dash-content">
                 <div class="overview">
