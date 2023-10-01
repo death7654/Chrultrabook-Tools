@@ -26,4 +26,4 @@ jobs:
         run: npm install # change this to npm or pnpm depending on which one you use
       - uses: tauri-apps/tauri-action@v0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
