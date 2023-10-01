@@ -683,7 +683,7 @@ nav.close~.dashboard .top {
   position: relative;
   width: 90%;
   height: 400px;
-  top: 130px;
+  top: 150px;
   left: 1%;
   background-color: var(--fanCurves-color);
   transition: var(--tran-05);

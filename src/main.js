@@ -35,7 +35,6 @@ setTimeout(async () => {
     document.getElementById('rangeBacklight').style.display = "none";
     document.getElementById('rangeBacklightslider').style.display = "none";
   };
-  console.log(value[4])
   
   //prevents laptops with no backlight form using this
   if(value[4] !== "0")
@@ -68,6 +67,7 @@ setInterval(async () => {
   });
   averageTemp = temps / sensors;
   document.getElementById("cpuTemp").innerText = averageTemp.toFixed(0) + "°C";
+  document.getElementById("cpuTempFan").innerText = averageTemp.toFixed(0)+ "°C";
 
 }, 1000);
 if (fan == true) {
@@ -75,9 +75,12 @@ setInterval(async () => {
   const fanRPM = await invoke("get_fan_rpm");
     const fanSpeed = fanRPM.toString().split(":").pop().trim();
     document.getElementById("fanSpeed").innerText = fanSpeed + " RPM";
-    document.getElementById("cpuTempFan").innerText =
-      averageTemp.toFixed(0) + "°C";
-},1000)
+},1000);
+setTimeout(async () => {
+  let fanCurve = localStorage.getItem("customfanCurves")
+  let fanCurveData = JSON.parse(fanCurve)
+  myChart.config.data.datasets[0].data = fanCurveData;
+},0)
 }
 
 setTimeout(async () => {
@@ -94,7 +97,6 @@ setTimeout(async () => {
 }, 0);
 //setFanSpeeds
 //fan chart
-if (fan == true){
 const data = {
   labels: ["35°C", "40°C", "45°C", "50°C", "55°C", "60°C"],
   datasets: [
@@ -164,7 +166,7 @@ const config = {
 //render chart
 const myChart = new Chart(document.getElementById("fancurves"), config);
 myChart.update();
-}
+
 let autoFan = document.getElementById("fanAuto");
 let offFan = document.getElementById("fanOff");
 let maxFan = document.getElementById("fanMax");
@@ -197,18 +199,20 @@ function setTemps() {
   }
   invoke("ectool", { value: "fanduty", value2: tempBetween.toString() });
 }
-var clearcustomFan;
 
+var clearcustomFan;
 function customFan() {
   autoFan.classList.remove("activeButton");
   offFan.classList.remove("activeButton");
   maxFan.classList.remove("activeButton");
   setFan.classList.add("activeButton");
   clearInterval(clearcustomFan);
-  console.log(myChart.config.data.datasets[0].data)
   clearcustomFan = setInterval(async () => {
     setTemps();
   }, 2000);
+  //save to local storage
+  const toSave = JSON.stringify(myChart.data.datasets[0].data);
+  localStorage.setItem("customfanCurves", toSave)
 }
 function fanMax() {
   autoFan.classList.remove("activeButton");
