@@ -681,7 +681,7 @@ nav.close~.dashboard .top {
 
 .fancurves {
   position: relative;
-  width: 90%;
+  width: 95%;
   height: 400px;
   top: 150px;
   left: 1%;
@@ -694,8 +694,8 @@ nav.close~.dashboard .top {
 
 .setFan {
   position: relative;
-  top: 60px;
-  left: 40px;
+  top: 80px;
+  left: 60px;
   font-family: "Roboto", sans-serif;
   font-size: 18px;
   font-weight: bold;
@@ -722,7 +722,7 @@ nav.close~.dashboard .top {
 .setFan:active {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   -webkit-transform: scale(1.1);
-  transform: scale(1.05);
+  transform: scale(1.02);
   background-color: var(--fanCurvesHover-color);
   color: white;
 }
