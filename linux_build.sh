@@ -1,8 +1,4 @@
 #!/bin/bash 
-
-# build as normal first
-npm run tauri build
-
 ROOT=$(pwd)
 APPIMAGEDIR="$ROOT/src-tauri/target/release/bundle/appimage"
 APPDIR="$(find $APPIMAGEDIR -name "chrultrabook-controller*.AppDir")"
