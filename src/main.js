@@ -4,6 +4,10 @@ import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 import "chartjs-plugin-dragdata";
 import "./styles.css";
+
+//prevents rightclick
+document.addEventListener('contextmenu', event => event.preventDefault());
+
 //app close and open functions
 document
   .getElementById("minimize")
