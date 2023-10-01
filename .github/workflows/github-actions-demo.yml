@@ -16,6 +16,7 @@ jobs:
         with:
           node-version: 16
       - name: install Rust stable
+        if: matrix.platform == 'windows-latest'
         uses: dtolnay/rust-toolchain@stable
       - name: install dependencies (ubuntu only)
         if: matrix.platform == 'ubuntu-20.04'
