@@ -69,15 +69,16 @@ setInterval(async () => {
   averageTemp = temps / sensors;
   document.getElementById("cpuTemp").innerText = averageTemp.toFixed(0) + "°C";
 
-  //sends information to fan control if it exists
-  if (fan === true) {
-    const fanRPM = await invoke("get_fan_rpm");
+}, 1000);
+if (fan == true) {
+setInterval(async () => {
+  const fanRPM = await invoke("get_fan_rpm");
     const fanSpeed = fanRPM.toString().split(":").pop().trim();
     document.getElementById("fanSpeed").innerText = fanSpeed + " RPM";
     document.getElementById("cpuTempFan").innerText =
       averageTemp.toFixed(0) + "°C";
-  }
-}, 1000);
+},1000)
+}
 
 setTimeout(async () => {
   const hostname = await invoke("get_hostname");
@@ -93,6 +94,7 @@ setTimeout(async () => {
 }, 0);
 //setFanSpeeds
 //fan chart
+if (fan == true){
 const data = {
   labels: ["35°C", "40°C", "45°C", "50°C", "55°C", "60°C"],
   datasets: [
@@ -162,7 +164,7 @@ const config = {
 //render chart
 const myChart = new Chart(document.getElementById("fancurves"), config);
 myChart.update();
-
+}
 let autoFan = document.getElementById("fanAuto");
 let offFan = document.getElementById("fanOff");
 let maxFan = document.getElementById("fanMax");
@@ -203,6 +205,7 @@ function customFan() {
   maxFan.classList.remove("activeButton");
   setFan.classList.add("activeButton");
   clearInterval(clearcustomFan);
+  console.log(myChart.config.data.datasets[0].data)
   clearcustomFan = setInterval(async () => {
     setTemps();
   }, 2000);
