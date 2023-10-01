@@ -5,8 +5,9 @@
 
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
-
 use sysinfo::{CpuExt, System, SystemExt};
+use std::fs::File;
+use std::io::prelude::*;
 
 fn main() {
     tauri::Builder::default()
@@ -43,7 +44,7 @@ async fn get_ram_usage() -> String {
 async fn get_cpu_usage() -> String {
     #[cfg(target_os = "linux")]
     {
-        cmd = std::process::Command::new("grep")
+        let cmd = std::process::Command::new("grep")
             .args(["'cpu'", "/proc/stat","|","awk","'{usage=($4)*100/($2+$3+$4+$5+$6+$7+$8+$9+$10+$11)}","END{print usage}'"])
             .output();
         return match_result(cmd);

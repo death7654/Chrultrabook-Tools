@@ -20,6 +20,7 @@ sysinfo = "0.29.10"
 open = "5.0.0"
 os_info = "3.7.0"
 substring = "1.4.5"
+fs = "0.0.5"
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem
