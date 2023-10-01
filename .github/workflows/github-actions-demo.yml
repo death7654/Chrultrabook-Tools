@@ -15,7 +15,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-      - name: install Rust stable
+      - name: install Rust stable (windows)
         if: matrix.platform == 'windows-latest'
         uses: dtolnay/rust-toolchain@stable
       - name: install dependencies (ubuntu only)
