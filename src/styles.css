@@ -21,7 +21,7 @@
   height: 35px;
   position: absolute;
   right: 0px;
-  z-index: 100;
+  z-index: 1000;
   -webkit-app-region: drag;
 }
 
@@ -411,7 +411,6 @@ body.dark .switch:before {
 .dashboard {
   position: relative;
   border-top-right-radius: 20px;
-
   left: 250px;
   background-color: var(--panel-color);
   min-height: 100vh;
@@ -419,6 +418,7 @@ body.dark .switch:before {
   width: calc(100% - 250px);
   padding: 10px 14px;
   transition: var(--tran-05);
+  z-index: 50;
 }
 
 nav.close~.dashboard {
@@ -1281,6 +1281,7 @@ nav.close~.dashboard .top {
   position: relative;
   top: 40px;
   border-radius: 20px;
+  z-index: 50;
 }
 
 .dash-content .overview .systemInfoText {

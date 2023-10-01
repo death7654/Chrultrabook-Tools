@@ -83,7 +83,15 @@ setInterval(async () => {
 setTimeout(async () => {
   let fanCurve = localStorage.getItem("customfanCurves")
   let fanCurveData = JSON.parse(fanCurve)
+  console.log(fanCurveData)
+  //adds chart for new installs/users
+  if (fanCurveData == null){
+    let defaultChart = [0, 0, 50, 90, 100, 100, 100];
+    myChart.config.data.datasets[0].data = defaultChart;
+  }
+  else {
   myChart.config.data.datasets[0].data = fanCurveData;
+  }
 },0)
 }
 
