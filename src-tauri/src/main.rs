@@ -6,8 +6,7 @@
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
 use sysinfo::{CpuExt, System, SystemExt};
-use std::fs::read_to_string;
-use std::fs::read_dir;
+
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
@@ -69,28 +68,10 @@ async fn get_cpu_usage() -> String {
 async fn get_cpu_temp() -> Option<String> {
     #[cfg(target_os = "linux")]
     {
-        let paths = fs::read_dir("/sys/class/hwmon/").unwrap();
-        for path in paths {
-            let name =
-                fs::read_to_string(format!("{}/name", path.as_ref().unwrap().path().display()))
-                    .unwrap();
-            if name.contains("k10temp") || name.contains("coretemp") {
-                return Some(
-                    (fs::read_to_string(format!(
-                        "{}/temp1_input",
-                        path.as_ref().unwrap().path().display()
-                    ))
-                    .unwrap()
-                    .split('\n')
-                    .collect::<Vec<_>>()[0]
-                        .parse::<i32>()
-                        .unwrap()
-                        / 1000)
-                        .to_string(),
-                );
-            };
-        }
-        return None;
+        let cmd = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+            .args(["temps", "all"])
+            .output();
+        return Some(match_result(cmd));
     };
 
     #[cfg(windows)]
