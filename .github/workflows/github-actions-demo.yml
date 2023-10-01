@@ -1,4 +1,4 @@
-name: GitHub Actions Demo
+name: Linux Build
 run-name: Linux Build
 on: [push]
 jobs:
@@ -8,5 +8,5 @@ jobs:
       - run: echo " The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "Starting Linux Tauri Build"
       - run: cd /home/runner/work/Chrultrabook-Controller/Chrultrabook-Controller
-      - run: ls
+      - run: ls ${{ github.workspace }}
       - run: echo "Finished"
