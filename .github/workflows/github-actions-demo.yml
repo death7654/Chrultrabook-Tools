@@ -26,9 +26,7 @@ jobs:
         run: npm install 
         name: linux appimage build script
         if: matrix.platform == 'ubuntu-20.04'
-        run: |
-        sudo chmod a+x linux_build.sh
-        sudo ./linux_build.sh
+        run: sudo chmod a+x linux_build.sh && sudo ./linux_build.sh
       - uses: tauri-apps/tauri-action@v0
         with:
           tagName: ${{ github.ref_name }} # This only works if your workflow triggers on new tags.
