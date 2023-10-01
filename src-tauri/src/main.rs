@@ -6,9 +6,8 @@
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
 use sysinfo::{CpuExt, System, SystemExt};
-use std::fs::File;
-use std::io::prelude::*;
-
+use std::fs::read_to_string;
+use std::fs::read_dir;
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
