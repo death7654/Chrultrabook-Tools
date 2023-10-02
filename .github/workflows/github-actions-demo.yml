@@ -18,7 +18,7 @@ jobs:
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable
         with: 
-          toolchain: 1.72
+         toolchain: 1.72
       - name: install dependencies (ubuntu only)
         if: matrix.platform == 'ubuntu-20.04'
         run: |
@@ -29,7 +29,7 @@ jobs:
         run: npm install 
       - name: linux appimage build script
         if: matrix.platform == 'ubuntu-20.04'
-        run: sudo chmod a+x linux_build.sh && sudo ./linux_build.sh
+        run: sudo chmod a+x linux_build.sh && npm run tauri build && sudo ./linux_build.sh
       - uses: tauri-apps/tauri-action@v0
         with:
           tagName: ${{ github.ref_name }} # This only works if your workflow triggers on new tags.
