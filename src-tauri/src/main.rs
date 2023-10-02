@@ -6,35 +6,32 @@
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
 use sysinfo::{CpuExt, System, SystemExt};
-use tauri::{CustomMenuItem, SystemTray, SystemTrayMenu, SystemTrayEvent, SystemTrayMenuItem, CloseRequestApi, window};
 use tauri::Manager;
+use tauri::{CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem};
 use tauri_plugin_autostart::MacosLauncher;
 
-
 fn main() {
-    
     let quit = CustomMenuItem::new("quit".to_string(), "Quit");
     let show = CustomMenuItem::new("show".to_string(), "Show");
     let tray_menu = SystemTrayMenu::new()
         .add_item(quit)
         .add_native_item(SystemTrayMenuItem::Separator)
         .add_item(show);
+
     tauri::Builder::default()
         .system_tray(SystemTray::new().with_menu(tray_menu))
         .on_system_tray_event(|app, event| match event {
-            SystemTrayEvent::MenuItemClick { id, .. } => {
-              let item_handle = app.tray_handle().get_item(&id);
-              match id.as_str() {
+            SystemTrayEvent::MenuItemClick { id, .. } => match id.as_str() {
                 "show" => {
-                  let window = app.get_window("main").unwrap();
-                  window.show();
-                },
-                "quit" => {std::process::exit(0);}
+                    app.get_window("main").unwrap().show().unwrap();
+                }
+                "quit" => {
+                    app.exit(0);
+                }
                 _ => {}
-              }
-            }
+            },
             _ => {}
-          })
+        })
         .invoke_handler(tauri::generate_handler![
             is_windows,
             get_bios_version,
@@ -50,7 +47,10 @@ fn main() {
             ectool,
             cbmem
         ])
-        .plugin(tauri_plugin_autostart::init(MacosLauncher::LaunchAgent, Some(vec!["--flag1", "--flag2"])))
+        .plugin(tauri_plugin_autostart::init(
+            MacosLauncher::LaunchAgent,
+            Some(vec!["--flag1", "--flag2"]),
+        ))
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -320,7 +320,7 @@ fn match_result_vec(result: Result<std::process::Output, std::io::Error>) -> Str
             .clone(),
         Err(e) => {
             println!("Error `{}`.", e);
-            String::from("") // This match returns a blank string.
+            String::new()
         }
     };
     return str.trim().to_string();
