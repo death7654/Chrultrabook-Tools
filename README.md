@@ -53,13 +53,13 @@ https://raw.githubusercontent.com/coolstar/driverinstallers/master/crosec/crosec
 <p>1. Mark Appimage as Executeable</p>
 
 ```
-chmod a+x appImageName.appimage
+chmod a+x chrultrabook-controller_2.4.0_amd64.AppImage
 ```
 
 <p>2. Run the Appimage</p>
 
 ```
-./appImageName.appimage
+./chrultrabook-controller_2.4.0_amd64.AppImage
 ```
 
 <h2>💻 Built with</h2>
