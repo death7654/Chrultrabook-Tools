@@ -1344,7 +1344,7 @@ input:checked+.slider:before {
 .switch.position2 {
   position: relative;
   left: 587px;
-  top: 52px;
+  top: 57px;
 }
 
 .switch.position3 {
@@ -1355,8 +1355,8 @@ input:checked+.slider:before {
 
 .switch.position4 {
   position: relative;
-  left: 511px;
-  top: 170px;
+  left: 549px;
+  top: 120px;
 }
 
 .settingsText {
@@ -1376,7 +1376,7 @@ input:checked+.slider:before {
 
 .startInTray {
   position: relative;
-  top: 60px;
+  top: 30px;
 }
 
 /*main html file ends */
