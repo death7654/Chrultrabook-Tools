@@ -6,10 +6,35 @@
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
 use sysinfo::{CpuExt, System, SystemExt};
+use tauri::{CustomMenuItem, SystemTray, SystemTrayMenu, SystemTrayEvent, SystemTrayMenuItem, CloseRequestApi, window};
+use tauri::Manager;
+
 
 fn main() {
+    let quit = CustomMenuItem::new("quit".to_string(), "Quit");
+    let show = CustomMenuItem::new("show".to_string(), "Show");
+    let tray_menu = SystemTrayMenu::new()
+        .add_item(quit)
+        .add_native_item(SystemTrayMenuItem::Separator)
+        .add_item(show);
     tauri::Builder::default()
+        .system_tray(SystemTray::new().with_menu(tray_menu))
+        .on_system_tray_event(|app, event| match event {
+            SystemTrayEvent::MenuItemClick { id, .. } => {
+              let item_handle = app.tray_handle().get_item(&id);
+              match id.as_str() {
+                "show" => {
+                  let window = app.get_window("main").unwrap();
+                  window.show();
+                },
+                "quit" => {std::process::exit(0);}
+                _ => {}
+              }
+            }
+            _ => {}
+          })
         .invoke_handler(tauri::generate_handler![
+            is_windows,
             get_bios_version,
             open_link,
             get_cpu_usage,
@@ -26,7 +51,10 @@ fn main() {
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
-
+#[tauri::command]
+async fn is_windows() -> bool {
+    return os_info::get().os_type() == os_info::Type::Windows;
+}
 #[tauri::command]
 async fn get_ram_usage() -> String {
     let mut sys = System::new();
@@ -43,7 +71,14 @@ async fn get_cpu_usage() -> String {
     #[cfg(target_os = "linux")]
     {
         let cmd = std::process::Command::new("grep")
-            .args(["'cpu'", "/proc/stat","|","awk","'{usage=($4)*100/($2+$3+$4+$5+$6+$7+$8+$9+$10+$11)}","END{print usage}'"])
+            .args([
+                "'cpu'",
+                "/proc/stat",
+                "|",
+                "awk",
+                "'{usage=($4)*100/($2+$3+$4+$5+$6+$7+$8+$9+$10+$11)}",
+                "END{print usage}'",
+            ])
             .output();
         return match_result(cmd);
     }

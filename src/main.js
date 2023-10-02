@@ -7,15 +7,25 @@ import "./styles.css";
 
 //prevents rightclick
 document.addEventListener('contextmenu', event => event.preventDefault());
-
+var is_windows
+setTimeout(async() => {
+  is_windows = await invoke("is_windows");
+  console.log(is_windows);
+})
 //app close and open functions
 document
   .getElementById("minimize")
   .addEventListener("mousedown", () => appWindow.minimize());
-
+if(is_windows = true){
 document
   .getElementById("close")
+  .addEventListener("mousedown", () => appWindow.hide());
+}
+else {
+  document
+  .getElementById("close")
   .addEventListener("mousedown", () => appWindow.close());
+}
 
 //function to check if a number exist
 function containsNumber(str) {
