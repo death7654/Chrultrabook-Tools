@@ -59,6 +59,27 @@ Technologies used in the project:
 *   JS
 *   CSS
 
-<h2>🛡️ License:</h2>
+<h2>About</h2>
+This is an open-source application, and serves the purpose of providing system information and controls in a visually pleasing manner.
 
-This project is licensed under the GNU General Public Licence v3.0
+🍰 Contributions
+----------------
+
+*   Coolstar - Providing Chromebook Windows Drivers
+*   Death7654 - Making the Chrultrabook Controller App
+
+### From the Chrultrabook's Discord Server
+
+*   Ninelore - Optimizations
+*   Ethanaobrien - Optimizations
+*   WeirdTreeThing - Frontend Optimizations and Linux
+
+### Support from Tauri's Discord Server
+
+*   AHQ Softwares - Debugging
+*   icb - Debugging
+
+🛡️ License:
+------------
+
+This project is licensed under the GNU General Public License v3.0
