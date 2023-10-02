@@ -138,7 +138,7 @@
   --fanFilter: invert(54%) sepia(61%) saturate(595%) hue-rotate(186deg) brightness(95%) contrast(94%);
   --optionsFilter: invert(39%) sepia(10%) saturate(771%) hue-rotate(168deg) brightness(89%) contrast(87%);
   --diagnosticFilter: invert(88%) sepia(31%) saturate(6481%) hue-rotate(343deg) brightness(103%) contrast(101%);
-  --aboutFilter: invert(39%) sepia(80%) saturate(4385%) hue-rotate(349deg) brightness(102%) contrast(87%);
+  --settingFilter: invert(20%) sepia(16%) saturate(0%) hue-rotate(240deg) brightness(105%) contrast(89%);
 
   /* ====== Transition ====== */
   --tran-05: all 0.5s ease;
@@ -182,7 +182,8 @@ body.dark {
   --fanFilter: invert(44%) sepia(33%) saturate(4509%) hue-rotate(182deg) brightness(99%) contrast(108%);
   --optionsFilter: invert(85%) sepia(6%) saturate(1727%) hue-rotate(181deg) brightness(82%) contrast(87%);
   --diagnosticFilter: invert(74%) sepia(25%) saturate(5073%) hue-rotate(339deg) brightness(95%) contrast(99%);
-  --aboutFilter: invert(27%) sepia(79%) saturate(1994%) hue-rotate(320deg) brightness(90%) contrast(93%);
+  --settingFilter: invert(51%) sepia(0%) saturate(1517%) hue-rotate(144deg) brightness(91%) contrast(88%);
+
 }
 
 .logoFilter {
@@ -205,8 +206,8 @@ body.dark {
   filter: var(--diagnosticFilter);
 }
 
-.aboutFilter {
-  filter: var(--aboutFilter);
+.settingFilter {
+  filter: var(--settingFilter);
 }
 
 /* === Custom Scroll Bar CSS === */
@@ -486,20 +487,6 @@ nav.close~.dashboard .top {
   font-weight: 500;
   color: var(--text-color);
   margin-left: 10px;
-}
-
-.about-content {
-  padding: 0 30px 20px;
-  & h2 {
-    margin: 25px 0 5px 0;
-  }
-  & h3 {
-    margin: 25px 0 5px 7px;
-  }
-}
-
-.about-content ul {
-  margin-left: 30px;
 }
 
 .dash-content .boxes {
@@ -806,7 +793,7 @@ nav.close~.dashboard .top {
 
 .rangeBacklight input {
   -webkit-appearance: none;
-  appearance: none; 
+  appearance: none;
   width: 100%;
   cursor: pointer;
   outline: none;
@@ -814,9 +801,10 @@ nav.close~.dashboard .top {
   height: 6px;
   background: var(--slider-knob-color);
 }
+
 .rangeBacklight input::-webkit-slider-thumb {
   -webkit-appearance: none;
-  appearance: none; 
+  appearance: none;
   height: 15px;
   width: 15px;
   background-color: #fff;
@@ -982,7 +970,7 @@ nav.close~.dashboard .top {
   text-align: left;
   padding-left: 10px;
   position: relative;
-  left:4px;
+  left: 4px;
 }
 
 .col.ctrl.right {
@@ -994,7 +982,8 @@ nav.close~.dashboard .top {
   position: relative;
   left: 4px;
 }
-.col.up{
+
+.col.up {
   height: 20px;
   width: 50px;
   position: relative;
@@ -1002,7 +991,8 @@ nav.close~.dashboard .top {
   bottom: 3px;
   padding-top: 2px;
 }
-.col.down{
+
+.col.down {
   height: 20px;
   width: 50px;
   position: relative;
@@ -1010,14 +1000,16 @@ nav.close~.dashboard .top {
   left: -53px;
   padding-top: 2px;
 }
-.col.arrow.left{
+
+.col.arrow.left {
   height: 20px;
   position: relative;
   left: 4px;
   top: 20px;
   padding-top: 2px;
 }
-.col.arrow.right{
+
+.col.arrow.right {
   height: 20px;
   position: relative;
   top: -26px;
@@ -1263,14 +1255,6 @@ nav.close~.dashboard .top {
   opacity: 1;
 }
 
-.about {
-  color: var(--text-color);
-  overflow-y: auto;
-}
-
-.about .aboutText {
-  color: var(--text-color);
-}
 
 .dash-content .overview .systemInfo {
   width: calc(100% - 15px);
@@ -1288,33 +1272,111 @@ nav.close~.dashboard .top {
   padding: 20px;
 }
 
-#githuburl {
-  display: none;
+/*settings*/
+.switch {
   position: relative;
-  font-family: "Roboto", sans-serif;
-  font-size: 18px;
-  font-weight: bold;
-  width: calc(30% - 15px);
-  background-color: var(--copy-color);
-  padding: 20px;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-property: box-shadow, transform;
-  transition-property: box-shadow, transform;
+  display: inline-block;
+  width: 35px;
+  height: 20px;
 }
 
-#githuburl:hover,
-#githuburl:active {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0px;
+  right: 0;
+  bottom: 0;
+  background-color: var(--cbmemCode-color);
+  border: var(--slider-text-color) 1px solid;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 3px;
+  bottom: 3.5px;
+  background-color: #ffffff;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked+.slider {
+  background-color: var(--box1-color);
+}
+
+input:focus+.slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+  -webkit-transform: translateX(15px);
+  -ms-transform: translateX(15px);
+  transform: translateX(15px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.switch.position {
+  position: relative;
+  left: 625px;
+  top: 1px;
+}
+
+.switch.position2 {
+  position: relative;
+  left: 587px;
+  top: 52px;
+}
+
+.switch.position3 {
+  position: relative;
+  left: 549px;
+  top: 110px;
+}
+
+.switch.position4 {
+  position: relative;
+  left: 511px;
+  top: 170px;
+}
+
+.settingsText {
+  width: 500px;
+}
+
+.startupFan {
+  position: relative;
+  top: -27px;
+  left: 0px;
+}
+
+.startBoot {
+  position: relative;
+  top: 30px;
+}
+
+.startInTray {
+  position: relative;
+  top: 60px;
 }
 
 /*main html file ends */

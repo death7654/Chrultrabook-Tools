@@ -1,31 +1,40 @@
 import { appWindow } from "@tauri-apps/api/window";
 import { invoke } from "@tauri-apps/api/tauri";
+import { enable, isEnabled, disable } from "tauri-plugin-autostart-api";
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 import "chartjs-plugin-dragdata";
 import "./styles.css";
 
 //prevents rightclick
-document.addEventListener('contextmenu', event => event.preventDefault());
-var is_windows
-setTimeout(async() => {
+document.addEventListener("contextmenu", (event) => event.preventDefault());
+
+var is_windows;
+setTimeout(async () => {
   is_windows = await invoke("is_windows");
   console.log(is_windows);
-})
+});
+//start Hidden
+const hideOnStart = localStorage.getItem("startHidden");
+if (hideOnStart == "yes") {
+  appWindow.hide();
+  startHiddenInput.checked = true;
+}
+
 //app close and open functions
+document.getElementById("close").addEventListener("mousedown", () => {
+  let addToTray = localStorage.getItem("quitToTray");
+  if (addToTray == "yes") {
+    appWindow.hide();
+    systemTrayInput.checked = true;
+  } else {
+    appWindow.close();
+  }
+});
+
 document
   .getElementById("minimize")
   .addEventListener("mousedown", () => appWindow.minimize());
-if(is_windows = true){
-document
-  .getElementById("close")
-  .addEventListener("mousedown", () => appWindow.hide());
-}
-else {
-  document
-  .getElementById("close")
-  .addEventListener("mousedown", () => appWindow.close());
-}
 
 //function to check if a number exist
 function containsNumber(str) {
@@ -45,17 +54,15 @@ setTimeout(async () => {
   });
   let value = keyboardBackLight.split(" ");
   document.getElementById("backlightRangeSlider").value = value[4];
-  if (containsNumber(value[4]) == false){
-    document.getElementById('rangeBacklight').style.display = "none";
-    document.getElementById('rangeBacklightslider').style.display = "none";
-  };
-  
-  //prevents laptops with no backlight form using this
-  if(value[4] !== "0")
-  {
-    document.getElementById("backlightRangeSliderText").innerText = value[4];
+  if (containsNumber(value[4]) == false) {
+    document.getElementById("rangeBacklight").style.display = "none";
+    document.getElementById("rangeBacklightslider").style.display = "none";
   }
-  else{
+
+  //prevents laptops with no backlight form using this
+  if (value[4] !== "0") {
+    document.getElementById("backlightRangeSliderText").innerText = value[4];
+  } else {
     document.getElementById("backlightRangeSliderText").innerText = "off";
   }
 }, 0);
@@ -81,28 +88,26 @@ setInterval(async () => {
   });
   averageTemp = temps / sensors;
   document.getElementById("cpuTemp").innerText = averageTemp.toFixed(0) + "°C";
-  document.getElementById("cpuTempFan").innerText = averageTemp.toFixed(0)+ "°C";
-
+  document.getElementById("cpuTempFan").innerText =
+    averageTemp.toFixed(0) + "°C";
 }, 1000);
 if (fan == true) {
-setInterval(async () => {
-  const fanRPM = await invoke("get_fan_rpm");
+  setInterval(async () => {
+    const fanRPM = await invoke("get_fan_rpm");
     const fanSpeed = fanRPM.toString().split(":").pop().trim();
     document.getElementById("fanSpeed").innerText = fanSpeed + " RPM";
-},1000);
-setTimeout(async () => {
-  let fanCurve = localStorage.getItem("customfanCurves")
-  let fanCurveData = JSON.parse(fanCurve)
-  console.log(fanCurveData)
-  //adds chart for new installs/users
-  if (fanCurveData == null){
-    let defaultChart = [0, 0, 50, 90, 100, 100, 100];
-    myChart.config.data.datasets[0].data = defaultChart;
-  }
-  else {
-  myChart.config.data.datasets[0].data = fanCurveData;
-  }
-},0)
+  }, 1000);
+  setTimeout(async () => {
+    let fanCurve = localStorage.getItem("customfanCurves");
+    let fanCurveData = JSON.parse(fanCurve);
+    //adds chart for new installs/users
+    if (fanCurveData == null) {
+      let defaultChart = [0, 0, 50, 90, 100, 100, 100];
+      myChart.config.data.datasets[0].data = defaultChart;
+    } else {
+      myChart.config.data.datasets[0].data = fanCurveData;
+    }
+  }, 0);
 }
 
 setTimeout(async () => {
@@ -221,8 +226,17 @@ function setTemps() {
   }
   invoke("ectool", { value: "fanduty", value2: tempBetween.toString() });
 }
-
 var clearcustomFan;
+
+//starts fans if avaliable
+const fanOnStart = localStorage.getItem("fanOnStart");
+if (fanOnStart == "yes") {
+  startupFansInput.checked = true;
+  clearcustomFan = setInterval(async () => {
+    setTemps();
+  }, 2000);
+}
+
 function customFan() {
   autoFan.classList.remove("activeButton");
   offFan.classList.remove("activeButton");
@@ -234,7 +248,7 @@ function customFan() {
   }, 2000);
   //save to local storage
   const toSave = JSON.stringify(myChart.data.datasets[0].data);
-  localStorage.setItem("customfanCurves", toSave)
+  localStorage.setItem("customfanCurves", toSave);
 }
 function fanMax() {
   autoFan.classList.remove("activeButton");
@@ -305,45 +319,75 @@ outputBacklight.innerHTML = sliderBacklight.value;
 //sends infrom from html to ec
 
 sliderBacklight.oninput = function () {
-  outputBacklight.innerText = (this.value === "0") ? "off" : this.value;
-  invoke("ectool", { value: "pwmsetkblight", value2:sliderBacklight.value});
-  document.getElementById('key').style.filter = (sliderBacklight.value < 25 || this.value === "0") ? "opacity(25%)" :"opacity("+sliderBacklight.value+"%)";
+  outputBacklight.innerText = this.value === "0" ? "off" : this.value;
+  invoke("ectool", { value: "pwmsetkblight", value2: sliderBacklight.value });
+  document.getElementById("key").style.filter =
+    sliderBacklight.value < 25 || this.value === "0"
+      ? "opacity(25%)"
+      : "opacity(" + sliderBacklight.value + "%)";
 };
 //changes text color
 
 //sends info from ec to html
 const selected = document.querySelector(".selected");
 async function getSystemInfo() {
-  switch(selected.innerText) {
+  switch (selected.innerText) {
     case "Boot Timestamps":
-      document.getElementById("cbMemInfo").innerText = await invoke("cbmem", { value: "-t"});
+      document.getElementById("cbMemInfo").innerText = await invoke("cbmem", {
+        value: "-t",
+      });
       break;
     case "Coreboot Log":
-      document.getElementById("cbMemInfo").innerText = await invoke("cbmem", { value: "-c1"});
+      document.getElementById("cbMemInfo").innerText = await invoke("cbmem", {
+        value: "-c1",
+      });
       break;
     case "Coreboot Extended Log":
-      document.getElementById("cbMemInfo").innerText = await invoke("cbmem", { value: "-c"});
+      document.getElementById("cbMemInfo").innerText = await invoke("cbmem", {
+        value: "-c",
+      });
       break;
     case "EC Console Log":
-      document.getElementById("cbMemInfo").innerText = await invoke("ectool", { value: "console", value2:""});
+      document.getElementById("cbMemInfo").innerText = await invoke("ectool", {
+        value: "console",
+        value2: "",
+      });
       break;
     case "Battery Info":
-      document.getElementById("cbMemInfo").innerText = await invoke("ectool", { value: "battery", value2:""});
+      document.getElementById("cbMemInfo").innerText = await invoke("ectool", {
+        value: "battery",
+        value2: "",
+      });
       break;
     case "EC Chip Info":
-      document.getElementById("cbMemInfo").innerText = await invoke("ectool", { value: "chipinfo", value2: ""});
+      document.getElementById("cbMemInfo").innerText = await invoke("ectool", {
+        value: "chipinfo",
+        value2: "",
+      });
       break;
     case "SPI Info":
-      document.getElementById("cbMemInfo").innerText = await invoke("ectool", { value: "flashspiinfo", value2: ""});
+      document.getElementById("cbMemInfo").innerText = await invoke("ectool", {
+        value: "flashspiinfo",
+        value2: "",
+      });
       break;
     case "EC Protocol Info":
-      document.getElementById("cbMemInfo").innerText = await invoke("ectool", { value: "protoinfo", value2:""});
+      document.getElementById("cbMemInfo").innerText = await invoke("ectool", {
+        value: "protoinfo",
+        value2: "",
+      });
       break;
     case "Temp Sensor Info":
-      document.getElementById("cbMemInfo").innerText = await invoke("ectool", { value: "tempsinfo", value2:"all"});
+      document.getElementById("cbMemInfo").innerText = await invoke("ectool", {
+        value: "tempsinfo",
+        value2: "all",
+      });
       break;
     case "Power Delivery Info":
-      document.getElementById("cbMemInfo").innerText = await invoke("ectool", { value: "pdlog", value2:""});
+      document.getElementById("cbMemInfo").innerText = await invoke("ectool", {
+        value: "pdlog",
+        value2: "",
+      });
       break;
     default:
       document.getElementById("cbMemInfo").innerText = "Select Something";
@@ -369,3 +413,50 @@ function copyTxt(htmlElement) {
 document.querySelector("#copyButton").addEventListener("mousedown", () => {
   copyTxt(document.querySelector("#cbMemInfo"));
 });
+
+//settings
+const startupFan = document.getElementById("startupFansInput");
+const systemTray = document.getElementById("systemTrayInput");
+const startOnBoot = document.getElementById("startOnBootInput");
+const startHidden = document.getElementById("startHiddenInput");
+
+startupFan.addEventListener("click", () => {
+  if (startupFan.checked) {
+    localStorage.setItem("fanOnStart", "yes");
+    console.log("checked");
+  } else {
+    localStorage.setItem("fanOnStart", "no");
+    console.log("notChecked");
+  }
+});
+systemTray.addEventListener("click", () => {
+  if (systemTray.checked) {
+    localStorage.setItem("quitToTray", "yes");
+  } else {
+    localStorage.setItem("quitToTray", "no");
+  }
+});
+startOnBoot.addEventListener("click", () => {
+  if (startOnBoot.checked) {
+    localStorage.setItem("startOnBoot", "yes");
+  } else {
+    localStorage.setItem("startOnBoot", "no");
+  }
+});
+
+startHidden.addEventListener("click", () => {
+  if (startHidden.checked) {
+    localStorage.setItem("startHidden", "yes");
+    console.log("checkedhidden");
+  } else {
+    localStorage.setItem("startHidden", "no");
+  }
+});
+
+const onBoot = localStorage.getItem("startOnBoot");
+if (onBoot == "yes") {
+  await enable();
+  startOnBootInput.checked = true;
+} else {
+  disable();
+}

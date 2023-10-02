@@ -12,15 +12,6 @@
     <title>Chultrabook Controller</title>
     <script>
         window.addEventListener("DOMContentLoaded", () => {
-            const body = document.body,
-                modeToggle = body.querySelector(".mode-toggle"),
-                sidebar = body.querySelector("nav"),
-                sidebarToggle = body.querySelector(".sidebar-toggle");
-
-            let getMode = localStorage.getItem("mode");
-            if (getMode && getMode === "dark") {
-                body.classList.toggle("dark");
-            }
 
             //changing menus
 
@@ -28,20 +19,20 @@
             var fan = document.getElementById("sectionFan");
             var cbmem = document.getElementById("sectionCbmem");
             var options = document.getElementById("sectionOptions");
-            var about = document.getElementById("sectionAbout");
+            var settings = document.getElementById("sectionSettings");
 
             home.style.display = "block";
             fan.style.display = "none";
             options.style.display = "none";
             cbmem.style.display = "none";
-            about.style.display = "none";
+            settings.style.display = "none";
 
             function homeButton() {
                 home.style.display = "block";
                 fan.style.display = "none";
                 options.style.display = "none";
                 cbmem.style.display = "none";
-                about.style.display = "none";
+                settings.style.display = "none";
             }
 
             function fanButton() {
@@ -49,7 +40,7 @@
                 fan.style.display = "block";
                 options.style.display = "none";
                 cbmem.style.display = "none";
-                about.style.display = "none";
+                settings.style.display = "none";
             }
 
             function cbmemButton() {
@@ -57,7 +48,7 @@
                 fan.style.display = "none";
                 options.style.display = "none";
                 cbmem.style.display = "block";
-                about.style.display = "none";
+                settings.style.display = "none";
             }
 
             function optionsButton() {
@@ -65,7 +56,7 @@
                 fan.style.display = "none";
                 options.style.display = "block";
                 cbmem.style.display = "none";
-                about.style.display = "none";
+                settings.style.display = "none";
             }
 
             function infoButton() {
@@ -73,7 +64,7 @@
                 fan.style.display = "none";
                 options.style.display = "none";
                 cbmem.style.display = "none";
-                about.style.display = "block";
+                settings.style.display = "block";
             }
 
             document.getElementById("home").addEventListener("mousedown", () => {
@@ -93,7 +84,15 @@
             });
 
             //mode toggles
+            const body = document.body,
+                modeToggle = body.querySelector(".mode-toggle"),
+                sidebar = body.querySelector("nav"),
+                sidebarToggle = body.querySelector(".sidebar-toggle");
 
+            let getMode = localStorage.getItem("mode");
+            if (getMode && getMode === "dark") {
+                body.classList.toggle("dark");
+            }
 
             let getStatus = localStorage.getItem("status");
             if (getStatus && getStatus === "close") {
@@ -192,8 +191,9 @@
                             <span class="link-name">Memory Diagnostics</span>
                         </a></li>
                     <li><a id="information">
-                            <img class="navbarimg aboutFilter" src="./src/assets/Icons/sidenavbar/info.svg" alt="">
-                            <span class="link-name">About</span>
+                            <img class="navbarimg settingFilter" src="./src/assets/Icons/sidenavbar/settings.svg"
+                                alt="">
+                            <span class="link-name">Settings</span>
                         </a></li>
                 </ul>
                 <!--DarkMode-->
@@ -367,40 +367,41 @@
                     </pre>
             </div>
         </section>
-
-        <section id="sectionAbout" class="dashboard" style="overflow-y:scroll; overflow-x:hidden;">
+        <!--settings-->
+        <section id="sectionSettings" class="dashboard" style="overflow-y:scroll; overflow-x:hidden;">
             <div class="aboutText dash-content">
                 <div class="overview">
                     <div class="title">
-                        <span class="text">About</span>
+                        <img src="./src/assets/Icons/settings/settings-page.svg">
+                        <span class="text">Settings </span>
+                    </div>
+                    <label class="switch position" id="startupFan">
+                        <input id="startupFansInput" type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                    <label class="switch position2" id="systemTray">
+                        <input id="systemTrayInput" type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                    <label class="switch position3" id="startOnBoot">
+                        <input id="startOnBootInput" type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                    <label class="switch position4" id="startHidden">
+                        <input id="startHiddenInput" type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                    <div class="settingsText">
+                        <h3 class="startupFan">Start Custom Fan Curves On App Startup</h3>
+                        <hr>
+                        <h3>When Closed, App Minimizes To System Tray</h3>
+                        <hr>
+                        <h3 class="startBoot">Start App On Boot</h3>
+                        <hr>
+                        <h3 class="startInTray">Start In System Tray</h3>
                     </div>
                 </div>
-                <div class="about-content">
-                    <p>
-                        This is an open-source application, and serves the purpose of providing system
-                        information and controls in a visually pleasing manner.
-                    </p>
 
-                    <h2>🍰 Contributions</h2>
-                    <ul>
-                        <li>Coolstar - Providing Chromebook Windows Drivers</li>
-                        <li>Death7654 - Making the Chrultrabook Controller App</li>
-                    </ul>
-
-                    <h3>From the Chrultrabook Server</h3>
-                    <ul>
-                        <li>Ninelore - Optimizations</li>
-                        <li>Ethanaobrien - Optimizations</li>
-                        <li>WeirdTreeThing - Frontend Optimizations and Linux</li>
-                    </ul>
-                    <h3>Support from Tauri's Electron Server</h3>
-                    <ul>
-                        <li>AHQ Softwares - Debugging</li>
-                        <li>icb - Debugging</li>
-                    </ul>
-                    <h2>🛡️ License:</h2>
-                    <p>This project is licensed under the GNU General Public License v3.0</p>
-                </div>
             </div>
         </section>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
@@ -409,4 +410,5 @@
     </div>
 
 </body>
+
 </html>

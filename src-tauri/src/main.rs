@@ -8,9 +8,11 @@ use std::os::windows::process::CommandExt;
 use sysinfo::{CpuExt, System, SystemExt};
 use tauri::{CustomMenuItem, SystemTray, SystemTrayMenu, SystemTrayEvent, SystemTrayMenuItem, CloseRequestApi, window};
 use tauri::Manager;
+use tauri_plugin_autostart::MacosLauncher;
 
 
 fn main() {
+    
     let quit = CustomMenuItem::new("quit".to_string(), "Quit");
     let show = CustomMenuItem::new("show".to_string(), "Show");
     let tray_menu = SystemTrayMenu::new()
@@ -48,6 +50,7 @@ fn main() {
             ectool,
             cbmem
         ])
+        .plugin(tauri_plugin_autostart::init(MacosLauncher::LaunchAgent, Some(vec!["--flag1", "--flag2"])))
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
