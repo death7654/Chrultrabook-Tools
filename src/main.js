@@ -14,6 +14,9 @@ setTimeout(async () => {
   is_windows = await invoke("is_windows");
   console.log(is_windows);
 });
+
+//hides things currently incopatiable with linux
+
 //start Hidden
 const hideOnStart = localStorage.getItem("startHidden");
 if (hideOnStart == "yes") {
@@ -452,11 +455,14 @@ startHidden.addEventListener("click", () => {
     localStorage.setItem("startHidden", "no");
   }
 });
-
+/*
 const onBoot = localStorage.getItem("startOnBoot");
 if (onBoot == "yes") {
   await enable();
   startOnBootInput.checked = true;
 } else {
-  disable();
+  setTimeout(async () => {
+    await disable();
+  });
 }
+*/
