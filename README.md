@@ -1,4 +1,4 @@
-<h1 align="center" id="title">Chrultrabook-Controller</h1>
+<h1 align="center" id="title">Chrultrabook Controller</h1>
 
 <p id="description">A UI System Controller for modded Chromebooks</p>
 
@@ -19,9 +19,9 @@
 
 <img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/9af010d9-6a4a-4612-a26b-291e50349980" alt="project-screenshot" width="400">
 
-<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/4798e3df-fb82-4c3a-9835-66d1d44325fb" alt="project-screenshot" width="400">
+<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/e2153d0a-2ce1-4283-a3c0-80263502b400" alt="project-screenshot" width="400">
 
-  
+
 
 <h2>Features</h2>
 
@@ -53,13 +53,13 @@ https://raw.githubusercontent.com/coolstar/driverinstallers/master/crosec/crosec
 <p>1. Mark Appimage as Executeable</p>
 
 ```
-chmod a+x appImageName.appimage
+chmod a+x chrultrabook-controller_2.4.0_amd64.AppImage
 ```
 
 <p>2. Run the Appimage</p>
 
 ```
-./appImageName.appimage
+./chrultrabook-controller_2.4.0_amd64.AppImage
 ```
 
 <h2>💻 Built with</h2>
