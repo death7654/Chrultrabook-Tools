@@ -6,13 +6,14 @@
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
 use sysinfo::{CpuExt, System, SystemExt};
-use tauri::{CustomMenuItem, SystemTray, SystemTrayMenu, SystemTrayEvent, SystemTrayMenuItem, CloseRequestApi, window};
 use tauri::Manager;
+use tauri::{
+    window, CloseRequestApi, CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu,
+    SystemTrayMenuItem,
+};
 use tauri_plugin_autostart::MacosLauncher;
 
-
 fn main() {
-    
     let quit = CustomMenuItem::new("quit".to_string(), "Quit");
     let show = CustomMenuItem::new("show".to_string(), "Show");
     let tray_menu = SystemTrayMenu::new()
@@ -23,18 +24,20 @@ fn main() {
         .system_tray(SystemTray::new().with_menu(tray_menu))
         .on_system_tray_event(|app, event| match event {
             SystemTrayEvent::MenuItemClick { id, .. } => {
-              let item_handle = app.tray_handle().get_item(&id);
-              match id.as_str() {
-                "show" => {
-                  let window = app.get_window("main").unwrap();
-                  window.show();
-                },
-                "quit" => {std::process::exit(0);}
-                _ => {}
-              }
+                let item_handle = app.tray_handle().get_item(&id);
+                match id.as_str() {
+                    "show" => {
+                        let window = app.get_window("main").unwrap();
+                        window.show();
+                    }
+                    "quit" => {
+                        std::process::exit(0);
+                    }
+                    _ => {}
+                }
             }
             _ => {}
-          })
+        })
         .invoke_handler(tauri::generate_handler![
             is_windows,
             get_bios_version,
@@ -50,7 +53,10 @@ fn main() {
             ectool,
             cbmem
         ])
-        .plugin(tauri_plugin_autostart::init(MacosLauncher::LaunchAgent, Some(vec!["--flag1", "--flag2"])))
+        .plugin(tauri_plugin_autostart::init(
+            MacosLauncher::LaunchAgent,
+            Some(vec!["--flag1", "--flag2"]),
+        ))
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -83,7 +89,7 @@ async fn get_cpu_usage() -> String {
                 "END{print usage}'",
             ])
             .output();
-        return match_result(cmd);
+        return cmd;
     }
     #[cfg(windows)]
     {
