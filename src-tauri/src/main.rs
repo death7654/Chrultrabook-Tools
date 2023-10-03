@@ -7,14 +7,10 @@
 use std::os::windows::process::CommandExt;
 use sysinfo::{CpuExt, System, SystemExt};
 use tauri::Manager;
-<<<<<<< HEAD
 use tauri::{
     window, CloseRequestApi, CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu,
     SystemTrayMenuItem,
 };
-=======
-use tauri::{CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem};
->>>>>>> 0330630d56345377a2ce7909bd40d996d44175b7
 use tauri_plugin_autostart::MacosLauncher;
 
 fn main() {
@@ -28,7 +24,6 @@ fn main() {
     tauri::Builder::default()
         .system_tray(SystemTray::new().with_menu(tray_menu))
         .on_system_tray_event(|app, event| match event {
-<<<<<<< HEAD
             SystemTrayEvent::MenuItemClick { id, .. } => {
                 let item_handle = app.tray_handle().get_item(&id);
                 match id.as_str() {
@@ -42,17 +37,6 @@ fn main() {
                     _ => {}
                 }
             }
-=======
-            SystemTrayEvent::MenuItemClick { id, .. } => match id.as_str() {
-                "show" => {
-                    app.get_window("main").unwrap().show().unwrap();
-                }
-                "quit" => {
-                    app.exit(0);
-                }
-                _ => {}
-            },
->>>>>>> 0330630d56345377a2ce7909bd40d996d44175b7
             _ => {}
         })
         .invoke_handler(tauri::generate_handler![
