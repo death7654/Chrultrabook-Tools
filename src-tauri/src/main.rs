@@ -86,7 +86,7 @@ async fn get_cpu_usage() -> String {
                 "'{usage=($4)*100/($2+$3+$4+$5+$6+$7+$8+$9+$10+$11)} END{print usage}'",
             ])
             .output();
-        return match_result(cmd);
+        return Some(match_result(cmd));
     }
     #[cfg(windows)]
     {
@@ -309,7 +309,7 @@ fn match_result(result: Result<std::process::Output, std::io::Error>) -> String 
     let str = match result {
         Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
         Err(e) => {
-            println!("Error `{}`.", e);
+            println!("Error `{}`.", e); 
             String::new()
         }
     };
