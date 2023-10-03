@@ -5,12 +5,10 @@
 
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
+#[cfg(windows)]
 use sysinfo::{CpuExt, System, SystemExt};
 use tauri::Manager;
-use tauri::{
-    window, CloseRequestApi, CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu,
-    SystemTrayMenuItem,
-};
+use tauri::{CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem};
 use tauri_plugin_autostart::MacosLauncher;
 
 fn main() {
@@ -90,7 +88,7 @@ async fn get_cpu_usage() -> String {
                 "END{print usage}'",
             ])
             .output();
-        return cmd;
+        return match_result(cmd);
     }
     #[cfg(windows)]
     {
@@ -113,7 +111,7 @@ async fn get_cpu_usage() -> String {
 async fn get_cpu_temp() -> Option<String> {
     #[cfg(target_os = "linux")]
     {
-        let cmd = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+        let cmd = std::process::Command::new("ectool")
             .args(["temps", "all"])
             .output();
         return Some(match_result(cmd));
@@ -243,7 +241,7 @@ async fn get_fan_rpm() -> String {
     #[cfg(target_os = "linux")]
     {
         cmd = std::process::Command::new("ectool")
-            .args(["--interface=dev", "pwmgetfanrpm"])
+            .args(["pwmgetfanrpm"])
             .output();
     }
 
@@ -264,7 +262,6 @@ async fn ectool(value: String, value2: String) -> String {
     #[cfg(target_os = "linux")]
     {
         cmd = std::process::Command::new("ectool")
-            .arg("--interface=dev")
             .arg(value)
             .arg(value2)
             .output();
@@ -287,8 +284,11 @@ async fn cbmem(value: String) -> String {
     let cmd: Result<std::process::Output, std::io::Error>;
 
     #[cfg(target_os = "linux")]
-    return String::new();
-
+    {
+        cmd = std::process::Command::new("cbmem")
+            .arg(value)
+            .output();
+    }
     #[cfg(windows)]
     {
         cmd = std::process::Command::new("C:\\Program Files\\crosec\\cbmem")
