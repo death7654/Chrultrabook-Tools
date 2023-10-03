@@ -86,7 +86,7 @@ async fn get_cpu_usage() -> String {
                 "'{usage=($4)*100/($2+$3+$4+$5+$6+$7+$8+$9+$10+$11)} END{print usage}'",
             ])
             .output();
-        return Some(match_result(cmd));
+        return match_result(cmd);
     }
     #[cfg(windows)]
     {
