@@ -23,11 +23,11 @@ fn main() {
         .system_tray(SystemTray::new().with_menu(tray_menu))
         .on_system_tray_event(|app, event| match event {
             SystemTrayEvent::MenuItemClick { id, .. } => {
-                let item_handle = app.tray_handle().get_item(&id);
+                let _item_handle = app.tray_handle().get_item(&id);
                 match id.as_str() {
                     "show" => {
-                        let window = app.get_window("main").unwrap();
-                        window.show();
+                        let _window = app.get_window("main").unwrap();
+                        _window.show();
                     }
                     "quit" => {
                         std::process::exit(0);

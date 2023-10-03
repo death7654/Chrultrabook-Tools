@@ -10,143 +10,6 @@
     <link rel="stylesheet" href="./src/styles.css">
     <script type="module" src="./src/main.js"></script>
     <title>Chultrabook Controller</title>
-    <script>
-        window.addEventListener("DOMContentLoaded", () => {
-
-            //changing menus
-
-            var home = document.getElementById("sectionDashboard");
-            var fan = document.getElementById("sectionFan");
-            var cbmem = document.getElementById("sectionCbmem");
-            var options = document.getElementById("sectionOptions");
-            var settings = document.getElementById("sectionSettings");
-
-            home.style.display = "block";
-            fan.style.display = "none";
-            options.style.display = "none";
-            cbmem.style.display = "none";
-            settings.style.display = "none";
-
-            function homeButton() {
-                home.style.display = "block";
-                fan.style.display = "none";
-                options.style.display = "none";
-                cbmem.style.display = "none";
-                settings.style.display = "none";
-            }
-
-            function fanButton() {
-                home.style.display = "none";
-                fan.style.display = "block";
-                options.style.display = "none";
-                cbmem.style.display = "none";
-                settings.style.display = "none";
-            }
-
-            function cbmemButton() {
-                home.style.display = "none";
-                fan.style.display = "none";
-                options.style.display = "none";
-                cbmem.style.display = "block";
-                settings.style.display = "none";
-            }
-
-            function optionsButton() {
-                home.style.display = "none";
-                fan.style.display = "none";
-                options.style.display = "block";
-                cbmem.style.display = "none";
-                settings.style.display = "none";
-            }
-
-            function infoButton() {
-                home.style.display = "none";
-                fan.style.display = "none";
-                options.style.display = "none";
-                cbmem.style.display = "none";
-                settings.style.display = "block";
-            }
-
-            document.getElementById("home").addEventListener("mousedown", () => {
-                homeButton();
-            });
-            document.getElementById("fan").addEventListener("mousedown", () => {
-                fanButton();
-            });
-            document.getElementById("options").addEventListener("mousedown", () => {
-                optionsButton();
-            });
-            document.getElementById("diagnostics").addEventListener("mousedown", () => {
-                cbmemButton();
-            });
-            document.getElementById("information").addEventListener("mousedown", () => {
-                infoButton();
-            });
-
-            //mode toggles
-            const body = document.body,
-                modeToggle = body.querySelector(".mode-toggle"),
-                sidebar = body.querySelector("nav"),
-                sidebarToggle = body.querySelector(".sidebar-toggle");
-
-            let getMode = localStorage.getItem("mode");
-            if (getMode && getMode === "dark") {
-                body.classList.toggle("dark");
-            }
-
-            let getStatus = localStorage.getItem("status");
-            if (getStatus && getStatus === "close") {
-                sidebar.classList.toggle("close");
-            }
-
-            modeToggle.addEventListener("mousedown", () => {
-                body.classList.toggle("dark");
-                if (body.classList.contains("dark")) {
-                    localStorage.setItem("mode", "dark");
-                } else {
-                    localStorage.setItem("mode", "light");
-                }
-            });
-
-            sidebarToggle.addEventListener("mousedown", () => {
-                sidebar.classList.toggle("close");
-                localStorage.setItem(
-                    "status",
-                    sidebar.classList.contains("close") ? "close" : "open"
-                );
-            });
-        });
-
-
-        const dropdowns = document.querySelectorAll(".dropdown");
-        dropdowns.forEach((dropdown) => {
-            const select = dropdown.querySelector(".select");
-            const caret = dropdown.querySelector(".caret");
-            const menu = dropdown.querySelector(".menu");
-            const options = dropdown.querySelectorAll(".menu li");
-            const selected = dropdown.querySelector(".selected");
-
-            select.addEventListener("mousedown", () => {
-                select.classList.toggle("select-clicked");
-                caret.classList.toggle("caret-rotate");
-                menu.classList.toggle("menu-open");
-            });
-
-            options.forEach((option) => {
-                option.addEventListener("mousedown", () => {
-                    selected.innerText = option.innerText;
-                    select.classList.remove("select-clicked");
-                    caret.classList.remove("caret-rotate");
-                    menu.classList.remove("menu-open");
-
-                    options.forEach((option) => {
-                        option.classList.remove("active");
-                    });
-                    option.classList.add("active");
-                });
-            });
-        });
-    </script>
 
 <body style="overflow: hidden;">
     <div data-tauri-drag-region class="appFrame">
@@ -412,5 +275,142 @@
     </div>
 
 </body>
+<script>
+    window.addEventListener("DOMContentLoaded", () => {
+
+        //changing menus
+
+        var home = document.getElementById("sectionDashboard");
+        var fan = document.getElementById("sectionFan");
+        var cbmem = document.getElementById("sectionCbmem");
+        var options = document.getElementById("sectionOptions");
+        var settings = document.getElementById("sectionSettings");
+
+        home.style.display = "block";
+        fan.style.display = "none";
+        options.style.display = "none";
+        cbmem.style.display = "none";
+        settings.style.display = "none";
+
+        function homeButton() {
+            home.style.display = "block";
+            fan.style.display = "none";
+            options.style.display = "none";
+            cbmem.style.display = "none";
+            settings.style.display = "none";
+        }
+
+        function fanButton() {
+            home.style.display = "none";
+            fan.style.display = "block";
+            options.style.display = "none";
+            cbmem.style.display = "none";
+            settings.style.display = "none";
+        }
+
+        function cbmemButton() {
+            home.style.display = "none";
+            fan.style.display = "none";
+            options.style.display = "none";
+            cbmem.style.display = "block";
+            settings.style.display = "none";
+        }
+
+        function optionsButton() {
+            home.style.display = "none";
+            fan.style.display = "none";
+            options.style.display = "block";
+            cbmem.style.display = "none";
+            settings.style.display = "none";
+        }
+
+        function infoButton() {
+            home.style.display = "none";
+            fan.style.display = "none";
+            options.style.display = "none";
+            cbmem.style.display = "none";
+            settings.style.display = "block";
+        }
+
+        document.getElementById("home").addEventListener("mousedown", () => {
+            homeButton();
+        });
+        document.getElementById("fan").addEventListener("mousedown", () => {
+            fanButton();
+        });
+        document.getElementById("options").addEventListener("mousedown", () => {
+            optionsButton();
+        });
+        document.getElementById("diagnostics").addEventListener("mousedown", () => {
+            cbmemButton();
+        });
+        document.getElementById("information").addEventListener("mousedown", () => {
+            infoButton();
+        });
+
+        //mode toggles
+        const body = document.body,
+            modeToggle = body.querySelector(".mode-toggle"),
+            sidebar = body.querySelector("nav"),
+            sidebarToggle = body.querySelector(".sidebar-toggle");
+
+        let getMode = localStorage.getItem("mode");
+        if (getMode && getMode === "dark") {
+            body.classList.toggle("dark");
+        }
+
+        let getStatus = localStorage.getItem("status");
+        if (getStatus && getStatus === "close") {
+            sidebar.classList.toggle("close");
+        }
+
+        modeToggle.addEventListener("mousedown", () => {
+            body.classList.toggle("dark");
+            if (body.classList.contains("dark")) {
+                localStorage.setItem("mode", "dark");
+            } else {
+                localStorage.setItem("mode", "light");
+            }
+        });
+
+        sidebarToggle.addEventListener("mousedown", () => {
+            sidebar.classList.toggle("close");
+            localStorage.setItem(
+                "status",
+                sidebar.classList.contains("close") ? "close" : "open"
+            );
+        });
+    });
+
+
+    const dropdowns = document.querySelectorAll(".dropdown");
+    dropdowns.forEach((dropdown) => {
+        const select = dropdown.querySelector(".select");
+        const caret = dropdown.querySelector(".caret");
+        const menu = dropdown.querySelector(".menu");
+        const options = dropdown.querySelectorAll(".menu li");
+        const selected = dropdown.querySelector(".selected");
+
+        select.addEventListener("mousedown", () => {
+            select.classList.toggle("select-clicked");
+            caret.classList.toggle("caret-rotate");
+            menu.classList.toggle("menu-open");
+        });
+
+        options.forEach((option) => {
+            option.addEventListener("mousedown", () => {
+                selected.innerText = option.innerText;
+                select.classList.remove("select-clicked");
+                caret.classList.remove("caret-rotate");
+                menu.classList.remove("menu-open");
+
+                options.forEach((option) => {
+                    option.classList.remove("active");
+                });
+                option.classList.add("active");
+            });
+        });
+    });
+</script>
 
 </html>

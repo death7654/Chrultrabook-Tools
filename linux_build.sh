@@ -1,3 +1,5 @@
+npm run tauri build
+
 #!/bin/bash 
 ROOT=$(pwd)
 APPIMAGEDIR="$ROOT/target/release/bundle/appimage"
