@@ -75,34 +75,18 @@ async fn get_ram_usage() -> String {
 
 #[tauri::command]
 async fn get_cpu_usage() -> String {
-    #[cfg(target_os = "linux")]
-    {
-        let cmd = std::process::Command::new("grep")
-            .args([
-                "'cpu'",
-                "/proc/stat",
-                "|",
-                "awk",
-                "'{usage=($4)*100/($2+$3+$4+$5+$6+$7+$8+$9+$10+$11)} END{print usage}'",
-            ])
-            .output();
-        return match_result(cmd);
-    }
-    #[cfg(windows)]
-    {
-        let mut sys = System::new_all();
-        sys.refresh_cpu(); // Refreshing CPU information.
+    let mut sys = System::new_all();
+    sys.refresh_cpu(); // Refreshing CPU information.
 
-        let mut num: i32 = 0;
-        let mut total: i32 = 0;
-        for cpu in sys.cpus() {
-            let cpu_usage = cpu.cpu_usage();
-            total += 1;
-            num = num + (cpu_usage as i32);
-        }
-
-        return (num / total).to_string();
+    let mut num: i32 = 0;
+    let mut total: i32 = 0;
+    for cpu in sys.cpus() {
+        let cpu_usage = cpu.cpu_usage();
+        total += 1;
+        num = num + (cpu_usage as i32);
     }
+
+    return (num / total).to_string();
 }
 
 #[tauri::command]
@@ -283,9 +267,7 @@ async fn cbmem(value: String) -> String {
 
     #[cfg(target_os = "linux")]
     {
-        cmd = std::process::Command::new("cbmem")
-            .arg(value)
-            .output();
+        cmd = std::process::Command::new("cbmem").arg(value).output();
     }
     #[cfg(windows)]
     {
@@ -309,7 +291,7 @@ fn match_result(result: Result<std::process::Output, std::io::Error>) -> String 
     let str = match result {
         Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
         Err(e) => {
-            println!("Error `{}`.", e); 
+            println!("Error `{}`.", e);
             String::new()
         }
     };
