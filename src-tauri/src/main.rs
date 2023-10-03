@@ -5,7 +5,6 @@
 
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
-#[cfg(windows)]
 use sysinfo::{CpuExt, System, SystemExt};
 use tauri::Manager;
 use tauri::{CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem};
