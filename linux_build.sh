@@ -1,4 +1,3 @@
-npm run tauri build
 
 #!/bin/bash 
 ROOT=$(pwd)

@@ -83,8 +83,7 @@ async fn get_cpu_usage() -> String {
                 "/proc/stat",
                 "|",
                 "awk",
-                "'{usage=($4)*100/($2+$3+$4+$5+$6+$7+$8+$9+$10+$11)}",
-                "END{print usage}'",
+                "'{usage=($4)*100/($2+$3+$4+$5+$6+$7+$8+$9+$10+$11)} END{print usage}'",
             ])
             .output();
         return match_result(cmd);
