@@ -100,6 +100,7 @@ if (fan == true) {
     const fanSpeed = fanRPM.toString().split(":").pop().trim();
     document.getElementById("fanSpeed").innerText = fanSpeed + " RPM";
   }, 1000);
+  //loads chart on startup
   setTimeout(async () => {
     let fanCurve = localStorage.getItem("customfanCurves");
     let fanCurveData = JSON.parse(fanCurve);
