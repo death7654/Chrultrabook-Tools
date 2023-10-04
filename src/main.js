@@ -126,7 +126,7 @@ setTimeout(async () => {
   document.getElementById("cpuName").innerText = "CPU: " + cpuname;
 /*
   //shows or hides activity light settings based on boardname (only shows to Candy and Kefka)
-  if(boardname !== "Candy" && boardname !== "Kefka" && boardname !== "Vayne")
+  if(boardname !== "Candy" && boardname !== "Kefka" && boardname)
   {
     document.getElementById("ActivityLight").style.display = "none";
     document.getElementById("keyboardBacklight").classList.add("afterCheck");
