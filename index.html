@@ -154,13 +154,35 @@
         <section id="sectionOptions" class="dashboard">
             <div class="dash-content">
                 <div class="overview">
-                    <div class="title">
+                    <div class="title options">
                         <img src="./src/assets/Icons/systemOptions/system-options.svg">
                         <span class="text">System Controls</span>
-                        <h2 class="backlightText" id="rangeBacklight"><img
-                                src="./src/assets/Icons/systemOptions/keyboard.svg">&nbsp;&nbsp;Keyboard
-                            Backlight</h2>
                     </div>
+                <div class="ActivityLight" id="ActivityLight">
+                    <h2 class="activitylightText" id="activityLightDropdown">&nbsp;&nbsp;Activity light</h2>
+                    <div class="dellActivityLight">
+                        <div class="dropdownActivityLight">
+                            <div class="select">
+                                <span class="selectedActivityLight">Pick A Color</span>
+                                <div class="caret"></div>
+                            </div>
+                            <ul class="menu" id="activityLightMenu">
+                                <!--If you change anything here make sure to change the name in main.js-->
+                                <li>Off</li>
+                                <li>Red</li>
+                                <li>Green</li>
+                                <li>Blue</li>
+                                <li>White</li>
+                                <li>Cyan</li>
+                                <li>Magenta</li>
+                                <li>Yellow</li>
+                                <!--everything else shold be fine, unless you change the class names-->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="keyboardBacklight" id="keyboardBacklight">
+                    <h2 class="backlightText" id="rangeBacklight">&nbsp;&nbsp;Keyboard Backlight</h2>
                     <div class="rangeBacklight" id="rangeBacklightslider">
                         <div class="sliderValue">
                             <span>100</span>
@@ -173,6 +195,7 @@
                             <div class="value right" id="backlightRangeSliderText">100</div>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
         </section>
@@ -400,6 +423,35 @@
         options.forEach((option) => {
             option.addEventListener("mousedown", () => {
                 selected.innerText = option.innerText;
+                select.classList.remove("select-clicked");
+                caret.classList.remove("caret-rotate");
+                menu.classList.remove("menu-open");
+
+                options.forEach((option) => {
+                    option.classList.remove("active");
+                });
+                option.classList.add("active");
+            });
+        });
+    });
+
+    const dropdownActivityLight = document.querySelectorAll(".dropdownActivityLight");
+    dropdownActivityLight.forEach((dropdown) => {
+        const select = dropdown.querySelector(".select");
+        const caret = dropdown.querySelector(".caret");
+        const menu = dropdown.querySelector(".menu");
+        const options = dropdown.querySelectorAll(".menu li");
+        const selectedActivityLight = dropdown.querySelector(".selectedActivityLight");
+
+        select.addEventListener("mousedown", () => {
+            select.classList.toggle("select-clicked");
+            caret.classList.toggle("caret-rotate");
+            menu.classList.toggle("menu-open");
+        });
+
+        options.forEach((option) => {
+            option.addEventListener("mousedown", () => {
+                selectedActivityLight.innerText = option.innerText;
                 select.classList.remove("select-clicked");
                 caret.classList.remove("caret-rotate");
                 menu.classList.remove("menu-open");

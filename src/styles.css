@@ -716,24 +716,47 @@ nav.close~.dashboard .top {
 
 
 /*system options*/
+.title.Options {
+  position: absolute;
+  top: 20px;
+}
+.ActivityLight{
+  position: relative;
+  top: 10px;
+}
+
+.activitylightText {
+  font-size: 20px;
+  font-weight: 600;
+  top: 0px;
+  left: 0px;
+}
+.dellActivityLight {
+  position: relative;
+  top: 20px
+}
+
+
+.keyboardBacklight {
+  position: relative;
+  top: 50px;
+}
+
+.afterCheck {
+  top: 10px;
+}
 
 .backlightText {
   position: relative;
   font-size: 20px;
   font-weight: 600;
-  top: 50px;
-  left: -240px;
-}
-
-.backlightText img {
-  position: relative;
-  top: 8px;
-  left: -2px;
+  top: 0px;
+  left: 0px;
 }
 
 .rangeBacklight {
   position: absolute;
-  top: 225px;
+  top: 50px;
   height: 60px;
   width: calc(97%);
   background: var(--slider-color);

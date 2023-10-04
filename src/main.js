@@ -124,6 +124,14 @@ setTimeout(async () => {
   document.getElementById("coreCPU").innerText = "Cores: " + cores + " Cores";
   document.getElementById("hostname").innerText = "Hostname: " + hostname;
   document.getElementById("cpuName").innerText = "CPU: " + cpuname;
+
+  //shows or hides activity light settings based on boardname (only shows to Candy and Kefka)
+  if(boardname !== "Candy" && boardname !== "Kefka" && boardname !== "Vayne")
+  {
+    document.getElementById("ActivityLight").style.display = "none";
+    document.getElementById("keyboardBacklight").classList.add("afterCheck");
+  }
+
 }, 0);
 //setFanSpeeds
 //fan chart
@@ -313,7 +321,42 @@ buttonfanAuto.addEventListener("mousedown", () => fanAuto());
 const buttonCustomFan = document.getElementById("setFan");
 buttonCustomFan.addEventListener("mousedown", () => customFan());
 
-//system infopage
+//system options
+//activity light
+
+
+const selectedActivityLight = document.querySelector(".selectedActivityLight");
+async function activityLight(){
+  switch(selectedActivityLight.innerText) {
+    case "Off":
+      console.log("off");
+    break;
+    case "Red":
+      console.log("Red");
+    break;
+    case "Green":
+      console.log("Green");
+    break;
+    case "Blue":
+      console.log("Blue");
+    break;
+    case "White":
+      console.log("White");
+    break;
+    case "Cyan":
+      console.log("Cyan");
+    break;
+    case "Magenta":
+      console.log("Magenta");
+    break;
+    case "Yellow":
+      console.log("Yellow");
+    break;
+  }
+}
+const activityLightColor = document.getElementById("activityLightMenu");
+activityLightColor.addEventListener("mousedown", () => activityLight());
+
 
 //keyboard backlight slider
 let sliderBacklight = document.getElementById("backlightRangeSlider");
@@ -324,12 +367,12 @@ outputBacklight.innerHTML = sliderBacklight.value;
 sliderBacklight.oninput = function () {
   outputBacklight.innerText = this.value === "0" ? "off" : this.value;
   invoke("ectool", { value: "pwmsetkblight", value2: sliderBacklight.value });
+  //changes text color
   document.getElementById("key").style.filter =
     sliderBacklight.value < 25 || this.value === "0"
       ? "opacity(25%)"
       : "opacity(" + sliderBacklight.value + "%)";
 };
-//changes text color
 
 //sends info from ec to html
 const selected = document.querySelector(".selected");
@@ -439,6 +482,7 @@ systemTray.addEventListener("click", () => {
     localStorage.setItem("quitToTray", "no");
   }
 });
+/*
 startOnBoot.addEventListener("click", () => {
   if (startOnBoot.checked) {
     localStorage.setItem("startOnBoot", "yes");
@@ -446,6 +490,7 @@ startOnBoot.addEventListener("click", () => {
     localStorage.setItem("startOnBoot", "no");
   }
 });
+*/
 
 startHidden.addEventListener("click", () => {
   if (startHidden.checked) {
