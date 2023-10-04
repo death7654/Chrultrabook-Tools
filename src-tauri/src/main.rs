@@ -3,14 +3,14 @@
     windows_subsystem = "windows"
 )]
 
+#[cfg(target_os = "linux")]
+use std::fs;
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
 use sysinfo::{CpuExt, System, SystemExt};
 use tauri::Manager;
 use tauri::{CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem};
 use tauri_plugin_autostart::MacosLauncher;
-#[cfg(target_os = "linux")]
-use std::fs;
 
 fn main() {
     let quit = CustomMenuItem::new("quit".to_string(), "Quit");
@@ -78,32 +78,32 @@ async fn get_ram_usage() -> String {
 
 #[tauri::command]
 async fn get_cpu_usage() -> String {
-    #[cfg(target_os = "linux")]{
-    let mut sys = System::new();
-    sys.refresh_cpu();
-    let usage = sys.global_cpu_info().cpu_usage();
-    std::thread::sleep(System::MINIMUM_CPU_UPDATE_INTERVAL);
-    let cpu_usage = usage.round();
-    println!("usage {}",usage);
-    println!("cpuusage {}",cpu_usage);
-    return cpu_usage.to_string();
+    #[cfg(target_os = "linux")]
+    {
+        let mut sys = System::new();
+        sys.refresh_cpu();
+        let usage = sys.global_cpu_info().cpu_usage();
+        std::thread::sleep(System::MINIMUM_CPU_UPDATE_INTERVAL);
+        let cpu_usage = usage.round();
+        println!("usage {}", usage);
+        println!("cpuusage {}", cpu_usage);
+        return cpu_usage.to_string();
     }
     #[cfg(windows)]
     {
         let mut sys = System::new_all();
-    sys.refresh_cpu(); // Refreshing CPU information.
+        sys.refresh_cpu(); // Refreshing CPU information.
 
-    let mut num: i32 = 0;
-    let mut total: i32 = 0;
-    for cpu in sys.cpus() {
-        let cpu_usage = cpu.cpu_usage();
-        total += 1;
-        num = num + (cpu_usage as i32);
+        let mut num: i32 = 0;
+        let mut total: i32 = 0;
+        for cpu in sys.cpus() {
+            let cpu_usage = cpu.cpu_usage();
+            total += 1;
+            num = num + (cpu_usage as i32);
+        }
+
+        return (num / total).to_string();
     }
-
-    return (num / total).to_string();
-    }
-
 }
 
 #[tauri::command]
@@ -302,9 +302,7 @@ async fn cbmem(value: String) -> String {
 
     #[cfg(target_os = "linux")]
     {
-        cmd = std::process::Command::new("cbmem")
-            .arg(value)
-            .output();
+        cmd = std::process::Command::new("cbmem").arg(value).output();
     }
     #[cfg(windows)]
     {
@@ -328,7 +326,7 @@ fn match_result(result: Result<std::process::Output, std::io::Error>) -> String 
     let str = match result {
         Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
         Err(e) => {
-            println!("Error `{}`.", e); 
+            println!("Error `{}`.", e);
             String::new()
         }
     };
