@@ -39,3 +39,9 @@ jobs:
       - name: Linux AppImage Packaging
         if: matrix.platform == 'ubuntu-20.04'
         run: ./linux_build.sh
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Chrultrabook-Controller
+          retention-days: 5
+          path: src-tauri/target/release/bundle/appimage/*.AppImage
