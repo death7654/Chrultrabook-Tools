@@ -1272,6 +1272,10 @@ nav.close~.dashboard .top {
   padding: 20px;
 }
 
+.systemOptionsPage{
+  width: calc(90%);
+}
+
 /*settings*/
 .switch {
   position: relative;
@@ -1335,28 +1339,28 @@ input:checked+.slider:before {
   border-radius: 50%;
 }
 
-.switch.position {
-  position: relative;
-  left: 625px;
-  top: 1px;
+.switch.startupFan {
+  position: absolute;
+  left: 90%;
+  top: 175px;
 }
 
-.switch.position2 {
-  position: relative;
-  left: 587px;
-  top: 57px;
+.switch.closeToTray {
+  position: absolute;
+  left: 90%;
+  top: 225px;
 }
 
 .switch.position3 {
-  position: relative;
-  left: 549px;
+  position: absolute;
+  right: 90%;
   top: 110px;
 }
 
-.switch.position4 {
-  position: relative;
-  left: 549px;
-  top: 120px;
+.switch.startInTray {
+  position: absolute;
+  left: 90%;
+  top: 275px;
 }
 
 .settingsText {
@@ -1364,19 +1368,23 @@ input:checked+.slider:before {
 }
 
 .startupFan {
-  position: relative;
-  top: -27px;
-  left: 0px;
+  position: absolute;
+  top: 175px;
+  left: 15px;
+}
+.closeToTray {
+  position: absolute;
+  top: 225px
 }
 
 .startBoot {
-  position: relative;
-  top: 30px;
+  position: absolute;
+  top: 280px;
 }
 
 .startInTray {
-  position: relative;
-  top: 30px;
+  position: absolute;
+  top: 275px;
 }
 
 /*main html file ends */

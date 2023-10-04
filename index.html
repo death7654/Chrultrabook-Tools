@@ -238,11 +238,11 @@
                         <img src="./src/assets/Icons/settings/settings-page.svg">
                         <span class="text">Settings </span>
                     </div>
-                    <label class="switch position" id="startupFan">
+                    <label class="switch startupFan" id="startupFan">
                         <input id="startupFansInput" type="checkbox">
                         <span class="slider round"></span>
                     </label>
-                    <label class="switch position2" id="systemTray">
+                    <label class="switch closeToTray" id="systemTray">
                         <input id="systemTrayInput" type="checkbox">
                         <span class="slider round"></span>
                     </label>
@@ -252,14 +252,14 @@
                         <span class="slider round"></span>
                     </label>
                     -->
-                    <label class="switch position4" id="startHidden">
+                    <label class="switch startInTray" id="startHidden">
                         <input id="startHiddenInput" type="checkbox">
                         <span class="slider round"></span>
                     </label>
                     <div class="settingsText">
                         <h3 class="startupFan">Start Custom Fan Curves On App Startup</h3>
                         <hr>
-                        <h3>When Closed, App Minimizes To System Tray</h3>
+                        <h3 class="closeToTray">When Closed, App Minimizes To System Tray</h3>
                         <hr>
                         <!--<h3 class="startBoot">Start App On Boot</h3>
                         <hr>-->
@@ -275,6 +275,7 @@
     </div>
 
 </body>
+<!--DO NOT MOVE THE SCRIPT-->
 <script>
     window.addEventListener("DOMContentLoaded", () => {
 
