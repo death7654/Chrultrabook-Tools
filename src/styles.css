@@ -1,6 +1,6 @@
 /* ===== Google Font Import - Poppins ===== */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap");
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap");
 
 * {
   user-select: none;
@@ -131,14 +131,19 @@
   --switch-color: #fcefef;
   --select-color: #f2f2f2;
   --slider-knob-color: #ef476f;
-  --slider-color: #50C878;
+  --slider-color: #50c878;
   --slider-text-color: #ffffff;
-  --remap-color: #00BAE2;
-  --homeFilter: invert(27%) sepia(74%) saturate(4443%) hue-rotate(119deg) brightness(97%) contrast(73%);
-  --fanFilter: invert(54%) sepia(61%) saturate(595%) hue-rotate(186deg) brightness(95%) contrast(94%);
-  --optionsFilter: invert(39%) sepia(10%) saturate(771%) hue-rotate(168deg) brightness(89%) contrast(87%);
-  --diagnosticFilter: invert(88%) sepia(31%) saturate(6481%) hue-rotate(343deg) brightness(103%) contrast(101%);
-  --settingFilter: invert(20%) sepia(16%) saturate(0%) hue-rotate(240deg) brightness(105%) contrast(89%);
+  --remap-color: #00bae2;
+  --homeFilter: invert(27%) sepia(74%) saturate(4443%) hue-rotate(119deg)
+    brightness(97%) contrast(73%);
+  --fanFilter: invert(54%) sepia(61%) saturate(595%) hue-rotate(186deg)
+    brightness(95%) contrast(94%);
+  --optionsFilter: invert(39%) sepia(10%) saturate(771%) hue-rotate(168deg)
+    brightness(89%) contrast(87%);
+  --diagnosticFilter: invert(88%) sepia(31%) saturate(6481%) hue-rotate(343deg)
+    brightness(103%) contrast(101%);
+  --settingFilter: invert(20%) sepia(16%) saturate(0%) hue-rotate(240deg)
+    brightness(105%) contrast(89%);
 
   /* ====== Transition ====== */
   --tran-05: all 0.5s ease;
@@ -163,7 +168,7 @@ body.dark {
   --fanMax-color: #f27b71;
   --fanOff-color: #e89b26;
   --fanCurves-color: #313030;
-  --fanCurvesHover-color: #FC3B52;
+  --fanCurvesHover-color: #fc3b52;
   --getcbMem-color: #fc3b52;
   --copy-color: #00bae2;
   --cbmemCode-color: #313030;
@@ -173,17 +178,22 @@ body.dark {
   --title-icon-color: #ccc;
   --switch-color: #221824;
   --select-color: #353434;
-  --slider-color: #0094EA;
+  --slider-color: #0094ea;
   --slider-knob-color: #06d6a0;
   --remap-color: #ff3d54;
   --slider-text-color: #ffffff;
-  --logoFilter: invert(100%) sepia(0%) saturate(0%) hue-rotate(95deg) brightness(103%) contrast(107%);
-  --homeFilter: invert(82%) sepia(53%) saturate(335%) hue-rotate(97deg) brightness(101%) contrast(102%);
-  --fanFilter: invert(44%) sepia(33%) saturate(4509%) hue-rotate(182deg) brightness(99%) contrast(108%);
-  --optionsFilter: invert(85%) sepia(6%) saturate(1727%) hue-rotate(181deg) brightness(82%) contrast(87%);
-  --diagnosticFilter: invert(74%) sepia(25%) saturate(5073%) hue-rotate(339deg) brightness(95%) contrast(99%);
-  --settingFilter: invert(51%) sepia(0%) saturate(1517%) hue-rotate(144deg) brightness(91%) contrast(88%);
-
+  --logoFilter: invert(100%) sepia(0%) saturate(0%) hue-rotate(95deg)
+    brightness(103%) contrast(107%);
+  --homeFilter: invert(82%) sepia(53%) saturate(335%) hue-rotate(97deg)
+    brightness(101%) contrast(102%);
+  --fanFilter: invert(44%) sepia(33%) saturate(4509%) hue-rotate(182deg)
+    brightness(99%) contrast(108%);
+  --optionsFilter: invert(85%) sepia(6%) saturate(1727%) hue-rotate(181deg)
+    brightness(82%) contrast(87%);
+  --diagnosticFilter: invert(74%) sepia(25%) saturate(5073%) hue-rotate(339deg)
+    brightness(95%) contrast(99%);
+  --settingFilter: invert(51%) sepia(0%) saturate(1517%) hue-rotate(144deg)
+    brightness(91%) contrast(88%);
 }
 
 .logoFilter {
@@ -422,7 +432,7 @@ body.dark .switch:before {
   z-index: 50;
 }
 
-nav.close~.dashboard {
+nav.close ~ .dashboard {
   left: 73px;
   width: calc(100% - 73px);
 }
@@ -442,7 +452,7 @@ nav.close~.dashboard {
   z-index: 10;
 }
 
-nav.close~.dashboard .top {
+nav.close ~ .dashboard .top {
   left: 73px;
   width: calc(100% - 73px);
 }
@@ -676,7 +686,6 @@ nav.close~.dashboard .top {
   transition: var(--tran-05);
   border-radius: 20px;
   cursor: pointer;
-
 }
 
 .setFan {
@@ -702,7 +711,6 @@ nav.close~.dashboard .top {
   -webkit-transition-property: box-shadow, transform;
   transition-property: box-shadow, transform;
   border-color: #000000;
-
 }
 
 .setFan:hover,
@@ -713,7 +721,6 @@ nav.close~.dashboard .top {
   background-color: var(--fanCurvesHover-color);
   color: white;
 }
-
 
 /*system options*/
 
@@ -746,7 +753,6 @@ nav.close~.dashboard .top {
 .sliderValue {
   position: relative;
   width: 100%;
-
 }
 
 .sliderValue span {
@@ -761,8 +767,6 @@ nav.close~.dashboard .top {
   color: var(--text-color);
   transform-origin: bottom;
   transition: transform 0.2s ease-in-out;
-
-
 }
 
 .fieldBacklight {
@@ -771,7 +775,6 @@ nav.close~.dashboard .top {
   justify-content: center;
   height: 100%;
   position: relative;
-
 }
 
 .fieldBacklight .value {
@@ -779,12 +782,10 @@ nav.close~.dashboard .top {
   font-size: 18px;
   color: var(--slider-text-color);
   font-weight: 600;
-
 }
 
 .fieldBacklight .value.left {
   left: -22px;
-
 }
 
 .fieldBacklight .value.right {
@@ -815,7 +816,6 @@ nav.close~.dashboard .top {
   background-color: red;
 }
 
-
 /*keyboard Remap*/
 .remapText {
   position: relative;
@@ -841,7 +841,7 @@ nav.close~.dashboard .top {
   margin: 20px auto 0;
   background-color: var(--cbmemCode-color);
   border-radius: 20px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   color: #000000;
   transition: var(--tran-03);
 }
@@ -889,7 +889,6 @@ nav.close~.dashboard .top {
   font-weight: 500;
   padding-top: 4px;
   transition: var(--tran-03);
-
 }
 
 .main-container .col span {
@@ -934,13 +933,13 @@ nav.close~.dashboard .top {
   text-align: right;
   padding-right: 70px;
   padding-top: 9px;
-  padding-left: 10px
+  padding-left: 10px;
 }
 
 .col.space {
   width: 224px;
   position: relative;
-  left: 4px
+  left: 4px;
 }
 
 .col.alt.left {
@@ -1194,7 +1193,6 @@ nav.close~.dashboard .top {
   overflow-y: scroll;
 }
 
-
 .pre {
   height: 500px;
   position: relative;
@@ -1209,7 +1207,6 @@ nav.close~.dashboard .top {
 .code {
   padding: 20px;
 }
-
 
 /*main html file ends */
 .hiddentext {
@@ -1255,7 +1252,6 @@ nav.close~.dashboard .top {
   opacity: 1;
 }
 
-
 .dash-content .overview .systemInfo {
   width: calc(100% - 15px);
   font-weight: normal;
@@ -1272,7 +1268,7 @@ nav.close~.dashboard .top {
   padding: 20px;
 }
 
-.systemOptionsPage{
+.systemOptionsPage {
   width: calc(90%);
 }
 
@@ -1301,8 +1297,8 @@ nav.close~.dashboard .top {
   bottom: 0;
   background-color: var(--cbmemCode-color);
   border: var(--slider-text-color) 1px solid;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .slider:before {
@@ -1313,19 +1309,19 @@ nav.close~.dashboard .top {
   left: 3px;
   bottom: 3.5px;
   background-color: #ffffff;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
-input:checked+.slider {
+input:checked + .slider {
   background-color: var(--box1-color);
 }
 
-input:focus+.slider {
-  box-shadow: 0 0 1px #2196F3;
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
 }
 
-input:checked+.slider:before {
+input:checked + .slider:before {
   -webkit-transform: translateX(15px);
   -ms-transform: translateX(15px);
   transform: translateX(15px);
@@ -1374,7 +1370,7 @@ input:checked+.slider:before {
 }
 .closeToTray {
   position: absolute;
-  top: 225px
+  top: 225px;
 }
 
 .startBoot {
@@ -1418,22 +1414,22 @@ input:checked+.slider:before {
     pointer-events: auto;
   }
 
-  nav~.dashboard {
+  nav ~ .dashboard {
     left: 73px;
     width: calc(100% - 73px);
   }
 
-  nav.close~.dashboard {
+  nav.close ~ .dashboard {
     left: 250px;
     width: calc(100% - 250px);
   }
 
-  nav~.dashboard .top {
+  nav ~ .dashboard .top {
     left: 73px;
     width: calc(100% - 73px);
   }
 
-  nav.close~.dashboard .top {
+  nav.close ~ .dashboard .top {
     left: 250px;
     width: calc(100% - 250px);
   }
@@ -1485,22 +1481,22 @@ input:checked+.slider:before {
     pointer-events: none;
   }
 
-  nav~.dashboard {
+  nav ~ .dashboard {
     left: 0;
     width: 100%;
   }
 
-  nav.close~.dashboard {
+  nav.close ~ .dashboard {
     left: 73px;
     width: calc(100% - 73px);
   }
 
-  nav~.dashboard .top {
+  nav ~ .dashboard .top {
     left: 0;
     width: 100%;
   }
 
-  nav.close~.dashboard .top {
+  nav.close ~ .dashboard .top {
     left: 0;
     width: 100%;
   }

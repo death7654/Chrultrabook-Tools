@@ -40,7 +40,6 @@ document
   .getElementById("minimize")
   .addEventListener("mousedown", () => appWindow.minimize());
 
-
 //function to check if a number exist
 function containsNumber(str) {
   return /\d/.test(str);
@@ -73,7 +72,6 @@ setTimeout(async () => {
     document.getElementById("backlightRangeSliderText").innerText = "off";
   }
 }, 0);
-
 
 //homepage
 var averageTemp;
@@ -135,7 +133,6 @@ setTimeout(async () => {
   document.getElementById("hostname").innerText = "Hostname: " + hostname;
   document.getElementById("cpuName").innerText = "CPU: " + cpuname;
 }, 0);
-
 
 //setFanSpeeds
 //Draggable Fan Chart
@@ -440,7 +437,6 @@ const startupFan = document.getElementById("startupFansInput");
 const systemTray = document.getElementById("systemTrayInput");
 const startOnBoot = document.getElementById("startOnBootInput");
 const startHidden = document.getElementById("startHiddenInput");
-
 
 //sets up local storage for settings so all options that are checked stay checked upon reboot
 startupFan.addEventListener("click", () => {

@@ -28,8 +28,7 @@ fn main() {
                 match id.as_str() {
                     "show" => {
                         let _window = app.get_window("main").unwrap();
-                        _window.show();
-                        return;
+                        let _ = _window.show();
                     }
                     "quit" => {
                         std::process::exit(0);
@@ -41,15 +40,14 @@ fn main() {
         })
         .invoke_handler(tauri::generate_handler![
             is_windows,
-            get_bios_version,
-            open_link,
             get_cpu_usage,
-            get_ram_usage,
-            get_hostname,
-            get_cpu_name,
-            get_cpu_cores,
-            get_board_name,
             get_cpu_temp,
+            get_ram_usage,
+            get_bios_version,
+            get_board_name,
+            get_cpu_cores,
+            get_cpu_name,
+            get_hostname,
             get_fan_rpm,
             ectool,
             cbmem
@@ -65,17 +63,6 @@ fn main() {
 async fn is_windows() -> bool {
     return os_info::get().os_type() == os_info::Type::Windows;
 }
-#[tauri::command]
-async fn get_ram_usage() -> String {
-    let mut sys = System::new();
-    sys.refresh_memory();
-
-    let ram_total = sys.total_memory();
-    let ram_usage = sys.used_memory();
-    let ram_percent = ram_usage * 100 / ram_total;
-    return ram_percent.to_string();
-}
-
 #[tauri::command]
 async fn get_cpu_usage() -> String {
     #[cfg(target_os = "linux")]
@@ -104,6 +91,16 @@ async fn get_cpu_usage() -> String {
 
         return (num / total).to_string();
     }
+}
+#[tauri::command]
+async fn get_ram_usage() -> String {
+    let mut sys = System::new();
+    sys.refresh_memory();
+
+    let ram_total = sys.total_memory();
+    let ram_usage = sys.used_memory();
+    let ram_percent = ram_usage * 100 / ram_total;
+    return ram_percent.to_string();
 }
 
 #[tauri::command]
@@ -313,11 +310,6 @@ async fn cbmem(value: String) -> String {
     }
 
     return match_result(cmd);
-}
-
-#[tauri::command]
-async fn open_link() {
-    open::that("https://github.com/death7654/Chrultrabook-Windows-Controller").unwrap();
 }
 
 // Helper functions
