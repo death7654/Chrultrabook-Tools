@@ -28,7 +28,7 @@ fn main() {
                 match id.as_str() {
                     "show" => {
                         let _window = app.get_window("main").unwrap();
-                        _window.show();
+                        _window.show().unwrap();
                         return;
                     }
                     "quit" => {
