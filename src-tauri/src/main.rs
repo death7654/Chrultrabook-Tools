@@ -27,6 +27,7 @@ fn main() {
                     "show" => {
                         let _window = app.get_window("main").unwrap();
                         _window.show();
+                        return;
                     }
                     "quit" => {
                         std::process::exit(0);
@@ -75,7 +76,19 @@ async fn get_ram_usage() -> String {
 
 #[tauri::command]
 async fn get_cpu_usage() -> String {
-    let mut sys = System::new_all();
+    #[cfg(target_os = "linux")]{
+    let mut sys = System::new();
+    sys.refresh_cpu();
+    let usage = sys.global_cpu_info().cpu_usage();
+    std::thread::sleep(System::MINIMUM_CPU_UPDATE_INTERVAL);
+    let cpu_usage = usage.round();
+    println!("usage {}",usage);
+    println!("cpuusage {}",cpu_usage);
+    return cpu_usage.to_string();
+    }
+    #[cfg(windows)]
+    {
+        let mut sys = System::new_all();
     sys.refresh_cpu(); // Refreshing CPU information.
 
     let mut num: i32 = 0;
@@ -87,6 +100,8 @@ async fn get_cpu_usage() -> String {
     }
 
     return (num / total).to_string();
+    }
+
 }
 
 #[tauri::command]
@@ -267,7 +282,9 @@ async fn cbmem(value: String) -> String {
 
     #[cfg(target_os = "linux")]
     {
-        cmd = std::process::Command::new("cbmem").arg(value).output();
+        cmd = std::process::Command::new("cbmem")
+            .arg(value)
+            .output();
     }
     #[cfg(windows)]
     {
@@ -291,7 +308,7 @@ fn match_result(result: Result<std::process::Output, std::io::Error>) -> String 
     let str = match result {
         Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
         Err(e) => {
-            println!("Error `{}`.", e);
+            println!("Error `{}`.", e); 
             String::new()
         }
     };
