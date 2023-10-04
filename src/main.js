@@ -124,13 +124,14 @@ setTimeout(async () => {
   document.getElementById("coreCPU").innerText = "Cores: " + cores + " Cores";
   document.getElementById("hostname").innerText = "Hostname: " + hostname;
   document.getElementById("cpuName").innerText = "CPU: " + cpuname;
-
+/*
   //shows or hides activity light settings based on boardname (only shows to Candy and Kefka)
   if(boardname !== "Candy" && boardname !== "Kefka" && boardname !== "Vayne")
   {
     document.getElementById("ActivityLight").style.display = "none";
     document.getElementById("keyboardBacklight").classList.add("afterCheck");
   }
+  */
 
 }, 0);
 //setFanSpeeds
@@ -323,8 +324,6 @@ buttonCustomFan.addEventListener("mousedown", () => customFan());
 
 //system options
 //activity light
-
-
 const selectedActivityLight = document.querySelector(".selectedActivityLight");
 async function activityLight(){
   switch(selectedActivityLight.innerText) {
