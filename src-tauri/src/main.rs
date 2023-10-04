@@ -324,7 +324,7 @@ fn match_result(result: Result<std::process::Output, std::io::Error>) -> String 
     };
     return str.trim().to_string();
 }
-
+#[cfg(windows)]
 fn match_result_vec(result: Result<std::process::Output, std::io::Error>) -> String {
     let str = match result {
         Ok(output) => String::from_utf8_lossy(&output.stdout)
