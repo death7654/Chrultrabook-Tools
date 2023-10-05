@@ -15,7 +15,7 @@
 
 <img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/4da59aeb-81cb-40dd-a442-88c5bcfba823" alt="project-screenshot" width="400">
 
-<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/344ecc2b-007c-4d0c-a2e5-3326225d3ffb" alt="project-screenshot" width="400">
+<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/56b47381-c40c-4ac4-95a0-26deb38be111" alt="project-screenshot" width="400">
 
 <img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/9af010d9-6a4a-4612-a26b-291e50349980" alt="project-screenshot" width="400">
 
