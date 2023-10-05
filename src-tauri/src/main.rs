@@ -205,19 +205,23 @@ async fn get_cpu_cores() -> String {
 
 #[tauri::command]
 async fn get_cpu_name() -> String {
-    let cmd: Result<std::process::Output, std::io::Error>;
 
     #[cfg(target_os = "linux")]
     {
-        cmd = std::process::Command::new("lscpu")
-            .args(["--parse=MODELNAME"])
-            .output();
-        return match_result(cmd).split('\n').collect::<Vec<_>>()[4].to_string();
+        let mut cpuname = "";
+        let cpuinfo = fs::read_to_string("/proc/cpuinfo").unwrap();
+        for line in cpuinfo.split("\n").collect::<Vec<_>>() {
+            if line.starts_with("model name") {
+                cpuname = line.split(":").collect::<Vec<_>>()[1].trim();
+                break;
+            }
+        }
+        return String::from(cpuname);
     }
 
     #[cfg(windows)]
     {
-        cmd = std::process::Command::new("wmic")
+        let cmd = std::process::Command::new("wmic")
             .creation_flags(0x08000000)
             .args(["cpu", "get", "name"])
             .output();
