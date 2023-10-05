@@ -1,4 +1,4 @@
-<h1 align="center" id="title">Chrultrabook-Controller</h1>
+<h1 align="center" id="title">Chrultrabook Controller</h1>
 
 <p id="description">A UI System Controller for modded Chromebooks</p>
 
@@ -9,20 +9,20 @@
 
 <h2>Project Screenshots:</h2>
 
-<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/5924dde4-2759-4560-b749-2fd8bebf2d7d" alt="project-screenshot" width="400">
+<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/769436ec-53d8-4c77-b610-8be278657a04" alt="project-screenshot" width="400">
 
-<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/502bd188-f8da-467b-a09e-d4d7a22e8c69" alt="project-screenshot" width="400">
+<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/ed933c7b-cc09-45e6-8113-02020e8680de" alt="project-screenshot" width="400">
 
-<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/00241ab3-315c-4b06-9c34-57f62bab2c3a" alt="project-screenshot" width="400">
+<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/4da59aeb-81cb-40dd-a442-88c5bcfba823" alt="project-screenshot" width="400">
 
-<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/9499df2b-a597-4ad6-bf59-13f0008365aa" alt="project-screenshot" width="400">
+<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/344ecc2b-007c-4d0c-a2e5-3326225d3ffb" alt="project-screenshot" width="400">
 
-<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/3cfa5581-8694-4fe6-ab1c-4df49db6d225" alt="project-screenshot" width="400">
+<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/9af010d9-6a4a-4612-a26b-291e50349980" alt="project-screenshot" width="400">
 
-<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/a2c8d962-e76a-4108-b3d6-316aa2097e68" alt="project-screenshot" width="400">
+<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/8726218f-1ba5-4f83-b1b5-7bbdf2d50d9a" alt="project-screenshot" width="400">
 
-  
-  
+
+
 <h2>Features</h2>
 
 Here're some of the project's best features:
@@ -37,7 +37,7 @@ Here're some of the project's best features:
 *   Hardware Information
 
 <h2>🛠️ Installation Steps:</h2>
-
+<h2> Windows </h2>
 <p>1. Install Coolstar's EC Driver</p>
 
 ```
@@ -48,7 +48,20 @@ https://raw.githubusercontent.com/coolstar/driverinstallers/master/crosec/crosec
 
 
 <p>3. Install this app.</p>
-  
+
+<h2>Linux</h2>
+<p>1. Mark Appimage as Executeable</p>
+
+```
+chmod a+x chrultrabook-controller_2.4.0_amd64.AppImage
+```
+
+<p>2. Run the Appimage</p>
+
+```
+./chrultrabook-controller_2.4.0_amd64.AppImage
+```
+
 <h2>💻 Built with</h2>
 
 Technologies used in the project:
@@ -59,6 +72,27 @@ Technologies used in the project:
 *   JS
 *   CSS
 
-<h2>🛡️ License:</h2>
+<h2>About</h2>
+This is an open-source application, and serves the purpose of providing system information and controls in a visually pleasing manner.
 
-This project is licensed under the GNU General Public Licence v3.0
+🍰 Contributions
+----------------
+
+*   Coolstar - Providing Chromebook Windows Drivers
+*   Death7654 - Making the Chrultrabook Controller App
+
+### From the Chrultrabook's Discord Server
+
+*   Ninelore - Optimizations
+*   Ethanaobrien - Optimizations
+*   WeirdTreeThing - Frontend Optimizations and Linux
+
+### Support from Tauri's Discord Server
+
+*   AHQ Softwares - Debugging
+*   icb - Debugging
+
+🛡️ License:
+------------
+
+This project is licensed under the GNU General Public License v3.0

@@ -21,7 +21,7 @@
   height: 35px;
   position: absolute;
   right: 0px;
-  z-index: 100;
+  z-index: 1000;
   -webkit-app-region: drag;
 }
 
@@ -101,6 +101,7 @@
   text-align: right;
 }
 
+
 /*default colors */
 :root {
   /* ===== Colors ===== */
@@ -138,7 +139,7 @@
   --fanFilter: invert(54%) sepia(61%) saturate(595%) hue-rotate(186deg) brightness(95%) contrast(94%);
   --optionsFilter: invert(39%) sepia(10%) saturate(771%) hue-rotate(168deg) brightness(89%) contrast(87%);
   --diagnosticFilter: invert(88%) sepia(31%) saturate(6481%) hue-rotate(343deg) brightness(103%) contrast(101%);
-  --aboutFilter: invert(39%) sepia(80%) saturate(4385%) hue-rotate(349deg) brightness(102%) contrast(87%);
+  --settingFilter: invert(20%) sepia(16%) saturate(0%) hue-rotate(240deg) brightness(105%) contrast(89%);
 
   /* ====== Transition ====== */
   --tran-05: all 0.5s ease;
@@ -182,7 +183,8 @@ body.dark {
   --fanFilter: invert(44%) sepia(33%) saturate(4509%) hue-rotate(182deg) brightness(99%) contrast(108%);
   --optionsFilter: invert(85%) sepia(6%) saturate(1727%) hue-rotate(181deg) brightness(82%) contrast(87%);
   --diagnosticFilter: invert(74%) sepia(25%) saturate(5073%) hue-rotate(339deg) brightness(95%) contrast(99%);
-  --aboutFilter: invert(27%) sepia(79%) saturate(1994%) hue-rotate(320deg) brightness(90%) contrast(93%);
+  --settingFilter: invert(51%) sepia(0%) saturate(1517%) hue-rotate(144deg) brightness(91%) contrast(88%);
+
 }
 
 .logoFilter {
@@ -205,8 +207,8 @@ body.dark {
   filter: var(--diagnosticFilter);
 }
 
-.aboutFilter {
-  filter: var(--aboutFilter);
+.settingFilter {
+  filter: var(--settingFilter);
 }
 
 /* === Custom Scroll Bar CSS === */
@@ -411,7 +413,6 @@ body.dark .switch:before {
 .dashboard {
   position: relative;
   border-top-right-radius: 20px;
-
   left: 250px;
   background-color: var(--panel-color);
   min-height: 100vh;
@@ -419,6 +420,7 @@ body.dark .switch:before {
   width: calc(100% - 250px);
   padding: 10px 14px;
   transition: var(--tran-05);
+  z-index: 50;
 }
 
 nav.close~.dashboard {
@@ -446,12 +448,11 @@ nav.close~.dashboard .top {
   width: calc(100% - 73px);
 }
 
-.dashboard .top .sidebar-toggle {
-  font-size: 26px;
+.sidebar-toggle {
+  font-size: 30px;
   color: var(--text-color);
   cursor: pointer;
-  position: relative;
-  top: 12.5px;
+  margin-left: 7px;
 }
 
 .top img {
@@ -460,7 +461,7 @@ nav.close~.dashboard .top {
 }
 
 .dashboard .dash-content {
-  padding-top: 50px;
+  padding-top: 30px;
 }
 
 .dash-content .title {
@@ -668,9 +669,9 @@ nav.close~.dashboard .top {
 
 .fancurves {
   position: relative;
-  width: 90%;
+  width: 95%;
   height: 400px;
-  top: 130px;
+  top: 150px;
   left: 1%;
   background-color: var(--fanCurves-color);
   transition: var(--tran-05);
@@ -681,8 +682,8 @@ nav.close~.dashboard .top {
 
 .setFan {
   position: relative;
-  top: 60px;
-  left: 40px;
+  top: 80px;
+  left: 60px;
   font-family: "Roboto", sans-serif;
   font-size: 18px;
   font-weight: bold;
@@ -709,31 +710,54 @@ nav.close~.dashboard .top {
 .setFan:active {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   -webkit-transform: scale(1.1);
-  transform: scale(1.05);
+  transform: scale(1.02);
   background-color: var(--fanCurvesHover-color);
   color: white;
 }
 
 
 /*system options*/
+.title.Options {
+  position: absolute;
+  top: 20px;
+}
+.ActivityLight{
+  position: relative;
+  top: 10px;
+}
+
+.activitylightText {
+  font-size: 20px;
+  font-weight: 600;
+  top: 0px;
+  left: 0px;
+}
+.dellActivityLight {
+  position: relative;
+  top: 20px
+}
+
+
+.keyboardBacklight {
+  position: relative;
+  top: -10px;
+}
+
+.afterCheck {
+  top: 10px;
+}
 
 .backlightText {
   position: relative;
   font-size: 20px;
   font-weight: 600;
-  top: 50px;
-  left: -240px;
-}
-
-.backlightText img {
-  position: relative;
-  top: 8px;
-  left: -2px;
+  top: 0px;
+  left: 0px;
 }
 
 .rangeBacklight {
   position: absolute;
-  top: 225px;
+  top: 50px;
   height: 60px;
   width: calc(97%);
   background: var(--slider-color);
@@ -793,7 +817,7 @@ nav.close~.dashboard .top {
 
 .rangeBacklight input {
   -webkit-appearance: none;
-  appearance: none; 
+  appearance: none;
   width: 100%;
   cursor: pointer;
   outline: none;
@@ -801,9 +825,10 @@ nav.close~.dashboard .top {
   height: 6px;
   background: var(--slider-knob-color);
 }
+
 .rangeBacklight input::-webkit-slider-thumb {
   -webkit-appearance: none;
-  appearance: none; 
+  appearance: none;
   height: 15px;
   width: 15px;
   background-color: #fff;
@@ -812,6 +837,120 @@ nav.close~.dashboard .top {
 
 .backlightRangeSlider {
   background-color: red;
+}
+
+/*battery controls*/
+.ChargeControl {
+  position: relative;
+  top: 90px;
+}
+.ChargeControlText {
+  position: relative;
+  font-size: 20px;
+  font-weight: 600;
+  top: 0px;
+  left: 0px;
+}
+.rangeChargeControl {
+  position: absolute;
+  top: 50px;
+  height: 60px;
+  width: calc(97%);
+  background: var(--slider-color);
+  border-radius: 20px;
+  padding: 0 65px 0 45px;
+  transition: var(--tran-03);
+  accent-color: var(--slider-knob-color);
+}
+.ChargeControlField {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+
+}
+
+.ChargeControlField .value {
+  position: absolute;
+  font-size: 18px;
+  color: var(--slider-text-color);
+  font-weight: 600;
+
+}
+
+.ChargeControlField .value.left {
+  left: -28px;
+
+}
+
+.ChargeControlField .value.right {
+  right: -43px;
+}
+.rangeChargeControl input {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  border-radius: 15px;
+  height: 6px;
+  background: var(--slider-knob-color);
+}
+
+.rangeChargeControl input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 15px;
+  width: 15px;
+  background-color: #fff;
+  border-radius: 50%;
+}
+.ChargeControlButton {
+  position: relative;
+  top: 100px;
+  left: 30px;
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  background: var(--dropdown-color);
+  color: var(--text-color);
+  width: calc(40%);
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: #000;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: box-shadow, transform;
+  transition-property: box-shadow, transform;
+  border-color: #000000;
+}
+
+.ChargeControlButton.Set:hover,
+.ChargeControlButton.Set:active {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  -webkit-transform: scale(1.1);
+  transform: scale(1.01);
+  background: var(--box4-color);
+  color: white;
+  transition: 0.3s;
+}
+.ChargeControlButton.Default:hover,
+.ChargeControlButton.Default:active {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  -webkit-transform: scale(1.1);
+  transform: scale(1.01);
+  background: var(--box2-color);
+  color: white;
+  transition: 0.3s;
+}
+.ChargeControlButton.Default {
+  left: 50px;
 }
 
 
@@ -969,7 +1108,7 @@ nav.close~.dashboard .top {
   text-align: left;
   padding-left: 10px;
   position: relative;
-  left:4px;
+  left: 4px;
 }
 
 .col.ctrl.right {
@@ -981,7 +1120,8 @@ nav.close~.dashboard .top {
   position: relative;
   left: 4px;
 }
-.col.up{
+
+.col.up {
   height: 20px;
   width: 50px;
   position: relative;
@@ -989,7 +1129,8 @@ nav.close~.dashboard .top {
   bottom: 3px;
   padding-top: 2px;
 }
-.col.down{
+
+.col.down {
   height: 20px;
   width: 50px;
   position: relative;
@@ -997,14 +1138,16 @@ nav.close~.dashboard .top {
   left: -53px;
   padding-top: 2px;
 }
-.col.arrow.left{
+
+.col.arrow.left {
   height: 20px;
   position: relative;
   left: 4px;
   top: 20px;
   padding-top: 2px;
 }
-.col.arrow.right{
+
+.col.arrow.right {
   height: 20px;
   position: relative;
   top: -26px;
@@ -1250,14 +1393,6 @@ nav.close~.dashboard .top {
   opacity: 1;
 }
 
-.about {
-  color: var(--text-color);
-  overflow-y: auto;
-}
-
-.about .aboutText {
-  color: var(--text-color);
-}
 
 .dash-content .overview .systemInfo {
   width: calc(100% - 15px);
@@ -1268,39 +1403,121 @@ nav.close~.dashboard .top {
   position: relative;
   top: 40px;
   border-radius: 20px;
+  z-index: 50;
 }
 
 .dash-content .overview .systemInfoText {
   padding: 20px;
 }
 
-#githuburl {
-  display: none;
+/*settings*/
+.switch {
   position: relative;
-  font-family: "Roboto", sans-serif;
-  font-size: 18px;
-  font-weight: bold;
-  width: calc(30% - 15px);
-  background-color: var(--copy-color);
-  padding: 20px;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-property: box-shadow, transform;
-  transition-property: box-shadow, transform;
+  display: inline-block;
+  width: 35px;
+  height: 20px;
 }
 
-#githuburl:hover,
-#githuburl:active {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0px;
+  right: 0;
+  bottom: 0;
+  background-color: var(--cbmemCode-color);
+  border: var(--slider-text-color) 1px solid;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 3px;
+  bottom: 3.5px;
+  background-color: #ffffff;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked+.slider {
+  background-color: var(--box1-color);
+}
+
+input:focus+.slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+  -webkit-transform: translateX(15px);
+  -ms-transform: translateX(15px);
+  transform: translateX(15px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.switch.startupFan {
+  position: absolute;
+  left: 90%;
+  top: 175px;
+}
+
+.switch.closeToTray {
+  position: absolute;
+  left: 90%;
+  top: 225px;
+}
+
+
+.switch.startInTray {
+  position: absolute;
+  left: 90%;
+  top: 275px;
+}
+.switch.startBoot {
+  position: absolute;
+  left: 90%;
+  top: 325px;
+}
+
+.settingsText {
+  width: 500px;
+}
+
+.startupFan {
+  position: absolute;
+  top: 175px;
+  left: 15px;
+}
+.closeToTray {
+  position: absolute;
+  top: 225px;
+}
+
+
+.startInTray {
+  position: absolute;
+  top: 275px;
+}
+.startBoot {
+  position: absolute;
+  top: 325px;
 }
 
 /*main html file ends */

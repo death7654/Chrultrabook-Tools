@@ -30,6 +30,11 @@
             <!--DashItems-->
             <div class="menu-items">
                 <ul class="nav-links">
+                    <li>
+                        <div class="sidebar-toggle">
+                            <i class="uil uil-bars "></i>
+                        </div>
+                    </li>
                     <li><a id="home">
                             <img class="navbarimg homeFilter" src="./src/assets/Icons/sidenavbar/home.svg" alt="">
                             <span class="link-name">Dashboard</span>
@@ -49,8 +54,9 @@
                             <span class="link-name">Memory Diagnostics</span>
                         </a></li>
                     <li><a id="information">
-                            <img class="navbarimg aboutFilter" src="./src/assets/Icons/sidenavbar/info.svg" alt="">
-                            <span class="link-name">About</span>
+                            <img class="navbarimg settingFilter" src="./src/assets/Icons/sidenavbar/settings.svg"
+                                alt="">
+                            <span class="link-name">Settings</span>
                         </a></li>
                 </ul>
                 <!--DarkMode-->
@@ -66,11 +72,6 @@
                 </ul>
             </div>
         </nav>
-        <section class="dashboard" style="min-height: unset; height: unset; overflow: hidden;">
-            <div class="top">
-                <i class="uil uil-bars sidebar-toggle"></i>
-            </div>
-        </section>
         <!--Dashboard-->
         <section id="sectionDashboard" class="dashboard">
             <div class="dash-content">
@@ -153,25 +154,46 @@
         <section id="sectionOptions" class="dashboard">
             <div class="dash-content">
                 <div class="overview">
-                    <div class="title">
+                    <div class="title options">
                         <img src="./src/assets/Icons/systemOptions/system-options.svg">
                         <span class="text">System Controls</span>
-                        <h2 class="backlightText" id="rangeBacklight"><img
-                                src="./src/assets/Icons/systemOptions/keyboard.svg">&nbsp;&nbsp;Keyboard
-                            Backlight</h2>
                     </div>
-                    <div class="rangeBacklight" id="rangeBacklightslider">
-                        <div class="sliderValue">
-                            <span>100</span>
-                        </div>
-                        <div class="fieldBacklight">
-                            <div class="value left">
-                                0
+                    <!--Keyboard Backlight Controls-->
+                    <div class="keyboardBacklight" id="keyboardBacklight">
+                        <h2 class="backlightText" id="rangeBacklight">&nbsp;&nbsp;Keyboard Backlight</h2>
+                        <div class="rangeBacklight" id="rangeBacklightslider">
+                            <div class="sliderValue">
+                                <span>100</span>
                             </div>
-                            <input type="range" min="0" max="100" value="100" steps="1" id="backlightRangeSlider">
-                            <div class="value right" id="backlightRangeSliderText">100</div>
+                            <div class="fieldBacklight">
+                                <div class="value left">
+                                    0
+                                </div>
+                                <input type="range" min="0" max="100" value="100" steps="5" id="backlightRangeSlider">
+                                <div class="value right" id="backlightRangeSliderText">100</div>
+                            </div>
                         </div>
                     </div>
+                    <!--Keyboard Backlight Ends-->
+                    <!--Charge Controls-->
+                    <div class="ChargeControl" id="ChargeControl">
+                        <h2 class="ChargeControlText" id="rangeChargeControl">&nbsp;&nbsp;Charge Control</h2>
+                        <div class="rangeChargeControl" id="rangeChargeControlslider">
+                            <div class="sliderValue">
+                                <span>100</span>
+                            </div>
+                            <div class="ChargeControlField">
+                                <div class="value left">
+                                    70
+                                </div>
+                                <input type="range" min="70" max="100" value="100" steps="1" id="chargerSlider">
+                                <div class="value right" id="chargerSliderText">100</div>
+                            </div>
+                        </div>
+                        <button class="ChargeControlButton Set" id="chargeControlSet">Set</button>
+                        <button class="ChargeControlButton Default" id="chargeControlDefault">Default</button>
+                    </div>
+                    <!--Charger Controls ends-->
                     <div class="main-container">
                         <div id="key">
                             <div class="row">
@@ -338,179 +360,214 @@
                     </pre>
             </div>
         </section>
+        <!--settings-->
+        <section id="sectionSettings" class="dashboard" style="overflow-y:scroll; overflow-x:hidden;">
+            <div class="aboutText dash-content">
+                <div class="overview">
+                    <div class="title">
+                        <img src="./src/assets/Icons/settings/settings-page.svg">
+                        <span class="text">Settings </span>
+                    </div>
+                    <label class="switch startupFan" id="startupFan">
+                        <input id="startupFansInput" type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                    <label class="switch closeToTray" id="systemTray">
+                        <input id="systemTrayInput" type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                    <label class="switch startInTray" id="startHiddenButton">
+                        <input id="startHiddenInput" type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                    <label class="switch startBoot" id="startOnBootButton">
+                        <input id="startOnBootInput" type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                    <div class="settingsText">
+                        <h3 class="startupFan">Start Custom Fan Curves On App Startup</h3>
+                        <hr>
+                        <h3 class="closeToTray">When Closed, App Minimizes To System Tray</h3>
+                        <hr>
+                        <h3 class="startInTray" id="startHidden">Start App In System Tray</h3>
+                        <hr>
+                        <h3 class="startBoot" id="startOnBoot">Start App On Boot</h3>
+                    </div>
+                </div>
 
-        <section id="sectionAbout" class="dashboard" style="overflow-y:scroll; overflow-x:hidden">
-            <div class="aboutText">
-                <br>
-                <br>
-                <h2 style="position: relative; left:calc(100%/2 - 60px)">About</h2>
-
-                <br> This is an open-source application, and serves the purpose of providing system
-                information and
-                controls in a visually pleasing manner.
-                <br>
-                <br>
-                <h2>🍰 Contributions</h2>
-
-                Coolstar - Providing Chromebook Windows Drivers
-                <br>Death7654 - Making the Chromebook Windows Controller App
-                <br>
-                <br> From the Chrultrabook Server
-                <br>&nbsp; &nbsp; &nbsp; &nbsp;Ninelore - Backend and Frontend Optimizations
-                <br>&nbsp; &nbsp; &nbsp; &nbsp;Ethanaobrien - Frontend and Backend Optimizations
-                <br>&nbsp; &nbsp; &nbsp; &nbsp;WeirdTreeThing - Frontend Optimizations and Linux Support
-                <br>
-                <br> From Tauri's Electron Server
-                <br>&nbsp; &nbsp; &nbsp; &nbsp;AHQ Softwares - Debugging
-                <br>&nbsp; &nbsp; &nbsp; &nbsp;icb - Debugging
-                <br>
-                <br>
-                <h2>🛡️ License:</h2>
-                This project is licensed under the GNU General Public License v3.0
-                <br>
-                <br>
-                <!--<p><button id="githuburl" href="#">View on GitHub</button></p>-->
-                <br>
             </div>
-
         </section>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
             crossorigin="anonymous"></script>
     </div>
-    <script>
-        window.addEventListener("DOMContentLoaded", () => {
-            const body = document.body,
-                modeToggle = body.querySelector(".mode-toggle"),
-                sidebar = body.querySelector("nav"),
-                sidebarToggle = body.querySelector(".sidebar-toggle");
 
-            //changing menus
+</body>
+<script>
+    window.addEventListener("DOMContentLoaded", () => {
 
-            var home = document.getElementById("sectionDashboard");
-            var fan = document.getElementById("sectionFan");
-            var cbmem = document.getElementById("sectionCbmem");
-            var options = document.getElementById("sectionOptions");
-            var about = document.getElementById("sectionAbout");
+        //changing menus
 
+        var home = document.getElementById("sectionDashboard");
+        var fan = document.getElementById("sectionFan");
+        var cbmem = document.getElementById("sectionCbmem");
+        var options = document.getElementById("sectionOptions");
+        var settings = document.getElementById("sectionSettings");
+
+        home.style.display = "block";
+        fan.style.display = "none";
+        options.style.display = "none";
+        cbmem.style.display = "none";
+        settings.style.display = "none";
+
+        function homeButton() {
             home.style.display = "block";
             fan.style.display = "none";
             options.style.display = "none";
             cbmem.style.display = "none";
-            about.style.display = "none";
+            settings.style.display = "none";
+        }
 
-            function homeButton() {
-                home.style.display = "block";
-                fan.style.display = "none";
-                options.style.display = "none";
-                cbmem.style.display = "none";
-                about.style.display = "none";
-            }
-            function fanButton() {
-                home.style.display = "none";
-                fan.style.display = "block";
-                options.style.display = "none";
-                cbmem.style.display = "none";
-                about.style.display = "none";
-            }
-            function cbmemButton() {
-                home.style.display = "none";
-                fan.style.display = "none";
-                options.style.display = "none";
-                cbmem.style.display = "block";
-                about.style.display = "none";
-            }
-            function optionsButton() {
-                home.style.display = "none";
-                fan.style.display = "none";
-                options.style.display = "block";
-                cbmem.style.display = "none";
-                about.style.display = "none";
-            }
-            function infoButton() {
-                home.style.display = "none";
-                fan.style.display = "none";
-                options.style.display = "none";
-                cbmem.style.display = "none";
-                about.style.display = "block";
-            }
-            document.getElementById("home").addEventListener("mousedown", () => {
-                homeButton();
-            });
-            document.getElementById("fan").addEventListener("mousedown", () => {
-                fanButton();
-            });
-            document.getElementById("options").addEventListener("mousedown", () => {
-                optionsButton();
-            });
-            document.getElementById("diagnostics").addEventListener("mousedown", () => {
-                cbmemButton();
-            });
-            document.getElementById("information").addEventListener("mousedown", () => {
-                infoButton();
-            });
+        function fanButton() {
+            home.style.display = "none";
+            fan.style.display = "block";
+            options.style.display = "none";
+            cbmem.style.display = "none";
+            settings.style.display = "none";
+        }
 
-            //mode toggles
+        function cbmemButton() {
+            home.style.display = "none";
+            fan.style.display = "none";
+            options.style.display = "none";
+            cbmem.style.display = "block";
+            settings.style.display = "none";
+        }
 
-            let getMode = localStorage.getItem("mode");
-            if (getMode && getMode === "dark") {
-                body.classList.toggle("dark");
-            }
+        function optionsButton() {
+            home.style.display = "none";
+            fan.style.display = "none";
+            options.style.display = "block";
+            cbmem.style.display = "none";
+            settings.style.display = "none";
+        }
 
-            let getStatus = localStorage.getItem("status");
-            if (getStatus && getStatus === "close") {
-                sidebar.classList.toggle("close");
-            }
+        function infoButton() {
+            home.style.display = "none";
+            fan.style.display = "none";
+            options.style.display = "none";
+            cbmem.style.display = "none";
+            settings.style.display = "block";
+        }
 
-            modeToggle.addEventListener("mousedown", () => {
-                body.classList.toggle("dark");
-                if (body.classList.contains("dark")) {
-                    localStorage.setItem("mode", "dark");
-                } else {
-                    localStorage.setItem("mode", "light");
-                }
-            });
-
-            sidebarToggle.addEventListener("mousedown", () => {
-                sidebar.classList.toggle("close");
-                localStorage.setItem(
-                    "status",
-                    sidebar.classList.contains("close") ? "close" : "open"
-                );
-            });
+        document.getElementById("home").addEventListener("mousedown", () => {
+            homeButton();
+        });
+        document.getElementById("fan").addEventListener("mousedown", () => {
+            fanButton();
+        });
+        document.getElementById("options").addEventListener("mousedown", () => {
+            optionsButton();
+        });
+        document.getElementById("diagnostics").addEventListener("mousedown", () => {
+            cbmemButton();
+        });
+        document.getElementById("information").addEventListener("mousedown", () => {
+            infoButton();
         });
 
+        //mode toggles
+        const body = document.body,
+            modeToggle = body.querySelector(".mode-toggle"),
+            sidebar = body.querySelector("nav"),
+            sidebarToggle = body.querySelector(".sidebar-toggle");
 
-        const dropdowns = document.querySelectorAll(".dropdown");
-        dropdowns.forEach((dropdown) => {
-            const select = dropdown.querySelector(".select");
-            const caret = dropdown.querySelector(".caret");
-            const menu = dropdown.querySelector(".menu");
-            const options = dropdown.querySelectorAll(".menu li");
-            const selected = dropdown.querySelector(".selected");
+        let getMode = localStorage.getItem("mode");
+        if (getMode && getMode === "dark") {
+            body.classList.toggle("dark");
+        }
 
-            select.addEventListener("mousedown", () => {
-                select.classList.toggle("select-clicked");
-                caret.classList.toggle("caret-rotate");
-                menu.classList.toggle("menu-open");
-            });
+        let getStatus = localStorage.getItem("status");
+        if (getStatus && getStatus === "close") {
+            sidebar.classList.toggle("close");
+        }
 
-            options.forEach((option) => {
-                option.addEventListener("mousedown", () => {
-                    selected.innerText = option.innerText;
-                    select.classList.remove("select-clicked");
-                    caret.classList.remove("caret-rotate");
-                    menu.classList.remove("menu-open");
+        modeToggle.addEventListener("mousedown", () => {
+            body.classList.toggle("dark");
+            if (body.classList.contains("dark")) {
+                localStorage.setItem("mode", "dark");
+            } else {
+                localStorage.setItem("mode", "light");
+            }
+        });
 
-                    options.forEach((option) => {
-                        option.classList.remove("active");
-                    });
-                    option.classList.add("active");
+        sidebarToggle.addEventListener("mousedown", () => {
+            sidebar.classList.toggle("close");
+            localStorage.setItem(
+                "status",
+                sidebar.classList.contains("close") ? "close" : "open"
+            );
+        });
+    });
+
+
+    const dropdowns = document.querySelectorAll(".dropdown");
+    dropdowns.forEach((dropdown) => {
+        const select = dropdown.querySelector(".select");
+        const caret = dropdown.querySelector(".caret");
+        const menu = dropdown.querySelector(".menu");
+        const options = dropdown.querySelectorAll(".menu li");
+        const selected = dropdown.querySelector(".selected");
+
+        select.addEventListener("mousedown", () => {
+            select.classList.toggle("select-clicked");
+            caret.classList.toggle("caret-rotate");
+            menu.classList.toggle("menu-open");
+        });
+
+        options.forEach((option) => {
+            option.addEventListener("mousedown", () => {
+                selected.innerText = option.innerText;
+                select.classList.remove("select-clicked");
+                caret.classList.remove("caret-rotate");
+                menu.classList.remove("menu-open");
+
+                options.forEach((option) => {
+                    option.classList.remove("active");
                 });
+                option.classList.add("active");
             });
         });
+    });
 
-    </script>
-</body>
+    const dropdownActivityLight = document.querySelectorAll(".dropdownActivityLight");
+    dropdownActivityLight.forEach((dropdown) => {
+        const select = dropdown.querySelector(".select");
+        const caret = dropdown.querySelector(".caret");
+        const menu = dropdown.querySelector(".menu");
+        const options = dropdown.querySelectorAll(".menu li");
+        const selectedActivityLight = dropdown.querySelector(".selectedActivityLight");
+
+        select.addEventListener("mousedown", () => {
+            select.classList.toggle("select-clicked");
+            caret.classList.toggle("caret-rotate");
+            menu.classList.toggle("menu-open");
+        });
+
+        options.forEach((option) => {
+            option.addEventListener("mousedown", () => {
+                selectedActivityLight.innerText = option.innerText;
+                select.classList.remove("select-clicked");
+                caret.classList.remove("caret-rotate");
+                menu.classList.remove("menu-open");
+
+                options.forEach((option) => {
+                    option.classList.remove("active");
+                });
+                option.classList.add("active");
+            });
+        });
+    });
+</script>
 
 </html>

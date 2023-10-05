@@ -8,9 +8,13 @@
   },
   "package": {
     "productName": "Chrultrabook Controller",
-    "version": "2.4.0"
+    "version": "2.4.3"
   },
   "tauri": {
+    "systemTray": {
+      "iconPath": "icons/icon.png",
+      "iconAsTemplate": true
+    },
     "allowlist": {
       "all": false,
       "shell": {
