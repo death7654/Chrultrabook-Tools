@@ -49,13 +49,11 @@ fn main() {
             get_cpu_name,
             get_hostname,
             get_fan_rpm,
+            set_battery_limit,
             ectool,
             cbmem
         ])
-        .plugin(tauri_plugin_autostart::init(
-            MacosLauncher::LaunchAgent,
-            Some(vec!["--flag1", "--flag2"]),
-        ))
+        .plugin(tauri_plugin_autostart::init(MacosLauncher::LaunchAgent, Some(vec!["--flag1", "--flag2"])))
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -266,6 +264,33 @@ async fn get_fan_rpm() -> String {
             .args(["pwmgetfanrpm"])
             .output();
     }
+    return match_result(cmd);
+}
+#[tauri::command]
+async fn set_battery_limit(value: String, value2: String) -> String {
+    let cmd: Result<std::process::Output, std::io::Error>;
+
+    #[cfg(target_os = "linux")]
+    {
+        cmd = std::process::Command::new("ectool")
+            .arg("chargecontrol")
+            .arg("normal")
+            .arg(value)
+            .arg(value2)
+            .output();
+    }
+
+    #[cfg(windows)]
+    {
+        cmd = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
+            .creation_flags(0x08000000)
+            .arg("chargecontrol")
+            .arg("normal")
+            .arg(value)
+            .arg(value2)
+            .output();
+    }
+
     return match_result(cmd);
 }
 

@@ -154,25 +154,46 @@
         <section id="sectionOptions" class="dashboard">
             <div class="dash-content">
                 <div class="overview">
-                    <div class="title">
+                    <div class="title options">
                         <img src="./src/assets/Icons/systemOptions/system-options.svg">
                         <span class="text">System Controls</span>
-                        <h2 class="backlightText" id="rangeBacklight"><img
-                                src="./src/assets/Icons/systemOptions/keyboard.svg">&nbsp;&nbsp;Keyboard
-                            Backlight</h2>
                     </div>
-                    <div class="rangeBacklight" id="rangeBacklightslider">
-                        <div class="sliderValue">
-                            <span>100</span>
-                        </div>
-                        <div class="fieldBacklight">
-                            <div class="value left">
-                                0
+                    <!--Keyboard Backlight Controls-->
+                    <div class="keyboardBacklight" id="keyboardBacklight">
+                        <h2 class="backlightText" id="rangeBacklight">&nbsp;&nbsp;Keyboard Backlight</h2>
+                        <div class="rangeBacklight" id="rangeBacklightslider">
+                            <div class="sliderValue">
+                                <span>100</span>
                             </div>
-                            <input type="range" min="0" max="100" value="100" steps="1" id="backlightRangeSlider">
-                            <div class="value right" id="backlightRangeSliderText">100</div>
+                            <div class="fieldBacklight">
+                                <div class="value left">
+                                    0
+                                </div>
+                                <input type="range" min="0" max="100" value="100" steps="5" id="backlightRangeSlider">
+                                <div class="value right" id="backlightRangeSliderText">100</div>
+                            </div>
                         </div>
                     </div>
+                    <!--Keyboard Backlight Ends-->
+                    <!--Charge Controls-->
+                    <div class="ChargeControl" id="ChargeControl">
+                        <h2 class="ChargeControlText" id="rangeChargeControl">&nbsp;&nbsp;Charge Control</h2>
+                        <div class="rangeChargeControl" id="rangeChargeControlslider">
+                            <div class="sliderValue">
+                                <span>100</span>
+                            </div>
+                            <div class="ChargeControlField">
+                                <div class="value left">
+                                    70
+                                </div>
+                                <input type="range" min="70" max="100" value="100" steps="1" id="chargerSlider">
+                                <div class="value right" id="chargerSliderText">100</div>
+                            </div>
+                        </div>
+                        <button class="ChargeControlButton Set" id="chargeControlSet">Set</button>
+                        <button class="ChargeControlButton Default" id="chargeControlDefault">Default</button>
+                    </div>
+                    <!--Charger Controls ends-->
                 </div>
             </div>
         </section>
@@ -246,14 +267,12 @@
                         <input id="systemTrayInput" type="checkbox">
                         <span class="slider round"></span>
                     </label>
-                    <!--
-                    <label class="switch position3" id="startOnBoot">
-                        <input id="startOnBootInput" type="checkbox">
+                    <label class="switch startInTray" id="startHiddenButton">
+                        <input id="startHiddenInput" type="checkbox">
                         <span class="slider round"></span>
                     </label>
-                    -->
-                    <label class="switch startInTray" id="startHidden">
-                        <input id="startHiddenInput" type="checkbox">
+                    <label class="switch startBoot" id="startOnBootButton">
+                        <input id="startOnBootInput" type="checkbox">
                         <span class="slider round"></span>
                     </label>
                     <div class="settingsText">
@@ -261,9 +280,9 @@
                         <hr>
                         <h3 class="closeToTray">When Closed, App Minimizes To System Tray</h3>
                         <hr>
-                        <!--<h3 class="startBoot">Start App On Boot</h3>
-                        <hr>-->
-                        <h3 class="startInTray">Start App In System Tray</h3>
+                        <h3 class="startInTray" id="startHidden">Start App In System Tray</h3>
+                        <hr>
+                        <h3 class="startBoot" id="startOnBoot">Start App On Boot</h3>
                     </div>
                 </div>
 
@@ -275,7 +294,6 @@
     </div>
 
 </body>
-<!--DO NOT MOVE THE SCRIPT-->
 <script>
     window.addEventListener("DOMContentLoaded", () => {
 
@@ -401,6 +419,35 @@
         options.forEach((option) => {
             option.addEventListener("mousedown", () => {
                 selected.innerText = option.innerText;
+                select.classList.remove("select-clicked");
+                caret.classList.remove("caret-rotate");
+                menu.classList.remove("menu-open");
+
+                options.forEach((option) => {
+                    option.classList.remove("active");
+                });
+                option.classList.add("active");
+            });
+        });
+    });
+
+    const dropdownActivityLight = document.querySelectorAll(".dropdownActivityLight");
+    dropdownActivityLight.forEach((dropdown) => {
+        const select = dropdown.querySelector(".select");
+        const caret = dropdown.querySelector(".caret");
+        const menu = dropdown.querySelector(".menu");
+        const options = dropdown.querySelectorAll(".menu li");
+        const selectedActivityLight = dropdown.querySelector(".selectedActivityLight");
+
+        select.addEventListener("mousedown", () => {
+            select.classList.toggle("select-clicked");
+            caret.classList.toggle("caret-rotate");
+            menu.classList.toggle("menu-open");
+        });
+
+        options.forEach((option) => {
+            option.addEventListener("mousedown", () => {
+                selectedActivityLight.innerText = option.innerText;
                 select.classList.remove("select-clicked");
                 caret.classList.remove("caret-rotate");
                 menu.classList.remove("menu-open");

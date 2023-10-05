@@ -6,7 +6,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [ubuntu-20.04]
+        platform: [ubuntu-20.04, macOS-latest]
 
     runs-on: ${{ matrix.platform }}
     steps:

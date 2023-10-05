@@ -9,6 +9,8 @@ import "./styles.css";
 //prevents rightclick
 document.addEventListener("contextmenu", (event) => event.preventDefault());
 
+//closes splash screen
+
 //checks what os the user is on
 var is_windows;
 setTimeout(async () => {
@@ -16,7 +18,13 @@ setTimeout(async () => {
   console.log(is_windows);
 });
 
-//hides things currently incopatiable with linux
+//hides things currently incopatiable with linux and macos
+if ((is_windows = false)) {
+  document.getElementById("startOnBoot").style.display = "none";
+  document.getElementById("startHidden").style.display = "none";
+  document.getElementById("startOnBootButton").style.display = "none";
+  document.getElementById("startHiddenButton").style.display = "none";
+}
 
 //start Hidden
 const hideOnStart = localStorage.getItem("startHidden");
@@ -252,7 +260,7 @@ if (fanOnStart == "yes") {
     setTemps();
   }, 2000);
 }
-
+//sets customFanCurves
 function customFan() {
   autoFan.classList.remove("activeButton");
   offFan.classList.remove("activeButton");
@@ -266,7 +274,7 @@ function customFan() {
   const toSave = JSON.stringify(myChart.data.datasets[0].data);
   localStorage.setItem("customfanCurves", toSave);
 }
-
+//sets fan to max speed
 function fanMax() {
   autoFan.classList.remove("activeButton");
   offFan.classList.remove("activeButton");
@@ -282,6 +290,7 @@ function fanMax() {
     setTemps();
   }, 2000);
 }
+//turns fan off
 function fanOff() {
   invoke("ectool", { value: "fanduty", value2: "0" });
   autoFan.classList.remove("activeButton");
@@ -298,6 +307,7 @@ function fanOff() {
     setTemps();
   }, 2000);
 }
+//sets fan to the best fan curves
 function fanAuto() {
   invoke("ectool", { value: "autofanctrl", value2: "" });
   autoFan.classList.add("activeButton");
@@ -315,7 +325,7 @@ function fanAuto() {
   }, 2000);
 }
 
-//assigns each button to each function
+//assigns each button to each fan function
 const buttonfanMax = document.getElementById("fanMax");
 buttonfanMax.addEventListener("mousedown", () => fanMax());
 
@@ -344,7 +354,35 @@ sliderBacklight.oninput = function () {
       ? "opacity(25%)"
       : "opacity(" + sliderBacklight.value + "%)";
 };
-//changes text color
+
+//batteryControl
+let chargerSlider = document.getElementById("chargerSlider");
+let chargerOutputBacklight = document.getElementById("chargerSliderText");
+chargerOutputBacklight.innerHTML = chargerSlider.value;
+
+chargerSlider.oninput = function () {
+  chargerOutputBacklight.innerText = this.value;
+};
+
+function setChargeControl() {
+  let upperLimit = chargerSlider.value;
+  console.log(upperLimit);
+  let lowerLimit = upperLimit - 5;
+  lowerLimit = lowerLimit.toString();
+  console.log(lowerLimit);
+  invoke("set_battery_limit", { value: lowerLimit, value2: upperLimit });
+}
+function setDefault() {
+  invoke("set_battery_limit", { value: "", value2: "" });
+}
+
+document
+  .getElementById("chargeControlSet")
+  .addEventListener("mousedown", () => setChargeControl());
+
+document
+  .getElementById("chargeControlDefault")
+  .addEventListener("mousedown", () => setDefault());
 
 //sends info from html to ec, and pulls ec and sends it to HTML (system diagnostics)
 const selected = document.querySelector(".selected");
@@ -435,8 +473,8 @@ document.querySelector("#copyButton").addEventListener("mousedown", () => {
 //settings menu
 const startupFan = document.getElementById("startupFansInput");
 const systemTray = document.getElementById("systemTrayInput");
-const startOnBoot = document.getElementById("startOnBootInput");
 const startHidden = document.getElementById("startHiddenInput");
+const startOnBoot = document.getElementById("startOnBootInput");
 
 //sets up local storage for settings so all options that are checked stay checked upon reboot
 startupFan.addEventListener("click", () => {
@@ -457,30 +495,33 @@ systemTray.addEventListener("click", () => {
   }
 });
 
-startOnBoot.addEventListener("click", () => {
-  if (startOnBoot.checked) {
-    localStorage.setItem("startOnBoot", "yes");
-  } else {
-    localStorage.setItem("startOnBoot", "no");
-  }
-});
-
-startHidden.addEventListener("click", () => {
-  if (startHidden.checked) {
-    localStorage.setItem("startHidden", "yes");
-    console.log("checkedhidden");
-  } else {
-    localStorage.setItem("startHidden", "no");
-  }
-});
-/*
-const onBoot = localStorage.getItem("startOnBoot");
-if (onBoot == "yes") {
-  await enable();
-  startOnBootInput.checked = true;
-} else {
-  setTimeout(async () => {
-    await disable();
-  });
+const closetoTray = localStorage.getItem("quitToTray");
+if (closetoTray == "yes") {
+  systemTray.checked = true;
 }
-*/
+
+if ((is_windows = true)) {
+  startHidden.addEventListener("click", () => {
+    if (startHidden.checked) {
+      localStorage.setItem("startHidden", "yes");
+    } else {
+      localStorage.setItem("startHidden", "no");
+    }
+  });
+
+  startOnBoot.addEventListener("click", () => {
+    if (startOnBoot.checked) {
+      localStorage.setItem("startOnBoot", "yes");
+      setTimeout(async () => await enable());
+    } else {
+      localStorage.setItem("startOnBoot", "no");
+      setTimeout(async () => await disable());
+    }
+  });
+
+  //sets start on boot to checked if true
+  const onBoot = localStorage.getItem("startOnBoot");
+  if (onBoot == "yes") {
+    startOnBootInput.checked = true;
+  }
+}
