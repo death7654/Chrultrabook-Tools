@@ -133,8 +133,8 @@
   --select-color: #f2f2f2;
   --slider-knob-color: #06d6a0;
   --slider-color: #ef476f;
-  --chargeslider-color:#5450c8;
-  --chargeslider-knob-color:#47e1ef;
+  --chargeslider-color: #5450c8;
+  --chargeslider-knob-color: #47e1ef;
   --slider-text-color: #ffffff;
   --remap-color: #00BAE2;
   --homeFilter: invert(27%) sepia(74%) saturate(4443%) hue-rotate(119deg) brightness(97%) contrast(73%);
@@ -178,8 +178,8 @@ body.dark {
   --select-color: #353434;
   --slider-color: #0094EA;
   --slider-knob-color: #ffcb10;
-  --chargeslider-color:#d448af;
-  --chargeslider-knob-color:#82ffe6;
+  --chargeslider-color: #d448af;
+  --chargeslider-knob-color: #82ffe6;
   --remap-color: #ff3d54;
   --slider-text-color: #ffffff;
   --logoFilter: invert(100%) sepia(0%) saturate(0%) hue-rotate(95deg) brightness(103%) contrast(107%);
@@ -725,7 +725,8 @@ nav.close~.dashboard .top {
   position: absolute;
   top: 20px;
 }
-.ActivityLight{
+
+.ActivityLight {
   position: relative;
   top: 10px;
 }
@@ -736,6 +737,7 @@ nav.close~.dashboard .top {
   top: 0px;
   left: 0px;
 }
+
 .dellActivityLight {
   position: relative;
   top: 20px
@@ -848,6 +850,7 @@ nav.close~.dashboard .top {
   position: relative;
   top: 90px;
 }
+
 .ChargeControlText {
   position: relative;
   font-size: 20px;
@@ -855,6 +858,7 @@ nav.close~.dashboard .top {
   top: 0px;
   left: 0px;
 }
+
 .rangeChargeControl {
   position: absolute;
   top: 50px;
@@ -866,6 +870,7 @@ nav.close~.dashboard .top {
   transition: var(--tran-03);
   accent-color: var(--chargeslider-knob-color);
 }
+
 .ChargeControlField {
   display: flex;
   align-items: center;
@@ -891,6 +896,7 @@ nav.close~.dashboard .top {
 .ChargeControlField .value.right {
   right: -43px;
 }
+
 .rangeChargeControl input {
   -webkit-appearance: none;
   appearance: none;
@@ -910,6 +916,7 @@ nav.close~.dashboard .top {
   background-color: #fff;
   border-radius: 50%;
 }
+
 .ChargeControlButton {
   position: relative;
   top: 100px;
@@ -944,6 +951,7 @@ nav.close~.dashboard .top {
   color: white;
   transition: 0.3s;
 }
+
 .ChargeControlButton.Default:hover,
 .ChargeControlButton.Default:active {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -953,6 +961,7 @@ nav.close~.dashboard .top {
   color: white;
   transition: 0.3s;
 }
+
 .ChargeControlButton.Default {
   left: 50px;
 }
@@ -1472,6 +1481,7 @@ input:checked+.slider:before {
 .slider.round {
   border-radius: 34px;
 }
+
 .slider.round:before {
   border-radius: 50%;
 }
@@ -1494,6 +1504,7 @@ input:checked+.slider:before {
   left: 90%;
   top: 275px;
 }
+
 .switch.startBoot {
   position: absolute;
   left: 90%;
@@ -1509,6 +1520,7 @@ input:checked+.slider:before {
   top: 175px;
   left: 15px;
 }
+
 .closeToTray {
   position: absolute;
   top: 225px;
@@ -1519,6 +1531,7 @@ input:checked+.slider:before {
   position: absolute;
   top: 275px;
 }
+
 .startBoot {
   position: absolute;
   top: 325px;
