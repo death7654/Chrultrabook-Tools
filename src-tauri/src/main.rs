@@ -135,7 +135,7 @@ async fn get_cpu_temp() -> Option<String> {
             .creation_flags(0x08000000)
             .args(["temps", "all"])
             .output();
-        return Some(match_result(cmd));
+        return Some(match_result(cmd)); 
     }
 }
 
