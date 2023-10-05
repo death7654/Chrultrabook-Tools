@@ -131,8 +131,10 @@
   --title-icon-color: #ccc;
   --switch-color: #fcefef;
   --select-color: #f2f2f2;
-  --slider-knob-color: #ef476f;
-  --slider-color: #50C878;
+  --slider-knob-color: #06d6a0;
+  --slider-color: #ef476f;
+  --chargeslider-color:#5450c8;
+  --chargeslider-knob-color:#47e1ef;
   --slider-text-color: #ffffff;
   --remap-color: #00BAE2;
   --homeFilter: invert(27%) sepia(74%) saturate(4443%) hue-rotate(119deg) brightness(97%) contrast(73%);
@@ -175,7 +177,9 @@ body.dark {
   --switch-color: #221824;
   --select-color: #353434;
   --slider-color: #0094EA;
-  --slider-knob-color: #06d6a0;
+  --slider-knob-color: #ffcb10;
+  --chargeslider-color:#d448af;
+  --chargeslider-knob-color:#82ffe6;
   --remap-color: #ff3d54;
   --slider-text-color: #ffffff;
   --logoFilter: invert(100%) sepia(0%) saturate(0%) hue-rotate(95deg) brightness(103%) contrast(107%);
@@ -856,11 +860,11 @@ nav.close~.dashboard .top {
   top: 50px;
   height: 60px;
   width: calc(97%);
-  background: var(--slider-color);
+  background: var(--chargeslider-color);
   border-radius: 20px;
   padding: 0 65px 0 45px;
   transition: var(--tran-03);
-  accent-color: var(--slider-knob-color);
+  accent-color: var(--chargeslider-knob-color);
 }
 .ChargeControlField {
   display: flex;
@@ -895,7 +899,7 @@ nav.close~.dashboard .top {
   outline: none;
   border-radius: 15px;
   height: 6px;
-  background: var(--slider-knob-color);
+  background: var(--chargeslider-knob-color);
 }
 
 .rangeChargeControl input::-webkit-slider-thumb {
