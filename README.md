@@ -33,6 +33,7 @@ Here're some of the project's best features:
 *   Ram Usage
 *   Fan Speeds
 *   Custom Fan Curves
+*   Battery Charge Limiter
 *   Keyboard Backlight Controls
 *   Hardware Information
 
