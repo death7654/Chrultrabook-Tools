@@ -7,10 +7,12 @@
 use std::fs;
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
+
 use sysinfo::{CpuExt, System, SystemExt};
 use tauri::Manager;
 use tauri::{CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem};
 use tauri_plugin_autostart::MacosLauncher;
+use raw_cpuid::CpuId;
 
 fn main() {
     let quit = CustomMenuItem::new("quit".to_string(), "Quit");
@@ -205,28 +207,8 @@ async fn get_cpu_cores() -> String {
 
 #[tauri::command]
 async fn get_cpu_name() -> String {
-
-    #[cfg(target_os = "linux")]
-    {
-        let mut cpuname = "";
-        let cpuinfo = fs::read_to_string("/proc/cpuinfo").unwrap();
-        for line in cpuinfo.split("\n").collect::<Vec<_>>() {
-            if line.starts_with("model name") {
-                cpuname = line.split(":").collect::<Vec<_>>()[1].trim();
-                break;
-            }
-        }
-        return String::from(cpuname);
-    }
-
-    #[cfg(windows)]
-    {
-        let cmd = std::process::Command::new("wmic")
-            .creation_flags(0x08000000)
-            .args(["cpu", "get", "name"])
-            .output();
-        return match_result_vec(cmd);
-    }
+    let cpuid = CpuId::new();
+    return String::from(cpuid.get_processor_brand_string().unwrap().as_str());
 }
 
 #[tauri::command]
