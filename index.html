@@ -46,7 +46,7 @@
                     <li><a id="options">
                             <img class="navbarimg systemoptionsFilter"
                                 src="./src/assets/Icons/sidenavbar/system-options.svg" alt="">
-                            <span class="link-name">System Options</span>
+                            <span class="link-name">System Controls</span>
                         </a></li>
                     <li><a id="diagnostics">
                             <img class="navbarimg diagnosticFilter" src="./src/assets/Icons/sidenavbar/Diagnostics.svg"
@@ -75,7 +75,7 @@
         <!--Dashboard-->
         <section id="sectionDashboard" class="dashboard">
             <div class="dash-content">
-                <div class="overview">
+                <div class="overview info">
                     <div class="title">
                         <img src="./src/assets/Icons/dashboard/tachometer.svg">
                         <span class="text">Dashboard</span>
@@ -118,14 +118,6 @@
                         <img src="./src/assets/Icons/fancontrol/fancontroldash.svg">
                         <span class="text">Fan Control</span>
                     </div>
-                    <h2 class="FanSpeedText">Fan Speeds</h2>
-                    <div class="fanButtons">
-
-                        <button id="fanAuto" href="#" class="FanAuto">Auto</button>
-                        <button id="fanOff" href="#" class="FanOff"> Off</button>
-                        <button id="fanMax" href="#" class="FanMax"> Max</button>
-                    </div>
-
                     <div class="boxes">
                         <div class="box fanSpeed">
                             <img src="./src/assets/Icons/fancontrol/animatedfan.svg" alt="">
@@ -138,17 +130,26 @@
                             <span id="cpuTempFan" style="color: var(--textbox-color);">0°C</span>
                         </div>
                         <div class="box hidden" height="0" width="0"></div>
-                        <div class="fancurves">
-                            <canvas id="fancurves"></canvas>
+                    </div>
+                    <div class="setFanSpeed">
+                        <h2 class="FanSpeedText">Fan Speeds</h2>
+                        <div class="fanButtons">
+                            <button id="fanAuto" href="#" class="FanAuto">Auto</button>
+                            <button id="fanOff" href="#" class="FanOff"> Off</button>
+                            <button id="fanMax" href="#" class="FanMax"> Max</button>
                         </div>
-                        <h2 class="customFanSpeedText">Custom Fan Curves</h2>
-                        <button id="setFan" href="#" class="setFan"> set</button>
+                        <div class="customFanCurves">
+                            <h2 class="customFanSpeedText">Custom Fan Curves</h2>
+                            <div class="fancurves">
+                                <canvas id="fancurves"></canvas>
+                            </div>
+                            <button id="setFan" href="#" class="setFan"> set</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <br>
-            <h2 style="color: var(--panel-color)">.</h2>
-            <br>
+                <br>
+                <h2 style="color: var(--panel-color)">.</h2>
+                <br>
         </section>
         <!--System Controls-->
         <section id="sectionOptions" class="dashboard">
@@ -169,7 +170,7 @@
                                 <div class="value left">
                                     0
                                 </div>
-                                <input type="range" min="0" max="100" value="100" steps="5" id="backlightRangeSlider">
+                                <input type="range" min="0" max="100" value="100" step="10" id="backlightRangeSlider">
                                 <div class="value right" id="backlightRangeSliderText">100</div>
                             </div>
                         </div>
@@ -259,23 +260,23 @@
                         <img src="./src/assets/Icons/settings/settings-page.svg">
                         <span class="text">Settings </span>
                     </div>
-                    <label class="switch startupFan" id="startupFan">
-                        <input id="startupFansInput" type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                    <label class="switch closeToTray" id="systemTray">
-                        <input id="systemTrayInput" type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                    <label class="switch startInTray" id="startHiddenButton">
-                        <input id="startHiddenInput" type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                    <label class="switch startBoot" id="startOnBootButton">
-                        <input id="startOnBootInput" type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                    <div class="settingsText">
+                    <div class="settings">
+                        <label class="switch startupFan" id="startupFan">
+                            <input id="startupFansInput" type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                        <label class="switch closeToTray" id="systemTray">
+                            <input id="systemTrayInput" type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                        <label class="switch startInTray" id="startHiddenButton">
+                            <input id="startHiddenInput" type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                        <label class="switch startBoot" id="startOnBootButton">
+                            <input id="startOnBootInput" type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
                         <h3 class="startupFan">Start Custom Fan Curves On App Startup</h3>
                         <h3 class="closeToTray">When Closed, App Minimizes To System Tray</h3>
                         <h3 class="startInTray" id="startHidden">Start App In System Tray</h3>

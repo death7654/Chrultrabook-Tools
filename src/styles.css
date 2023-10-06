@@ -412,8 +412,6 @@ body.dark .switch:before {
   left: 20px;
 }
 
-/*sidnav ends */
-/*Main HTML File begins */
 .dashboard {
   position: relative;
   border-top-right-radius: 20px;
@@ -464,6 +462,8 @@ nav.close~.dashboard .top {
   border-radius: 50%;
 }
 
+/*Main HTML File begins */
+
 .dashboard .dash-content {
   padding-top: 30px;
 }
@@ -474,18 +474,6 @@ nav.close~.dashboard .top {
   margin: 60px 0 30px 0;
 }
 
-.dash-content .title i {
-  position: relative;
-  height: 35px;
-  width: 35px;
-  background-color: var(--primary-color);
-  border-radius: 6px;
-  color: var(--title-icon-color);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-}
 
 .dash-content .title .text {
   font-size: 24px;
@@ -495,10 +483,11 @@ nav.close~.dashboard .top {
 }
 
 .dash-content .boxes {
-  display: flex;
+  display: inline-grid;
+  width: 100%;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 20px;
 }
 
 .dash-content .boxes .box {
@@ -506,34 +495,11 @@ nav.close~.dashboard .top {
   flex-direction: column;
   align-items: center;
   border-radius: 12px;
-  width: calc(100% / 3 - 15px);
   padding: 15px 20px;
   background-color: var(--box1-color);
   transition: var(--tran-05);
 }
 
-.boxes .box i {
-  font-size: 35px;
-  color: var(--text-color);
-}
-
-.boxes .box .text {
-  white-space: nowrap;
-  font-size: 18px;
-  font-weight: 500;
-  color: var(--text-color);
-}
-
-.boxes .box .number {
-  font-size: 40px;
-  font-weight: 500;
-  color: var(--text-color);
-}
-
-.boxes .box .cpuLoad {
-  font-size: 40px;
-  font-weight: 500;
-}
 
 .boxes .box.cpuLoad {
   background-color: var(--box1-color);
@@ -548,16 +514,32 @@ nav.close~.dashboard .top {
 .boxes .box.ram {
   background-color: var(--box3-color);
   color: var(--text-color);
+
+}
+
+.dash-content .overview .systemInfo {
+  width: calc(100% - 15px);
+  font-weight: normal;
+  font-size: 15;
+  background-color: var(--systeminfo-color);
+  transition: var(--tran-05);
+  position: relative;
+  top: 40px;
+  border-radius: 20px;
+  z-index: 50;
+}
+
+.dash-content .overview .systemInfoText {
+  padding: 20px;
 }
 
 /*fan section */
 
-.dash-content .boxes.fanSpeed {
+.dash-content.boxes.fanSpeed {
   background-color: var(--box4-color);
 }
 
 .boxes .box i {
-  font-size: 35px;
   color: var(--text-color);
 }
 
@@ -568,41 +550,21 @@ nav.close~.dashboard .top {
   color: black;
 }
 
-.boxes .box .number {
-  font-size: 48px;
-  font-weight: 500;
-  color: var(--text-color);
-}
 
 .hiddentext {
   display: none;
 }
 
 .boxes .box.tempCPU {
-  display: flex;
   background-color: var(--box5-color);
-  position: relative;
-  bottom: 102px;
 }
 
 .boxes .box.fanSpeed {
   background-color: var(--box4-color);
-  position: relative;
-  bottom: 102px;
 }
 
 .boxes .box.hidden {
   background-color: var(--panel-color);
-}
-
-.FanSpeedText {
-  position: relative;
-  top: 140px;
-}
-
-.customFanSpeedText {
-  position: absolute;
-  top: 475px;
 }
 
 .activeButton {
@@ -611,9 +573,19 @@ nav.close~.dashboard .top {
   transform: scale(1.07);
 }
 
-.fanButtons {
+.FanSpeedText {
   position: relative;
-  top: 160px;
+  top: 20px;
+}
+
+.fanButtons {
+  display: inline-grid;
+  width: 100%;
+  align-items: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+  position: relative;
+  top: 40px;
 }
 
 .FanAuto,
@@ -623,7 +595,6 @@ nav.close~.dashboard .top {
   font-family: "Roboto", sans-serif;
   font-size: 18px;
   font-weight: bold;
-  width: calc(30% - 15px);
   padding: 20px;
   text-align: center;
   text-decoration: none;
@@ -651,24 +622,19 @@ nav.close~.dashboard .top {
 
 .FanAuto {
   background: var(--fanAuto-color);
-  left: 10px;
 }
 
 .FanOff {
   background: var(--fanOff-color);
-  left: 20px;
 }
 
 .FanMax {
   background: var(--fanMax-color);
-  left: 30px;
 }
 
-.fanoffText {
-  position: relative;
-  font-size: 25px;
-  top: 50px;
-  left: -240px;
+.customFanSpeedText {
+  position: absolute;
+  top: 475px;
 }
 
 .fancurves {
@@ -721,10 +687,6 @@ nav.close~.dashboard .top {
 
 
 /*system options*/
-.title.Options {
-  position: absolute;
-  top: 20px;
-}
 
 .ActivityLight {
   position: relative;
@@ -1406,27 +1368,18 @@ nav.close~.dashboard .top {
   opacity: 1;
 }
 
-
-.dash-content .overview .systemInfo {
-  width: calc(100% - 15px);
-  font-weight: normal;
-  font-size: 15;
-  background-color: var(--systeminfo-color);
-  transition: var(--tran-05);
-  position: relative;
-  top: 40px;
-  border-radius: 20px;
-  z-index: 50;
-}
-
-.dash-content .overview .systemInfoText {
-  padding: 20px;
-}
-
 /*settings*/
+.settings {
+  display: inline-grid;
+  width: 100%;
+  grid-template-columns: 15fr 1fr;
+  grid-template-areas: "option1 button1" "option2 button2" "option3 button3" "option4 button4";
+  gap: 30px 0;
+
+}
+
 .switch {
   position: relative;
-  display: inline-block;
   width: 35px;
   height: 20px;
 }
@@ -1487,171 +1440,36 @@ input:checked+.slider:before {
 }
 
 .switch.startupFan {
-  position: absolute;
-  left: 90%;
-  top: 175px;
+  grid-area: button1;
 }
 
 .switch.closeToTray {
-  position: absolute;
-  left: 90%;
-  top: 225px;
+  grid-area: button2;
 }
 
 
 .switch.startInTray {
-  position: absolute;
-  left: 90%;
-  top: 275px;
+  grid-area: button3;
 }
 
 .switch.startBoot {
-  position: absolute;
-  left: 90%;
-  top: 325px;
-}
-
-.settingsText {
-  width: 500px;
+  grid-area: button4;
 }
 
 .startupFan {
-  position: absolute;
-  top: 175px;
-  left: 15px;
+  grid-area: option1;
 }
 
 .closeToTray {
-  position: absolute;
-  top: 225px;
+  grid-area: option2;
+
 }
 
-
 .startInTray {
-  position: absolute;
-  top: 275px;
+  grid-area: option3;
+
 }
 
 .startBoot {
-  position: absolute;
-  top: 325px;
-}
-
-/*main html file ends */
-
-@media (max-width: 1000px) {
-  nav {
-    width: 73px;
-  }
-
-  nav.close {
-    width: 250px;
-  }
-
-  nav .logo_name {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  nav.close .logo_name {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  nav li a .link-name {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  nav.close li a .link-name {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  nav~.dashboard {
-    left: 73px;
-    width: calc(100% - 73px);
-  }
-
-  nav.close~.dashboard {
-    left: 250px;
-    width: calc(100% - 250px);
-  }
-
-  nav~.dashboard .top {
-    left: 73px;
-    width: calc(100% - 73px);
-  }
-
-  nav.close~.dashboard .top {
-    left: 250px;
-    width: calc(100% - 250px);
-  }
-
-  .activity .activity-data {
-    overflow-x: scroll;
-  }
-}
-
-@media (max-width: 780px) {
-  .dash-content .boxes .box {
-    width: calc(100% / 2 - 15px);
-    margin-top: 15px;
-  }
-}
-
-@media (max-width: 560px) {
-  .dash-content .boxes .box {
-    width: 100%;
-  }
-}
-
-@media (max-width: 400px) {
-  nav {
-    width: 0px;
-  }
-
-  nav.close {
-    width: 73px;
-  }
-
-  nav .logo_name {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  nav.close .logo_name {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  nav li a .link-name {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  nav.close li a .link-name {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  nav~.dashboard {
-    left: 0;
-    width: 100%;
-  }
-
-  nav.close~.dashboard {
-    left: 73px;
-    width: calc(100% - 73px);
-  }
-
-  nav~.dashboard .top {
-    left: 0;
-    width: 100%;
-  }
-
-  nav.close~.dashboard .top {
-    left: 0;
-    width: 100%;
-  }
+  grid-area: option4;
 }
