@@ -133,7 +133,7 @@
   --select-color: #f2f2f2;
   --slider-knob-color: #06d6a0;
   --slider-color: #ef476f;
-  --chargeslider-color: #5450c8;
+  --chargeslider-color: #0094EA;
   --chargeslider-knob-color: #47e1ef;
   --slider-text-color: #ffffff;
   --remap-color: #00BAE2;
@@ -176,9 +176,9 @@ body.dark {
   --title-icon-color: #ccc;
   --switch-color: #221824;
   --select-color: #353434;
-  --slider-color: #0094EA;
+  --slider-color: #4477CE;
   --slider-knob-color: #ffcb10;
-  --chargeslider-color: #d448af;
+  --chargeslider-color: #b84599;
   --chargeslider-knob-color: #82ffe6;
   --remap-color: #ff3d54;
   --slider-text-color: #ffffff;
@@ -729,7 +729,7 @@ nav.close~.dashboard .top {
   height: 60px;
   width: calc(97%);
   background: var(--slider-color);
-  border-radius: 20px;
+  border-radius: 10px;
   padding: 0 65px 0 45px;
   transition: var(--tran-03);
   accent-color: var(--slider-knob-color);
@@ -817,7 +817,7 @@ nav.close~.dashboard .top {
   position: relative;
   font-size: 20px;
   font-weight: 600;
-  top: 0px;
+  top: 6px;
   left: 0px;
 }
 
@@ -827,7 +827,7 @@ nav.close~.dashboard .top {
   height: 60px;
   width: calc(97%);
   background: var(--chargeslider-color);
-  border-radius: 20px;
+  border-radius: 10px;
   padding: 0 65px 0 45px;
   transition: var(--tran-03);
   accent-color: var(--chargeslider-knob-color);
@@ -1439,9 +1439,14 @@ input:checked+.slider:before {
   border-radius: 50%;
 }
 
+.center {
+  position: relative;
+  top: 6px;
+}
 .switch.startupFan {
   grid-area: button1;
 }
+
 
 .switch.closeToTray {
   grid-area: button2;
@@ -1456,20 +1461,25 @@ input:checked+.slider:before {
   grid-area: button4;
 }
 
-.startupFan {
+.lines {
+  border-bottom: var(--border-color) 1px solid;
+  padding-bottom: 20px;
+  width: 105%;
+}
+
+.startupFanText {
   grid-area: option1;
 }
 
-.closeToTray {
+.closeToTrayText {
   grid-area: option2;
 
 }
 
-.startInTray {
+.startInTrayText {
   grid-area: option3;
-
 }
 
-.startBoot {
+.startBootText {
   grid-area: option4;
 }
