@@ -65,6 +65,7 @@ async fn is_windows() -> bool {
 }
 #[tauri::command]
 async fn get_cpu_usage() -> String {
+    let cmd: Result<std::process::Output, std::io::Error>;
     #[cfg(target_os = "linux")]
     {
         let mut sys = System::new();
