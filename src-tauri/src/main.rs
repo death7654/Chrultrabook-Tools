@@ -76,20 +76,13 @@ async fn get_cpu_usage() -> String {
         println!("cpuusage {}", cpu_usage);
         return cpu_usage.to_string();
     }
-    #[cfg(windows)]
+      #[cfg(windows)]
     {
-        let mut sys = System::new_all();
-        sys.refresh_cpu(); // Refreshing CPU information.
-
-        let mut num: i32 = 0;
-        let mut total: i32 = 0;
-        for cpu in sys.cpus() {
-            let cpu_usage = cpu.cpu_usage();
-            total += 1;
-            num = num + (cpu_usage as i32);
-        }
-
-        return (num / total).to_string();
+        cmd = std::process::Command::new("wmic")
+            .creation_flags(0x08000000)
+            .args(["cpu", "get", "loadpercentage"])
+            .output();
+        return match_result_vec(cmd);
     }
 }
 #[tauri::command]
