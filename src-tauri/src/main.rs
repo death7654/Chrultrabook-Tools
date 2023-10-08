@@ -7,12 +7,10 @@
 use std::fs;
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
-
 use sysinfo::{CpuExt, System, SystemExt};
 use tauri::Manager;
 use tauri::{CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem};
 use tauri_plugin_autostart::MacosLauncher;
-use raw_cpuid::CpuId;
 
 fn main() {
     let quit = CustomMenuItem::new("quit".to_string(), "Quit");
@@ -65,7 +63,6 @@ async fn is_windows() -> bool {
 }
 #[tauri::command]
 async fn get_cpu_usage() -> String {
-    let cmd: Result<std::process::Output, std::io::Error>;
     #[cfg(target_os = "linux")]
     {
         let mut sys = System::new();
@@ -77,13 +74,20 @@ async fn get_cpu_usage() -> String {
         println!("cpuusage {}", cpu_usage);
         return cpu_usage.to_string();
     }
-      #[cfg(windows)]
+    #[cfg(windows)]
     {
-        cmd = std::process::Command::new("wmic")
-            .creation_flags(0x08000000)
-            .args(["cpu", "get", "loadpercentage"])
-            .output();
-        return match_result_vec(cmd);
+        let mut sys = System::new_all();
+        sys.refresh_cpu(); // Refreshing CPU information.
+
+        let mut num: i32 = 0;
+        let mut total: i32 = 0;
+        for cpu in sys.cpus() {
+            let cpu_usage = cpu.cpu_usage();
+            total += 1;
+            num = num + (cpu_usage as i32);
+        }
+
+        return (num / total).to_string();
     }
 }
 #[tauri::command]
@@ -201,8 +205,28 @@ async fn get_cpu_cores() -> String {
 
 #[tauri::command]
 async fn get_cpu_name() -> String {
-    let cpuid = CpuId::new();
-    return String::from(cpuid.get_processor_brand_string().unwrap().as_str());
+
+    #[cfg(target_os = "linux")]
+    {
+        let mut cpuname = "";
+        let cpuinfo = fs::read_to_string("/proc/cpuinfo").unwrap();
+        for line in cpuinfo.split("\n").collect::<Vec<_>>() {
+            if line.starts_with("model name") {
+                cpuname = line.split(":").collect::<Vec<_>>()[1].trim();
+                break;
+            }
+        }
+        return String::from(cpuname);
+    }
+
+    #[cfg(windows)]
+    {
+        let cmd = std::process::Command::new("wmic")
+            .creation_flags(0x08000000)
+            .args(["cpu", "get", "name"])
+            .output();
+        return match_result_vec(cmd);
+    }
 }
 
 #[tauri::command]
