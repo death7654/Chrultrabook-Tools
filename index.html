@@ -460,7 +460,7 @@
 </script>
 <script type="module">
       import { invoke } from "@tauri-apps/api/tauri";
-      invoke("close_splashscreen")
+      setTimeout(invoke("close_splashscreen"),8000);
 </script>
 
 </html>

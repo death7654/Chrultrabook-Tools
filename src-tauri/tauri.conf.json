@@ -60,7 +60,8 @@
         "height": 550,
         "transparent": true,
         "fileDropEnabled": false,
-        "center": true
+        "center": true,
+        "visible": false
       },
       {
         "title": "Chrultrabook Controller",

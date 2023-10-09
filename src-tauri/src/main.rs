@@ -47,6 +47,7 @@ fn main() {
             get_ram_usage,
             get_bios_version,
             get_board_name,
+            manufacturer,
             get_cpu_cores,
             get_cpu_name,
             get_hostname,
@@ -202,6 +203,21 @@ async fn get_board_name() -> String {
             .output();
         return match_result_vec(cmd);
     }
+}
+#[tauri::command]
+async fn manufacturer() -> String
+{
+    let cmd: Result<std::process::Output, std::io::Error>;
+
+    #[cfg(windows)] 
+    {
+        cmd = std::process::Command::new("wmic")
+            .creation_flags(0x08000000)
+            .args(["computersystem", "get", "manufacturer"])
+            .output();
+        return match_result_vec(cmd);
+    }
+
 }
 
 #[tauri::command]

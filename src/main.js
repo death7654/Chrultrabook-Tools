@@ -9,8 +9,6 @@ import "./styles.css";
 //prevents rightclick
 document.addEventListener("contextmenu", (event) => event.preventDefault());
 
-//closes splash screen
-
 //checks what os the user is on
 var is_windows;
 setTimeout(async () => {
@@ -29,6 +27,7 @@ if ((is_windows = false)) {
 //start Hidden
 const hideOnStart = localStorage.getItem("startHidden");
 if (hideOnStart == "yes") {
+  //closes splash screen
   invoke("close_splashscreen");
   appWindow.hide();
   startHiddenInput.checked = true;
@@ -133,7 +132,7 @@ if (fan == true) {
 //Grabs System Info
 setTimeout(async () => {
   const hostname = await invoke("get_hostname");
-  let bios = await invoke("get_bios_version");
+  const bios = await invoke("get_bios_version");
   const boardname = await invoke("get_board_name");
   const cores = await invoke("get_cpu_cores");
   const cpuname = await invoke("get_cpu_name");
@@ -143,12 +142,11 @@ setTimeout(async () => {
   document.getElementById("hostname").innerText = "Hostname: " + hostname;
   document.getElementById("cpuName").innerText = "CPU: " + cpuname;
 
+  const manufacturer = await invoke("manufacturer");
   //closes app on non-chromeos devices
-  bios = bios.substring(0,2);
-  if(bios != "Mr"){
+  if(manufacturer !== "Google"){
     appWindow.close();
   }
-  console.log(bios);
 
 }, 0);
 
