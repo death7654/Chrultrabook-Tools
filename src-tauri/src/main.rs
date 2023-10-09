@@ -208,6 +208,13 @@ async fn get_board_name() -> String {
 async fn manufacturer() -> String
 {
     let cmd: Result<std::process::Output, std::io::Error>;
+    #[cfg(target_os = "linux")]
+    {
+        cmd = std::process::Command::new("cat")
+            .args(["/sys/class/dmi/id/sys_vendor"])
+            .output();
+        return match_result(cmd);
+    }
 
     #[cfg(windows)] 
     {
