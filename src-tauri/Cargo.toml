@@ -21,7 +21,6 @@ sysinfo = "0.29.10"
 os_info = "3.7.0"
 substring = "1.4.5"
 fs = "0.0.5"
-systemstat = "0.2.3"
 
 
 [features]
