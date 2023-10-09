@@ -458,5 +458,9 @@
         });
     });
 </script>
+<script type="module">
+      import { invoke } from "@tauri-apps/api/tauri";
+      invoke("close_splashscreen")
+</script>
 
 </html>

@@ -5,11 +5,12 @@
 
 #[cfg(target_os = "linux")]
 use std::fs;
+
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
 use sysinfo::{CpuExt, System, SystemExt};
-use tauri::Manager;
 use tauri::{CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem};
+use tauri::{Manager, Window};
 use tauri_plugin_autostart::MacosLauncher;
 
 fn main() {
@@ -39,6 +40,7 @@ fn main() {
             _ => {}
         })
         .invoke_handler(tauri::generate_handler![
+            close_splashscreen,
             is_windows,
             get_cpu_usage,
             get_cpu_temp,
@@ -53,14 +55,33 @@ fn main() {
             ectool,
             cbmem
         ])
-        .plugin(tauri_plugin_autostart::init(MacosLauncher::LaunchAgent, Some(vec!["--flag1", "--flag2"])))
+        .plugin(tauri_plugin_autostart::init(
+            MacosLauncher::LaunchAgent,
+            Some(vec!["--flag1", "--flag2"]),
+        ))
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+}
+#[tauri::command]
+async fn close_splashscreen(window: Window) {
+    // Close splashscreen
+    window
+        .get_window("splashscreen")
+        .expect("no window labeled 'splashscreen' found")
+        .close()
+        .unwrap();
+    // Show main window
+    window
+        .get_window("main")
+        .expect("no window labeled 'main' found")
+        .show()
+        .unwrap();
 }
 #[tauri::command]
 async fn is_windows() -> bool {
     return os_info::get().os_type() == os_info::Type::Windows;
 }
+
 #[tauri::command]
 async fn get_cpu_usage() -> String {
     #[cfg(target_os = "linux")]
@@ -205,7 +226,6 @@ async fn get_cpu_cores() -> String {
 
 #[tauri::command]
 async fn get_cpu_name() -> String {
-
     #[cfg(target_os = "linux")]
     {
         let mut cpuname = "";

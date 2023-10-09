@@ -1,6 +1,6 @@
 import { appWindow } from "@tauri-apps/api/window";
 import { invoke } from "@tauri-apps/api/tauri";
-import { enable, isEnabled, disable } from "tauri-plugin-autostart-api";
+import { enable, disable } from "tauri-plugin-autostart-api";
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 import "chartjs-plugin-dragdata";
@@ -29,6 +29,7 @@ if ((is_windows = false)) {
 //start Hidden
 const hideOnStart = localStorage.getItem("startHidden");
 if (hideOnStart == "yes") {
+  invoke("close_splashscreen");
   appWindow.hide();
   startHiddenInput.checked = true;
 }
@@ -60,7 +61,7 @@ if (!fan) {
   document.getElementById("fan").style.display = "none";
 }
 
-//sets current percantage for backlight and hides the slider if the chromebook has no backlight
+//sets current percantage for backlight and hides the slider if the chromebook has no backlight or battery controls
 setTimeout(async () => {
   let keyboardBackLight = await invoke("ectool", {
     value: "pwmgetkblight",
@@ -80,6 +81,7 @@ setTimeout(async () => {
     document.getElementById("backlightRangeSliderText").innerText = "off";
   }
 }, 0);
+
 
 //homepage
 var averageTemp;
@@ -131,7 +133,7 @@ if (fan == true) {
 //Grabs System Info
 setTimeout(async () => {
   const hostname = await invoke("get_hostname");
-  const bios = await invoke("get_bios_version");
+  let bios = await invoke("get_bios_version");
   const boardname = await invoke("get_board_name");
   const cores = await invoke("get_cpu_cores");
   const cpuname = await invoke("get_cpu_name");
@@ -140,6 +142,14 @@ setTimeout(async () => {
   document.getElementById("coreCPU").innerText = "Cores: " + cores + " Cores";
   document.getElementById("hostname").innerText = "Hostname: " + hostname;
   document.getElementById("cpuName").innerText = "CPU: " + cpuname;
+
+  //closes app on non-chromeos devices
+  bios = bios.substring(0,2);
+  if(bios != "Mr"){
+    appWindow.close();
+  }
+  console.log(bios);
+
 }, 0);
 
 //setFanSpeeds

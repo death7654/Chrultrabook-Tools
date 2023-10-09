@@ -33,7 +33,6 @@
         "startDragging": true,
         "center": true
       }
-      
     },
     "bundle": {
       "active": true,
@@ -60,7 +59,16 @@
         "width": 800,
         "height": 550,
         "transparent": true,
-        "fileDropEnabled": false    
+        "fileDropEnabled": false
+      },
+      {
+        "title": "Chrultrabook Controller",
+        "width": 300,
+        "height": 400,
+        "decorations": false,
+        "transparent": true,
+        "url": "./splashscreen.html",
+        "label": "splashscreen"
       }
     ]
   }
