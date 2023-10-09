@@ -59,7 +59,8 @@
         "width": 800,
         "height": 550,
         "transparent": true,
-        "fileDropEnabled": false
+        "fileDropEnabled": false,
+        "center": true
       },
       {
         "title": "Chrultrabook Controller",
@@ -68,7 +69,8 @@
         "decorations": false,
         "transparent": true,
         "url": "./splashscreen.html",
-        "label": "splashscreen"
+        "label": "splashscreen",
+        "center": true
       }
     ]
   }
