@@ -1,20 +1,26 @@
-import { appWindow } from "@tauri-apps/api/window";
-import { invoke } from "@tauri-apps/api/tauri";
-import { enable, disable } from "tauri-plugin-autostart-api";
-import { Chart, registerables } from "chart.js";
-Chart.register(...registerables);
+import {appWindow} from "@tauri-apps/api/window";
+import {invoke} from "@tauri-apps/api/tauri";
+import {disable, enable} from "tauri-plugin-autostart-api";
+import {Chart, registerables} from "chart.js";
 import "chartjs-plugin-dragdata";
 import "./styles.css";
+
+Chart.register(...registerables);
 
 //prevents rightclick
 document.addEventListener("contextmenu", (event) => event.preventDefault());
 
 //checks what os the user is on
-var is_windows;
+let is_windows;
 setTimeout(async () => {
   is_windows = await invoke("is_windows");
-  console.log(is_windows);
 });
+
+//settings menu
+const startupFan = document.getElementById("startupFansInput");
+const systemTray = document.getElementById("systemTrayInput");
+const startHidden = document.getElementById("startHiddenInput");
+const startOnBoot = document.getElementById("startOnBootInput");
 
 //hides things currently incopatiable with linux and macos
 if ((is_windows = false)) {
@@ -26,19 +32,19 @@ if ((is_windows = false)) {
 
 //start Hidden
 const hideOnStart = localStorage.getItem("startHidden");
-if (hideOnStart == "yes") {
+if (hideOnStart === "yes") {
   //closes splash screen
   invoke("close_splashscreen");
   appWindow.hide();
-  startHiddenInput.checked = true;
+  //startHiddenInput.checked = true; //TODO: Error: unresolved
 }
 
 //app close and open functions
 document.getElementById("close").addEventListener("mousedown", () => {
   let addToTray = localStorage.getItem("quitToTray");
-  if (addToTray == "yes") {
+  if (addToTray === "yes") {
     appWindow.hide();
-    systemTrayInput.checked = true;
+    //systemTrayInput.checked = true; //TODO: Error: unresolved
   } else {
     appWindow.close();
   }
@@ -68,7 +74,7 @@ setTimeout(async () => {
   });
   let value = keyboardBackLight.split(" ");
   document.getElementById("backlightRangeSlider").value = value[4];
-  if (containsNumber(value[4]) == false) {
+  if (containsNumber(value[4]) === false) {
     document.getElementById("rangeBacklight").style.display = "none";
     document.getElementById("rangeBacklightslider").style.display = "none";
   }
@@ -82,7 +88,7 @@ setTimeout(async () => {
 }, 0);
 
 //homepage
-var averageTemp;
+let averageTemp;
 setInterval(async () => {
   const ramUsage = await invoke("get_ram_usage");
   const cpuUsage = await invoke("get_cpu_usage");
@@ -107,7 +113,7 @@ setInterval(async () => {
 }, 1000);
 
 //only allows fanRPM, and fanTEMPS to execute if a fan is found
-if (fan == true) {
+if (fan === true) {
   setInterval(async () => {
     const fanRPM = await invoke("get_fan_rpm");
     const fanSpeed = fanRPM.toString().split(":").pop().trim();
@@ -120,8 +126,7 @@ if (fan == true) {
     let fanCurveData = JSON.parse(fanCurve);
     //adds chart for new installs/users
     if (fanCurveData == null) {
-      let defaultChart = [0, 0, 50, 90, 100, 100, 100];
-      myChart.config.data.datasets[0].data = defaultChart;
+      myChart.config.data.datasets[0].data = [0, 0, 50, 90, 100, 100, 100];
     } else {
       myChart.config.data.datasets[0].data = fanCurveData;
     }
@@ -141,9 +146,9 @@ setTimeout(async () => {
   document.getElementById("hostname").innerText = "Hostname: " + hostname;
   document.getElementById("cpuName").innerText = "CPU: " + cpuname;
 
-  const manufacturer = await invoke("manufacturer");
   // terrible practice. See https://github.com/death7654/Chrultrabook-Controller/issues/20
-  /*if (manufacturer !== "Google") {
+  /*const manufacturer = await invoke("manufacturer");
+  if (manufacturer !== "Google") {
     appWindow.close();
   }*/
 }, 0);
@@ -189,7 +194,6 @@ const config = {
   legend: {
     display: false,
   },
-  dragData: true,
   options: {
     //makes lines not so straight
     tension: 0.2,
@@ -198,7 +202,7 @@ const config = {
       dragData: {
         round: 0,
         showTooltip: true,
-        onDragStart: (event) => {},
+        onDragStart: () => {},
       },
     },
     scales: {
@@ -219,7 +223,9 @@ const config = {
   },
 };
 //render chart
+//TODO: x2 Error: Type / not assignable
 const myChart = new Chart(document.getElementById("fancurves"), config);
+
 myChart.update();
 
 let autoFan = document.getElementById("fanAuto");
@@ -228,7 +234,7 @@ let maxFan = document.getElementById("fanMax");
 let setFan = document.getElementById("setFan");
 
 function setTemps() {
-  var cpuTemp = parseInt(averageTemp);
+  const cpuTemp = parseInt(averageTemp);
   //built in protections for cpuTemps
   if (cpuTemp <= 35) {
     invoke("ectool", { value: "fanduty", value2: "0" });
@@ -246,8 +252,8 @@ function setTemps() {
   index++;
   let temp2 = myChart.data.datasets[0].data[index];
 
-  var tempBetween;
-  if (cpuTemp % 5 == 0) {
+  let tempBetween;
+  if (cpuTemp % 5 === 0) {
     index--;
     //prevents fans from using the next index and makes sure it doesnt calculate anything
     tempBetween = myChart.data.datasets[0].data[index];
@@ -256,12 +262,13 @@ function setTemps() {
   }
   invoke("ectool", { value: "fanduty", value2: tempBetween.toString() });
 }
-var clearcustomFan;
+
+let clearcustomFan;
 
 //starts fans if avaliable
 const fanOnStart = localStorage.getItem("fanOnStart");
-if (fanOnStart == "yes") {
-  startupFansInput.checked = true;
+if (fanOnStart === "yes") {
+  startupFansInput.checked = true; //TODO: Error: unresolved
   clearcustomFan = setInterval(async () => {
     setTemps();
   }, 2000);
@@ -289,8 +296,7 @@ function fanMax() {
   clearInterval(clearcustomFan);
 
   //changes chart and uses built in protections for the fan
-  const fanMaxArray = [100, 100, 100, 100, 100, 100, 100];
-  myChart.config.data.datasets[0].data = fanMaxArray;
+  myChart.config.data.datasets[0].data = [100, 100, 100, 100, 100, 100, 100];
   myChart.update();
   clearcustomFan = setInterval(async () => {
     setTemps();
@@ -306,8 +312,7 @@ function fanOff() {
   clearInterval(clearcustomFan);
 
   //changes chart and uses built in protections for the fan
-  const fanOffArray = [0, 0, 0, 0, 0, 0, 100];
-  myChart.config.data.datasets[0].data = fanOffArray;
+  myChart.config.data.datasets[0].data = [0, 0, 0, 0, 0, 0, 100];
   myChart.update();
   clearcustomFan = setInterval(async () => {
     setTemps();
@@ -323,8 +328,7 @@ function fanAuto() {
   clearInterval(clearcustomFan);
 
   //changes chart and uses built in protections for the fan (better fan curves than ectools)
-  const fanAutoArray = [0, 0, 50, 90, 100, 100, 100];
-  myChart.config.data.datasets[0].data = fanAutoArray;
+  myChart.config.data.datasets[0].data = [0, 0, 50, 90, 100, 100, 100];
   myChart.update();
   clearcustomFan = setInterval(async () => {
     setTemps();
@@ -372,10 +376,8 @@ chargerSlider.oninput = function () {
 
 function setChargeControl() {
   let upperLimit = chargerSlider.value;
-  console.log(upperLimit);
   let lowerLimit = upperLimit - 5;
   lowerLimit = lowerLimit.toString();
-  console.log(lowerLimit);
   invoke("set_battery_limit", { value: lowerLimit, value2: upperLimit });
 }
 function setDefault() {
@@ -469,27 +471,21 @@ function copyTxt(htmlElement) {
   inputElement.setAttribute("value", elementText);
   document.body.appendChild(inputElement);
   inputElement.select();
-  document.execCommand("copy");
+  document.execCommand("copy"); //TODO: deprecated
   inputElement.parentElement.removeChild(inputElement);
 }
 document.querySelector("#copyButton").addEventListener("mousedown", () => {
   copyTxt(document.querySelector("#cbMemInfo"));
 });
 
-//settings menu
-const startupFan = document.getElementById("startupFansInput");
-const systemTray = document.getElementById("systemTrayInput");
-const startHidden = document.getElementById("startHiddenInput");
-const startOnBoot = document.getElementById("startOnBootInput");
+
 
 //sets up local storage for settings so all options that are checked stay checked upon reboot
 startupFan.addEventListener("click", () => {
   if (startupFan.checked) {
     localStorage.setItem("fanOnStart", "yes");
-    console.log("checked");
   } else {
     localStorage.setItem("fanOnStart", "no");
-    console.log("notChecked");
   }
 });
 
@@ -502,7 +498,7 @@ systemTray.addEventListener("click", () => {
 });
 
 const closetoTray = localStorage.getItem("quitToTray");
-if (closetoTray == "yes") {
+if (closetoTray === "yes") {
   systemTray.checked = true;
 }
 
@@ -527,7 +523,7 @@ if ((is_windows = true)) {
 
   //sets start on boot to checked if true
   const onBoot = localStorage.getItem("startOnBoot");
-  if (onBoot == "yes") {
-    startOnBootInput.checked = true;
+  if (onBoot === "yes") {
+    startOnBootInput.checked = true; //TODO: Error: unresolved
   }
 }
