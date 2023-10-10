@@ -13,6 +13,16 @@ use tauri::{CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemT
 use tauri::{Manager, Window};
 use tauri_plugin_autostart::MacosLauncher;
 
+#[cfg(target_os = "linux")]
+const EC: &str = "ectool";
+#[cfg(windows)]
+const EC: &str = "C:\\Program Files\\crosec\\ectool";
+
+#[cfg(target_os = "linux")]
+const MEM: &str = "cbmem";
+#[cfg(windows)]
+const MEM: &str = "C:\\Program Files\\crosec\\cbmem";
+
 fn main() {
     let quit = CustomMenuItem::new("quit".to_string(), "Quit");
     let show = CustomMenuItem::new("show".to_string(), "Show");
@@ -63,6 +73,7 @@ fn main() {
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
+
 #[tauri::command]
 async fn close_splashscreen(window: Window) {
     // Close splashscreen
@@ -78,6 +89,7 @@ async fn close_splashscreen(window: Window) {
         .show()
         .unwrap();
 }
+
 #[tauri::command]
 async fn is_windows() -> bool {
     return os_info::get().os_type() == os_info::Type::Windows;
@@ -112,6 +124,7 @@ async fn get_cpu_usage() -> String {
         return (num / total).to_string();
     }
 }
+
 #[tauri::command]
 async fn get_ram_usage() -> String {
     let mut sys = System::new();
@@ -152,97 +165,49 @@ async fn get_cpu_temp() -> Option<String> {
     };
 
     #[cfg(windows)]
-    {
-        let cmd = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
-            .creation_flags(0x08000000)
-            .args(["temps", "all"])
-            .output();
-        return Some(match_result(cmd));
-    }
+    return Some(match_result(exec(EC, Some(vec!["temps", "all"]))));
 }
 
 #[tauri::command]
 async fn get_bios_version() -> String {
-    let cmd: Result<std::process::Output, std::io::Error>;
-
     #[cfg(target_os = "linux")]
-    {
-        cmd = std::process::Command::new("cat")
-            .args(["/sys/class/dmi/id/bios_version"])
-            .output();
-        return match_result(cmd);
-    }
+    return match_result(exec("cat", Some(vec!["/sys/class/dmi/id/bios_version"])));
 
     #[cfg(windows)]
-    {
-        cmd = std::process::Command::new("wmic")
-            .creation_flags(0x08000000)
-            .args(["bios", "get", "smbiosbiosversion"])
-            .output();
-        return match_result_vec(cmd);
-    }
+    return match_result_vec(exec("wmic", Some(vec!["bios", "get", "smbiosbiosversion"])));
 }
 
 #[tauri::command]
 async fn get_board_name() -> String {
-    let cmd: Result<std::process::Output, std::io::Error>;
-
     #[cfg(target_os = "linux")]
-    {
-        cmd = std::process::Command::new("cat")
-            .args(["/sys/class/dmi/id/product_name"])
-            .output();
-        return match_result(cmd);
-    }
+    return match_result(exec("cat", Some(vec!["/sys/class/dmi/id/product_name"])));
 
     #[cfg(windows)]
-    {
-        cmd = std::process::Command::new("wmic")
-            .creation_flags(0x08000000)
-            .args(["baseboard", "get", "Product"])
-            .output();
-        return match_result_vec(cmd);
-    }
+    return match_result_vec(exec("wmic", Some(vec!["baseboard", "get", "Product"])));
 }
+
 #[tauri::command]
 async fn manufacturer() -> String {
-    let cmd: Result<std::process::Output, std::io::Error>;
     #[cfg(target_os = "linux")]
-    {
-        cmd = std::process::Command::new("cat")
-            .args(["/sys/class/dmi/id/sys_vendor"])
-            .output();
-        return match_result(cmd);
-    }
+    return match_result(exec("cat", Some(vec!["/sys/class/dmi/id/sys_vendor"])));
 
     #[cfg(windows)]
-    {
-        cmd = std::process::Command::new("wmic")
-            .creation_flags(0x08000000)
-            .args(["computersystem", "get", "manufacturer"])
-            .output();
-        return match_result_vec(cmd);
-    }
+    return match_result_vec(exec(
+        "wmic",
+        Some(vec!["computersystem", "get", "manufacturer"]),
+    ));
 }
 
 #[tauri::command]
 async fn get_cpu_cores() -> String {
-    let cmd: Result<std::process::Output, std::io::Error>;
-
     #[cfg(target_os = "linux")]
-    {
-        cmd = std::process::Command::new("nproc").output();
-        return match_result(cmd);
-    }
+    return match_result(exec("nproc", None));
 
     #[cfg(windows)]
-    {
-        cmd = std::process::Command::new("wmic")
-            .creation_flags(0x08000000)
-            .args(["cpu", "get", "NumberOfLogicalProcessors"])
-            .output();
-        return match_result_vec(cmd);
-    }
+    return match_result_vec(exec(
+        "wmic",
+        Some(vec!["cpu", "get", "NumberOfLogicalProcessors"]),
+    ));
 }
 
 #[tauri::command]
@@ -261,129 +226,60 @@ async fn get_cpu_name() -> String {
     }
 
     #[cfg(windows)]
-    {
-        let cmd = std::process::Command::new("wmic")
-            .creation_flags(0x08000000)
-            .args(["cpu", "get", "name"])
-            .output();
-        return match_result_vec(cmd);
-    }
+    return match_result_vec(exec("wmic", Some(vec!["cpu", "get", "name"])));
 }
 
 #[tauri::command]
 async fn get_hostname() -> String {
-    let cmd: Result<std::process::Output, std::io::Error>;
-
     #[cfg(target_os = "linux")]
-    {
-        cmd = std::process::Command::new("cat")
-            .args(["/proc/sys/kernel/hostname"])
-            .output();
-    }
+    return match_result(exec("cat", Some(vec!["/proc/sys/kernel/hostname"])));
 
     #[cfg(windows)]
-    {
-        cmd = std::process::Command::new("hostname")
-            .creation_flags(0x08000000)
-            .output();
-    }
-
-    return match_result(cmd);
+    return match_result(exec("hostname", None));
 }
 
 #[tauri::command]
 async fn get_fan_rpm() -> String {
-    let cmd: Result<std::process::Output, std::io::Error>;
-
-    #[cfg(target_os = "linux")]
-    {
-        cmd = std::process::Command::new("ectool")
-            .args(["pwmgetfanrpm"])
-            .output();
-    }
-
-    #[cfg(windows)]
-    {
-        cmd = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
-            .creation_flags(0x08000000)
-            .args(["pwmgetfanrpm"])
-            .output();
-    }
-    return match_result(cmd);
+    return match_result(exec(EC, Some(vec!["pwmgetfanrpm"])));
 }
 
 #[tauri::command]
 async fn set_battery_limit(value: String, value2: String) -> String {
-    let cmd: Result<std::process::Output, std::io::Error>;
-
-    #[cfg(target_os = "linux")]
-    {
-        cmd = std::process::Command::new("ectool")
-            .arg("chargecontrol")
-            .arg("normal")
-            .arg(value)
-            .arg(value2)
-            .output();
-    }
-
-    #[cfg(windows)]
-    {
-        cmd = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
-            .creation_flags(0x08000000)
-            .arg("chargecontrol")
-            .arg("normal")
-            .arg(value)
-            .arg(value2)
-            .output();
-    }
-
-    return match_result(cmd);
+    return match_result(exec(
+        EC,
+        Some(vec![
+            "chargecontrol",
+            "normal",
+            &value.as_str(),
+            &value2.as_str(),
+        ]),
+    ));
 }
 
 #[tauri::command]
 async fn ectool(value: String, value2: String) -> String {
-    let cmd: Result<std::process::Output, std::io::Error>;
-
-    #[cfg(target_os = "linux")]
-    {
-        cmd = std::process::Command::new("ectool")
-            .arg(value)
-            .arg(value2)
-            .output();
-    }
-
-    #[cfg(windows)]
-    {
-        cmd = std::process::Command::new("C:\\Program Files\\crosec\\ectool")
-            .creation_flags(0x08000000)
-            .arg(value)
-            .arg(value2)
-            .output();
-    }
-
-    return match_result(cmd);
+    return match_result(exec(EC, Some(vec![&value.as_str(), &value2.as_str()])));
 }
 
 #[tauri::command]
 async fn cbmem(value: String) -> String {
-    let cmd: Result<std::process::Output, std::io::Error>;
-
-    #[cfg(target_os = "linux")]
-    {
-        cmd = std::process::Command::new("cbmem").arg(value).output();
-    }
-    #[cfg(windows)]
-    {
-        cmd = std::process::Command::new("C:\\Program Files\\crosec\\cbmem")
-            .creation_flags(0x08000000)
-            .arg(value)
-            .output();
-    }
-
-    return match_result(cmd);
+    return match_result(exec(MEM, Some(vec![&value.as_str()])));
 }
 
 // Helper functions
+
+fn exec(program: &str, args: Option<Vec<&str>>) -> Result<std::process::Output, std::io::Error> {
+    let mut cmd = std::process::Command::new(program);
+    if os_info::get().os_type() == os_info::Type::Windows {
+        cmd.creation_flags(0x08000000);
+    }
+    if let Some(arg_vec) = args {
+        for arg in arg_vec {
+            cmd.arg(arg);
+        }
+    }
+    return cmd.output();
+}
 
 fn match_result(result: Result<std::process::Output, std::io::Error>) -> String {
     let str = match result {
@@ -395,6 +291,7 @@ fn match_result(result: Result<std::process::Output, std::io::Error>) -> String 
     };
     return str.trim().to_string();
 }
+
 #[cfg(windows)]
 fn match_result_vec(result: Result<std::process::Output, std::io::Error>) -> String {
     let str = match result {
