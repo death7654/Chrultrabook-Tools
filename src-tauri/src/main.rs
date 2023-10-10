@@ -157,7 +157,7 @@ async fn get_cpu_temp() -> Option<String> {
             .creation_flags(0x08000000)
             .args(["temps", "all"])
             .output();
-        return Some(match_result(cmd)); 
+        return Some(match_result(cmd));
     }
 }
 
@@ -205,8 +205,7 @@ async fn get_board_name() -> String {
     }
 }
 #[tauri::command]
-async fn manufacturer() -> String
-{
+async fn manufacturer() -> String {
     let cmd: Result<std::process::Output, std::io::Error>;
     #[cfg(target_os = "linux")]
     {
@@ -216,7 +215,7 @@ async fn manufacturer() -> String
         return match_result(cmd);
     }
 
-    #[cfg(windows)] 
+    #[cfg(windows)]
     {
         cmd = std::process::Command::new("wmic")
             .creation_flags(0x08000000)
@@ -224,7 +223,6 @@ async fn manufacturer() -> String
             .output();
         return match_result_vec(cmd);
     }
-
 }
 
 #[tauri::command]
@@ -313,6 +311,7 @@ async fn get_fan_rpm() -> String {
     }
     return match_result(cmd);
 }
+
 #[tauri::command]
 async fn set_battery_limit(value: String, value2: String) -> String {
     let cmd: Result<std::process::Output, std::io::Error>;

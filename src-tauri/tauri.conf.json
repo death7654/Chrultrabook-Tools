@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "Chrultrabook Controller",
-    "version": "2.4.4"
+    "version": "2.4.5"
   },
   "tauri": {
     "systemTray": {
@@ -69,7 +69,7 @@
         "height": 400,
         "decorations": false,
         "transparent": true,
-        "url": "./splashscreen.html",
+        "url": "splashscreen.html",
         "label": "splashscreen",
         "center": true
       }

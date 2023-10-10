@@ -81,7 +81,6 @@ setTimeout(async () => {
   }
 }, 0);
 
-
 //homepage
 var averageTemp;
 setInterval(async () => {
@@ -144,10 +143,9 @@ setTimeout(async () => {
 
   const manufacturer = await invoke("manufacturer");
   //closes app on non-chromeos devices
-  if(manufacturer !== "Google"){
+  if (manufacturer !== "Google") {
     appWindow.close();
   }
-
 }, 0);
 
 //setFanSpeeds
