@@ -1,6 +1,6 @@
 
 #!/bin/bash 
-ROOT=$(pwd)
+ROOT=$(..)
 APPIMAGEDIR="$ROOT/src-tauri/target/release/bundle/appimage"
 APPDIR="$(find $APPIMAGEDIR -name "chrultrabook-controller*.AppDir")"
 APPIMAGE="$(find $APPIMAGEDIR -name "chrultrabook-controller*.AppImage")"
@@ -9,7 +9,7 @@ APPIMAGETOOLURL="https://github.com/AppImage/appimagetool/releases/download/cont
 # modify appimage to add our stuff
 rm $APPIMAGE
 cd $APPIMAGEDIR
-cp $ROOT/linux/AppRun $APPDIR
+cp $ROOT/resources/AppRun $APPDIR
 curl -L https://tree123.org/chrultrabook/utils/ectool -o $APPDIR/usr/bin/ectool
 curl -L https://tree123.org/chrultrabook/utils/cbmem -o $APPDIR/usr/bin/cbmem
 chmod +x $APPDIR/usr/bin/*
