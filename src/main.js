@@ -142,10 +142,10 @@ setTimeout(async () => {
   document.getElementById("cpuName").innerText = "CPU: " + cpuname;
 
   const manufacturer = await invoke("manufacturer");
-  //closes app on non-chromeos devices
-  if (manufacturer !== "Google") {
+  // terrible practice. See https://github.com/death7654/Chrultrabook-Controller/issues/20
+  /*if (manufacturer !== "Google") {
     appWindow.close();
-  }
+  }*/
 }, 0);
 
 //setFanSpeeds
