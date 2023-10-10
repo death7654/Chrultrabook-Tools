@@ -270,9 +270,8 @@ async fn cbmem(value: String) -> String {
 
 fn exec(program: &str, args: Option<Vec<&str>>) -> Result<std::process::Output, std::io::Error> {
     let mut cmd = std::process::Command::new(program);
-    if os_info::get().os_type() == os_info::Type::Windows {
-        cmd.creation_flags(0x08000000);
-    }
+    #[cfg(windows)]
+    cmd.creation_flags(0x08000000);
     if let Some(arg_vec) = args {
         for arg in arg_vec {
             cmd.arg(arg);
