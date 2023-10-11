@@ -284,7 +284,12 @@ fn match_result(result: Result<std::process::Output, std::io::Error>) -> String 
     let str = match result {
         Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
         Err(e) => {
-            println!("Error `{}`.", e);
+            let error_string = e.to_string();
+            if error_string.find("os error 2") != None {
+                println!("Missing Ectools or Cbmem Binaries");
+            } else {
+                println!("Error `{}`.", e);
+            }
             String::new()
         }
     };
@@ -300,7 +305,12 @@ fn match_result_vec(result: Result<std::process::Output, std::io::Error>) -> Str
             .collect::<Vec<String>>()[1]
             .clone(),
         Err(e) => {
-            println!("Error `{}`.", e);
+            let error_string = e.to_string();
+            if error_string.find("os error 2") != None {
+                println!("Missing Ectools or Cbmem Binaries");
+            } else {
+                println!("Error `{}`.", e);
+            }
             String::new()
         }
     };

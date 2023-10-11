@@ -148,7 +148,7 @@ setTimeout(async () => {
 
   //checks if user is on a chromebook
   const manufacturer = await invoke("manufacturer");
-  if (manufacturer == "Google") {
+  if (manufacturer !== "Google") {
     document.getElementById("blur").classList.add("blur");
     document.getElementById("notChromebook").style.display = "flex";
     document
