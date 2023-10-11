@@ -74,12 +74,13 @@ setTimeout(async () => {
   });
   let value = keyboardBackLight.split(" ");
   document.getElementById("backlightRangeSlider").value = value[4];
+
+  //prevents laptops with no backlight form seeing this
   if (containsNumber(value[4]) === false) {
     document.getElementById("rangeBacklight").style.display = "none";
     document.getElementById("rangeBacklightslider").style.display = "none";
   }
 
-  //prevents laptops with no backlight form seeing this
   if (value[4] !== "0") {
     document.getElementById("backlightRangeSliderText").innerText = value[4];
   } else {
@@ -115,20 +116,19 @@ setInterval(async () => {
 //only allows fanRPM, and fanTEMPS to execute if a fan is found
 if (fan === true) {
   setInterval(async () => {
-    const fanRPM = await invoke("get_fan_rpm");
-    const fanSpeed = fanRPM.toString().split(":").pop().trim();
-    document.getElementById("fanSpeed").innerText = fanSpeed + " RPM";
+    let fanRPM = await invoke("get_fan_rpm");
+    fanRPM = fanRPM.toString().split(":").pop().trim();
+    document.getElementById("fanSpeed").innerText = fanRPM + " RPM";
   }, 1000);
 
   //loads chart on startup
   setTimeout(async () => {
-    let fanCurve = localStorage.getItem("customfanCurves");
-    let fanCurveData = JSON.parse(fanCurve);
+    let fanCurve = JSON.parse(localStorage.getItem("customfanCurves"));
     //adds chart for new installs/users
-    if (fanCurveData == null) {
+    if (fanCurve == null) {
       myChart.config.data.datasets[0].data = [0, 0, 50, 90, 100, 100, 100];
     } else {
-      myChart.config.data.datasets[0].data = fanCurveData;
+      myChart.config.data.datasets[0].data = fanCurve;
     }
   }, 0);
 }
@@ -529,6 +529,6 @@ if ((is_windows = true)) {
   //sets start on boot to checked if true
   const onBoot = localStorage.getItem("startOnBoot");
   if (onBoot === "yes") {
-    startOnBootInput.checked = true; //TODO: Error: unresolved
+    startOnBoot.checked = true; //TODO: Error: unresolved
   }
 }
