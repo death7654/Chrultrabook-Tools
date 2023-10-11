@@ -12,6 +12,13 @@
     <title>Chultrabook Controller</title>
 
 <body style="overflow: hidden;">
+    <div class="error">
+        <div id="notChromebook" class="notChromebook">
+            <span id="notChromebookButton" class="closebtn">✖</span>
+            <h1>This Computer Has Not Been Identified As A Modified Chromebook<br><br>This App Works Best on Modified Chromebooks</h1>
+        </div>This Computer Has Not Been Identified As A Modified Chromebook
+    </div>
+    <div id="blur">
     <div data-tauri-drag-region class="appFrame">
         <div class="appFunctionButtons">
             <button class="minimizeButton" id="minimize">━</button>
@@ -290,7 +297,7 @@
             integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
             crossorigin="anonymous"></script>
     </div>
-
+</div>
 </body>
 <script>
     window.addEventListener("DOMContentLoaded", () => {

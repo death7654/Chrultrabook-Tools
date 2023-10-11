@@ -1,7 +1,7 @@
-import {appWindow} from "@tauri-apps/api/window";
-import {invoke} from "@tauri-apps/api/tauri";
-import {disable, enable} from "tauri-plugin-autostart-api";
-import {Chart, registerables} from "chart.js";
+import { appWindow } from "@tauri-apps/api/window";
+import { invoke } from "@tauri-apps/api/tauri";
+import { disable, enable } from "tauri-plugin-autostart-api";
+import { Chart, registerables } from "chart.js";
 import "chartjs-plugin-dragdata";
 import "./styles.css";
 
@@ -36,7 +36,7 @@ if (hideOnStart === "yes") {
   //closes splash screen
   invoke("close_splashscreen");
   appWindow.hide();
-  //startHiddenInput.checked = true; //TODO: Error: unresolved
+  startHiddenInput.checked = true; //TODO: Error: unresolved
 }
 
 //app close and open functions
@@ -44,7 +44,7 @@ document.getElementById("close").addEventListener("mousedown", () => {
   let addToTray = localStorage.getItem("quitToTray");
   if (addToTray === "yes") {
     appWindow.hide();
-    //systemTrayInput.checked = true; //TODO: Error: unresolved
+    systemTrayInput.checked = true; //TODO: Error: unresolved
   } else {
     appWindow.close();
   }
@@ -146,11 +146,18 @@ setTimeout(async () => {
   document.getElementById("hostname").innerText = "Hostname: " + hostname;
   document.getElementById("cpuName").innerText = "CPU: " + cpuname;
 
-  // terrible practice. See https://github.com/death7654/Chrultrabook-Controller/issues/20
-  /*const manufacturer = await invoke("manufacturer");
+  //checks if user is on a chromebook
+  const manufacturer = await invoke("manufacturer");
   if (manufacturer !== "Google") {
-    appWindow.close();
-  }*/
+    document.getElementById("blur").classList.add("blur");
+    document.getElementById("notChromebook").style.display = "flex";
+    document
+      .getElementById("notChromebookButton")
+      .addEventListener("mousedown", () => {
+        document.getElementById("blur").classList.remove("blur");
+        document.getElementById("notChromebook").style.display = "none";
+      });
+  }
 }, 0);
 
 //setFanSpeeds
@@ -477,8 +484,6 @@ function copyTxt(htmlElement) {
 document.querySelector("#copyButton").addEventListener("mousedown", () => {
   copyTxt(document.querySelector("#cbMemInfo"));
 });
-
-
 
 //sets up local storage for settings so all options that are checked stay checked upon reboot
 startupFan.addEventListener("click", () => {
