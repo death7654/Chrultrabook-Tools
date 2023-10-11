@@ -31,7 +31,7 @@
   text-align: center;
   color: white;
   padding: 20px;
-  background-color: var(--slider-color);
+  background-color: var(--panel-color);
   font-size: 20px;
   border-radius: 10px;
 }
@@ -47,8 +47,8 @@
 }
 
 .blur {
-  filter: blur(6px);
-  -webkit-filter: blur(6px);
+  filter: blur(3px) brightness(25%);
+  -webkit-filter: blur(3px) brightness(25%);
 }
 
 .appFrame {
