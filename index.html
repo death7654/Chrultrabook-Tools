@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="./src/styles.css">
-    <script type="module" src="./src/main.js"></script>
+    <script type="module" src="./dist/main.js"></script>
     <title>Chultrabook Controller</title>
+</head>
 
 <body style="overflow: hidden;">
     <div data-tauri-drag-region class="appFrame">
@@ -150,6 +151,7 @@
                 <br>
                 <h2 style="color: var(--panel-color)">.</h2>
                 <br>
+            </div>
         </section>
         <!--System Controls-->
         <section id="sectionOptions" class="dashboard">
@@ -170,7 +172,7 @@
                                 <div class="value left">
                                     0
                                 </div>
-                                <input type="range" min="0" max="100" value="100" step="10" id="backlightRangeSlider">
+                                <input type="range" min="0" max="100" value="100" step="10" id="backlightRangeSlider" oninput="sliderOnChange(this.value)">
                                 <div class="value right" id="backlightRangeSliderText">100</div>
                             </div>
                         </div>
@@ -217,7 +219,7 @@
                             <div class="caret"></div>
                         </div>
                         <ul class="menu">
-                            <!--If you change anything here make sure to change the name in main.js-->
+                            <!--If you change anything here make sure to change the name in main.ts-->
                             <li>Boot Timestamps</li>
                             <li>Coreboot Log</li>
                             <li>Coreboot Extended Log</li>
