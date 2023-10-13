@@ -1,6 +1,6 @@
 import { appWindow } from "@tauri-apps/api/window";
 import { invoke } from "@tauri-apps/api/tauri";
-import { disable, enable } from "tauri-plugin-autostart-api";
+import { disable, isEnabled, enable } from "tauri-plugin-autostart-api";
 import { Chart, registerables } from "chart.js";
 import "chartjs-plugin-dragdata";
 import "./styles.css";
@@ -527,8 +527,9 @@ if ((is_windows = true)) {
   });
 
   //sets start on boot to checked if true
-  const onBoot = localStorage.getItem("startOnBoot");
-  if (onBoot === "yes") {
+  const onBoot = isEnabled()
+  console.log(onBoot)
+  if (await isEnabled() == true) {
     startOnBoot.checked = true; //TODO: Error: unresolved
   }
 }
