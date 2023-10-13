@@ -45,6 +45,30 @@
 .notChromebook .closebtn {
   font-size: 20px;
 }
+.noEctools {
+  z-index: 6;
+  font-size: 8px;
+  background-color: var(--slider-color);
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 10px;
+  left: 30%;
+  display: none;
+}
+.noEctools .windows {
+  display: none;
+  align-items: center;
+}
+.noEctools .linux {
+  display: none;
+  align-items: center;
+}
+.noEctools h1 {
+  color: white;
+}
 
 .blur {
   filter: blur(3px) brightness(25%);

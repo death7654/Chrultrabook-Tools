@@ -64,7 +64,8 @@ fn main() {
             get_fan_rpm,
             set_battery_limit,
             ectool,
-            cbmem
+            cbmem,
+            chargecontrol
         ])
         .plugin(tauri_plugin_autostart::init(
             MacosLauncher::LaunchAgent,
@@ -265,6 +266,10 @@ async fn ectool(value: String, value2: String) -> String {
 async fn cbmem(value: String) -> String {
     return match_result(exec(MEM, Some(vec![&value.as_str()])));
 }
+#[tauri::command]
+async fn chargecontrol() -> Option<String> {
+    return Some(match_result(exec(EC, Some(vec!["chargecontrol"]))));
+}
 
 // Helper functions
 
@@ -290,7 +295,7 @@ fn match_result(result: Result<std::process::Output, std::io::Error>) -> String 
             } else {
                 println!("Error `{}`.", e);
             }
-            String::new()
+            return "0".to_string();
         }
     };
     return str.trim().to_string();
@@ -311,7 +316,7 @@ fn match_result_vec(result: Result<std::process::Output, std::io::Error>) -> Str
             } else {
                 println!("Error `{}`.", e);
             }
-            String::new()
+            return "0".to_string();
         }
     };
     return str.trim().to_string();

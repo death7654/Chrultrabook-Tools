@@ -140,13 +140,14 @@ setTimeout(async () => {
   const boardname = await invoke("get_board_name");
   const cores = await invoke("get_cpu_cores");
   const cpuname = await invoke("get_cpu_name");
+  const cpuTempFunction = await invoke("get_cpu_temp");
   document.getElementById("biosVersion").innerText = "Bios Version: " + bios;
   document.getElementById("boardname").innerText = "Boardname: " + boardname;
   document.getElementById("coreCPU").innerText = "Cores: " + cores + " Cores";
   document.getElementById("hostname").innerText = "Hostname: " + hostname;
   document.getElementById("cpuName").innerText = "CPU: " + cpuname;
 
-  //checks if user is on a chromebook
+  //checks if user is on a chromebook, and if they are in a chromebook checks if they have the necessary drivers installed per os
   const manufacturer = await invoke("manufacturer");
   if (manufacturer !== "Google") {
     document.getElementById("blur").classList.add("blur");
@@ -157,6 +158,17 @@ setTimeout(async () => {
         document.getElementById("blur").classList.remove("blur");
         document.getElementById("notChromebook").style.display = "none";
       });
+  }
+  else if (cpuTempFunction == "0") {
+    document.getElementById('noEctools').style.display = "block";
+    if (is_windows == true)
+    {
+      document.getElementById('windows').style.display = "flex";
+    }
+    else
+    {
+      document.getElementById('linux').style.display = "flex";
+    }
   }
 }, 0);
 
@@ -527,8 +539,7 @@ if ((is_windows = true)) {
   });
 
   //sets start on boot to checked if true
-  const onBoot = isEnabled()
-  console.log(onBoot)
+  const onBoot = await isEnabled()
   if (await isEnabled() == true) {
     startOnBoot.checked = true; //TODO: Error: unresolved
   }
