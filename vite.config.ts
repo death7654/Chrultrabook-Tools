@@ -6,10 +6,11 @@ export default defineConfig(async () => ({
   plugins: [vue()],
 
   build: {
-    target: 'esnext'
+    target: 'esnext',
+    outDir: '../dist'
   },
 
-  root: 'src/',
+  root: './src',
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //

@@ -8,7 +8,7 @@
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
     "rootDir": "./src",
-    "outDir": "./src/dist/",
+    "outDir": "./dist",
 
     /* Bundler mode */
     "moduleResolution": "bundler",
