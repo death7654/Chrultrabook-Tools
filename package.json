@@ -1,11 +1,11 @@
 {
   "name": "chrultrabook-windows-controller",
   "private": true,
-  "version": "2.4.5",
+  "version": "2.4.6",
   "type": "module",
   "scripts": {
-    "dev": "tsc && vite",
-    "build": "tsc && vite build",
+    "dev": "npx tsc && vite",
+    "build": "npx tsc && vite build",
     "tauri": "tauri"
   },
   "author": "Robinson Arysseril",

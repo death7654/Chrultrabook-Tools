@@ -3,7 +3,6 @@ import {invoke} from "@tauri-apps/api/tauri";
 import {disable, enable, isEnabled} from "tauri-plugin-autostart-api";
 import {Chart, registerables} from "chart.js";
 import "chartjs-plugin-dragdata";
-import "./styles.css";
 
 Chart.register(...registerables);
 
