@@ -1,6 +1,6 @@
 
 #!/bin/bash 
-ROOT=$(..)
+ROOT="$PWD"
 APPIMAGEDIR="$ROOT/src-tauri/target/release/bundle/appimage"
 APPDIR="$(find $APPIMAGEDIR -name "chrultrabook-controller*.AppDir")"
 APPIMAGE="$(find $APPIMAGEDIR -name "chrultrabook-controller*.AppImage")"
