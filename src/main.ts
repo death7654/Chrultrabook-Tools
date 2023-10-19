@@ -1,7 +1,7 @@
 import {appWindow} from "@tauri-apps/api/window";
 import {invoke} from "@tauri-apps/api/tauri";
-import {disable, enable} from "tauri-plugin-autostart-api";
-import {Chart, ChartConfiguration, ChartData, ChartTypeRegistry, registerables} from "chart.js";
+import {disable, enable, isEnabled} from "tauri-plugin-autostart-api";
+import {Chart, registerables} from "chart.js";
 import "chartjs-plugin-dragdata";
 import "./styles.css";
 
@@ -10,10 +10,10 @@ Chart.register(...registerables);
 //TODO: General consistency between document.querySelector and .getElementById
 //TODO: Order in this file
 
-const startupFan = document.querySelector<HTMLInputElement>("startupFansInput")!;
-const systemTray = document.querySelector<HTMLInputElement>("systemTrayInput")!;
-const startHidden = document.querySelector<HTMLInputElement>("startHiddenInput")!;
-const startOnBoot = document.querySelector<HTMLInputElement>("startOnBootInput")!;
+const startupFan = document.querySelector<HTMLInputElement>("#startupFansInput")!;
+const systemTray = document.querySelector<HTMLInputElement>("#systemTrayInput")!;
+const startHidden = document.querySelector<HTMLInputElement>("#startHiddenInput")!;
+const startOnBoot = document.querySelector<HTMLInputElement>("#startOnBootInput")!;
 
 //prevents right click
 document.addEventListener("contextmenu", (event) => event.preventDefault());
@@ -133,12 +133,33 @@ setTimeout(async () => {
     const boardname = await invoke("get_board_name");
     const cores = await invoke("get_cpu_cores");
     const cpuname = await invoke("get_cpu_name");
+    const cpuTempFunction = await invoke("get_cpu_temp");
     document.getElementById("biosVersion")!.innerText = "Bios Version: " + bios;
     document.getElementById("boardname")!.innerText = "Boardname: " + boardname;
     document.getElementById("coreCPU")!.innerText = "Cores: " + cores + " Cores";
     document.getElementById("hostname")!.innerText = "Hostname: " + hostname;
     document.getElementById("cpuName")!.innerText = "CPU: " + cpuname;
+
+    const manufacturer = await invoke("manufacturer");
+    if (manufacturer !== "Google") {
+        document.getElementById("blur")!.classList.add("blur");
+        document.getElementById("notChromebook")!.style.display = "flex";
+        document
+            .getElementById("notChromebookButton")!
+            .addEventListener("mousedown", () => {
+                document.getElementById("blur")!.classList.remove("blur");
+                document.getElementById("notChromebook")!.style.display = "none";
+            });
+    } else if (cpuTempFunction == "0") {
+        document.getElementById('noEctools')!.style.display = "block";
+        if (is_windows) {
+            document.getElementById('windows')!.style.display = "flex";
+        } else {
+            document.getElementById('linux')!.style.display = "flex";
+        }
+    }
 }, 0);
+
 
 //setFanSpeeds
 //Draggable Fan Chart
@@ -514,8 +535,7 @@ if ((is_windows = true)) {
     });
 
     //sets start on boot to checked if true
-    const onBoot = localStorage.getItem("startOnBoot");
-    if (onBoot === "yes") {
+    if (await isEnabled()) {
         startOnBoot.checked = true;
     }
 }
