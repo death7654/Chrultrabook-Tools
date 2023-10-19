@@ -13,6 +13,15 @@
 </head>
 
 <body style="overflow: hidden;">
+        <div id="notChromebook" class="notChromebook">
+            <span id="notChromebookButton" class="closebtn">✖</span>
+            <h1>This Computer Is Not A Modified Chromebook<br><br>This App Works Best on Modified Chromebooks</h1>
+        </div>
+        <div id="noEctools" class="noEctools">
+            <h1 id="windows" class="windows">You Are Missing Coolstar's EC Driver</h1>
+            <h1 id="linux" class="linux">You Are Missing Ectool and Cbmem Binaries</h1>
+        </div>
+    <div id="blur">
     <div data-tauri-drag-region class="appFrame">
         <div class="appFunctionButtons">
             <button class="minimizeButton" id="minimize">━</button>
@@ -292,7 +301,7 @@
             integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
             crossorigin="anonymous"></script>
     </div>
-
+</div>
 </body>
 <script>
     window.addEventListener("DOMContentLoaded", () => {
