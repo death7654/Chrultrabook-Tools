@@ -37,7 +37,7 @@
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "org.chrultrabookcontroller.chrultrabookcontroller",
+      "identifier": "org.chrultrabook.controller",
       "copyright": "GPL-3.0",
       "icon": [
         "icons/32x32.png",
