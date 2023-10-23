@@ -1,7 +1,7 @@
-import {appWindow} from "@tauri-apps/api/window";
-import {invoke} from "@tauri-apps/api/tauri";
-import {disable, enable} from "tauri-plugin-autostart-api";
-import {Chart, registerables} from "chart.js";
+import { appWindow } from "@tauri-apps/api/window";
+import { invoke } from "@tauri-apps/api/tauri";
+import { disable, isEnabled, enable } from "tauri-plugin-autostart-api";
+import { Chart, registerables } from "chart.js";
 import "chartjs-plugin-dragdata";
 import "./styles.css";
 
@@ -36,7 +36,7 @@ if (hideOnStart === "yes") {
   //closes splash screen
   invoke("close_splashscreen");
   appWindow.hide();
-  //startHiddenInput.checked = true; //TODO: Error: unresolved
+  startHiddenInput.checked = true; //TODO: Error: unresolved
 }
 
 //app close and open functions
@@ -44,7 +44,7 @@ document.getElementById("close").addEventListener("mousedown", () => {
   let addToTray = localStorage.getItem("quitToTray");
   if (addToTray === "yes") {
     appWindow.hide();
-    //systemTrayInput.checked = true; //TODO: Error: unresolved
+    systemTrayInput.checked = true; //TODO: Error: unresolved
   } else {
     appWindow.close();
   }
@@ -74,12 +74,13 @@ setTimeout(async () => {
   });
   let value = keyboardBackLight.split(" ");
   document.getElementById("backlightRangeSlider").value = value[4];
+
+  //prevents laptops with no backlight form seeing this
   if (containsNumber(value[4]) === false) {
     document.getElementById("rangeBacklight").style.display = "none";
     document.getElementById("rangeBacklightslider").style.display = "none";
   }
 
-  //prevents laptops with no backlight form seeing this
   if (value[4] !== "0") {
     document.getElementById("backlightRangeSliderText").innerText = value[4];
   } else {
@@ -115,20 +116,19 @@ setInterval(async () => {
 //only allows fanRPM, and fanTEMPS to execute if a fan is found
 if (fan === true) {
   setInterval(async () => {
-    const fanRPM = await invoke("get_fan_rpm");
-    const fanSpeed = fanRPM.toString().split(":").pop().trim();
-    document.getElementById("fanSpeed").innerText = fanSpeed + " RPM";
+    let fanRPM = await invoke("get_fan_rpm");
+    fanRPM = fanRPM.toString().split(":").pop().trim();
+    document.getElementById("fanSpeed").innerText = fanRPM + " RPM";
   }, 1000);
 
   //loads chart on startup
   setTimeout(async () => {
-    let fanCurve = localStorage.getItem("customfanCurves");
-    let fanCurveData = JSON.parse(fanCurve);
+    let fanCurve = JSON.parse(localStorage.getItem("customfanCurves"));
     //adds chart for new installs/users
-    if (fanCurveData == null) {
+    if (fanCurve == null) {
       myChart.config.data.datasets[0].data = [0, 0, 50, 90, 100, 100, 100];
     } else {
-      myChart.config.data.datasets[0].data = fanCurveData;
+      myChart.config.data.datasets[0].data = fanCurve;
     }
   }, 0);
 }
@@ -140,17 +140,38 @@ setTimeout(async () => {
   const boardname = await invoke("get_board_name");
   const cores = await invoke("get_cpu_cores");
   const cpuname = await invoke("get_cpu_name");
+  const cpuTempFunction = await invoke("get_cpu_temp");
   document.getElementById("biosVersion").innerText = "Bios Version: " + bios;
   document.getElementById("boardname").innerText = "Boardname: " + boardname;
   document.getElementById("coreCPU").innerText = "Cores: " + cores + " Cores";
   document.getElementById("hostname").innerText = "Hostname: " + hostname;
   document.getElementById("cpuName").innerText = "CPU: " + cpuname;
 
-  // terrible practice. See https://github.com/death7654/Chrultrabook-Controller/issues/20
-  /*const manufacturer = await invoke("manufacturer");
+  //checks if user is on a chromebook, and if they are in a chromebook checks if they have the necessary drivers installed per os
+  const manufacturer = await invoke("manufacturer");
+  const chargeControl = await invoke("chargecontrol");
+  console.log(chargeControl);
   if (manufacturer !== "Google") {
-    appWindow.close();
-  }*/
+    document.getElementById("blur").classList.add("blur");
+    document.getElementById("notChromebook").style.display = "flex";
+    document
+      .getElementById("notChromebookButton")
+      .addEventListener("mousedown", () => {
+        document.getElementById("blur").classList.remove("blur");
+        document.getElementById("notChromebook").style.display = "none";
+      });
+  }
+  else if (cpuTempFunction == "0") {
+    document.getElementById('noEctools').style.display = "block";
+    if (is_windows == true)
+    {
+      document.getElementById('windows').style.display = "flex";
+    }
+    else
+    {
+      document.getElementById('linux').style.display = "flex";
+    }
+  }
 }, 0);
 
 //setFanSpeeds
@@ -478,8 +499,6 @@ document.querySelector("#copyButton").addEventListener("mousedown", () => {
   copyTxt(document.querySelector("#cbMemInfo"));
 });
 
-
-
 //sets up local storage for settings so all options that are checked stay checked upon reboot
 startupFan.addEventListener("click", () => {
   if (startupFan.checked) {
@@ -522,8 +541,8 @@ if ((is_windows = true)) {
   });
 
   //sets start on boot to checked if true
-  const onBoot = localStorage.getItem("startOnBoot");
-  if (onBoot === "yes") {
-    startOnBootInput.checked = true; //TODO: Error: unresolved
+  const onBoot = await isEnabled()
+  if (await isEnabled() == true) {
+    startOnBoot.checked = true; //TODO: Error: unresolved
   }
 }

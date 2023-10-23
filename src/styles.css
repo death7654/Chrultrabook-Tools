@@ -14,6 +14,67 @@
   transition: var(--tran-03);
 }
 
+/*error msgs*/
+.notChromebook {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 6;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.notChromebook h1{
+  text-align: center;
+  color: white;
+  padding: 20px;
+  background-color: var(--panel-color);
+  font-size: 20px;
+  border-radius: 10px;
+}
+.notChromebook span {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 40px;
+  font-weight: 100;
+}
+.notChromebook .closebtn {
+  font-size: 20px;
+}
+.noEctools {
+  z-index: 6;
+  font-size: 8px;
+  background-color: var(--slider-color);
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 10px;
+  left: 30%;
+  display: none;
+}
+.noEctools .windows {
+  display: none;
+  align-items: center;
+}
+.noEctools .linux {
+  display: none;
+  align-items: center;
+}
+.noEctools h1 {
+  color: white;
+}
+
+.blur {
+  filter: blur(3px) brightness(25%);
+  -webkit-filter: blur(3px) brightness(25%);
+}
+
 .appFrame {
   color: white;
   padding: 0px;
@@ -21,7 +82,7 @@
   height: 35px;
   position: absolute;
   right: 0px;
-  z-index: 1000;
+  z-index: 6;
   -webkit-app-region: drag;
 }
 
@@ -241,6 +302,7 @@ body.dark .activity-data::-webkit-scrollbar-thumb:hover {
   background: var(--panel-color);
 }
 
+
 /*side nav begins*/
 nav {
   border-top-left-radius: 20px;
@@ -422,7 +484,7 @@ body.dark .switch:before {
   width: calc(100% - 250px);
   padding: 10px 14px;
   transition: var(--tran-05);
-  z-index: 50;
+  z-index: 5;
 }
 
 nav.close~.dashboard {
@@ -442,7 +504,7 @@ nav.close~.dashboard {
   padding: 10px 14px;
   background-color: var(--panel-color);
   transition: var(--tran-05);
-  z-index: 10;
+  z-index: 5;
 }
 
 nav.close~.dashboard .top {
@@ -526,7 +588,7 @@ nav.close~.dashboard .top {
   position: relative;
   top: 40px;
   border-radius: 20px;
-  z-index: 50;
+  z-index: 5;
 }
 
 .dash-content .overview .systemInfoText {
@@ -749,7 +811,7 @@ nav.close~.dashboard .top {
   font-weight: 500;
   top: -40px;
   line-height: 55px;
-  z-index: 2;
+  z-index: 3;
   color: var(--text-color);
   transform-origin: bottom;
   transition: transform 0.2s ease-in-out;
@@ -1282,7 +1344,7 @@ nav.close~.dashboard .top {
   opacity: 0;
   display: none;
   transition: 0.2s;
-  z-index: 25;
+  z-index: 4;
 }
 
 .menu li {
