@@ -2,12 +2,16 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 
 // https://vitejs.dev/config/
+/** @type {import('vite').UserConfig} */
 export default defineConfig(async () => ({
   plugins: [vue()],
 
   build: {
-    target: 'esnext'
+    target: 'esnext',
+    outDir: '../dist'
   },
+
+  root: './src',
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //

@@ -105,8 +105,6 @@ async fn get_cpu_usage() -> String {
         let usage = sys.global_cpu_info().cpu_usage();
         std::thread::sleep(System::MINIMUM_CPU_UPDATE_INTERVAL);
         let cpu_usage = usage.round();
-        println!("usage {}", usage);
-        println!("cpuusage {}", cpu_usage);
         return cpu_usage.to_string();
     }
     #[cfg(windows)]

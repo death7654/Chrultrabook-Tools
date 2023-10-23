@@ -1,12 +1,11 @@
 {
-  "name": "chrultrabook-windows-controller",
+  "name": "chrultrabook-controller",
   "private": true,
-  "version": "2.4.5",
+  "version": "2.4.6",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
+    "dev": "npx tsc && vite",
+    "build": "npx tsc && vite build",
     "tauri": "tauri"
   },
   "author": "Robinson Arysseril",
@@ -15,6 +14,7 @@
     "@tauri-apps/api": "^1.5.0",
     "chart.js": "^3.9.1",
     "chartjs-plugin-dragdata": "^2.2.5",
+    "eslint": "^8.51.0",
     "install": "^0.13.0",
     "node-os-utils": "^1.3.7",
     "os-utils": "^0.0.14",
@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.5.0",
-    "@vitejs/plugin-vue": "^4.2.3"
+    "@vitejs/plugin-vue": "^4.2.3",
+    "typescript": "^5.2.2"
   }
 }

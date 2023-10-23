@@ -2,25 +2,25 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="./src/styles.css">
-    <script type="module" src="./src/main.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="../dist/main.js"></script>
     <title>Chultrabook Controller</title>
+</head>
 
 <body style="overflow: hidden;">
-        <div id="notChromebook" class="notChromebook">
-            <span id="notChromebookButton" class="closebtn">✖</span>
-            <h1>This Computer Is Not A Modified Chromebook<br><br>This App Works Best on Modified Chromebooks</h1>
-        </div>
-        <div id="noEctools" class="noEctools">
-            <h1 id="windows" class="windows">You Are Missing Coolstar's EC Driver</h1>
-            <h1 id="linux" class="linux">You Are Missing Ectool and Cbmem Binaries</h1>
-        </div>
-    <div id="blur">
+<div id="notChromebook" class="notChromebook">
+    <span id="notChromebookButton" class="closebtn">✖</span>
+    <h1>This Computer Is Not A Modified Chromebook<br><br>This App Works Best on Modified Chromebooks</h1>
+</div>
+<div id="noEctools" class="noEctools">
+    <h1 id="windows" class="windows">You Are Missing Coolstar's EC Driver</h1>
+    <h1 id="linux" class="linux">You Are Missing Ectool and Cbmem Binaries</h1>
+</div>
+<div id="blur">
     <div data-tauri-drag-region class="appFrame">
         <div class="appFunctionButtons">
             <button class="minimizeButton" id="minimize">━</button>
@@ -32,7 +32,7 @@
             <!--LogoName-->
             <div class="logo-name">
                 <div class="logo-image">
-                    <img class="logoFilter" src="./src/assets/Icons/sidenavbar/chrome.svg" alt="">
+                    <img class="logoFilter" src="assets/Icons/sidenavbar/chrome.svg" alt="">
                 </div>
                 <span class="logo_name">Chrultrabook Tools</span>
             </div>
@@ -45,28 +45,28 @@
                         </div>
                     </li>
                     <li><a id="home">
-                            <img class="navbarimg homeFilter" src="./src/assets/Icons/sidenavbar/home.svg" alt="">
-                            <span class="link-name">Dashboard</span>
-                        </a></li>
+                        <img class="navbarimg homeFilter" src="assets/Icons/sidenavbar/home.svg" alt="">
+                        <span class="link-name">Dashboard</span>
+                    </a></li>
                     <li><a id="fan">
-                            <img class="navbarimg fanFilter" src="./src/assets/Icons/sidenavbar/fan.svg" alt="">
-                            <span class="link-name">Fan Control</span>
-                        </a></li>
+                        <img class="navbarimg fanFilter" src="assets/Icons/sidenavbar/fan.svg" alt="">
+                        <span class="link-name">Fan Control</span>
+                    </a></li>
                     <li><a id="options">
-                            <img class="navbarimg systemoptionsFilter"
-                                src="./src/assets/Icons/sidenavbar/system-options.svg" alt="">
-                            <span class="link-name">System Controls</span>
-                        </a></li>
+                        <img class="navbarimg systemoptionsFilter"
+                             src="assets/Icons/sidenavbar/system-options.svg" alt="">
+                        <span class="link-name">System Controls</span>
+                    </a></li>
                     <li><a id="diagnostics">
-                            <img class="navbarimg diagnosticFilter" src="./src/assets/Icons/sidenavbar/Diagnostics.svg"
-                                alt="">
-                            <span class="link-name">Memory Diagnostics</span>
-                        </a></li>
+                        <img class="navbarimg diagnosticFilter" src="assets/Icons/sidenavbar/Diagnostics.svg"
+                             alt="">
+                        <span class="link-name">Memory Diagnostics</span>
+                    </a></li>
                     <li><a id="information">
-                            <img class="navbarimg settingFilter" src="./src/assets/Icons/sidenavbar/settings.svg"
-                                alt="">
-                            <span class="link-name">Settings</span>
-                        </a></li>
+                        <img class="navbarimg settingFilter" src="assets/Icons/sidenavbar/settings.svg"
+                             alt="">
+                        <span class="link-name">Settings</span>
+                    </a></li>
                 </ul>
                 <!--DarkMode-->
                 <ul style="border: none" class="dark-mode">
@@ -86,23 +86,23 @@
             <div class="dash-content">
                 <div class="overview info">
                     <div class="title">
-                        <img src="./src/assets/Icons/dashboard/tachometer.svg">
+                        <img src="assets/Icons/dashboard/tachometer.svg">
                         <span class="text">Dashboard</span>
                     </div>
 
                     <div class="boxes">
                         <div class="box cpuLoad">
-                            <img src="./src/assets/Icons/dashboard/cpu.svg" alt="">
+                            <img src="assets/Icons/dashboard/cpu.svg" alt="">
                             <span class="text" style="color: var(--textbox-color);">CPU Load</span>
                             <span id="cpuLoad" style="color: var(--textbox-color);">0%</span>
                         </div>
                         <div class="box cpuTemps">
-                            <img src="./src/assets/Icons/dashboard/thermometer.svg" alt="">
+                            <img src="assets/Icons/dashboard/thermometer.svg" alt="">
                             <span class="text" style="color: var(--textbox-color);">CPU TEMPS</span>
                             <span id="cpuTemp" style="color: var(--textbox-color);">0°C</span>
                         </div>
                         <div class="box ram">
-                            <img src="./src/assets/Icons/dashboard/ram.svg" alt="">
+                            <img src="assets/Icons/dashboard/ram.svg" alt="">
                             <span class="text" style="color: var(--textbox-color);">RAM USAGE</span>
                             <span id="ramPercentage" style="color: var(--textbox-color);">0%</span>
                         </div>
@@ -124,17 +124,17 @@
             <div class="dash-content">
                 <div class="overview">
                     <div class="title">
-                        <img src="./src/assets/Icons/fancontrol/fancontroldash.svg">
+                        <img src="assets/Icons/fancontrol/fancontroldash.svg">
                         <span class="text">Fan Control</span>
                     </div>
                     <div class="boxes">
                         <div class="box fanSpeed">
-                            <img src="./src/assets/Icons/fancontrol/animatedfan.svg" alt="">
+                            <img src="assets/Icons/fancontrol/animatedfan.svg" alt="">
                             <span class="text">Fan Speed</span>
                             <span id="fanSpeed" style="color: var(--textbox-color);">Unknown</span>
                         </div>
                         <div class="box tempCPU">
-                            <img src="./src/assets/Icons/fancontrol/thermometer(white).svg" alt="">
+                            <img src="assets/Icons/fancontrol/thermometer(white).svg" alt="">
                             <span class="text">CPU TEMPS</span>
                             <span id="cpuTempFan" style="color: var(--textbox-color);">0°C</span>
                         </div>
@@ -159,13 +159,14 @@
                 <br>
                 <h2 style="color: var(--panel-color)">.</h2>
                 <br>
+            </div>
         </section>
         <!--System Controls-->
         <section id="sectionOptions" class="dashboard">
             <div class="dash-content">
                 <div class="overview">
                     <div class="title options">
-                        <img src="./src/assets/Icons/systemOptions/system-options.svg">
+                        <img src="assets/Icons/systemOptions/system-options.svg">
                         <span class="text">System Controls</span>
                     </div>
                     <!--Keyboard Backlight Controls-->
@@ -179,7 +180,8 @@
                                 <div class="value left">
                                     0
                                 </div>
-                                <input type="range" min="0" max="100" value="100" step="10" id="backlightRangeSlider">
+                                <input type="range" min="0" max="100" value="100" step="10" id="backlightRangeSlider"
+                                       oninput="sliderOnChange(this.value)">
                                 <div class="value right" id="backlightRangeSliderText">100</div>
                             </div>
                         </div>
@@ -213,7 +215,7 @@
             <div class="dash-content">
                 <div class="overview">
                     <div class="title">
-                        <img src="./src/assets/Icons/cbmem/bugcbmemdash.svg">
+                        <img src="assets/Icons/cbmem/bugcbmemdash.svg">
                         <span class="text">System Information</span>
                     </div>
 
@@ -226,7 +228,7 @@
                             <div class="caret"></div>
                         </div>
                         <ul class="menu">
-                            <!--If you change anything here make sure to change the name in main.js-->
+                            <!--If you change anything here make sure to change the name in main.ts-->
                             <li>Boot Timestamps</li>
                             <li>Coreboot Log</li>
                             <li>Coreboot Extended Log</li>
@@ -243,8 +245,8 @@
                     <button id="cbMem" href="#" class="cbMem">Get Info</button>
                     <button id="copyButton" class="copyButton">
                         <svg aria-hidden="true" focusable="false" role="img" class="octicon octicon-copy"
-                            viewBox="0 0 16 16" width="16" height="16" fill="currentColor"
-                            style="display: inline-block; user-select: none; vertical-align: text-bottom;">
+                             viewBox="0 0 16 16" width="16" height="16" fill="currentColor"
+                             style="display: inline-block; user-select: none; vertical-align: text-bottom;">
                             <path
                                 d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z">
                             </path>
@@ -266,7 +268,7 @@
             <div class="dash-content">
                 <div class="overview">
                     <div class="title">
-                        <img src="./src/assets/Icons/settings/settings-page.svg">
+                        <img src="assets/Icons/settings/settings-page.svg">
                         <span class="text">Settings </span>
                     </div>
                     <div class="settings">
@@ -296,8 +298,8 @@
             </div>
         </section>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-            crossorigin="anonymous"></script>
+                integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+                crossorigin="anonymous"></script>
     </div>
 </div>
 </body>
@@ -468,8 +470,9 @@
     });
 </script>
 <script type="module">
-      import { invoke } from "@tauri-apps/api/tauri";
-      setTimeout(invoke("close_splashscreen"),8000);
+    import {invoke} from "@tauri-apps/api/tauri";
+
+    setTimeout(invoke("close_splashscreen"), 8000);
 </script>
 
 </html>

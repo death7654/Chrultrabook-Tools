@@ -3,672 +3,679 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
 
 * {
-  user-select: none;
-  -webkit-user-select: none;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-  color: var(--text-color);
-  transition: var(--tran-03);
+    user-select: none;
+    -webkit-user-select: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    color: var(--text-color);
+    transition: var(--tran-03);
 }
 
 /*error msgs*/
 .notChromebook {
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  z-index: 6;
-  display: none;
-  align-items: center;
-  justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 6;
+    display: none;
+    align-items: center;
+    justify-content: center;
 }
-.notChromebook h1{
-  text-align: center;
-  color: white;
-  padding: 20px;
-  background-color: var(--panel-color);
-  font-size: 20px;
-  border-radius: 10px;
+
+.notChromebook h1 {
+    text-align: center;
+    color: white;
+    padding: 20px;
+    background-color: var(--panel-color);
+    font-size: 20px;
+    border-radius: 10px;
 }
+
 .notChromebook span {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 40px;
-  font-weight: 100;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 40px;
+    font-weight: 100;
 }
+
 .notChromebook .closebtn {
-  font-size: 20px;
+    font-size: 20px;
 }
+
 .noEctools {
-  z-index: 6;
-  font-size: 8px;
-  background-color: var(--slider-color);
-  padding: 10px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  position: absolute;
-  bottom: 10px;
-  left: 30%;
-  display: none;
+    z-index: 6;
+    font-size: 8px;
+    background-color: var(--slider-color);
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 10px;
+    left: 30%;
+    display: none;
 }
+
 .noEctools .windows {
-  display: none;
-  align-items: center;
+    display: none;
+    align-items: center;
 }
+
 .noEctools .linux {
-  display: none;
-  align-items: center;
+    display: none;
+    align-items: center;
 }
+
 .noEctools h1 {
-  color: white;
+    color: white;
 }
 
 .blur {
-  filter: blur(3px) brightness(25%);
-  -webkit-filter: blur(3px) brightness(25%);
+    filter: blur(3px) brightness(25%);
+    -webkit-filter: blur(3px) brightness(25%);
 }
 
 .appFrame {
-  color: white;
-  padding: 0px;
-  width: 100%;
-  height: 35px;
-  position: absolute;
-  right: 0px;
-  z-index: 6;
-  -webkit-app-region: drag;
+    color: white;
+    padding: 0px;
+    width: 100%;
+    height: 35px;
+    position: absolute;
+    right: 0px;
+    z-index: 6;
+    -webkit-app-region: drag;
 }
 
 .appFrame .closeButton {
-  -webkit-app-region: none;
-  position: absolute;
-  right: 15px;
-  top: 15px;
-  font-family: "Roboto", sans-serif;
-  font-size: 6px;
-  height: 12px;
-  width: 12px;
-  font-weight: bold;
-  background: #ff6159;
-  border-color: black;
-  border: none;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  color: #ff6159;
-  border-radius: 50%;
-  cursor: pointer;
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-property: box-shadow, transform;
-  transition-property: box-shadow, transform;
+    -webkit-app-region: none;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    font-family: "Roboto", sans-serif;
+    font-size: 6px;
+    height: 12px;
+    width: 12px;
+    font-weight: bold;
+    background: #ff6159;
+    border-color: black;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #ff6159;
+    border-radius: 50%;
+    cursor: pointer;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: box-shadow, transform;
+    transition-property: box-shadow, transform;
 }
 
 .appFrame .closeButton:hover {
-  color: black;
-  transition: all 0.3s ease-out;
-  transform: scale(1.1);
+    color: black;
+    transition: all 0.3s ease-out;
+    transform: scale(1.1);
 }
 
 .appFrame .closeButton:active {
-  background-color: #bf4942;
+    background-color: #bf4942;
 }
 
 .appFrame .minimizeButton {
-  -webkit-app-region: none;
-  position: absolute;
-  right: 32.5px;
-  top: 15px;
-  font-family: "Roboto", sans-serif;
-  font-size: 6px;
-  height: 12px;
-  width: 12px;
-  font-weight: bold;
-  background: #ffbd2e;
-  border-color: black;
-  border: none;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  color: #ffbd2e;
-  border-radius: 50%;
-  cursor: pointer;
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-property: box-shadow, transform;
-  transition-property: box-shadow, transform;
+    -webkit-app-region: none;
+    position: absolute;
+    right: 32.5px;
+    top: 15px;
+    font-family: "Roboto", sans-serif;
+    font-size: 6px;
+    height: 12px;
+    width: 12px;
+    font-weight: bold;
+    background: #ffbd2e;
+    border-color: black;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #ffbd2e;
+    border-radius: 50%;
+    cursor: pointer;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: box-shadow, transform;
+    transition-property: box-shadow, transform;
 }
 
 .appFrame .minimizeButton:hover {
-  color: black;
-  transition: all 0.3s ease-out;
-  transform: scale(1.1);
+    color: black;
+    transition: all 0.3s ease-out;
+    transform: scale(1.1);
 }
 
 .appFrame .minimizeButton:active {
-  background-color: #bf8e22;
+    background-color: #bf8e22;
 }
 
 .menu-items .nav-links .navbarimg {
-  padding-left: 6px;
-  padding-right: 8px;
-  text-align: right;
+    padding-left: 6px;
+    padding-right: 8px;
+    text-align: right;
 }
 
 
 /*default colors */
 :root {
-  /* ===== Colors ===== */
-  --primary-color: #0e4bf1;
-  --panel-color: #fafafa;
-  --text-color: black;
-  --textbox-color: #000;
-  --black-light-color: #bdbdbd;
-  --border-color: #b8b6b6;
-  --toggle-color: #ff7f50;
-  --box1-color: #ef476f;
-  --box2-color: #06d6a0;
-  --box3-color: #00acc2;
-  --box4-color: #ef476f;
-  --box5-color: #06d6a0;
-  --fanAuto-color: #239c00;
-  --fanMax-color: #9c0000;
-  --fanOff-color: #f04f00;
-  --fanCurves-color: #eef1f7;
-  --fanCurvesHover-color: #06d6a0;
-  --getcbMem-color: #d170e9;
-  --copy-color: #007fff;
-  --cbmemCode-color: #d6d9de;
-  --dropdown-color: #e6e6e6;
-  --hover-color: rgb(194, 194, 227);
-  --systeminfo-color: #d6d9de;
-  --title-icon-color: #ccc;
-  --switch-color: #fcefef;
-  --select-color: #f2f2f2;
-  --slider-knob-color: #06d6a0;
-  --slider-color: #ef476f;
-  --chargeslider-color: #0094EA;
-  --chargeslider-knob-color: #47e1ef;
-  --slider-text-color: #ffffff;
-  --remap-color: #00BAE2;
-  --homeFilter: invert(27%) sepia(74%) saturate(4443%) hue-rotate(119deg) brightness(97%) contrast(73%);
-  --fanFilter: invert(54%) sepia(61%) saturate(595%) hue-rotate(186deg) brightness(95%) contrast(94%);
-  --optionsFilter: invert(39%) sepia(10%) saturate(771%) hue-rotate(168deg) brightness(89%) contrast(87%);
-  --diagnosticFilter: invert(88%) sepia(31%) saturate(6481%) hue-rotate(343deg) brightness(103%) contrast(101%);
-  --settingFilter: invert(20%) sepia(16%) saturate(0%) hue-rotate(240deg) brightness(105%) contrast(89%);
+    /* ===== Colors ===== */
+    --primary-color: #0e4bf1;
+    --panel-color: #fafafa;
+    --text-color: black;
+    --textbox-color: #000;
+    --black-light-color: #bdbdbd;
+    --border-color: #b8b6b6;
+    --toggle-color: #ff7f50;
+    --box1-color: #ef476f;
+    --box2-color: #06d6a0;
+    --box3-color: #00acc2;
+    --box4-color: #ef476f;
+    --box5-color: #06d6a0;
+    --fanAuto-color: #239c00;
+    --fanMax-color: #9c0000;
+    --fanOff-color: #f04f00;
+    --fanCurves-color: #eef1f7;
+    --fanCurvesHover-color: #06d6a0;
+    --getcbMem-color: #d170e9;
+    --copy-color: #007fff;
+    --cbmemCode-color: #d6d9de;
+    --dropdown-color: #e6e6e6;
+    --hover-color: rgb(194, 194, 227);
+    --systeminfo-color: #d6d9de;
+    --title-icon-color: #ccc;
+    --switch-color: #fcefef;
+    --select-color: #f2f2f2;
+    --slider-knob-color: #06d6a0;
+    --slider-color: #ef476f;
+    --chargeslider-color: #0094EA;
+    --chargeslider-knob-color: #47e1ef;
+    --slider-text-color: #ffffff;
+    --remap-color: #00BAE2;
+    --homeFilter: invert(27%) sepia(74%) saturate(4443%) hue-rotate(119deg) brightness(97%) contrast(73%);
+    --fanFilter: invert(54%) sepia(61%) saturate(595%) hue-rotate(186deg) brightness(95%) contrast(94%);
+    --optionsFilter: invert(39%) sepia(10%) saturate(771%) hue-rotate(168deg) brightness(89%) contrast(87%);
+    --diagnosticFilter: invert(88%) sepia(31%) saturate(6481%) hue-rotate(343deg) brightness(103%) contrast(101%);
+    --settingFilter: invert(20%) sepia(16%) saturate(0%) hue-rotate(240deg) brightness(105%) contrast(89%);
 
-  /* ====== Transition ====== */
-  --tran-05: all 0.5s ease;
-  --tran-03: all 0.3s ease;
-  --tran-03: all 0.2s ease;
+    /* ====== Transition ====== */
+    --tran-05: all 0.5s ease;
+    --tran-03: all 0.3s ease;
+    --tran-03: all 0.2s ease;
 }
 
 body.dark {
-  --primary-color: #0e4bf1;
-  --panel-color: #2b2a2a;
-  --text-color: #fff;
-  --textbox-color: #000;
-  --black-light-color: #7e7e7e;
-  --border-color: #383737;
-  --toggle-color: #c438fb;
-  --box1-color: #3bd5f6;
-  --box2-color: #19e7e3;
-  --box3-color: #aefa92;
-  --box4-color: #64f3be;
-  --box5-color: #f9f871;
-  --fanAuto-color: #01b38c;
-  --fanMax-color: #f27b71;
-  --fanOff-color: #e89b26;
-  --fanCurves-color: #313030;
-  --fanCurvesHover-color: #FC3B52;
-  --getcbMem-color: #fc3b52;
-  --copy-color: #00bae2;
-  --cbmemCode-color: #313030;
-  --hover-color: #342d2d;
-  --dropdown-color: #413f3f;
-  --systeminfo-color: #3d3c3c;
-  --title-icon-color: #ccc;
-  --switch-color: #221824;
-  --select-color: #353434;
-  --slider-color: #4477CE;
-  --slider-knob-color: #ffcb10;
-  --chargeslider-color: #b84599;
-  --chargeslider-knob-color: #82ffe6;
-  --remap-color: #ff3d54;
-  --slider-text-color: #ffffff;
-  --logoFilter: invert(100%) sepia(0%) saturate(0%) hue-rotate(95deg) brightness(103%) contrast(107%);
-  --homeFilter: invert(82%) sepia(53%) saturate(335%) hue-rotate(97deg) brightness(101%) contrast(102%);
-  --fanFilter: invert(44%) sepia(33%) saturate(4509%) hue-rotate(182deg) brightness(99%) contrast(108%);
-  --optionsFilter: invert(85%) sepia(6%) saturate(1727%) hue-rotate(181deg) brightness(82%) contrast(87%);
-  --diagnosticFilter: invert(74%) sepia(25%) saturate(5073%) hue-rotate(339deg) brightness(95%) contrast(99%);
-  --settingFilter: invert(51%) sepia(0%) saturate(1517%) hue-rotate(144deg) brightness(91%) contrast(88%);
+    --primary-color: #0e4bf1;
+    --panel-color: #2b2a2a;
+    --text-color: #fff;
+    --textbox-color: #000;
+    --black-light-color: #7e7e7e;
+    --border-color: #383737;
+    --toggle-color: #c438fb;
+    --box1-color: #3bd5f6;
+    --box2-color: #19e7e3;
+    --box3-color: #aefa92;
+    --box4-color: #64f3be;
+    --box5-color: #f9f871;
+    --fanAuto-color: #01b38c;
+    --fanMax-color: #f27b71;
+    --fanOff-color: #e89b26;
+    --fanCurves-color: #313030;
+    --fanCurvesHover-color: #FC3B52;
+    --getcbMem-color: #fc3b52;
+    --copy-color: #00bae2;
+    --cbmemCode-color: #313030;
+    --hover-color: #342d2d;
+    --dropdown-color: #413f3f;
+    --systeminfo-color: #3d3c3c;
+    --title-icon-color: #ccc;
+    --switch-color: #221824;
+    --select-color: #353434;
+    --slider-color: #4477CE;
+    --slider-knob-color: #ffcb10;
+    --chargeslider-color: #b84599;
+    --chargeslider-knob-color: #82ffe6;
+    --remap-color: #ff3d54;
+    --slider-text-color: #ffffff;
+    --logoFilter: invert(100%) sepia(0%) saturate(0%) hue-rotate(95deg) brightness(103%) contrast(107%);
+    --homeFilter: invert(82%) sepia(53%) saturate(335%) hue-rotate(97deg) brightness(101%) contrast(102%);
+    --fanFilter: invert(44%) sepia(33%) saturate(4509%) hue-rotate(182deg) brightness(99%) contrast(108%);
+    --optionsFilter: invert(85%) sepia(6%) saturate(1727%) hue-rotate(181deg) brightness(82%) contrast(87%);
+    --diagnosticFilter: invert(74%) sepia(25%) saturate(5073%) hue-rotate(339deg) brightness(95%) contrast(99%);
+    --settingFilter: invert(51%) sepia(0%) saturate(1517%) hue-rotate(144deg) brightness(91%) contrast(88%);
 
 }
 
 .logoFilter {
-  filter: var(--logoFilter);
+    filter: var(--logoFilter);
 }
 
 .homeFilter {
-  filter: var(--homeFilter);
+    filter: var(--homeFilter);
 }
 
 .fanFilter {
-  filter: var(--fanFilter);
+    filter: var(--fanFilter);
 }
 
 .systemoptionsFilter {
-  filter: var(--optionsFilter);
+    filter: var(--optionsFilter);
 }
 
 .diagnosticFilter {
-  filter: var(--diagnosticFilter);
+    filter: var(--diagnosticFilter);
 }
 
 .settingFilter {
-  filter: var(--settingFilter);
+    filter: var(--settingFilter);
 }
 
 /* === Custom Scroll Bar CSS === */
 ::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+    width: 0;
+    height: 0;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--panel-color);
+    background: var(--panel-color);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--panel-color);
-  border-radius: 12px;
-  transition: all 0.3s ease;
+    background: var(--panel-color);
+    border-radius: 12px;
+    transition: all 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--panel-color);
-  color: var(--panel-color);
+    background: var(--panel-color);
+    color: var(--panel-color);
 }
 
 body.dark::-webkit-scrollbar-thumb:hover,
 body.dark .activity-data::-webkit-scrollbar-thumb:hover {
-  background: var(--panel-color);
+    background: var(--panel-color);
 }
 
 
 /*side nav begins*/
 nav {
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-  position: fixed;
-  top: 0px;
-  left: 0;
-  height: 100%;
-  width: 250px;
-  padding: 10px 14px;
-  background-color: var(--panel-color);
-  border-right: 1px solid var(--border-color);
-  transition: var(--tran-05);
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    position: fixed;
+    top: 0px;
+    left: 0;
+    height: 100%;
+    width: 250px;
+    padding: 10px 14px;
+    background-color: var(--panel-color);
+    border-right: 1px solid var(--border-color);
+    transition: var(--tran-05);
 }
 
 nav.close {
-  width: 73px;
+    width: 73px;
 }
 
 nav .logo-name {
-  display: flex;
-  align-items: center;
-  position: relative;
-  top: 0px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    top: 0px;
 }
 
 nav .logo-image {
-  display: flex;
-  justify-content: center;
-  min-width: 45px;
-  color: var(--text-color);
-  transition: var(--tran-05);
+    display: flex;
+    justify-content: center;
+    min-width: 45px;
+    color: var(--text-color);
+    transition: var(--tran-05);
 }
 
 nav .logo-image img {
-  width: 40px;
-  object-fit: cover;
-  border-radius: 50%;
-  color: var(--title-icon-color);
-  color: white;
+    width: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    color: var(--title-icon-color);
+    color: white;
 }
 
 nav .logo-name .logo_name {
-  font-size: 22px;
-  font-weight: 600;
-  color: var(--text-color);
-  margin-left: 14px;
-  transition: var(--tran-05);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-left: 14px;
+    transition: var(--tran-05);
 }
 
 nav.close .logo_name {
-  opacity: 0;
-  pointer-events: none;
+    opacity: 0;
+    pointer-events: none;
 }
 
 nav .menu-items {
-  margin-top: 40px;
-  height: calc(100% - 90px);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+    margin-top: 40px;
+    height: calc(100% - 90px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .menu-items li {
-  list-style: none;
+    list-style: none;
 }
 
 .menu-items li a {
-  display: flex;
-  align-items: center;
-  height: 50px;
-  text-decoration: none;
-  position: relative;
+    display: flex;
+    align-items: center;
+    height: 50px;
+    text-decoration: none;
+    position: relative;
 }
 
 .nav-links li a:hover:before {
-  content: "";
-  position: absolute;
-  left: -7px;
-  height: 5px;
-  width: 5px;
-  border-radius: 50%;
-  background-color: var(--primary-color);
+    content: "";
+    position: absolute;
+    left: -7px;
+    height: 5px;
+    width: 5px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
 }
 
 body.dark li a:hover:before {
-  background-color: var(--text-color);
+    background-color: var(--text-color);
 }
 
 .menu-items li a i {
-  font-size: 24px;
-  min-width: 45px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--black-light-color);
+    font-size: 24px;
+    min-width: 45px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--black-light-color);
 }
 
 .menu-items li a .link-name {
-  font-size: 18px;
-  font-weight: 400;
-  padding-left: 8px;
-  color: var(--black-light-color);
-  transition: var(--tran-05);
+    font-size: 18px;
+    font-weight: 400;
+    padding-left: 8px;
+    color: var(--black-light-color);
+    transition: var(--tran-05);
 }
 
 nav.close li a .link-name {
-  opacity: 0;
-  pointer-events: none;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .nav-links li a:hover i,
 .nav-links li a:hover .link-name {
-  color: var(--primary-color);
+    color: var(--primary-color);
 }
 
 body.dark .nav-links li a:hover i,
 body.dark .nav-links li a:hover .link-name {
-  color: var(--text-color);
+    color: var(--text-color);
 }
 
 .menu-items .dark-mode {
-  padding-top: 10px;
-  border-top: 1px solid var(--border-color);
+    padding-top: 10px;
+    border-top: 1px solid var(--border-color);
 }
 
 .menu-items .mode {
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
 }
 
 .menu-items .mode-toggle {
-  position: absolute;
-  left: 14px;
-  top: 500px;
-  height: 50px;
-  min-width: 45px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+    position: absolute;
+    left: 14px;
+    top: 500px;
+    height: 50px;
+    min-width: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
 
 .mode-toggle .switch {
-  position: relative;
-  display: inline-block;
-  height: 22px;
-  width: 40px;
-  border-radius: 25px;
-  background-color: var(--toggle-color);
+    position: relative;
+    display: inline-block;
+    height: 22px;
+    width: 40px;
+    border-radius: 25px;
+    background-color: var(--toggle-color);
 }
 
 .switch:before {
-  content: "";
-  position: absolute;
-  left: 5px;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 15px;
-  width: 15px;
-  background-color: var(--switch-color);
-  border-radius: 50%;
-  transition: var(--tran-03);
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 15px;
+    width: 15px;
+    background-color: var(--switch-color);
+    border-radius: 50%;
+    transition: var(--tran-03);
 }
 
 body.dark .switch:before {
-  left: 20px;
+    left: 20px;
 }
 
 .dashboard {
-  position: relative;
-  border-top-right-radius: 20px;
-  left: 250px;
-  background-color: var(--panel-color);
-  min-height: 100vh;
-  height: fit-content;
-  width: calc(100% - 250px);
-  padding: 10px 14px;
-  transition: var(--tran-05);
-  z-index: 5;
+    position: relative;
+    border-top-right-radius: 20px;
+    left: 250px;
+    background-color: var(--panel-color);
+    min-height: 100vh;
+    height: fit-content;
+    width: calc(100% - 250px);
+    padding: 10px 14px;
+    transition: var(--tran-05);
+    z-index: 5;
 }
 
-nav.close~.dashboard {
-  left: 73px;
-  width: calc(100% - 73px);
+nav.close ~ .dashboard {
+    left: 73px;
+    width: calc(100% - 73px);
 }
 
 .dashboard .top {
-  border-top-right-radius: 20px;
-  position: fixed;
-  top: 0px;
-  left: 250px;
-  display: flex;
-  width: calc(100% - 250px);
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 14px;
-  background-color: var(--panel-color);
-  transition: var(--tran-05);
-  z-index: 5;
+    border-top-right-radius: 20px;
+    position: fixed;
+    top: 0px;
+    left: 250px;
+    display: flex;
+    width: calc(100% - 250px);
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background-color: var(--panel-color);
+    transition: var(--tran-05);
+    z-index: 5;
 }
 
-nav.close~.dashboard .top {
-  left: 73px;
-  width: calc(100% - 73px);
+nav.close ~ .dashboard .top {
+    left: 73px;
+    width: calc(100% - 73px);
 }
 
 .sidebar-toggle {
-  font-size: 30px;
-  color: var(--text-color);
-  cursor: pointer;
-  margin-left: 7px;
+    font-size: 30px;
+    color: var(--text-color);
+    cursor: pointer;
+    margin-left: 7px;
 }
 
 .top img {
-  width: 40px;
-  border-radius: 50%;
+    width: 40px;
+    border-radius: 50%;
 }
 
 /*Main HTML File begins */
 
 .dashboard .dash-content {
-  padding-top: 30px;
+    padding-top: 30px;
 }
 
 .dash-content .title {
-  display: flex;
-  align-items: center;
-  margin: 60px 0 30px 0;
+    display: flex;
+    align-items: center;
+    margin: 60px 0 30px 0;
 }
 
 
 .dash-content .title .text {
-  font-size: 24px;
-  font-weight: 500;
-  color: var(--text-color);
-  margin-left: 10px;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-left: 10px;
 }
 
 .dash-content .boxes {
-  display: inline-grid;
-  width: 100%;
-  align-items: center;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 20px;
+    display: inline-grid;
+    width: 100%;
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
 }
 
 .dash-content .boxes .box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 12px;
-  padding: 15px 20px;
-  background-color: var(--box1-color);
-  transition: var(--tran-05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 12px;
+    padding: 15px 20px;
+    background-color: var(--box1-color);
+    transition: var(--tran-05);
 }
 
 
 .boxes .box.cpuLoad {
-  background-color: var(--box1-color);
-  color: var(--text-color);
+    background-color: var(--box1-color);
+    color: var(--text-color);
 }
 
 .boxes .box.cpuTemps {
-  background-color: var(--box2-color);
-  color: var(--text-color);
+    background-color: var(--box2-color);
+    color: var(--text-color);
 }
 
 .boxes .box.ram {
-  background-color: var(--box3-color);
-  color: var(--text-color);
+    background-color: var(--box3-color);
+    color: var(--text-color);
 
 }
 
 .dash-content .overview .systemInfo {
-  width: calc(100% - 15px);
-  font-weight: normal;
-  font-size: 15;
-  background-color: var(--systeminfo-color);
-  transition: var(--tran-05);
-  position: relative;
-  top: 40px;
-  border-radius: 20px;
-  z-index: 5;
+    width: calc(100% - 15px);
+    font-weight: normal;
+    font-size: 15;
+    background-color: var(--systeminfo-color);
+    transition: var(--tran-05);
+    position: relative;
+    top: 40px;
+    border-radius: 20px;
+    z-index: 5;
 }
 
 .dash-content .overview .systemInfoText {
-  padding: 20px;
+    padding: 20px;
 }
 
 /*fan section */
 
 .dash-content.boxes.fanSpeed {
-  background-color: var(--box4-color);
+    background-color: var(--box4-color);
 }
 
 .boxes .box i {
-  color: var(--text-color);
+    color: var(--text-color);
 }
 
 .boxes .box .text {
-  white-space: nowrap;
-  font-size: 18px;
-  font-weight: 500;
-  color: black;
+    white-space: nowrap;
+    font-size: 18px;
+    font-weight: 500;
+    color: black;
 }
 
 
 .hiddentext {
-  display: none;
+    display: none;
 }
 
 .boxes .box.tempCPU {
-  background-color: var(--box5-color);
+    background-color: var(--box5-color);
 }
 
 .boxes .box.fanSpeed {
-  background-color: var(--box4-color);
+    background-color: var(--box4-color);
 }
 
 .boxes .box.hidden {
-  background-color: var(--panel-color);
+    background-color: var(--panel-color);
 }
 
 .activeButton {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  -webkit-transform: scale(1.1);
-  transform: scale(1.07);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.07);
 }
 
 .FanSpeedText {
-  position: relative;
-  top: 20px;
+    position: relative;
+    top: 20px;
 }
 
 .fanButtons {
-  display: inline-grid;
-  width: 100%;
-  align-items: center;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 10px;
-  position: relative;
-  top: 40px;
+    display: inline-grid;
+    width: 100%;
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 10px;
+    position: relative;
+    top: 40px;
 }
 
 .FanAuto,
 .FanOff,
 .FanMax {
-  position: relative;
-  font-family: "Roboto", sans-serif;
-  font-size: 18px;
-  font-weight: bold;
-  padding: 20px;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-property: box-shadow, transform;
-  transition-property: box-shadow, transform;
+    position: relative;
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: box-shadow, transform;
+    transition-property: box-shadow, transform;
 }
 
 .FanAuto:hover,
@@ -677,871 +684,872 @@ nav.close~.dashboard .top {
 .FanOff:focus,
 .FanMax:hover,
 .FanMax:active {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  -webkit-transform: scale(1.1);
-  transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 .FanAuto {
-  background: var(--fanAuto-color);
+    background: var(--fanAuto-color);
 }
 
 .FanOff {
-  background: var(--fanOff-color);
+    background: var(--fanOff-color);
 }
 
 .FanMax {
-  background: var(--fanMax-color);
+    background: var(--fanMax-color);
 }
 
 .customFanSpeedText {
-  position: absolute;
-  top: 475px;
+    position: absolute;
+    top: 475px;
 }
 
 .fancurves {
-  position: relative;
-  width: 95%;
-  height: 400px;
-  top: 150px;
-  left: 1%;
-  background-color: var(--fanCurves-color);
-  transition: var(--tran-05);
-  border-radius: 20px;
-  cursor: pointer;
+    position: relative;
+    width: 95%;
+    height: 400px;
+    top: 150px;
+    left: 1%;
+    background-color: var(--fanCurves-color);
+    transition: var(--tran-05);
+    border-radius: 20px;
+    cursor: pointer;
 
 }
 
 .setFan {
-  position: relative;
-  top: 80px;
-  left: 60px;
-  font-family: "Roboto", sans-serif;
-  font-size: 18px;
-  font-weight: bold;
-  background: var(--dropdown-color);
-  color: var(--text-color);
-  width: 80%;
-  padding: 20px;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  border: #000;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-property: box-shadow, transform;
-  transition-property: box-shadow, transform;
-  border-color: #000000;
+    position: relative;
+    top: 80px;
+    left: 60px;
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    background: var(--dropdown-color);
+    color: var(--text-color);
+    width: 80%;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: #000;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: box-shadow, transform;
+    transition-property: box-shadow, transform;
+    border-color: #000000;
 
 }
 
 .setFan:hover,
 .setFan:active {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  -webkit-transform: scale(1.1);
-  transform: scale(1.02);
-  background-color: var(--fanCurvesHover-color);
-  color: white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.02);
+    background-color: var(--fanCurvesHover-color);
+    color: white;
 }
 
 
 /*system options*/
 
 .ActivityLight {
-  position: relative;
-  top: 10px;
+    position: relative;
+    top: 10px;
 }
 
 .activitylightText {
-  font-size: 20px;
-  font-weight: 600;
-  top: 0px;
-  left: 0px;
+    font-size: 20px;
+    font-weight: 600;
+    top: 0px;
+    left: 0px;
 }
 
 .dellActivityLight {
-  position: relative;
-  top: 20px
+    position: relative;
+    top: 20px
 }
 
 
 .keyboardBacklight {
-  position: relative;
-  top: -10px;
+    position: relative;
+    top: -10px;
 }
 
 .afterCheck {
-  top: 10px;
+    top: 10px;
 }
 
 .backlightText {
-  position: relative;
-  font-size: 20px;
-  font-weight: 600;
-  top: 0px;
-  left: 0px;
+    position: relative;
+    font-size: 20px;
+    font-weight: 600;
+    top: 0px;
+    left: 0px;
 }
 
 .rangeBacklight {
-  position: absolute;
-  top: 50px;
-  height: 60px;
-  width: calc(97%);
-  background: var(--slider-color);
-  border-radius: 10px;
-  padding: 0 65px 0 45px;
-  transition: var(--tran-03);
-  accent-color: var(--slider-knob-color);
+    position: absolute;
+    top: 50px;
+    height: 60px;
+    width: calc(97%);
+    background: var(--slider-color);
+    border-radius: 10px;
+    padding: 0 65px 0 45px;
+    transition: var(--tran-03);
+    accent-color: var(--slider-knob-color);
 }
 
 .sliderValue {
-  position: relative;
-  width: 100%;
+    position: relative;
+    width: 100%;
 
 }
 
 .sliderValue span {
-  position: absolute;
-  height: 45px;
-  width: 45px;
-  transform: translateX(-70%) scale(0);
-  font-weight: 500;
-  top: -40px;
-  line-height: 55px;
-  z-index: 3;
-  color: var(--text-color);
-  transform-origin: bottom;
-  transition: transform 0.2s ease-in-out;
+    position: absolute;
+    height: 45px;
+    width: 45px;
+    transform: translateX(-70%) scale(0);
+    font-weight: 500;
+    top: -40px;
+    line-height: 55px;
+    z-index: 3;
+    color: var(--text-color);
+    transform-origin: bottom;
+    transition: transform 0.2s ease-in-out;
 
 
 }
 
 .fieldBacklight {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    position: relative;
 
 }
 
 .fieldBacklight .value {
-  position: absolute;
-  font-size: 18px;
-  color: var(--slider-text-color);
-  font-weight: 600;
+    position: absolute;
+    font-size: 18px;
+    color: var(--slider-text-color);
+    font-weight: 600;
 
 }
 
 .fieldBacklight .value.left {
-  left: -22px;
+    left: -22px;
 
 }
 
 .fieldBacklight .value.right {
-  right: -43px;
+    right: -43px;
 }
 
 .rangeBacklight input {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  cursor: pointer;
-  outline: none;
-  border-radius: 15px;
-  height: 6px;
-  background: var(--slider-knob-color);
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+    border-radius: 15px;
+    height: 6px;
+    background: var(--slider-knob-color);
 }
 
 .rangeBacklight input::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  height: 15px;
-  width: 15px;
-  background-color: #fff;
-  border-radius: 50%;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 15px;
+    width: 15px;
+    background-color: #fff;
+    border-radius: 50%;
 }
 
 .backlightRangeSlider {
-  background-color: red;
+    background-color: red;
 }
 
 /*battery controls*/
 .ChargeControl {
-  position: relative;
-  top: 90px;
+    position: relative;
+    top: 90px;
 }
 
 .ChargeControlText {
-  position: relative;
-  font-size: 20px;
-  font-weight: 600;
-  top: 6px;
-  left: 0px;
+    position: relative;
+    font-size: 20px;
+    font-weight: 600;
+    top: 6px;
+    left: 0px;
 }
 
 .rangeChargeControl {
-  position: absolute;
-  top: 50px;
-  height: 60px;
-  width: calc(97%);
-  background: var(--chargeslider-color);
-  border-radius: 10px;
-  padding: 0 65px 0 45px;
-  transition: var(--tran-03);
-  accent-color: var(--chargeslider-knob-color);
+    position: absolute;
+    top: 50px;
+    height: 60px;
+    width: calc(97%);
+    background: var(--chargeslider-color);
+    border-radius: 10px;
+    padding: 0 65px 0 45px;
+    transition: var(--tran-03);
+    accent-color: var(--chargeslider-knob-color);
 }
 
 .ChargeControlField {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    position: relative;
 
 }
 
 .ChargeControlField .value {
-  position: absolute;
-  font-size: 18px;
-  color: var(--slider-text-color);
-  font-weight: 600;
+    position: absolute;
+    font-size: 18px;
+    color: var(--slider-text-color);
+    font-weight: 600;
 
 }
 
 .ChargeControlField .value.left {
-  left: -28px;
+    left: -28px;
 
 }
 
 .ChargeControlField .value.right {
-  right: -43px;
+    right: -43px;
 }
 
 .rangeChargeControl input {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  cursor: pointer;
-  outline: none;
-  border-radius: 15px;
-  height: 6px;
-  background: var(--chargeslider-knob-color);
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+    border-radius: 15px;
+    height: 6px;
+    background: var(--chargeslider-knob-color);
 }
 
 .rangeChargeControl input::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  height: 15px;
-  width: 15px;
-  background-color: #fff;
-  border-radius: 50%;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 15px;
+    width: 15px;
+    background-color: #fff;
+    border-radius: 50%;
 }
 
 .ChargeControlButton {
-  position: relative;
-  top: 100px;
-  left: 30px;
-  font-family: "Roboto", sans-serif;
-  font-size: 18px;
-  font-weight: bold;
-  background: var(--dropdown-color);
-  color: var(--text-color);
-  width: calc(40%);
-  padding: 20px;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  border: #000;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-property: box-shadow, transform;
-  transition-property: box-shadow, transform;
-  border-color: #000000;
+    position: relative;
+    top: 100px;
+    left: 30px;
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    background: var(--dropdown-color);
+    color: var(--text-color);
+    width: calc(40%);
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: #000;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: box-shadow, transform;
+    transition-property: box-shadow, transform;
+    border-color: #000000;
 }
 
 .ChargeControlButton.Set:hover,
 .ChargeControlButton.Set:active {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  -webkit-transform: scale(1.1);
-  transform: scale(1.01);
-  background: var(--box4-color);
-  color: white;
-  transition: 0.3s;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.01);
+    background: var(--box4-color);
+    color: white;
+    transition: 0.3s;
 }
 
 .ChargeControlButton.Default:hover,
 .ChargeControlButton.Default:active {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  -webkit-transform: scale(1.1);
-  transform: scale(1.01);
-  background: var(--box2-color);
-  color: white;
-  transition: 0.3s;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.01);
+    background: var(--box2-color);
+    color: white;
+    transition: 0.3s;
 }
 
 .ChargeControlButton.Default {
-  left: 50px;
+    left: 50px;
 }
 
 
 /*keyboard Remap*/
 .remapText {
-  position: relative;
-  font-size: 20px;
-  font-weight: 600;
-  top: 180px;
-  left: -474px;
+    position: relative;
+    font-size: 20px;
+    font-weight: 600;
+    top: 180px;
+    left: -474px;
 }
 
 .remapText img {
-  position: relative;
-  top: 12px;
-  left: -10px;
+    position: relative;
+    top: 12px;
+    left: -10px;
 }
 
 .main-container {
-  position: absolute;
-  top: 346px;
-  width: 700px;
-  padding: 2px;
-  box-sizing: border-box;
-  font-size: 6px;
-  margin: 20px auto 0;
-  background-color: var(--cbmemCode-color);
-  border-radius: 20px;
-  font-family: 'Open Sans', sans-serif;
-  color: #000000;
-  transition: var(--tran-03);
+    position: absolute;
+    top: 346px;
+    width: 700px;
+    padding: 2px;
+    box-sizing: border-box;
+    font-size: 6px;
+    margin: 20px auto 0;
+    background-color: var(--cbmemCode-color);
+    border-radius: 20px;
+    font-family: 'Open Sans', sans-serif;
+    color: #000000;
+    transition: var(--tran-03);
 }
 
 .main-container .row {
-  margin: 0px 0;
-  padding: 0;
-  box-sizing: border-box;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+    margin: 0px 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .main-container .col {
-  padding: 2px;
-  padding-top: 0px;
-  background-color: var(--panel-color);
-  font-size: 11px;
-  text-align: center;
-  border-radius: 6px;
-  margin: 3px;
-  cursor: pointer;
-  width: 40px;
-  flex-wrap: wrap;
-  min-height: 20px;
-  display: inline-block;
-  text-transform: capitalize;
-  font-weight: 500;
-  transition: var(--tran-03);
+    padding: 2px;
+    padding-top: 0px;
+    background-color: var(--panel-color);
+    font-size: 11px;
+    text-align: center;
+    border-radius: 6px;
+    margin: 3px;
+    cursor: pointer;
+    width: 40px;
+    flex-wrap: wrap;
+    min-height: 20px;
+    display: inline-block;
+    text-transform: capitalize;
+    font-weight: 500;
+    transition: var(--tran-03);
 }
 
 .main-container .col_function {
-  padding: 2px;
-  background-color: var(--panel-color);
-  font-size: 12px;
-  text-align: center;
-  border-radius: 6px;
-  margin: 3px;
-  cursor: pointer;
-  width: 50px;
-  flex-wrap: wrap;
-  min-height: 25px;
-  display: inline-block;
-  text-transform: capitalize;
-  font-weight: 500;
-  padding-top: 4px;
-  transition: var(--tran-03);
+    padding: 2px;
+    background-color: var(--panel-color);
+    font-size: 12px;
+    text-align: center;
+    border-radius: 6px;
+    margin: 3px;
+    cursor: pointer;
+    width: 50px;
+    flex-wrap: wrap;
+    min-height: 25px;
+    display: inline-block;
+    text-transform: capitalize;
+    font-weight: 500;
+    padding-top: 4px;
+    transition: var(--tran-03);
 
 }
 
 .main-container .col span {
-  display: block;
+    display: block;
 }
 
 .main-container .col.backspace {
-  width: 65px;
-  text-align: center;
-  font-size: 9px;
-  padding-top: 12px;
+    width: 65px;
+    text-align: center;
+    font-size: 9px;
+    padding-top: 12px;
 }
 
 .col.search {
-  width: 75px;
-  text-align: center;
-  padding-right: 40px;
-  padding-top: 10px;
+    width: 75px;
+    text-align: center;
+    padding-right: 40px;
+    padding-top: 10px;
 }
 
 .main-container .col.tab,
 .main-container .col.slace {
-  width: 65px;
+    width: 65px;
 }
 
 .col.shift.right {
-  width: 98px;
-  text-align: right;
-  padding-right: 10px;
-  padding-top: 9px;
+    width: 98px;
+    text-align: right;
+    padding-right: 10px;
+    padding-top: 9px;
 }
 
 .col.enter {
-  width: 75px;
-  text-align: right;
-  padding-right: 10px;
-  padding-top: 9px;
+    width: 75px;
+    text-align: right;
+    padding-right: 10px;
+    padding-top: 9px;
 }
 
 .col.shift.left {
-  width: 98px;
-  text-align: right;
-  padding-right: 70px;
-  padding-top: 9px;
-  padding-left: 10px
+    width: 98px;
+    text-align: right;
+    padding-right: 70px;
+    padding-top: 9px;
+    padding-left: 10px
 }
 
 .col.space {
-  width: 224px;
-  position: relative;
-  left: 4px
+    width: 224px;
+    position: relative;
+    left: 4px
 }
 
 .col.alt.left {
-  width: 85px;
-  height: 40px;
-  padding-top: 10px;
-  text-align: left;
-  padding-left: 10px;
-  position: relative;
-  left: 4px;
+    width: 85px;
+    height: 40px;
+    padding-top: 10px;
+    text-align: left;
+    padding-left: 10px;
+    position: relative;
+    left: 4px;
 }
 
 .col.alt.right {
-  width: 40px;
-  height: 40px;
-  padding-top: 10px;
-  text-align: right;
-  padding-right: 10px;
-  position: relative;
-  left: 4px;
+    width: 40px;
+    height: 40px;
+    padding-top: 10px;
+    text-align: right;
+    padding-right: 10px;
+    position: relative;
+    left: 4px;
 }
 
 .col.ctrl.left {
-  width: 98px;
-  height: 40px;
-  padding-top: 10px;
-  text-align: left;
-  padding-left: 10px;
-  position: relative;
-  left: 4px;
+    width: 98px;
+    height: 40px;
+    padding-top: 10px;
+    text-align: left;
+    padding-left: 10px;
+    position: relative;
+    left: 4px;
 }
 
 .col.ctrl.right {
-  width: 40px;
-  height: 40px;
-  padding-top: 10px;
-  text-align: right;
-  padding-right: 10px;
-  position: relative;
-  left: 4px;
+    width: 40px;
+    height: 40px;
+    padding-top: 10px;
+    text-align: right;
+    padding-right: 10px;
+    position: relative;
+    left: 4px;
 }
 
 .col.up {
-  height: 20px;
-  width: 50px;
-  position: relative;
-  left: 3px;
-  bottom: 3px;
-  padding-top: 2px;
+    height: 20px;
+    width: 50px;
+    position: relative;
+    left: 3px;
+    bottom: 3px;
+    padding-top: 2px;
 }
 
 .col.down {
-  height: 20px;
-  width: 50px;
-  position: relative;
-  top: 20px;
-  left: -53px;
-  padding-top: 2px;
+    height: 20px;
+    width: 50px;
+    position: relative;
+    top: 20px;
+    left: -53px;
+    padding-top: 2px;
 }
 
 .col.arrow.left {
-  height: 20px;
-  position: relative;
-  left: 4px;
-  top: 20px;
-  padding-top: 2px;
+    height: 20px;
+    position: relative;
+    left: 4px;
+    top: 20px;
+    padding-top: 2px;
 }
 
 .col.arrow.right {
-  height: 20px;
-  position: relative;
-  top: -26px;
-  right: -306px;
-  padding-top: 2px;
+    height: 20px;
+    position: relative;
+    top: -26px;
+    right: -306px;
+    padding-top: 2px;
 }
 
 .main-container .col.tab,
 .main-container .col.slace {
-  width: 53px;
-  text-align: center;
+    width: 53px;
+    text-align: center;
 }
 
 .col.tab {
-  padding-top: 10px;
+    padding-top: 10px;
 }
 
 .col.col-key.letter {
-  padding-top: 10px;
+    padding-top: 10px;
 }
 
 .input-wrapper #input {
-  padding: 13px;
-  display: block;
-  width: 30%;
-  margin: 0 auto;
-  background-color: #f1f1f1;
-  border: 2px solid #ddd;
-  border-radius: 4px;
-  height: 20px;
+    padding: 13px;
+    display: block;
+    width: 30%;
+    margin: 0 auto;
+    background-color: #f1f1f1;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    height: 20px;
 }
 
 .col:hover {
-  background-color: var(--remap-color);
+    background-color: var(--remap-color);
 }
 
 .col_function:hover {
-  background-color: var(--remap-color);
+    background-color: var(--remap-color);
 }
 
 /*cbmem section */
 .cbmemButtons {
-  position: relative;
-  top: -10px;
+    position: relative;
+    top: -10px;
 }
 
 .cbMem {
-  position: relative;
-  top: 185px;
-  font-family: "Roboto", sans-serif;
-  font-size: 18px;
-  font-weight: bold;
-  background: var(--dropdown-color);
-  color: var(--text-color);
-  width: calc(100%);
-  padding: 20px;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  border: #000;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-property: box-shadow, transform;
-  transition-property: box-shadow, transform;
-  border-color: #000000;
+    position: relative;
+    top: 185px;
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    background: var(--dropdown-color);
+    color: var(--text-color);
+    width: calc(100%);
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: #000;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: box-shadow, transform;
+    transition-property: box-shadow, transform;
+    border-color: #000000;
 }
 
 .cbMem:hover,
 .cbMem:active {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  -webkit-transform: scale(1.1);
-  transform: scale(1.01);
-  background: var(--getcbMem-color);
-  color: white;
-  transition: 0.3s;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.01);
+    background: var(--getcbMem-color);
+    color: white;
+    transition: 0.3s;
 }
 
 .copyButton {
-  position: relative;
-  top: -40px;
-  left: calc(95%);
-  font-family: "Roboto", sans-serif;
-  font-weight: bold;
-  font-size: 10%;
-  background: transparent;
-  width: calc(1% - 15);
-  padding: 5px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition-duration: 0.3s;
-  z-index: 1;
-  border: none;
+    position: relative;
+    top: -40px;
+    left: calc(95%);
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    font-size: 10%;
+    background: transparent;
+    width: calc(1% - 15);
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    z-index: 1;
+    border: none;
 }
 
 .copyButton:hover,
 .copyButton:focus {
-  -webkit-transform: scale(1.2);
-  transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
 }
 
 .dropdown * {
-  box-sizing: border-box;
-  width: 100%;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .select {
-  background: var(--dropdown-color);
-  color: var(--text-color);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: 2px #2a2f3b;
-  border-radius: 0.5em;
-  padding: 1em;
-  cursor: pointer;
-  transition: var(--tran-03);
+    background: var(--dropdown-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px #2a2f3b;
+    border-radius: 0.5em;
+    padding: 1em;
+    cursor: pointer;
+    transition: var(--tran-03);
 }
 
 .select-clicked {
-  border: 2px transparent solid;
-  box-shadow: 0 0 0.8em transparent;
+    border: 2px transparent solid;
+    box-shadow: 0 0 0.8em transparent;
 }
 
 .select:hover {
-  background: var(--hover-color);
+    background: var(--hover-color);
 }
 
 .caret {
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 6px solid var(--text-color);
-  transition: var(--tran-05);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid var(--text-color);
+    transition: var(--tran-05);
 }
 
 .caret-rotate {
-  transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 
 .menu {
-  list-style: none;
-  padding: 0.2em 0.5em;
-  background: var(--dropdown-color);
-  border: 1px #323741 solid;
-  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
-  border-radius: 0.5em;
-  color: var(--text-color);
-  position: absolute;
-  top: 4em;
-  left: 50%;
-  width: 100%;
-  transform: translateX(-50%);
-  opacity: 0;
-  display: none;
-  transition: 0.2s;
-  z-index: 4;
+    list-style: none;
+    padding: 0.2em 0.5em;
+    background: var(--dropdown-color);
+    border: 1px #323741 solid;
+    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+    border-radius: 0.5em;
+    color: var(--text-color);
+    position: absolute;
+    top: 4em;
+    left: 50%;
+    width: 100%;
+    transform: translateX(-50%);
+    opacity: 0;
+    display: none;
+    transition: 0.2s;
+    z-index: 4;
 }
 
 .menu li {
-  padding: 0.7em 0.5em;
-  margin: 0.3em 0;
-  border-radius: 0.5em;
-  cursor: pointer;
+    padding: 0.7em 0.5em;
+    margin: 0.3em 0;
+    border-radius: 0.5em;
+    cursor: pointer;
 }
 
 .menu li:hover {
-  background-color: var(--hover-color);
+    background-color: var(--hover-color);
 }
 
 .active {
-  background-color: var(--hover-color);
+    background-color: var(--hover-color);
 }
 
 .menu-open {
-  display: block;
-  opacity: 1;
-  height: 140px;
-  overflow-y: scroll;
+    display: block;
+    opacity: 1;
+    height: 140px;
+    overflow-y: scroll;
 }
 
 
 .pre {
-  height: 500px;
-  position: relative;
-  top: -80px;
-  background-color: var(--cbmemCode-color);
-  border-radius: 10px;
-  height: 150px;
-  width: calc(100%);
-  overflow-y: scroll;
+    height: 500px;
+    position: relative;
+    top: -80px;
+    background-color: var(--cbmemCode-color);
+    border-radius: 10px;
+    height: 150px;
+    width: calc(100%);
+    overflow-y: scroll;
 }
 
 .code {
-  padding: 20px;
+    padding: 20px;
 }
 
 
 /*main html file ends */
 .hiddentext {
-  font-size: 0px;
-  color: var(--panel-color);
+    font-size: 0px;
+    color: var(--panel-color);
 }
 
 .tooltip {
-  position: relative;
-  display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
 .tooltip .tooltiptext {
-  visibility: hidden;
-  width: 140px;
-  background-color: #555;
-  color: var(--text-color);
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px;
-  position: absolute;
-  z-index: 1;
-  bottom: 150%;
-  left: 50%;
-  margin-left: -75px;
-  opacity: 0;
-  transition: opacity 0.3s;
+    visibility: hidden;
+    width: 140px;
+    background-color: #555;
+    color: var(--text-color);
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -75px;
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
 .tooltip .tooltiptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
 }
 
 .tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
+    visibility: visible;
+    opacity: 1;
 }
 
 /*settings*/
 .settings {
-  display: inline-grid;
-  width: 100%;
-  grid-template-columns: 15fr 1fr;
-  grid-template-areas: "option1 button1" "option2 button2" "option3 button3" "option4 button4";
-  gap: 30px 0;
+    display: inline-grid;
+    width: 100%;
+    grid-template-columns: 15fr 1fr;
+    grid-template-areas: "option1 button1" "option2 button2" "option3 button3" "option4 button4";
+    gap: 30px 0;
 
 }
 
 .switch {
-  position: relative;
-  width: 35px;
-  height: 20px;
+    position: relative;
+    width: 35px;
+    height: 20px;
 }
 
 /* Hide default HTML checkbox */
 .switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
 
 /* The slider */
 .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0px;
-  right: 0;
-  bottom: 0;
-  background-color: var(--cbmemCode-color);
-  border: var(--slider-text-color) 1px solid;
-  -webkit-transition: .4s;
-  transition: .4s;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0px;
+    right: 0;
+    bottom: 0;
+    background-color: var(--cbmemCode-color);
+    border: var(--slider-text-color) 1px solid;
+    -webkit-transition: .4s;
+    transition: .4s;
 }
 
 .slider:before {
-  position: absolute;
-  content: "";
-  height: 12px;
-  width: 12px;
-  left: 3px;
-  bottom: 3.5px;
-  background-color: #ffffff;
-  -webkit-transition: .4s;
-  transition: .4s;
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    left: 3px;
+    bottom: 3.5px;
+    background-color: #ffffff;
+    -webkit-transition: .4s;
+    transition: .4s;
 }
 
-input:checked+.slider {
-  background-color: var(--box1-color);
+input:checked + .slider {
+    background-color: var(--box1-color);
 }
 
-input:focus+.slider {
-  box-shadow: 0 0 1px #2196F3;
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
 }
 
-input:checked+.slider:before {
-  -webkit-transform: translateX(15px);
-  -ms-transform: translateX(15px);
-  transform: translateX(15px);
+input:checked + .slider:before {
+    -webkit-transform: translateX(15px);
+    -ms-transform: translateX(15px);
+    transform: translateX(15px);
 }
 
 .slider.round {
-  border-radius: 34px;
+    border-radius: 34px;
 }
 
 .slider.round:before {
-  border-radius: 50%;
+    border-radius: 50%;
 }
 
 .center {
-  position: relative;
-  top: 6px;
+    position: relative;
+    top: 6px;
 }
+
 .switch.startupFan {
-  grid-area: button1;
+    grid-area: button1;
 }
 
 
 .switch.closeToTray {
-  grid-area: button2;
+    grid-area: button2;
 }
 
 
 .switch.startInTray {
-  grid-area: button3;
+    grid-area: button3;
 }
 
 .switch.startBoot {
-  grid-area: button4;
+    grid-area: button4;
 }
 
 .lines {
-  border-bottom: var(--border-color) 1px solid;
-  padding-bottom: 20px;
-  width: 105%;
+    border-bottom: var(--border-color) 1px solid;
+    padding-bottom: 20px;
+    width: 105%;
 }
 
 .startupFanText {
-  grid-area: option1;
+    grid-area: option1;
 }
 
 .closeToTrayText {
-  grid-area: option2;
+    grid-area: option2;
 
 }
 
 .startInTrayText {
-  grid-area: option3;
+    grid-area: option3;
 }
 
 .startBootText {
-  grid-area: option4;
+    grid-area: option4;
 }

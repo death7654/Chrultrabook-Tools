@@ -37,7 +37,7 @@
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "org.chrultrabookcontroller.chrultrabookcontroller",
+      "identifier": "com.chrultrabook.controller",
       "copyright": "GPL-3.0",
       "icon": [
         "icons/32x32.png",
@@ -61,7 +61,8 @@
         "transparent": true,
         "fileDropEnabled": false,
         "center": true,
-        "visible": false
+        "visible": false,
+        "url": "index.html"
       },
       {
         "title": "Chrultrabook Controller",
@@ -69,7 +70,7 @@
         "height": 400,
         "decorations": false,
         "transparent": true,
-        "url": "src/splashscreen.html",
+        "url": "./splashscreen.html",
         "label": "splashscreen",
         "center": true
       }
