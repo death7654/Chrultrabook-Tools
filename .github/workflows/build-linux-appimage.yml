@@ -29,7 +29,7 @@ jobs:
       - name: Build application
         run: npm run tauri build
       - name: Linux AppImage Packaging
-        run: resources/linux_build.sh
+        run: bash resources/linux_appimage_build.sh
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
