@@ -149,6 +149,8 @@ setTimeout(async () => {
 
   //checks if user is on a chromebook, and if they are in a chromebook checks if they have the necessary drivers installed per os
   const manufacturer = await invoke("manufacturer");
+  const chargeControl = await invoke("chargecontrol");
+  console.log(chargeControl);
   if (manufacturer !== "Google") {
     document.getElementById("blur").classList.add("blur");
     document.getElementById("notChromebook").style.display = "flex";
