@@ -17,11 +17,15 @@ use tauri_plugin_autostart::MacosLauncher;
 const EC: &str = "ectool";
 #[cfg(windows)]
 const EC: &str = "C:\\Program Files\\crosec\\ectool";
+#[cfg(target_os = "macos")]
+const EC: &str = "ectool"; //this needs to be figured out
 
 #[cfg(target_os = "linux")]
 const MEM: &str = "cbmem";
 #[cfg(windows)]
 const MEM: &str = "C:\\Program Files\\crosec\\cbmem";
+//#[cfg(target_os = "macos")]
+//const MEM: &str = "";
 
 fn main() {
     let quit = CustomMenuItem::new("quit".to_string(), "Quit");
@@ -98,7 +102,7 @@ async fn is_windows() -> bool {
 
 #[tauri::command]
 async fn get_cpu_usage() -> String {
-    #[cfg(target_os = "linux")]
+    #[cfg(any(target_os = "linux", target_os = "macos"))]
     {
         let mut sys = System::new();
         sys.refresh_cpu();
@@ -165,12 +169,15 @@ async fn get_cpu_temp() -> Option<String> {
         return None;
     };
 
-    #[cfg(windows)]
+    #[cfg(any(windows, target_os = "macos"))]
     return Some(match_result(exec(EC, Some(vec!["temps", "all"]))));
 }
 
 #[tauri::command]
 async fn get_bios_version() -> String {
+    #[cfg(target_os = "macos")]
+    return String::from("unknown");
+
     #[cfg(target_os = "linux")]
     return match_result(exec("cat", Some(vec!["/sys/class/dmi/id/bios_version"])));
 
@@ -180,6 +187,9 @@ async fn get_bios_version() -> String {
 
 #[tauri::command]
 async fn get_board_name() -> String {
+    #[cfg(target_os = "macos")]
+    return String::from("unknown");
+    
     #[cfg(target_os = "linux")]
     return match_result(exec("cat", Some(vec!["/sys/class/dmi/id/product_name"])));
 
@@ -189,6 +199,15 @@ async fn get_board_name() -> String {
 
 #[tauri::command]
 async fn manufacturer() -> String {
+    #[cfg(target_os = "macos")]
+    {
+        //Main.js expects "Google", but everything is spoofed. Check ectool version for MrChromebox...?
+        if match_result(exec(EC, Some(vec!["version"]))).contains("MrChromebox") {
+            return String::from("Google");
+        }
+        return String::from("Apple");
+    }
+
     #[cfg(target_os = "linux")]
     return match_result(exec("cat", Some(vec!["/sys/class/dmi/id/sys_vendor"])));
 
@@ -201,6 +220,9 @@ async fn manufacturer() -> String {
 
 #[tauri::command]
 async fn get_cpu_cores() -> String {
+    #[cfg(target_os = "macos")]
+    return match_result(exec("sysctl", Some(vec!["-n", "hw.ncpu"])));
+
     #[cfg(target_os = "linux")]
     return match_result(exec("nproc", None));
 
@@ -213,6 +235,9 @@ async fn get_cpu_cores() -> String {
 
 #[tauri::command]
 async fn get_cpu_name() -> String {
+    #[cfg(target_os = "macos")]
+    return match_result(exec("sysctl", Some(vec!["-n", "machdep.cpu.brand_string"])));
+
     #[cfg(target_os = "linux")]
     {
         let mut cpuname = "";
@@ -232,6 +257,9 @@ async fn get_cpu_name() -> String {
 
 #[tauri::command]
 async fn get_hostname() -> String {
+    #[cfg(target_os = "macos")]
+    return match_result(exec("sysctl", Some(vec!["-n", "kern.hostname"])));
+
     #[cfg(target_os = "linux")]
     return match_result(exec("cat", Some(vec!["/proc/sys/kernel/hostname"])));
 
@@ -264,6 +292,10 @@ async fn ectool(value: String, value2: String) -> String {
 
 #[tauri::command]
 async fn cbmem(value: String) -> String {
+    #[cfg(target_os = "macos")]
+    return String::from("Not available on this platform");
+
+    #[cfg(any(windows, target_os = "linux"))]
     return match_result(exec(MEM, Some(vec![&value.as_str()])));
 }
 #[tauri::command]
