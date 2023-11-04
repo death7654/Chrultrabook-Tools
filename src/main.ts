@@ -271,7 +271,7 @@ function setTemps() {
     invoke("ectool", {value: "fanduty", value2: tempBetween.toString()});
 }
 
-let clearCustomFan: number;
+let clearCustomFan: any;
 
 //starts fans if avaliable
 const fanOnStart = localStorage.getItem("fanOnStart");
