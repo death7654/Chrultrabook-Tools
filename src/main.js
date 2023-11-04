@@ -11,9 +11,9 @@ Chart.register(...registerables);
 document.addEventListener("contextmenu", (event) => event.preventDefault());
 
 //checks what os the user is on
-let is_windows;
+let os;
 setTimeout(async () => {
-  is_windows = await invoke("is_windows");
+  os = await invoke("check_os");
 });
 
 //settings menu
@@ -23,12 +23,19 @@ const startHidden = document.getElementById("startHiddenInput");
 const startOnBoot = document.getElementById("startOnBootInput");
 
 //hides things currently incopatiable with linux and macos
-if ((is_windows = false)) {
+if ((check_os !== "windows")) {
   document.getElementById("startOnBoot").style.display = "none";
   document.getElementById("startHidden").style.display = "none";
   document.getElementById("startOnBootButton").style.display = "none";
   document.getElementById("startHiddenButton").style.display = "none";
 }
+if(os === "macos"){
+    document.getElementById("biosVersion").style.display = "none";
+    document.getElementById("boardname").style.display = "none";
+    document.getElementById("nomacos1").style.display = "none";
+    document.getElementById("nomacos2").style.display = "none";
+    document.getElementById("nomacos3").style.display = "none";
+  }
 
 //start Hidden
 const hideOnStart = localStorage.getItem("startHidden");

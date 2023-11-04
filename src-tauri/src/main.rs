@@ -55,7 +55,7 @@ fn main() {
         })
         .invoke_handler(tauri::generate_handler![
             close_splashscreen,
-            is_windows,
+            check_os,
             get_cpu_usage,
             get_cpu_temp,
             get_ram_usage,
@@ -96,8 +96,9 @@ async fn close_splashscreen(window: Window) {
 }
 
 #[tauri::command]
-async fn is_windows() -> bool {
-    return os_info::get().os_type() == os_info::Type::Windows;
+async fn check_os() -> String {
+    use std::env;
+    return env::consts::OS
 }
 
 #[tauri::command]
