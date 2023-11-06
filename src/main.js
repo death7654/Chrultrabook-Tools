@@ -23,7 +23,7 @@ const startHidden = document.getElementById("startHiddenInput");
 const startOnBoot = document.getElementById("startOnBootInput");
 
 //hides things currently incopatiable with linux and macos
-if ((check_os !== "windows")) {
+if (os !== "windows") {
   document.getElementById("startOnBoot").style.display = "none";
   document.getElementById("startHidden").style.display = "none";
   document.getElementById("startOnBootButton").style.display = "none";
