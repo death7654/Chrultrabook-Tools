@@ -12,6 +12,7 @@ use sysinfo::{CpuExt, System, SystemExt};
 use tauri::{CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem};
 use tauri::{Manager, Window};
 use tauri_plugin_autostart::MacosLauncher;
+use std::env;
 
 #[cfg(target_os = "linux")]
 const EC: &str = "ectool";
@@ -97,7 +98,6 @@ async fn close_splashscreen(window: Window) {
 
 #[tauri::command]
 async fn check_os() -> String {
-    use std::env;
     return env::consts::OS.to_string();
 }
 
