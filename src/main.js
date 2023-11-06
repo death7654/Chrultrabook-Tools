@@ -553,3 +553,13 @@ if ((is_windows = true)) {
     startOnBoot.checked = true; //TODO: Error: unresolved
   }
 }
+
+
+
+
+
+
+
+
+
+console.log(os);
