@@ -98,7 +98,7 @@ async fn close_splashscreen(window: Window) {
 #[tauri::command]
 async fn check_os() -> String {
     use std::env;
-    return env::consts::OS
+    return env::consts::OS.to_string();
 }
 
 #[tauri::command]
