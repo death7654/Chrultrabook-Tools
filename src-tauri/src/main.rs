@@ -48,7 +48,7 @@ fn main() {
                         app.get_window("main").unwrap().show().unwrap();
                     }
                     "quit" => {
-                        exec(EC, Some(vec!["autofanctrl"])).unwrap();
+                        match_result(exec(EC, Some(vec!["autofanctrl"])));
                         std::process::exit(0);
                     }
                     _ => {}
@@ -88,7 +88,7 @@ fn main() {
 
 #[tauri::command]
 async fn quit_cmd(window: Window) {
-    exec(EC, Some(vec!["autofanctrl"])).unwrap();
+    match_result(exec(EC, Some(vec!["autofanctrl"])));
     window.close().unwrap();
 }
 
