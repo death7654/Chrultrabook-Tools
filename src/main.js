@@ -11,24 +11,29 @@ Chart.register(...registerables);
 document.addEventListener("contextmenu", (event) => event.preventDefault());
 
 //checks what os the user is on
-let is_windows;
-setTimeout(async () => {
-  is_windows = await invoke("is_windows");
-});
+(async () => {
+  let os = await invoke("check_os");
+  //hides things currently incopatiable with linux and macos
+  if (os !== "windows") {
+    document.getElementById("startOnBoot").style.display = "none";
+    document.getElementById("startHidden").style.display = "none";
+    document.getElementById("startOnBootButton").style.display = "none";
+    document.getElementById("startHiddenButton").style.display = "none";
+  }
+  if (os === "macos") {
+    document.getElementById("biosVersion").style.display = "none";
+    document.getElementById("boardname").style.display = "none";
+    document.getElementById("nomacos1").remove();
+    document.getElementById("nomacos2").remove();
+    document.getElementById("nomacos3").remove();
+  }
+})();
 
 //settings menu
 const startupFan = document.getElementById("startupFansInput");
 const systemTray = document.getElementById("systemTrayInput");
 const startHidden = document.getElementById("startHiddenInput");
 const startOnBoot = document.getElementById("startOnBootInput");
-
-//hides things currently incopatiable with linux and macos
-if ((is_windows = false)) {
-  document.getElementById("startOnBoot").style.display = "none";
-  document.getElementById("startHidden").style.display = "none";
-  document.getElementById("startOnBootButton").style.display = "none";
-  document.getElementById("startHiddenButton").style.display = "none";
-}
 
 //start Hidden
 const hideOnStart = localStorage.getItem("startHidden");
