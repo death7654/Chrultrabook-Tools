@@ -51,7 +51,7 @@ document.getElementById("close").addEventListener("mousedown", () => {
     appWindow.hide();
     systemTrayInput.checked = true; //TODO: Error: unresolved
   } else {
-    appWindow.close();
+    invoke("quit_cmd");
   }
 });
 

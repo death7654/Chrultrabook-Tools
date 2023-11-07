@@ -6,13 +6,15 @@
 #[cfg(target_os = "linux")]
 use std::fs;
 
+use std::env;
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
 use sysinfo::{CpuExt, System, SystemExt};
-use tauri::{CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem};
+use tauri::{
+    CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem,
+};
 use tauri::{Manager, Window};
 use tauri_plugin_autostart::MacosLauncher;
-use std::env;
 
 #[cfg(target_os = "linux")]
 const EC: &str = "ectool";
@@ -43,18 +45,22 @@ fn main() {
                 let _item_handle = app.tray_handle().get_item(&id);
                 match id.as_str() {
                     "show" => {
-                        let _window = app.get_window("main").unwrap();
-                        let _ = _window.show();
+                        app.get_window("main").unwrap().show().unwrap();
                     }
                     "quit" => {
+                        exec(EC, Some(vec!["autofanctrl"])).unwrap();
                         std::process::exit(0);
                     }
                     _ => {}
                 }
             }
+            SystemTrayEvent::LeftClick { .. } => {
+                app.get_window("main").unwrap().show().unwrap();
+            }
             _ => {}
         })
         .invoke_handler(tauri::generate_handler![
+            quit_cmd,
             close_splashscreen,
             check_os,
             get_cpu_usage,
@@ -78,6 +84,12 @@ fn main() {
         ))
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+}
+
+#[tauri::command]
+async fn quit_cmd(window: Window) {
+    exec(EC, Some(vec!["autofanctrl"])).unwrap();
+    window.close().unwrap();
 }
 
 #[tauri::command]
@@ -190,7 +202,7 @@ async fn get_bios_version() -> String {
 async fn get_board_name() -> String {
     #[cfg(target_os = "macos")]
     return String::from("unknown");
-    
+
     #[cfg(target_os = "linux")]
     return match_result(exec("cat", Some(vec!["/sys/class/dmi/id/product_name"])));
 
@@ -299,6 +311,7 @@ async fn cbmem(value: String) -> String {
     #[cfg(any(windows, target_os = "linux"))]
     return match_result(exec(MEM, Some(vec![&value.as_str()])));
 }
+
 #[tauri::command]
 async fn chargecontrol() -> Option<String> {
     return Some(match_result(exec(EC, Some(vec!["chargecontrol"]))));
