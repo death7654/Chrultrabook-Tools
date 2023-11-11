@@ -12,6 +12,15 @@
     <title>Chultrabook Controller</title>
 
 <body style="overflow: hidden;">
+        <div id="notChromebook" class="notChromebook">
+            <span id="notChromebookButton" class="closebtn">✖</span>
+            <h1>This Computer Is Not A Modified Chromebook<br><br>This App Works Best on Modified Chromebooks</h1>
+        </div>
+        <div id="noEctools" class="noEctools">
+            <h1 id="windows" class="windows">You Are Missing Coolstar's EC Driver</h1>
+            <h1 id="linux" class="linux">You Are Missing Ectool and Cbmem Binaries</h1>
+        </div>
+    <div id="blur">
     <div data-tauri-drag-region class="appFrame">
         <div class="appFunctionButtons">
             <button class="minimizeButton" id="minimize">━</button>
@@ -46,7 +55,7 @@
                     <li><a id="options">
                             <img class="navbarimg systemoptionsFilter"
                                 src="./src/assets/Icons/sidenavbar/system-options.svg" alt="">
-                            <span class="link-name">System Options</span>
+                            <span class="link-name">System Controls</span>
                         </a></li>
                     <li><a id="diagnostics">
                             <img class="navbarimg diagnosticFilter" src="./src/assets/Icons/sidenavbar/Diagnostics.svg"
@@ -75,7 +84,7 @@
         <!--Dashboard-->
         <section id="sectionDashboard" class="dashboard">
             <div class="dash-content">
-                <div class="overview">
+                <div class="overview info">
                     <div class="title">
                         <img src="./src/assets/Icons/dashboard/tachometer.svg">
                         <span class="text">Dashboard</span>
@@ -118,14 +127,6 @@
                         <img src="./src/assets/Icons/fancontrol/fancontroldash.svg">
                         <span class="text">Fan Control</span>
                     </div>
-                    <h2 class="FanSpeedText">Fan Speeds</h2>
-                    <div class="fanButtons">
-
-                        <button id="fanAuto" href="#" class="FanAuto">Auto</button>
-                        <button id="fanOff" href="#" class="FanOff"> Off</button>
-                        <button id="fanMax" href="#" class="FanMax"> Max</button>
-                    </div>
-
                     <div class="boxes">
                         <div class="box fanSpeed">
                             <img src="./src/assets/Icons/fancontrol/animatedfan.svg" alt="">
@@ -138,17 +139,26 @@
                             <span id="cpuTempFan" style="color: var(--textbox-color);">0°C</span>
                         </div>
                         <div class="box hidden" height="0" width="0"></div>
-                        <div class="fancurves">
-                            <canvas id="fancurves"></canvas>
+                    </div>
+                    <div class="setFanSpeed">
+                        <h2 class="FanSpeedText">Fan Speeds</h2>
+                        <div class="fanButtons">
+                            <button id="fanAuto" href="#" class="FanAuto">Auto</button>
+                            <button id="fanOff" href="#" class="FanOff"> Off</button>
+                            <button id="fanMax" href="#" class="FanMax"> Max</button>
                         </div>
-                        <h2 class="customFanSpeedText">Custom Fan Curves</h2>
-                        <button id="setFan" href="#" class="setFan"> set</button>
+                        <div class="customFanCurves">
+                            <h2 class="customFanSpeedText">Custom Fan Curves</h2>
+                            <div class="fancurves">
+                                <canvas id="fancurves"></canvas>
+                            </div>
+                            <button id="setFan" href="#" class="setFan"> set</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <br>
-            <h2 style="color: var(--panel-color)">.</h2>
-            <br>
+                <br>
+                <h2 style="color: var(--panel-color)">.</h2>
+                <br>
         </section>
         <!--System Controls-->
         <section id="sectionOptions" class="dashboard">
@@ -191,10 +201,28 @@
                             <div class="value left">
                                 0
                             </div>
-                            <input type="range" min="0" max="100" value="100" steps="1" id="backlightRangeSlider">
-                            <div class="value right" id="backlightRangeSliderText">100</div>
                         </div>
                     </div>
+                    <!--Keyboard Backlight Ends-->
+                    <!--Charge Controls-->
+                    <div class="ChargeControl" id="ChargeControl">
+                        <h2 class="ChargeControlText" id="rangeChargeControl">&nbsp;&nbsp;Charge Control</h2>
+                        <div class="rangeChargeControl" id="rangeChargeControlslider">
+                            <div class="sliderValue">
+                                <span>100</span>
+                            </div>
+                            <div class="ChargeControlField">
+                                <div class="value left">
+                                    70
+                                </div>
+                                <input type="range" min="70" max="100" value="100" steps="1" id="chargerSlider">
+                                <div class="value right" id="chargerSliderText">100</div>
+                            </div>
+                        </div>
+                        <button class="ChargeControlButton Set" id="chargeControlSet">Set</button>
+                        <button class="ChargeControlButton Default" id="chargeControlDefault">Default</button>
+                    </div>
+                    <!--Charger Controls ends-->
                 </div>
                 </div>
             </div>
@@ -219,9 +247,9 @@
                         </div>
                         <ul class="menu">
                             <!--If you change anything here make sure to change the name in main.js-->
-                            <li>Boot Timestamps</li>
-                            <li>Coreboot Log</li>
-                            <li>Coreboot Extended Log</li>
+                            <li id="nomacos1">Boot Timestamps</li>
+                            <li id="nomacos2">Coreboot Log</li>
+                            <li id="nomacos3">Coreboot Extended Log</li>
                             <li>EC Console Log</li>
                             <li>Battery Info</li>
                             <li>EC Chip Info</li>
@@ -255,38 +283,33 @@
         </section>
         <!--settings-->
         <section id="sectionSettings" class="dashboard" style="overflow-y:scroll; overflow-x:hidden;">
-            <div class="aboutText dash-content">
+            <div class="dash-content">
                 <div class="overview">
                     <div class="title">
                         <img src="./src/assets/Icons/settings/settings-page.svg">
                         <span class="text">Settings </span>
                     </div>
-                    <label class="switch position" id="startupFan">
-                        <input id="startupFansInput" type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                    <label class="switch position2" id="systemTray">
-                        <input id="systemTrayInput" type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                    <!--
-                    <label class="switch position3" id="startOnBoot">
-                        <input id="startOnBootInput" type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                    -->
-                    <label class="switch position4" id="startHidden">
-                        <input id="startHiddenInput" type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                    <div class="settingsText">
-                        <h3 class="startupFan">Start Custom Fan Curves On App Startup</h3>
-                        <hr>
-                        <h3>When Closed, App Minimizes To System Tray</h3>
-                        <hr>
-                        <!--<h3 class="startBoot">Start App On Boot</h3>
-                        <hr>-->
-                        <h3 class="startInTray">Start App In System Tray</h3>
+                    <div class="settings">
+                        <label class="switch startupFan center" id="startupFan">
+                            <input id="startupFansInput" type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                        <label class="switch closeToTray center" id="systemTray">
+                            <input id="systemTrayInput" type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                        <label class="switch startInTray center" id="startHiddenButton">
+                            <input id="startHiddenInput" type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                        <label class="switch startBoot center" id="startOnBootButton">
+                            <input id="startOnBootInput" type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                        <h3 class="startupFanText lines">Start Custom Fan Curves On App Startup</h3>
+                        <h3 class="closeToTrayText lines">When Closed, App Minimizes To System Tray</h3>
+                        <h3 class="startInTrayText lines" id="startHidden">Start App In System Tray</h3>
+                        <h3 class="startBootText lines" id="startOnBoot">Start App On Boot</h3>
                     </div>
                 </div>
 
@@ -296,7 +319,7 @@
             integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
             crossorigin="anonymous"></script>
     </div>
-
+</div>
 </body>
 <script>
     window.addEventListener("DOMContentLoaded", () => {
@@ -463,6 +486,10 @@
             });
         });
     });
+</script>
+<script type="module">
+      import { invoke } from "@tauri-apps/api/tauri";
+      setTimeout(invoke("close_splashscreen"),8000);
 </script>
 
 </html>

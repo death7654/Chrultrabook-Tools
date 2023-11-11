@@ -15,17 +15,17 @@
 
 <img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/4da59aeb-81cb-40dd-a442-88c5bcfba823" alt="project-screenshot" width="400">
 
-<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/33d3423c-fd20-4a9f-bfb9-beae25daff95" alt="project-screenshot" width="400">
+<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/56b47381-c40c-4ac4-95a0-26deb38be111" alt="project-screenshot" width="400">
 
 <img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/9af010d9-6a4a-4612-a26b-291e50349980" alt="project-screenshot" width="400">
 
-<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/e2153d0a-2ce1-4283-a3c0-80263502b400" alt="project-screenshot" width="400">
+<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/8726218f-1ba5-4f83-b1b5-7bbdf2d50d9a" alt="project-screenshot" width="400">
 
 
 
 <h2>Features</h2>
 
-Here're some of the project's best features:
+Here are some of the project's best features:
 
 *   System Information
 *   CPU Temps
@@ -33,6 +33,7 @@ Here're some of the project's best features:
 *   Ram Usage
 *   Fan Speeds
 *   Custom Fan Curves
+*   Battery Charge Limiter
 *   Keyboard Backlight Controls
 *   Hardware Information
 

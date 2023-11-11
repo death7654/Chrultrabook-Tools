@@ -1,37 +1,57 @@
 import { appWindow } from "@tauri-apps/api/window";
 import { invoke } from "@tauri-apps/api/tauri";
-import { enable, isEnabled, disable } from "tauri-plugin-autostart-api";
+import { disable, isEnabled, enable } from "tauri-plugin-autostart-api";
 import { Chart, registerables } from "chart.js";
-Chart.register(...registerables);
 import "chartjs-plugin-dragdata";
 import "./styles.css";
+
+Chart.register(...registerables);
 
 //prevents rightclick
 document.addEventListener("contextmenu", (event) => event.preventDefault());
 
-var is_windows;
-setTimeout(async () => {
-  is_windows = await invoke("is_windows");
-  console.log(is_windows);
-});
+//checks what os the user is on
+(async () => {
+  let os = await invoke("check_os");
+  //hides things currently incopatiable with linux and macos
+  if (os !== "windows") {
+    document.getElementById("startOnBoot").style.display = "none";
+    document.getElementById("startHidden").style.display = "none";
+    document.getElementById("startOnBootButton").style.display = "none";
+    document.getElementById("startHiddenButton").style.display = "none";
+  }
+  if (os === "macos") {
+    document.getElementById("biosVersion").style.display = "none";
+    document.getElementById("boardname").style.display = "none";
+    document.getElementById("nomacos1").remove();
+    document.getElementById("nomacos2").remove();
+    document.getElementById("nomacos3").remove();
+  }
+})();
 
-//hides things currently incopatiable with linux
+//settings menu
+const startupFan = document.getElementById("startupFansInput");
+const systemTray = document.getElementById("systemTrayInput");
+const startHidden = document.getElementById("startHiddenInput");
+const startOnBoot = document.getElementById("startOnBootInput");
 
 //start Hidden
 const hideOnStart = localStorage.getItem("startHidden");
-if (hideOnStart == "yes") {
+if (hideOnStart === "yes") {
+  //closes splash screen
+  invoke("close_splashscreen");
   appWindow.hide();
-  startHiddenInput.checked = true;
+  startHiddenInput.checked = true; //TODO: Error: unresolved
 }
 
 //app close and open functions
 document.getElementById("close").addEventListener("mousedown", () => {
   let addToTray = localStorage.getItem("quitToTray");
-  if (addToTray == "yes") {
+  if (addToTray === "yes") {
     appWindow.hide();
-    systemTrayInput.checked = true;
+    systemTrayInput.checked = true; //TODO: Error: unresolved
   } else {
-    appWindow.close();
+    invoke("quit_cmd");
   }
 });
 
@@ -43,13 +63,15 @@ document
 function containsNumber(str) {
   return /\d/.test(str);
 }
+
 //checks if fan exists
 const fanExist = await invoke("get_fan_rpm");
 let fan = !!containsNumber(fanExist);
 if (!fan) {
   document.getElementById("fan").style.display = "none";
 }
-//sets current percantage for backlight and hides the slider if computer has no backlight
+
+//sets current percantage for backlight and hides the slider if the chromebook has no backlight or battery controls
 setTimeout(async () => {
   let keyboardBackLight = await invoke("ectool", {
     value: "pwmgetkblight",
@@ -57,12 +79,13 @@ setTimeout(async () => {
   });
   let value = keyboardBackLight.split(" ");
   document.getElementById("backlightRangeSlider").value = value[4];
-  if (containsNumber(value[4]) == false) {
+
+  //prevents laptops with no backlight form seeing this
+  if (containsNumber(value[4]) === false) {
     document.getElementById("rangeBacklight").style.display = "none";
     document.getElementById("rangeBacklightslider").style.display = "none";
   }
 
-  //prevents laptops with no backlight form using this
   if (value[4] !== "0") {
     document.getElementById("backlightRangeSliderText").innerText = value[4];
   } else {
@@ -71,7 +94,7 @@ setTimeout(async () => {
 }, 0);
 
 //homepage
-var averageTemp;
+let averageTemp;
 setInterval(async () => {
   const ramUsage = await invoke("get_ram_usage");
   const cpuUsage = await invoke("get_cpu_usage");
@@ -94,36 +117,66 @@ setInterval(async () => {
   document.getElementById("cpuTempFan").innerText =
     averageTemp.toFixed(0) + "°C";
 }, 1000);
-if (fan == true) {
+
+//only allows fanRPM, and fanTEMPS to execute if a fan is found
+if (fan === true) {
   setInterval(async () => {
-    const fanRPM = await invoke("get_fan_rpm");
-    const fanSpeed = fanRPM.toString().split(":").pop().trim();
-    document.getElementById("fanSpeed").innerText = fanSpeed + " RPM";
+    let fanRPM = await invoke("get_fan_rpm");
+    fanRPM = fanRPM.toString().split(":").pop().trim();
+    document.getElementById("fanSpeed").innerText = fanRPM + " RPM";
   }, 1000);
+
+  //loads chart on startup
   setTimeout(async () => {
-    let fanCurve = localStorage.getItem("customfanCurves");
-    let fanCurveData = JSON.parse(fanCurve);
+    let fanCurve = JSON.parse(localStorage.getItem("customfanCurves"));
     //adds chart for new installs/users
-    if (fanCurveData == null) {
-      let defaultChart = [0, 0, 50, 90, 100, 100, 100];
-      myChart.config.data.datasets[0].data = defaultChart;
+    if (fanCurve == null) {
+      myChart.config.data.datasets[0].data = [0, 0, 50, 90, 100, 100, 100];
     } else {
-      myChart.config.data.datasets[0].data = fanCurveData;
+      myChart.config.data.datasets[0].data = fanCurve;
     }
   }, 0);
 }
 
+//Grabs System Info
 setTimeout(async () => {
   const hostname = await invoke("get_hostname");
   const bios = await invoke("get_bios_version");
   const boardname = await invoke("get_board_name");
   const cores = await invoke("get_cpu_cores");
   const cpuname = await invoke("get_cpu_name");
+  const cpuTempFunction = await invoke("get_cpu_temp");
   document.getElementById("biosVersion").innerText = "Bios Version: " + bios;
   document.getElementById("boardname").innerText = "Boardname: " + boardname;
   document.getElementById("coreCPU").innerText = "Cores: " + cores + " Cores";
   document.getElementById("hostname").innerText = "Hostname: " + hostname;
   document.getElementById("cpuName").innerText = "CPU: " + cpuname;
+
+  //checks if user is on a chromebook, and if they are in a chromebook checks if they have the necessary drivers installed per os
+  const manufacturer = await invoke("manufacturer");
+  const chargeControl = await invoke("chargecontrol");
+  console.log(chargeControl);
+  if (manufacturer !== "Google") {
+    document.getElementById("blur").classList.add("blur");
+    document.getElementById("notChromebook").style.display = "flex";
+    document
+      .getElementById("notChromebookButton")
+      .addEventListener("mousedown", () => {
+        document.getElementById("blur").classList.remove("blur");
+        document.getElementById("notChromebook").style.display = "none";
+      });
+  }
+  else if (cpuTempFunction == "0") {
+    document.getElementById('noEctools').style.display = "block";
+    if (is_windows == true)
+    {
+      document.getElementById('windows').style.display = "flex";
+    }
+    else
+    {
+      document.getElementById('linux').style.display = "flex";
+    }
+  }
 /*
   //shows or hides activity light settings based on boardname (only shows to Candy and Kefka)
   if(boardname !== "Candy" && boardname !== "Kefka" && boardname)
@@ -134,13 +187,15 @@ setTimeout(async () => {
   */
 
 }, 0);
+
 //setFanSpeeds
-//fan chart
+//Draggable Fan Chart
 const data = {
   labels: ["35°C", "40°C", "45°C", "50°C", "55°C", "60°C"],
   datasets: [
     {
       label: "Fan Speed",
+      //The 7th vaue is to keep the chart from lowering to 1
       data: [0, 0, 50, 90, 100, 100, 100],
       backgroundColor: [
         "rgba(255, 26, 104, 0.2)",
@@ -174,15 +229,15 @@ const config = {
   legend: {
     display: false,
   },
-  dragData: true,
   options: {
+    //makes lines not so straight
     tension: 0.2,
     legend: false,
     plugins: {
       dragData: {
         round: 0,
         showTooltip: true,
-        onDragStart: (event) => {},
+        onDragStart: () => {},
       },
     },
     scales: {
@@ -203,7 +258,9 @@ const config = {
   },
 };
 //render chart
+//TODO: x2 Error: Type / not assignable
 const myChart = new Chart(document.getElementById("fancurves"), config);
+
 myChart.update();
 
 let autoFan = document.getElementById("fanAuto");
@@ -212,8 +269,8 @@ let maxFan = document.getElementById("fanMax");
 let setFan = document.getElementById("setFan");
 
 function setTemps() {
-  var cpuTemp = parseInt(averageTemp);
-
+  const cpuTemp = parseInt(averageTemp);
+  //built in protections for cpuTemps
   if (cpuTemp <= 35) {
     invoke("ectool", { value: "fanduty", value2: "0" });
     return;
@@ -222,6 +279,7 @@ function setTemps() {
     invoke("ectool", { value: "fanduty", value2: "100" });
     return;
   }
+  //calculator for what speed (in percentage) to run the fans at
   let base = cpuTemp - 35;
   const percentage = [1, 0.2, 0.4, 0.6, 0.8][base % 5];
   let index = (base - (base % 5)) / 5;
@@ -229,26 +287,28 @@ function setTemps() {
   index++;
   let temp2 = myChart.data.datasets[0].data[index];
 
-  var tempBetween;
-  if (cpuTemp % 5 == 0) {
+  let tempBetween;
+  if (cpuTemp % 5 === 0) {
     index--;
+    //prevents fans from using the next index and makes sure it doesnt calculate anything
     tempBetween = myChart.data.datasets[0].data[index];
   } else {
     tempBetween = (temp2 - temp) * percentage + temp;
   }
   invoke("ectool", { value: "fanduty", value2: tempBetween.toString() });
 }
-var clearcustomFan;
+
+let clearcustomFan;
 
 //starts fans if avaliable
 const fanOnStart = localStorage.getItem("fanOnStart");
-if (fanOnStart == "yes") {
-  startupFansInput.checked = true;
+if (fanOnStart === "yes") {
+  startupFansInput.checked = true; //TODO: Error: unresolved
   clearcustomFan = setInterval(async () => {
     setTemps();
   }, 2000);
 }
-
+//sets customFanCurves
 function customFan() {
   autoFan.classList.remove("activeButton");
   offFan.classList.remove("activeButton");
@@ -258,10 +318,11 @@ function customFan() {
   clearcustomFan = setInterval(async () => {
     setTemps();
   }, 2000);
-  //save to local storage
+  //saves the users custom fan curves
   const toSave = JSON.stringify(myChart.data.datasets[0].data);
   localStorage.setItem("customfanCurves", toSave);
 }
+//sets fan to max speed
 function fanMax() {
   autoFan.classList.remove("activeButton");
   offFan.classList.remove("activeButton");
@@ -269,14 +330,14 @@ function fanMax() {
   setFan.classList.remove("activeButton");
   clearInterval(clearcustomFan);
 
-  //changes chart
-  const fanMaxArray = [100, 100, 100, 100, 100, 100, 100];
-  myChart.config.data.datasets[0].data = fanMaxArray;
+  //changes chart and uses built in protections for the fan
+  myChart.config.data.datasets[0].data = [100, 100, 100, 100, 100, 100, 100];
   myChart.update();
   clearcustomFan = setInterval(async () => {
     setTemps();
   }, 2000);
 }
+//turns fan off
 function fanOff() {
   invoke("ectool", { value: "fanduty", value2: "0" });
   autoFan.classList.remove("activeButton");
@@ -285,14 +346,14 @@ function fanOff() {
   setFan.classList.remove("activeButton");
   clearInterval(clearcustomFan);
 
-  //changes chart
-  const fanOffArray = [0, 0, 0, 0, 0, 0, 100];
-  myChart.config.data.datasets[0].data = fanOffArray;
+  //changes chart and uses built in protections for the fan
+  myChart.config.data.datasets[0].data = [0, 0, 0, 0, 0, 0, 100];
   myChart.update();
   clearcustomFan = setInterval(async () => {
     setTemps();
   }, 2000);
 }
+//sets fan to the best fan curves
 function fanAuto() {
   invoke("ectool", { value: "autofanctrl", value2: "" });
   autoFan.classList.add("activeButton");
@@ -301,15 +362,15 @@ function fanAuto() {
   setFan.classList.remove("activeButton");
   clearInterval(clearcustomFan);
 
-  //changes chart
-  const fanAutoArray = [0, 0, 50, 90, 100, 100, 100];
-  myChart.config.data.datasets[0].data = fanAutoArray;
+  //changes chart and uses built in protections for the fan (better fan curves than ectools)
+  myChart.config.data.datasets[0].data = [0, 0, 50, 90, 100, 100, 100];
   myChart.update();
   clearcustomFan = setInterval(async () => {
     setTemps();
   }, 2000);
 }
 
+//assigns each button to each fan function
 const buttonfanMax = document.getElementById("fanMax");
 buttonfanMax.addEventListener("mousedown", () => fanMax());
 
@@ -361,8 +422,8 @@ activityLightColor.addEventListener("mousedown", () => activityLight());
 let sliderBacklight = document.getElementById("backlightRangeSlider");
 let outputBacklight = document.getElementById("backlightRangeSliderText");
 outputBacklight.innerHTML = sliderBacklight.value;
-//sends infrom from html to ec
 
+//sends infrom from html to ec and changes keyboard remap opacity
 sliderBacklight.oninput = function () {
   outputBacklight.innerText = this.value === "0" ? "off" : this.value;
   invoke("ectool", { value: "pwmsetkblight", value2: sliderBacklight.value });
@@ -373,7 +434,34 @@ sliderBacklight.oninput = function () {
       : "opacity(" + sliderBacklight.value + "%)";
 };
 
-//sends info from ec to html
+//batteryControl
+let chargerSlider = document.getElementById("chargerSlider");
+let chargerOutputBacklight = document.getElementById("chargerSliderText");
+chargerOutputBacklight.innerHTML = chargerSlider.value;
+
+chargerSlider.oninput = function () {
+  chargerOutputBacklight.innerText = this.value;
+};
+
+function setChargeControl() {
+  let upperLimit = chargerSlider.value;
+  let lowerLimit = upperLimit - 5;
+  lowerLimit = lowerLimit.toString();
+  invoke("set_battery_limit", { value: lowerLimit, value2: upperLimit });
+}
+function setDefault() {
+  invoke("set_battery_limit", { value: "", value2: "" });
+}
+
+document
+  .getElementById("chargeControlSet")
+  .addEventListener("mousedown", () => setChargeControl());
+
+document
+  .getElementById("chargeControlDefault")
+  .addEventListener("mousedown", () => setDefault());
+
+//sends info from html to ec, and pulls ec and sends it to HTML (system diagnostics)
 const selected = document.querySelector(".selected");
 async function getSystemInfo() {
   switch (selected.innerText) {
@@ -439,7 +527,7 @@ async function getSystemInfo() {
   }
 }
 
-//copy
+//copy functions
 const buttoncbMem = document.getElementById("cbMem");
 buttoncbMem.addEventListener("mousedown", () => getSystemInfo());
 
@@ -452,28 +540,22 @@ function copyTxt(htmlElement) {
   inputElement.setAttribute("value", elementText);
   document.body.appendChild(inputElement);
   inputElement.select();
-  document.execCommand("copy");
+  document.execCommand("copy"); //TODO: deprecated
   inputElement.parentElement.removeChild(inputElement);
 }
 document.querySelector("#copyButton").addEventListener("mousedown", () => {
   copyTxt(document.querySelector("#cbMemInfo"));
 });
 
-//settings
-const startupFan = document.getElementById("startupFansInput");
-const systemTray = document.getElementById("systemTrayInput");
-const startOnBoot = document.getElementById("startOnBootInput");
-const startHidden = document.getElementById("startHiddenInput");
-
+//sets up local storage for settings so all options that are checked stay checked upon reboot
 startupFan.addEventListener("click", () => {
   if (startupFan.checked) {
     localStorage.setItem("fanOnStart", "yes");
-    console.log("checked");
   } else {
     localStorage.setItem("fanOnStart", "no");
-    console.log("notChecked");
   }
 });
+
 systemTray.addEventListener("click", () => {
   if (systemTray.checked) {
     localStorage.setItem("quitToTray", "yes");
@@ -481,32 +563,34 @@ systemTray.addEventListener("click", () => {
     localStorage.setItem("quitToTray", "no");
   }
 });
-/*
-startOnBoot.addEventListener("click", () => {
-  if (startOnBoot.checked) {
-    localStorage.setItem("startOnBoot", "yes");
-  } else {
-    localStorage.setItem("startOnBoot", "no");
-  }
-});
-*/
 
-startHidden.addEventListener("click", () => {
-  if (startHidden.checked) {
-    localStorage.setItem("startHidden", "yes");
-    console.log("checkedhidden");
-  } else {
-    localStorage.setItem("startHidden", "no");
-  }
-});
-/*
-const onBoot = localStorage.getItem("startOnBoot");
-if (onBoot == "yes") {
-  await enable();
-  startOnBootInput.checked = true;
-} else {
-  setTimeout(async () => {
-    await disable();
-  });
+const closetoTray = localStorage.getItem("quitToTray");
+if (closetoTray === "yes") {
+  systemTray.checked = true;
 }
-*/
+
+if ((is_windows = true)) {
+  startHidden.addEventListener("click", () => {
+    if (startHidden.checked) {
+      localStorage.setItem("startHidden", "yes");
+    } else {
+      localStorage.setItem("startHidden", "no");
+    }
+  });
+
+  startOnBoot.addEventListener("click", () => {
+    if (startOnBoot.checked) {
+      localStorage.setItem("startOnBoot", "yes");
+      setTimeout(async () => await enable());
+    } else {
+      localStorage.setItem("startOnBoot", "no");
+      setTimeout(async () => await disable());
+    }
+  });
+
+  //sets start on boot to checked if true
+  const onBoot = await isEnabled()
+  if (await isEnabled() == true) {
+    startOnBoot.checked = true; //TODO: Error: unresolved
+  }
+}

@@ -1,7 +1,7 @@
 
 #!/bin/bash 
 ROOT=$(pwd)
-APPIMAGEDIR="$ROOT/target/release/bundle/appimage"
+APPIMAGEDIR="$ROOT/src-tauri/target/release/bundle/appimage"
 APPDIR="$(find $APPIMAGEDIR -name "chrultrabook-controller*.AppDir")"
 APPIMAGE="$(find $APPIMAGEDIR -name "chrultrabook-controller*.AppImage")"
 APPIMAGETOOLURL="https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage"
