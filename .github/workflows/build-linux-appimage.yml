@@ -1,7 +1,7 @@
 name: 'build linux appimage'
 on: 
   push:
-    branches: [ "master" ]
+    branches: [ "dell-activity–light" ]
 
 jobs:
   build:
