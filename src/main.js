@@ -177,6 +177,15 @@ setTimeout(async () => {
       document.getElementById('linux').style.display = "flex";
     }
   }
+/*
+  //shows or hides activity light settings based on boardname (only shows to Candy and Kefka)
+  if(boardname !== "Candy" && boardname !== "Kefka" && boardname !== "Vayne")
+  {
+    document.getElementById("ActivityLight").style.display = "none";
+    document.getElementById("keyboardBacklight").classList.add("afterCheck");
+  }
+  */
+
 }, 0);
 
 //setFanSpeeds
@@ -374,7 +383,40 @@ buttonfanAuto.addEventListener("mousedown", () => fanAuto());
 const buttonCustomFan = document.getElementById("setFan");
 buttonCustomFan.addEventListener("mousedown", () => customFan());
 
-//system infopage
+//system options
+//activity light
+const selectedActivityLight = document.querySelector(".selectedActivityLight");
+async function activityLight(){
+  switch(selectedActivityLight.innerText) {
+    case "Off":
+      console.log("off");
+    break;
+    case "Red":
+      console.log("Red");
+    break;
+    case "Green":
+      console.log("Green");
+    break;
+    case "Blue":
+      console.log("Blue");
+    break;
+    case "White":
+      console.log("White");
+    break;
+    case "Cyan":
+      console.log("Cyan");
+    break;
+    case "Magenta":
+      console.log("Magenta");
+    break;
+    case "Yellow":
+      console.log("Yellow");
+    break;
+  }
+}
+const activityLightColor = document.getElementById("activityLightMenu");
+activityLightColor.addEventListener("mousedown", () => activityLight());
+
 
 //keyboard backlight slider
 let sliderBacklight = document.getElementById("backlightRangeSlider");
@@ -385,6 +427,7 @@ outputBacklight.innerHTML = sliderBacklight.value;
 sliderBacklight.oninput = function () {
   outputBacklight.innerText = this.value === "0" ? "off" : this.value;
   invoke("ectool", { value: "pwmsetkblight", value2: sliderBacklight.value });
+  //changes text color
   document.getElementById("key").style.filter =
     sliderBacklight.value < 25 || this.value === "0"
       ? "opacity(25%)"

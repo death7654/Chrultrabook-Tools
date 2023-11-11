@@ -168,19 +168,38 @@
                         <img src="./src/assets/Icons/systemOptions/system-options.svg">
                         <span class="text">System Controls</span>
                     </div>
-                    <!--Keyboard Backlight Controls-->
-                    <div class="keyboardBacklight" id="keyboardBacklight">
-                        <h2 class="backlightText" id="rangeBacklight">&nbsp;&nbsp;Keyboard Backlight</h2>
-                        <div class="rangeBacklight" id="rangeBacklightslider">
-                            <div class="sliderValue">
-                                <span>100</span>
+                <div class="ActivityLight" id="ActivityLight">
+                    <h2 class="activitylightText" id="activityLightDropdown">&nbsp;&nbsp;Activity light</h2>
+                    <div class="dellActivityLight">
+                        <div class="dropdownActivityLight">
+                            <div class="select">
+                                <span class="selectedActivityLight">Pick A Color</span>
+                                <div class="caret"></div>
                             </div>
-                            <div class="fieldBacklight">
-                                <div class="value left">
-                                    0
-                                </div>
-                                <input type="range" min="0" max="100" value="100" step="10" id="backlightRangeSlider">
-                                <div class="value right" id="backlightRangeSliderText">100</div>
+                            <ul class="menu" id="activityLightMenu">
+                                <!--If you change anything here make sure to change the name in main.js-->
+                                <li>Off</li>
+                                <li>Red</li>
+                                <li>Green</li>
+                                <li>Blue</li>
+                                <li>White</li>
+                                <li>Cyan</li>
+                                <li>Magenta</li>
+                                <li>Yellow</li>
+                                <!--everything else shold be fine, unless you change the class names-->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="keyboardBacklight" id="keyboardBacklight">
+                    <h2 class="backlightText" id="rangeBacklight">&nbsp;&nbsp;Keyboard Backlight</h2>
+                    <div class="rangeBacklight" id="rangeBacklightslider">
+                        <div class="sliderValue">
+                            <span>100</span>
+                        </div>
+                        <div class="fieldBacklight">
+                            <div class="value left">
+                                0
                             </div>
                         </div>
                     </div>
@@ -204,6 +223,7 @@
                         <button class="ChargeControlButton Default" id="chargeControlDefault">Default</button>
                     </div>
                     <!--Charger Controls ends-->
+                </div>
                 </div>
             </div>
         </section>
