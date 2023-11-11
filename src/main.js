@@ -389,28 +389,28 @@ const selectedActivityLight = document.querySelector(".selectedActivityLight");
 async function activityLight(){
   switch(selectedActivityLight.innerText) {
     case "Off":
-      console.log("off");
+      invoke("set_activity_light", {color: "black"})
     break;
     case "Red":
-      console.log("Red");
+      invoke("set_activity_light", {color: "red"})
     break;
     case "Green":
-      console.log("Green");
+      invoke("set_activity_light", {color: "green"})
     break;
     case "Blue":
-      console.log("Blue");
+      invoke("set_activity_light", {color: "blue"})
     break;
     case "White":
-      console.log("White");
+      invoke("set_activity_light", {color: "white"})
     break;
     case "Cyan":
-      console.log("Cyan");
+      invoke("set_activity_light", {color: "cyan"})
     break;
     case "Magenta":
-      console.log("Magenta");
+      invoke("set_activity_light", {color: "magenta"})
     break;
     case "Yellow":
-      console.log("Yellow");
+      invoke("set_activity_light", {color: "yellow"})
     break;
   }
 }
