@@ -320,14 +320,17 @@ async fn chargecontrol() -> Option<String> {
 }
 #[tauri::command]
 async fn set_activity_light(color: String) {
-    let activity_light = HidApi::open(&HidApi::new().unwrap(), 0x04d8, 0x0b28).unwrap();
-    /* 
-    let id = check_id(0x04d8, 0x0b28);
-    match id {
-        Ok() => activity_light = HidApi::open(&HidApi::new().unwrap(), 0x04d8, 0x0b28).unwrap(),
-        Err() => activity_light = HidApi::open(&HidApi::new().unwrap(), 0x046d, 0xc33c).unwrap(),
+    let activity_light;
+    
+    let device_exists = HidApi::open(&HidApi::new().unwrap(), 0x04d8, 0x0b28).is_ok();
+    if device_exists == true
+    {
+        activity_light = HidApi::open(&HidApi::new().unwrap(), 0x04d8, 0x0b28).unwrap();
     }
-    */
+    else {
+        activity_light = HidApi::open(&HidApi::new().unwrap(), 0x046d, 0xc33c).unwrap();
+    }
+
     let color_data: [u8; 4] = match color.as_str() {
         "red" => [17, 1, 127, 32],
         "green" => [17, 2, 146, 32],
