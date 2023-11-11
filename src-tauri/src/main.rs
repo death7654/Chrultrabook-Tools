@@ -353,6 +353,7 @@ async fn set_activity_light(color: String) {
         whole
     };
     activity_light.write(&command).unwrap();
+    return;
 }
 
 // Helper functions
