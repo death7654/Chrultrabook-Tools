@@ -11,8 +11,9 @@ Chart.register(...registerables);
 document.addEventListener("contextmenu", (event) => event.preventDefault());
 
 //checks what os the user is on
+let os;
 (async () => {
-  let os = await invoke("check_os");
+  os = await invoke("check_os");
   //hides things currently incopatiable with linux and macos
   if (os !== "windows") {
     document.getElementById("startOnBoot").style.display = "none";
@@ -78,7 +79,7 @@ setTimeout(async () => {
     value2: "",
   });
   let value = keyboardBackLight.split(" ");
-  document.getElementById("backlightRangeSlider").value = value[4];
+  document.getElementById("backlightRangeSliderText").value = value[4];
 
   //prevents laptops with no backlight form seeing this
   if (containsNumber(value[4]) === false) {
@@ -101,6 +102,10 @@ setInterval(async () => {
   document.getElementById("ramPercentage").innerText = ramUsage + "%";
   document.getElementById("cpuLoad").innerText = cpuUsage + "%";
 
+}, 1000);
+
+let temps = setInterval(async () => {
+  
   //cpu temps
   const cpuTempFunction = await invoke("get_cpu_temp");
   let sensors = 0;
@@ -131,7 +136,7 @@ if (fan === true) {
     let fanCurve = JSON.parse(localStorage.getItem("customfanCurves"));
     //adds chart for new installs/users
     if (fanCurve == null) {
-      myChart.config.data.datasets[0].data = [0, 0, 50, 90, 100, 100, 100];
+      myChart.config.data.datasets[0].data = [0, 10, 25, 40, 60, 80, 95, 100, 100, 100, 100];
     } else {
       myChart.config.data.datasets[0].data = fanCurve;
     }
@@ -168,9 +173,10 @@ setTimeout(async () => {
   }
   else if (cpuTempFunction == "0") {
     document.getElementById('noEctools').style.display = "block";
-    if (is_windows == true)
+    if (os === "windows")
     {
       document.getElementById('windows').style.display = "flex";
+      clearInterval(temps)
     }
     else
     {
@@ -191,12 +197,13 @@ setTimeout(async () => {
 //setFanSpeeds
 //Draggable Fan Chart
 const data = {
-  labels: ["35°C", "40°C", "45°C", "50°C", "55°C", "60°C"],
+  //9 data in X-axis
+  labels: [ "40°C", "45°C", "50°C", "55°C", "60°C","65°C","70°C", "75°C", "80°C"],
   datasets: [
     {
       label: "Fan Speed",
-      //The 7th vaue is to keep the chart from lowering to 1
-      data: [0, 0, 50, 90, 100, 100, 100],
+      //The 10th vaue is to keep the chart from lowering to 1
+      data: [0, 10, 25, 40, 60, 80, 95, 100, 100, 100, 100],
       backgroundColor: [
         "rgba(255, 26, 104, 0.2)",
         "rgba(54, 162, 235, 0.2)",
@@ -205,6 +212,7 @@ const data = {
         "rgba(153, 102, 255, 0.2)",
         "rgba(255, 159, 64, 0.2)",
         "rgba(0, 0, 0, 0.2)",
+        
       ],
       borderColor: [
         "rgba(255, 26, 104, 1)",
@@ -214,6 +222,7 @@ const data = {
         "rgba(153, 102, 255, 1)",
         "rgba(255, 159, 64, 1)",
         "rgba(0, 0, 0, 1)",
+        
       ],
       borderWidth: 1,
       dragData: true,
@@ -275,7 +284,7 @@ function setTemps() {
     invoke("ectool", { value: "fanduty", value2: "0" });
     return;
   }
-  if (cpuTemp >= 60) {
+  if (cpuTemp >= 80) {
     invoke("ectool", { value: "fanduty", value2: "100" });
     return;
   }
@@ -331,7 +340,7 @@ function fanMax() {
   clearInterval(clearcustomFan);
 
   //changes chart and uses built in protections for the fan
-  myChart.config.data.datasets[0].data = [100, 100, 100, 100, 100, 100, 100];
+  myChart.config.data.datasets[0].data = [100, 100, 100, 100, 100, 100, 100, 100, 100, 100];
   myChart.update();
   clearcustomFan = setInterval(async () => {
     setTemps();
@@ -347,7 +356,7 @@ function fanOff() {
   clearInterval(clearcustomFan);
 
   //changes chart and uses built in protections for the fan
-  myChart.config.data.datasets[0].data = [0, 0, 0, 0, 0, 0, 100];
+  myChart.config.data.datasets[0].data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 100];
   myChart.update();
   clearcustomFan = setInterval(async () => {
     setTemps();
@@ -363,7 +372,7 @@ function fanAuto() {
   clearInterval(clearcustomFan);
 
   //changes chart and uses built in protections for the fan (better fan curves than ectools)
-  myChart.config.data.datasets[0].data = [0, 0, 50, 90, 100, 100, 100];
+  myChart.config.data.datasets[0].data = [0, 10, 25, 40, 60, 80, 95, 100, 100, 100, 100];
   myChart.update();
   clearcustomFan = setInterval(async () => {
     setTemps();
@@ -568,8 +577,7 @@ const closetoTray = localStorage.getItem("quitToTray");
 if (closetoTray === "yes") {
   systemTray.checked = true;
 }
-
-if ((is_windows = true)) {
+if ((os === "windows")) {
   startHidden.addEventListener("click", () => {
     if (startHidden.checked) {
       localStorage.setItem("startHidden", "yes");

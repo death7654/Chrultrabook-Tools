@@ -756,6 +756,7 @@ nav.close~.dashboard .top {
 .ActivityLight{
   position: relative;
   top: 10px;
+  display:none
 }
 
 .activitylightText {
@@ -766,44 +767,13 @@ nav.close~.dashboard .top {
 }
 .dellActivityLight {
   position: relative;
-  top: 20px
+  top: 20px;
+  width: 97%;
 }
-
 
 .keyboardBacklight {
   position: relative;
-  top: 50px;
-}
-
-.afterCheck {
-  top: 10px;
-}
-
-.ActivityLight {
-  position: relative;
-  top: 10px;
-}
-
-.activitylightText {
-  font-size: 20px;
-  font-weight: 600;
-  top: 0px;
-  left: 0px;
-}
-
-.dellActivityLight {
-  position: relative;
-  top: 20px
-}
-
-
-.keyboardBacklight {
-  position: relative;
-  top: -10px;
-}
-
-.afterCheck {
-  top: 10px;
+  top: 45px;
 }
 
 .backlightText {
@@ -901,7 +871,7 @@ nav.close~.dashboard .top {
 /*battery controls*/
 .ChargeControl {
   position: relative;
-  top: 90px;
+  top: 130px;
 }
 
 .ChargeControlText {
@@ -1019,6 +989,9 @@ nav.close~.dashboard .top {
   left: 50px;
 }
 
+.afterCheck {
+  top: -10px;
+}
 
 /*keyboard Remap*/
 .remapText {

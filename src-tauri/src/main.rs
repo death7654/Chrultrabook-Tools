@@ -341,7 +341,7 @@ fn match_result(result: Result<std::process::Output, std::io::Error>) -> String 
             } else {
                 println!("Error `{}`.", e);
             }
-            return "0".to_string();
+            return e.to_string();
         }
     };
     return str.trim().to_string();
