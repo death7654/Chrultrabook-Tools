@@ -27,5 +27,8 @@ dist-ssr
 *.sw?
 
 # rust
-cargo.lock
+Cargo.lock
 target/
+
+# linux build
+*.AppImage
