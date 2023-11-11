@@ -176,7 +176,7 @@ setTimeout(async () => {
     if (os === "windows")
     {
       document.getElementById('windows').style.display = "flex";
-      clearInterval(temps)
+      clearInterval(temps);
     }
     else
     {
