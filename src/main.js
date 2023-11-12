@@ -98,18 +98,17 @@ setTimeout(async () => {
 //homepage
 //cpu and ram
 let averageTemp;
-let cpu_ram = setInterval(async () => {
+async function startCpuRamInterval(){
   const ramUsage = await invoke("get_ram_usage");
   const cpuUsage = await invoke("get_cpu_usage");
   document.getElementById("ramPercentage").innerText = ramUsage + "%";
   document.getElementById("cpuLoad").innerText = cpuUsage + "%";
-  console.log('cpu_ram')
-
-}, 1000);
+  console.log("cpu")
+}
 
 //seperates temps, so ectool doesnt spam errors
-let tempInterval = setInterval(async () => {
-  console.log("temps")
+async function startTempinterval(){
+  console.log("temp")
   //cpu temps
   const cpuTempFunction = await invoke("get_cpu_temp");
   let sensors = 0;
@@ -124,14 +123,39 @@ let tempInterval = setInterval(async () => {
   averageTemp = temps / sensors;
   document.getElementById("cpuTemp").innerText = averageTemp.toFixed(0) + "°C";
   document.getElementById("cpuTempFan").innerText = averageTemp.toFixed(0) + "°C";
-  console.log(averageTemp);
   if(containsNumber(averageTemp) === false)
   {
     clearInterval(tempInterval);
-    console.log("noNum")
   }
+}
+setInterval(async() => {
+  startTempinterval()
 }, 1000);
 
+let intervalStarted = false;
+let previousInterval = false;
+let cpuRamInterval;
+setInterval(async () => {
+  let focus = await appWindow.isFocused();
+  if(focus === false && intervalStarted === false)
+  {
+    clearInterval(cpuRamInterval);
+    cpuRamInterval = setInterval(async() => {startCpuRamInterval()}, 10000);
+    intervalStarted = true;
+
+  }
+  else if(focus === true && intervalStarted === false)
+  {
+    clearInterval(cpuRamInterval);
+    cpuRamInterval = setInterval(async() => {startCpuRamInterval()}, 1000);
+    intervalStarted = true;
+  }
+  else if(focus !== previousInterval)
+  {
+    intervalStarted = false;
+  }
+
+},1000)
 
 //only allows fanRPM, and fanTEMPS to execute if a fan is found
 if (fan === true) {
