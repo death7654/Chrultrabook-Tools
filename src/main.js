@@ -10,6 +10,7 @@ Chart.register(...registerables);
 //prevents rightclick
 document.addEventListener("contextmenu", (event) => event.preventDefault());
 
+
 //checks what os the user is on
 let os;
 (async () => {
@@ -62,13 +63,13 @@ document
 
 //function to check if a number exist
 function containsNumber(str) {
-  return /\d/.test(str);
+  return /[0-9]/.test(str);
 }
 
 //checks if fan exists
-const fanExist = await invoke("get_fan_rpm");
-let fan = !!containsNumber(fanExist);
-if (!fan) {
+let fanExist = await invoke("get_fan_rpm");
+fanExist = fanExist.split(/\b(\s)/);
+if (containsNumber(fanExist[2]) === false) {
   document.getElementById("fan").style.display = "none";
 }
 
@@ -78,34 +79,37 @@ setTimeout(async () => {
     value: "pwmgetkblight",
     value2: "",
   });
-  let value = keyboardBackLight.split(" ");
-  document.getElementById("backlightRangeSliderText").value = value[4];
+  keyboardBackLight = keyboardBackLight.split(" ");
+  document.getElementById("backlightRangeSliderText").value = keyboardBackLight[4];
 
   //prevents laptops with no backlight form seeing this
-  if (containsNumber(value[4]) === false) {
+  if (containsNumber(keyboardBackLight[4]) === false) {
     document.getElementById("rangeBacklight").style.display = "none";
     document.getElementById("rangeBacklightslider").style.display = "none";
   }
 
-  if (value[4] !== "0") {
-    document.getElementById("backlightRangeSliderText").innerText = value[4];
+  if (keyboardBackLight[4] !== "0") {
+    document.getElementById("backlightRangeSliderText").innerText = keyboardBackLight[4];
   } else {
     document.getElementById("backlightRangeSliderText").innerText = "off";
   }
 }, 0);
 
 //homepage
+//cpu and ram
 let averageTemp;
-setInterval(async () => {
+let cpu_ram = setInterval(async () => {
   const ramUsage = await invoke("get_ram_usage");
   const cpuUsage = await invoke("get_cpu_usage");
   document.getElementById("ramPercentage").innerText = ramUsage + "%";
   document.getElementById("cpuLoad").innerText = cpuUsage + "%";
+  console.log('cpu_ram')
 
 }, 1000);
 
+//seperates temps, so ectool doesnt spam errors
 let temps = setInterval(async () => {
-  
+  console.log("temps")
   //cpu temps
   const cpuTempFunction = await invoke("get_cpu_temp");
   let sensors = 0;
@@ -119,9 +123,13 @@ let temps = setInterval(async () => {
   });
   averageTemp = temps / sensors;
   document.getElementById("cpuTemp").innerText = averageTemp.toFixed(0) + "°C";
-  document.getElementById("cpuTempFan").innerText =
-    averageTemp.toFixed(0) + "°C";
+  document.getElementById("cpuTempFan").innerText = averageTemp.toFixed(0) + "°C";
+  console.log(averageTemp);
 }, 1000);
+if(containsNumber(averageTemp) === false)
+  {
+    clearInterval(temps);
+  }
 
 //only allows fanRPM, and fanTEMPS to execute if a fan is found
 if (fan === true) {
@@ -150,7 +158,6 @@ setTimeout(async () => {
   const boardname = await invoke("get_board_name");
   const cores = await invoke("get_cpu_cores");
   const cpuname = await invoke("get_cpu_name");
-  const cpuTempFunction = await invoke("get_cpu_temp");
   document.getElementById("biosVersion").innerText = "Bios Version: " + bios;
   document.getElementById("boardname").innerText = "Boardname: " + boardname;
   document.getElementById("coreCPU").innerText = "Cores: " + cores + " Cores";
@@ -159,8 +166,6 @@ setTimeout(async () => {
 
   //checks if user is on a chromebook, and if they are in a chromebook checks if they have the necessary drivers installed per os
   const manufacturer = await invoke("manufacturer");
-  const chargeControl = await invoke("chargecontrol");
-  console.log(chargeControl);
   if (manufacturer !== "Google") {
     document.getElementById("blur").classList.add("blur");
     document.getElementById("notChromebook").style.display = "flex";
@@ -170,18 +175,6 @@ setTimeout(async () => {
         document.getElementById("blur").classList.remove("blur");
         document.getElementById("notChromebook").style.display = "none";
       });
-  }
-  else if (cpuTempFunction == "0") {
-    document.getElementById('noEctools').style.display = "block";
-    if (os === "windows")
-    {
-      document.getElementById('windows').style.display = "flex";
-      clearInterval(temps);
-    }
-    else
-    {
-      document.getElementById('linux').style.display = "flex";
-    }
   }
 /*
   //shows or hides activity light settings based on boardname (only shows to Candy and Kefka)
@@ -602,3 +595,5 @@ if ((os === "windows")) {
     startOnBoot.checked = true; //TODO: Error: unresolved
   }
 }
+
+
