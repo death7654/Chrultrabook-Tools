@@ -43,7 +43,7 @@ Here are some of the project's best features:
 <p>1. Install Coolstar's EC Driver</p>
 
 ```
-https://raw.githubusercontent.com/coolstar/driverinstallers/master/crosec/crosec.2.0.2-installer.exe
+https://github.com/coolstar/driverinstallers/raw/master/crosec/crosec.2.0.3-installer.exe
 ```
 
 <p>2. Restart your laptop</p>
@@ -55,13 +55,13 @@ https://raw.githubusercontent.com/coolstar/driverinstallers/master/crosec/crosec
 <p>1. Mark Appimage as Executeable</p>
 
 ```
-chmod a+x chrultrabook-controller_2.4.0_amd64.AppImage
+chmod a+x chrultrabook-controller_2.7.1_amd64.AppImage
 ```
 
 <p>2. Run the Appimage</p>
 
 ```
-./chrultrabook-controller_2.4.0_amd64.AppImage
+./chrultrabook-controller_2.7.1_amd64.AppImage
 ```
 
 <h2>💻 Built with</h2>
@@ -75,7 +75,7 @@ Technologies used in the project:
 *   CSS
 
 <h2>About</h2>
-This is an open-source application, and serves the purpose of providing system information and controls in a visually pleasing manner.
+This is an open-source application, and serves the purpose of providing system information and controls for Chromebooks running an alternate OS in a visually pleasing manner.
 
 🍰 Contributions
 ----------------
@@ -86,7 +86,7 @@ This is an open-source application, and serves the purpose of providing system i
 ### From the Chrultrabook's Discord Server
 
 *   Ninelore - Optimizations
-*   Ethanaobrien - Optimizations
+*   Ethanaobrien - Optimizations and macOS
 *   WeirdTreeThing - Frontend Optimizations and Linux
 
 ### Support from Tauri's Discord Server
