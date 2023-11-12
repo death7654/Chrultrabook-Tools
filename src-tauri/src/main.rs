@@ -15,6 +15,7 @@ use tauri::{
 };
 use tauri::{Manager, Window};
 use tauri_plugin_autostart::MacosLauncher;
+use hidapi::HidApi;
 
 #[cfg(target_os = "linux")]
 const EC: &str = "ectool";
@@ -76,7 +77,8 @@ fn main() {
             set_battery_limit,
             ectool,
             cbmem,
-            chargecontrol
+            chargecontrol,
+            set_activity_light
         ])
         .plugin(tauri_plugin_autostart::init(
             MacosLauncher::LaunchAgent,
@@ -315,6 +317,46 @@ async fn cbmem(value: String) -> String {
 #[tauri::command]
 async fn chargecontrol() -> Option<String> {
     return Some(match_result(exec(EC, Some(vec!["chargecontrol"]))));
+}
+#[tauri::command]
+async fn set_activity_light(color: String) {
+    let activity_light;
+    
+    let device_exists = HidApi::open(&HidApi::new().unwrap(), 0x04d8, 0x0b28).is_ok();
+    if device_exists == true
+    {
+        activity_light = HidApi::open(&HidApi::new().unwrap(), 0x04d8, 0x0b28).unwrap();
+    }
+    else {
+        activity_light = HidApi::open(&HidApi::new().unwrap(), 0x046d, 0xc33c).unwrap();
+    }
+
+    let color_data: [u8; 4] = match color.as_str() {
+        "red" => [17, 1, 127, 32],
+        "green" => [17, 2, 146, 32],
+        "blue" => [17, 3, 165, 32],
+        "yellow" => [17, 4, 184, 32],
+        "magenta" => [17, 5, 203, 32],
+        "cyan" => [17, 6, 222, 32],
+        "white" => [17, 7, 241, 32],
+        "black" => [17, 8, 5, 32],
+        _ => [0, 0, 0, 0],
+    };
+    let right_array: [u8; 60] = [
+        255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
+        255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
+        255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
+        255, 255, 255, 255, 255, 255,
+    ];
+    let command: [u8; 64] = {
+        let mut whole: [u8; 64] = [0; 64];
+        let (one, two) = whole.split_at_mut(color_data.len());
+        one.copy_from_slice(&color_data);
+        two.copy_from_slice(&right_array);
+        whole
+    };
+    activity_light.write(&command).unwrap();
+    return;
 }
 
 // Helper functions

@@ -1,7 +1,15 @@
-
-#!/bin/bash 
+#!/usr/bin/env bash 
 ROOT=$(pwd)
-APPIMAGEDIR="$ROOT/src-tauri/target/release/bundle/appimage"
+
+if [[ -d $ROOT/target ]]; then
+    APPIMAGEDIR="$ROOT/target/release/bundle/appimage"
+elif [[ -d $ROOT/src-tauri/target ]]; then
+    APPIMAGEDIR="$ROOT/src-tauri/target/release/bundle/appimage"
+else
+    echo "Error: target folder not found. Aborting" 
+    exit 1
+fi
+
 APPDIR="$(find $APPIMAGEDIR -name "chrultrabook-controller*.AppDir")"
 APPIMAGE="$(find $APPIMAGEDIR -name "chrultrabook-controller*.AppImage")"
 APPIMAGETOOLURL="https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage"
