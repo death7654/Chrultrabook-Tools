@@ -15,11 +15,12 @@
 
 <img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/4da59aeb-81cb-40dd-a442-88c5bcfba823" alt="project-screenshot" width="400">
 
-<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/56b47381-c40c-4ac4-95a0-26deb38be111" alt="project-screenshot" width="400">
+<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/01491811-162f-4e82-83a1-6a405dab9ddb" alt="project-screenshot" width="400">
 
 <img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/9af010d9-6a4a-4612-a26b-291e50349980" alt="project-screenshot" width="400">
 
-<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/8726218f-1ba5-4f83-b1b5-7bbdf2d50d9a" alt="project-screenshot" width="400">
+<img src="https://github.com/death7654/Chrultrabook-Controller/assets/72635727/4c86064b-23c3-4066-9951-c6b875073337" alt="project-screenshot" width="400">
+
 
 
 
