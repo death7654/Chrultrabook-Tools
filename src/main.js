@@ -308,7 +308,7 @@ function setTemps() {
     return;
   }
   //calculator for what speed (in percentage) to run the fans at
-  let base = cpuTemp - 35;
+  let base = cpuTemp - 40;
   const percentage = [1, 0.2, 0.4, 0.6, 0.8][base % 5];
   let index = (base - (base % 5)) / 5;
   let temp = myChart.data.datasets[0].data[index];
