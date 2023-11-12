@@ -108,7 +108,7 @@ let cpu_ram = setInterval(async () => {
 }, 1000);
 
 //seperates temps, so ectool doesnt spam errors
-let temps = setInterval(async () => {
+let tempInterval = setInterval(async () => {
   console.log("temps")
   //cpu temps
   const cpuTempFunction = await invoke("get_cpu_temp");
@@ -125,11 +125,13 @@ let temps = setInterval(async () => {
   document.getElementById("cpuTemp").innerText = averageTemp.toFixed(0) + "°C";
   document.getElementById("cpuTempFan").innerText = averageTemp.toFixed(0) + "°C";
   console.log(averageTemp);
-}, 1000);
-if(containsNumber(averageTemp) === false)
+  if(containsNumber(averageTemp) === false)
   {
-    clearInterval(temps);
+    clearInterval(tempInterval);
+    console.log("noNum")
   }
+}, 1000);
+
 
 //only allows fanRPM, and fanTEMPS to execute if a fan is found
 if (fan === true) {
@@ -176,14 +178,12 @@ setTimeout(async () => {
         document.getElementById("notChromebook").style.display = "none";
       });
   }
-/*
   //shows or hides activity light settings based on boardname (only shows to Candy and Kefka)
-  if(boardname !== "Candy" && boardname !== "Kefka" && boardname)
+  if(boardname !== "Candy" && boardname !== "Kefka" && boardname !== "Vayne")
   {
     document.getElementById("ActivityLight").style.display = "none";
     document.getElementById("keyboardBacklight").classList.add("afterCheck");
   }
-  */
 
 }, 0);
 
@@ -391,28 +391,28 @@ const selectedActivityLight = document.querySelector(".selectedActivityLight");
 async function activityLight(){
   switch(selectedActivityLight.innerText) {
     case "Off":
-      invoke("set_activity_light", {color: "black"})
+      console.log("off");
     break;
     case "Red":
-      invoke("set_activity_light", {color: "red"})
+      console.log("Red");
     break;
     case "Green":
-      invoke("set_activity_light", {color: "green"})
+      console.log("Green");
     break;
     case "Blue":
-      invoke("set_activity_light", {color: "blue"})
+      console.log("Blue");
     break;
     case "White":
-      invoke("set_activity_light", {color: "white"})
+      console.log("White");
     break;
     case "Cyan":
-      invoke("set_activity_light", {color: "cyan"})
+      console.log("Cyan");
     break;
     case "Magenta":
-      invoke("set_activity_light", {color: "magenta"})
+      console.log("Magenta");
     break;
     case "Yellow":
-      invoke("set_activity_light", {color: "yellow"})
+      console.log("Yellow");
     break;
   }
 }
@@ -437,6 +437,7 @@ sliderBacklight.oninput = function () {
 };
 
 //batteryControl
+/*
 let chargerSlider = document.getElementById("chargerSlider");
 let chargerOutputBacklight = document.getElementById("chargerSliderText");
 chargerOutputBacklight.innerHTML = chargerSlider.value;
@@ -462,7 +463,7 @@ document
 document
   .getElementById("chargeControlDefault")
   .addEventListener("mousedown", () => setDefault());
-
+*/
 //sends info from html to ec, and pulls ec and sends it to HTML (system diagnostics)
 const selected = document.querySelector(".selected");
 async function getSystemInfo() {
