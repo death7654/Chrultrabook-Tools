@@ -67,10 +67,14 @@ function containsNumber(str) {
 }
 
 //checks if fan exists
+let fan = false;
 let fanExist = await invoke("get_fan_rpm");
 fanExist = fanExist.split(/\b(\s)/);
 if (containsNumber(fanExist[2]) === false) {
   document.getElementById("fan").style.display = "none";
+}
+else{
+  fan = true;
 }
 
 //sets current percantage for backlight and hides the slider if the chromebook has no backlight or battery controls
@@ -103,12 +107,10 @@ async function startCpuRamInterval(){
   const cpuUsage = await invoke("get_cpu_usage");
   document.getElementById("ramPercentage").innerText = ramUsage + "%";
   document.getElementById("cpuLoad").innerText = cpuUsage + "%";
-  console.log("cpu")
 }
 
 //seperates temps, so ectool doesnt spam errors
 async function startTempinterval(){
-  console.log("temp")
   //cpu temps
   const cpuTempFunction = await invoke("get_cpu_temp");
   let sensors = 0;
@@ -177,7 +179,7 @@ if (fan === true) {
   }, 0);
 }
 
-//Grabs System Info
+//Grabs System Infof
 setTimeout(async () => {
   const hostname = await invoke("get_hostname");
   const bios = await invoke("get_bios_version");
@@ -415,28 +417,28 @@ const selectedActivityLight = document.querySelector(".selectedActivityLight");
 async function activityLight(){
   switch(selectedActivityLight.innerText) {
     case "Off":
-      console.log("off");
+      invoke("set_activity_light", {color: "black"})
     break;
     case "Red":
-      console.log("Red");
+      invoke("set_activity_light", {color: "red"})
     break;
     case "Green":
-      console.log("Green");
+      invoke("set_activity_light", {color: "green"})
     break;
     case "Blue":
-      console.log("Blue");
+      invoke("set_activity_light", {color: "blue"})
     break;
     case "White":
-      console.log("White");
+      invoke("set_activity_light", {color: "white"})
     break;
     case "Cyan":
-      console.log("Cyan");
+      invoke("set_activity_light", {color: "cyan"})
     break;
     case "Magenta":
-      console.log("Magenta");
+      invoke("set_activity_light", {color: "magenta"})
     break;
     case "Yellow":
-      console.log("Yellow");
+      invoke("set_activity_light", {color: "yellow"})
     break;
   }
 }
