@@ -22,7 +22,7 @@ const EC: &str = "ectool";
 #[cfg(windows)]
 const EC: &str = "C:\\Program Files\\crosec\\ectool";
 #[cfg(target_os = "macos")]
-const EC: &str = "ectool"; //this needs to be figured out
+const EC: &str = "/usr/local/bin/ectool";
 
 #[cfg(target_os = "linux")]
 const MEM: &str = "cbmem";

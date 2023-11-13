@@ -129,11 +129,26 @@ async function startTempinterval(){
 let tempInterval = setInterval(async() => {
   startTempinterval()
 }, 1000);
+//stops ectools from trying to run and displays no ectools
 setTimeout(async () => {
-  if(containsNumber(averageTemp) === true)
+  if(containsNumber(averageTemp) === false)
   {
     clearInterval(tempInterval);
+    document.getElementById('noEctools').style.display = "block";
+    if (os === "windows")
+    {
+      document.getElementById('windows').style.display = "flex";
+    }
+    else if (os === "macos")
+    {
+      document.getElementById('macos').style.display = "flex";
+    }
+    else
+    {
+      document.getElementById('linux').style.display = "flex";
+    }
   }
+  console.log(os)
 },1500)
 
 let intervalStarted = false;
@@ -194,9 +209,10 @@ setTimeout(async () => {
   document.getElementById("hostname").innerText = "Hostname: " + hostname;
   document.getElementById("cpuName").innerText = "CPU: " + cpuname;
 
-  //checks if user is on a chromebook, and if they are in a chromebook checks if they have the necessary drivers installed per os
+  //checks if user is on a chromebook (except macos), and if they are in a chromebook checks if they have the necessary drivers installed per os
   let manufacturer = await invoke("manufacturer");
   manufacturer = manufacturer.toLowerCase();
+  if (os !== "macos"){
   if (manufacturer !== "google") {
     document.getElementById("blur").classList.add("blur");
     document.getElementById("notChromebook").style.display = "flex";
@@ -207,6 +223,7 @@ setTimeout(async () => {
         document.getElementById("notChromebook").style.display = "none";
       });
   }
+}
   //shows or hides activity light settings based on boardname (only shows to Candy and Kefka)
   if(boardname !== "Candy" && boardname !== "Kefka")
   {

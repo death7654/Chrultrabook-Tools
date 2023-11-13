@@ -59,11 +59,7 @@
   left: 30%;
   display: none;
 }
-.noEctools .windows {
-  display: none;
-  align-items: center;
-}
-.noEctools .linux {
+.noEctools .display {
   display: none;
   align-items: center;
 }
