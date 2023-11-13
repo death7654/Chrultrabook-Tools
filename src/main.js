@@ -87,7 +87,7 @@ setTimeout(async () => {
   document.getElementById("backlightRangeSliderText").value = keyboardBackLight[4];
 
   //prevents laptops with no backlight form seeing this
-  if (containsNumber(keyboardBackLight[4]) === false) {
+  if (keyboardBackLight[2] !== "keyboard" && keyboardBackLight[2] !== "backlight") {
     document.getElementById("rangeBacklight").style.display = "none";
     document.getElementById("rangeBacklightslider").style.display = "none";
   }
