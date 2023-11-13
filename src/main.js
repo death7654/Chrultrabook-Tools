@@ -125,20 +125,22 @@ async function startTempinterval(){
   averageTemp = temps / sensors;
   document.getElementById("cpuTemp").innerText = averageTemp.toFixed(0) + "°C";
   document.getElementById("cpuTempFan").innerText = averageTemp.toFixed(0) + "°C";
-  if(containsNumber(averageTemp) === false)
+}
+let tempInterval = setInterval(async() => {
+  startTempinterval()
+}, 1000);
+setTimeout(async () => {
+  if(containsNumber(averageTemp) === true)
   {
     clearInterval(tempInterval);
   }
-}
-setInterval(async() => {
-  startTempinterval()
-}, 1000);
+},1500)
 
 let intervalStarted = false;
 let previousInterval = false;
 let cpuRamInterval;
 setInterval(async () => {
-  let focus = await appWindow.isFocused();
+  let focus = await appWindow.isVisible();
   if(focus === false && intervalStarted === false)
   {
     clearInterval(cpuRamInterval);
@@ -195,7 +197,6 @@ setTimeout(async () => {
   //checks if user is on a chromebook, and if they are in a chromebook checks if they have the necessary drivers installed per os
   let manufacturer = await invoke("manufacturer");
   manufacturer = manufacturer.toLowerCase();
-  console.log(manufacturer);
   if (manufacturer !== "google") {
     document.getElementById("blur").classList.add("blur");
     document.getElementById("notChromebook").style.display = "flex";

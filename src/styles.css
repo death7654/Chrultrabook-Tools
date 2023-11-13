@@ -213,7 +213,7 @@
 
 body.dark {
   --primary-color: #0e4bf1;
-  --panel-color: #2b2a2a;
+  --panel-color: #2e2e32;
   --text-color: #fff;
   --textbox-color: #000;
   --black-light-color: #7e7e7e;
@@ -1373,7 +1373,6 @@ nav.close~.dashboard .top {
 
 
 .pre {
-  height: 500px;
   position: absolute;
   top: 220px;
   background-color: var(--cbmemCode-color);
