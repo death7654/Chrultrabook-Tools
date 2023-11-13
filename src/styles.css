@@ -29,7 +29,7 @@
 }
 .notChromebook h1{
   text-align: center;
-  color: white;
+  color: var(--text-color);
   padding: 20px;
   background-color: var(--panel-color);
   font-size: 20px;
@@ -44,6 +44,7 @@
 }
 .notChromebook .closebtn {
   font-size: 20px;
+  color: white;
 }
 .noEctools {
   z-index: 6;

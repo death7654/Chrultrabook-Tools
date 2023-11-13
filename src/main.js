@@ -193,8 +193,10 @@ setTimeout(async () => {
   document.getElementById("cpuName").innerText = "CPU: " + cpuname;
 
   //checks if user is on a chromebook, and if they are in a chromebook checks if they have the necessary drivers installed per os
-  const manufacturer = await invoke("manufacturer");
-  if (manufacturer !== "Google") {
+  let manufacturer = await invoke("manufacturer");
+  manufacturer = manufacturer.toLowerCase();
+  console.log(manufacturer);
+  if (manufacturer !== "google") {
     document.getElementById("blur").classList.add("blur");
     document.getElementById("notChromebook").style.display = "flex";
     document
@@ -559,6 +561,8 @@ async function getSystemInfo() {
 //copy functions
 const buttoncbMem = document.getElementById("cbMem");
 buttoncbMem.addEventListener("mousedown", () => getSystemInfo());
+const cbmemMenu = document.getElementById("cbmemMenu");
+cbmemMenu.addEventListener("mousedown", () => getSystemInfo());
 
 function copyTxt(htmlElement) {
   if (!htmlElement) return;
