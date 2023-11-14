@@ -70,7 +70,7 @@ function containsNumber(str) {
 let fan = false;
 let fanExist = await invoke("get_fan_rpm");
 fanExist = fanExist.split(/\b(\s)/);
-if (containsNumber(fanExist[2]) === false) {
+if (containsNumber(fanExist[3]) === "!") {
   document.getElementById("fan").style.display = "none";
 }
 else{
@@ -87,7 +87,7 @@ setTimeout(async () => {
   document.getElementById("backlightRangeSliderText").value = keyboardBackLight[4];
 
   //prevents laptops with no backlight form seeing this
-  if (keyboardBackLight[2] !== "keyboard" && keyboardBackLight[2] !== "backlight") {
+  if (keyboardBackLight[3] ==="1") {
     document.getElementById("rangeBacklight").style.display = "none";
     document.getElementById("rangeBacklightslider").style.display = "none";
   }
@@ -343,6 +343,7 @@ function setTemps() {
   } else {
     tempBetween = (temp2 - temp) * percentage + temp;
   }
+  console.log(tempBetween)
   invoke("ectool", { value: "fanduty", value2: tempBetween.toString() });
 }
 
