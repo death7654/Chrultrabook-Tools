@@ -13,7 +13,10 @@
   color: var(--text-color);
   transition: var(--tran-03);
 }
-
+.app {
+  background-color: var(--panel-color);
+  border-radius: 20px;
+}
 /*error msgs*/
 .notChromebook {
   width: 100%;
@@ -302,15 +305,12 @@ body.dark .activity-data::-webkit-scrollbar-thumb:hover {
 
 /*side nav begins*/
 nav {
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
   position: fixed;
   top: 0px;
   left: 0;
   height: 100%;
   width: 250px;
   padding: 10px 14px;
-  background-color: var(--panel-color);
   border-right: 1px solid var(--border-color);
   transition: var(--tran-05);
 }
@@ -473,9 +473,7 @@ body.dark .switch:before {
 
 .dashboard {
   position: relative;
-  border-top-right-radius: 20px;
   left: 250px;
-  background-color: var(--panel-color);
   min-height: 100vh;
   height: fit-content;
   width: calc(100% - 250px);
@@ -490,7 +488,6 @@ nav.close~.dashboard {
 }
 
 .dashboard .top {
-  border-top-right-radius: 20px;
   position: fixed;
   top: 0px;
   left: 250px;
@@ -624,6 +621,7 @@ nav.close~.dashboard .top {
 
 .boxes .box.hidden {
   background-color: var(--panel-color);
+  display: none;
 }
 
 .activeButton {

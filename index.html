@@ -21,7 +21,7 @@
             <h1 id="linux" class="display">You Are Missing Ectool and Cbmem Binaries</h1>
             <h1 id="macos" class="display">You Are Missing Ectool Binary</h1>
         </div>
-    <div id="blur">
+    <div id="blur" class="app">
     <div data-tauri-drag-region class="appFrame">
         <div class="appFunctionButtons">
             <button class="minimizeButton" id="minimize">━</button>
@@ -72,12 +72,12 @@
                 <!--DarkMode-->
                 <ul style="border: none" class="dark-mode">
                     <li class="mode">
-
-                        <div class="mode-toggle">
-                            <span class="switch"></span>
-                            <span class="link-name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dark Mode</span>
-
-                        </div>
+                        <a href="#">
+                        <span class="link-name" style="padding-left: 55px; padding-bottom: 12px;">Dark Mode</span>
+                    </a>
+                    <div class="mode-toggle">
+                      <span class="switch"></span>
+                    </div>
                     </li>
                 </ul>
             </div>
@@ -342,11 +342,11 @@
 
         //changing menus
 
-        var home = document.getElementById("sectionDashboard");
-        var fan = document.getElementById("sectionFan");
-        var cbmem = document.getElementById("sectionCbmem");
-        var options = document.getElementById("sectionOptions");
-        var settings = document.getElementById("sectionSettings");
+        let home = document.getElementById("sectionDashboard");
+        let fan = document.getElementById("sectionFan");
+        let cbmem = document.getElementById("sectionCbmem");
+        let options = document.getElementById("sectionOptions");
+        let settings = document.getElementById("sectionSettings");
 
         home.style.display = "block";
         fan.style.display = "none";
