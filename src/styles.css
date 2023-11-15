@@ -1,7 +1,5 @@
-/* ===== Google Font Import - Poppins ===== */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap");
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap");
-
+@import url(https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap);
 * {
   user-select: none;
   -webkit-user-select: none;
@@ -10,14 +8,15 @@
   border: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
-  color: var(--text-color);
   transition: var(--tran-03);
 }
-.app {
+
+.app,
+.notChromebook h1 {
   background-color: var(--panel-color);
   border-radius: 20px;
 }
-/*error msgs*/
+
 .notChromebook {
   width: 100%;
   height: 100%;
@@ -29,39 +28,47 @@
   align-items: center;
   justify-content: center;
 }
+
+*,
+.notChromebook h1 {
+  color: var(--text-color);
+}
+
 .notChromebook h1 {
   text-align: center;
-  color: var(--text-color);
   padding: 20px;
-  background-color: var(--panel-color);
   font-size: 20px;
   border-radius: 10px;
 }
+
 .notChromebook span {
   top: 10px;
   right: 15px;
   font-size: 40px;
   font-weight: 100;
 }
+
 .notChromebook .closebtn {
   font-size: 20px;
   color: #fff;
 }
+
 .noEctools {
   z-index: 6;
   font-size: 8px;
   background-color: var(--slider-color);
   padding: 10px;
   border-radius: 10px;
-  align-items: center;
   bottom: 10px;
   left: 30%;
-  display: none;
 }
+
+.noEctools,
 .noEctools .display {
   display: none;
   align-items: center;
 }
+
 .noEctools h1 {
   color: #fff;
 }
@@ -73,36 +80,39 @@
 
 .appFrame {
   color: #fff;
-  padding: 0px;
+  padding: 0;
   width: 100%;
   height: 35px;
-  right: 0px;
+  right: 0;
   z-index: 6;
   -webkit-app-region: drag;
 }
 
-.appFrame .closeButton {
+.appFrame .closeButton,
+.appFrame .minimizeButton {
   -webkit-app-region: none;
-  right: 15px;
   top: 15px;
   font-family: "Roboto", sans-serif;
   font-size: 6px;
   height: 12px;
   width: 12px;
-  font-weight: bold;
-  background: #ff6159;
-  border-color: #000;
-  border: none;
+  font-weight: 700;
+  border: 0;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
-  color: #ff6159;
   border-radius: 50%;
   cursor: pointer;
   -webkit-transition-duration: 0.3s;
   transition-duration: 0.3s;
   -webkit-transition-property: box-shadow, transform;
   transition-property: box-shadow, transform;
+}
+
+.appFrame .closeButton {
+  right: 15px;
+  background: #ff6159;
+  color: #ff6159;
 }
 
 .appFrame .closeButton:hover {
@@ -116,27 +126,9 @@
 }
 
 .appFrame .minimizeButton {
-  -webkit-app-region: none;
   right: 32.5px;
-  top: 15px;
-  font-family: "Roboto", sans-serif;
-  font-size: 6px;
-  height: 12px;
-  width: 12px;
-  font-weight: bold;
   background: #ffbd2e;
-  border-color: #000;
-  border: none;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
   color: #ffbd2e;
-  border-radius: 50%;
-  cursor: pointer;
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-property: box-shadow, transform;
-  transition-property: box-shadow, transform;
 }
 
 .appFrame .minimizeButton:hover {
@@ -155,9 +147,7 @@
   text-align: right;
 }
 
-/*default colors */
 :root {
-  /* ===== Colors ===== */
   --primary-color: #0e4bf1;
   --panel-color: #fafafa;
   --text-color: #000;
@@ -200,8 +190,6 @@
     brightness(103%) contrast(101%);
   --settingFilter: invert(20%) sepia(16%) saturate(0%) hue-rotate(240deg)
     brightness(105%) contrast(89%);
-
-  /* ====== Transition ====== */
   --tran-05: all 0.5s ease;
   --tran-03: all 0.3s ease;
   --tran-03: all 0.2s ease;
@@ -278,7 +266,6 @@ body.dark {
   filter: var(--settingFilter);
 }
 
-/* === Custom Scroll Bar CSS === */
 ::-webkit-scrollbar {
   width: 0;
   height: 0;
@@ -289,7 +276,6 @@ body.dark {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--panel-color);
   border-radius: 12px;
   transition: all 0.3s ease;
 }
@@ -299,30 +285,37 @@ body.dark {
   color: var(--panel-color);
 }
 
-body.dark::-webkit-scrollbar-thumb:hover,
-body.dark .activity-data::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb,
+body.dark .activity-data::-webkit-scrollbar-thumb:hover,
+body.dark::-webkit-scrollbar-thumb:hover {
   background: var(--panel-color);
 }
 
 .d-flex {
   display: flex;
 }
+
 .p-relative {
   position: relative;
 }
+
 .p-absolute {
   position: absolute;
 }
-/*side nav begins*/
+
+.dashboard,
+nav {
+  padding: 10px 14px;
+  transition: var(--tran-05);
+}
+
 nav {
   position: fixed;
-  top: 0px;
+  top: 0;
   left: 0;
   height: 100%;
   width: 250px;
-  padding: 10px 14px;
   border-right: 1px solid var(--border-color);
-  transition: var(--tran-05);
 }
 
 nav.close {
@@ -331,14 +324,18 @@ nav.close {
 
 nav .logo-name {
   align-items: center;
-  top: 0px;
+  top: 0;
+}
+
+nav .logo-image,
+nav .logo-name .logo_name {
+  color: var(--text-color);
+  transition: var(--tran-05);
 }
 
 nav .logo-image {
   justify-content: center;
   min-width: 45px;
-  color: var(--text-color);
-  transition: var(--tran-05);
 }
 
 nav .logo-image img {
@@ -352,12 +349,11 @@ nav .logo-image img {
 nav .logo-name .logo_name {
   font-size: 22px;
   font-weight: 600;
-  color: var(--text-color);
   margin-left: 14px;
-  transition: var(--tran-05);
 }
 
-nav.close .logo_name {
+nav.close .logo_name,
+nav.close li a .link-name {
   opacity: 0;
   pointer-events: none;
 }
@@ -379,7 +375,8 @@ nav .menu-items {
   text-decoration: none;
 }
 
-.nav-links li a:hover:before {
+.nav-links li a:hover:before,
+.switch:before {
   content: "";
   position: absolute;
   left: -7px;
@@ -401,18 +398,14 @@ body.dark li a:hover:before {
   transition: var(--tran-05);
 }
 
-nav.close li a .link-name {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.nav-links li a:hover i,
-.nav-links li a:hover .link-name {
+.nav-links li a:hover .link-name,
+.nav-links li a:hover i {
   color: var(--primary-color);
 }
 
-body.dark .nav-links li a:hover i,
-body.dark .nav-links li a:hover .link-name {
+.boxes .box i,
+body.dark .nav-links li a:hover .link-name,
+body.dark .nav-links li a:hover i {
   color: var(--text-color);
 }
 
@@ -427,7 +420,6 @@ body.dark .nav-links li a:hover .link-name {
 }
 
 .menu-items .mode-toggle {
-  position: absolute;
   left: 14px;
   top: 500px;
   height: 50px;
@@ -446,15 +438,12 @@ body.dark .nav-links li a:hover .link-name {
 }
 
 .switch:before {
-  content: "";
-  position: absolute;
   left: 5px;
   top: 50%;
   transform: translateY(-50%);
   height: 15px;
   width: 15px;
   background-color: var(--switch-color);
-  border-radius: 50%;
   transition: var(--tran-03);
 }
 
@@ -467,16 +456,10 @@ body.dark .switch:before {
   min-height: 100vh;
   height: fit-content;
   width: calc(100% - 250px);
-  padding: 10px 14px;
-  transition: var(--tran-05);
   z-index: 5;
 }
 
-nav.close ~ .dashboard {
-  left: 73px;
-  width: calc(100% - 73px);
-}
-
+nav.close ~ .dashboard,
 nav.close ~ .dashboard .top {
   left: 73px;
   width: calc(100% - 73px);
@@ -489,15 +472,13 @@ nav.close ~ .dashboard .top {
   margin-left: 7px;
 }
 
-/*Main HTML File begins */
-
 .dashboard .dash-content {
   padding-top: 30px;
 }
 
 .dash-content .title {
   align-items: center;
-  margin: 60px 0 30px 0;
+  margin: 60px 0 30px;
 }
 
 .dash-content .title .text {
@@ -520,11 +501,11 @@ nav.close ~ .dashboard .top {
   align-items: center;
   border-radius: 12px;
   padding: 15px 20px;
-  background-color: var(--box1-color);
   transition: var(--tran-05);
 }
 
-.boxes .box.cpuLoad {
+.boxes .box.cpuLoad,
+.dash-content .boxes .box {
   background-color: var(--box1-color);
 }
 
@@ -538,7 +519,7 @@ nav.close ~ .dashboard .top {
 
 .dash-content .overview .systemInfo {
   width: calc(100% - 15px);
-  font-weight: normal;
+  font-weight: 400;
   font-size: 15;
   background-color: var(--systeminfo-color);
   transition: var(--tran-05);
@@ -551,14 +532,8 @@ nav.close ~ .dashboard .top {
   padding: 20px;
 }
 
-/*fan section */
-
 .dash-content.boxes.fanSpeed {
   background-color: var(--box4-color);
-}
-
-.boxes .box i {
-  color: var(--text-color);
 }
 
 .boxes .box .text {
@@ -605,11 +580,11 @@ nav.close ~ .dashboard .top {
 }
 
 .FanAuto,
-.FanOff,
-.FanMax {
+.FanMax,
+.FanOff {
   font-family: "Roboto", sans-serif;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 700;
   padding: 20px;
   text-align: center;
   text-decoration: none;
@@ -624,12 +599,12 @@ nav.close ~ .dashboard .top {
   transition-property: box-shadow, transform;
 }
 
-.FanAuto:hover,
 .FanAuto:active,
-.FanOff:hover,
-.FanOff:focus,
+.FanAuto:hover,
+.FanMax:active,
 .FanMax:hover,
-.FanMax:active {
+.FanOff:focus,
+.FanOff:hover {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   -webkit-transform: scale(1.1);
   transform: scale(1.05);
@@ -667,7 +642,7 @@ nav.close ~ .dashboard .top {
   left: 60px;
   font-family: "Roboto", sans-serif;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 700;
   background: var(--dropdown-color);
   color: var(--text-color);
   width: 80%;
@@ -683,11 +658,11 @@ nav.close ~ .dashboard .top {
   transition-duration: 0.3s;
   -webkit-transition-property: box-shadow, transform;
   transition-property: box-shadow, transform;
-  border-color: #000000;
+  border-color: #000;
 }
 
-.setFan:hover,
-.setFan:active {
+.setFan:active,
+.setFan:hover {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   -webkit-transform: scale(1.1);
   transform: scale(1.02);
@@ -695,7 +670,6 @@ nav.close ~ .dashboard .top {
   color: #fff;
 }
 
-/*system options*/
 .ActivityLight {
   top: 10px;
 }
@@ -703,9 +677,10 @@ nav.close ~ .dashboard .top {
 .activitylightText {
   font-size: 20px;
   font-weight: 600;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
 }
+
 .dellActivityLight {
   top: 20px;
   width: 97%;
@@ -718,8 +693,8 @@ nav.close ~ .dashboard .top {
 .backlightText {
   font-size: 20px;
   font-weight: 600;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
 }
 
 .rangeBacklight {
@@ -756,6 +731,7 @@ nav.close ~ .dashboard .top {
   height: 100%;
 }
 
+.ChargeControlField .value,
 .fieldBacklight .value {
   font-size: 18px;
   color: var(--slider-text-color);
@@ -775,13 +751,14 @@ nav.close ~ .dashboard .top {
   appearance: none;
   width: 100%;
   cursor: pointer;
-  outline: none;
+  outline: 0;
   border-radius: 15px;
   height: 6px;
   background: var(--slider-knob-color);
 }
 
-.rangeBacklight input::-webkit-slider-thumb {
+.rangeBacklight input::-webkit-slider-thumb,
+.rangeChargeControl input::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   height: 15px;
@@ -794,7 +771,6 @@ nav.close ~ .dashboard .top {
   background-color: red;
 }
 
-/*battery controls*/
 .ChargeControl {
   top: 130px;
 }
@@ -803,7 +779,7 @@ nav.close ~ .dashboard .top {
   font-size: 20px;
   font-weight: 600;
   top: 6px;
-  left: 0px;
+  left: 0;
 }
 
 .rangeChargeControl {
@@ -823,12 +799,6 @@ nav.close ~ .dashboard .top {
   height: 100%;
 }
 
-.ChargeControlField .value {
-  font-size: 18px;
-  color: var(--slider-text-color);
-  font-weight: 600;
-}
-
 .ChargeControlField .value.left {
   left: -28px;
 }
@@ -842,19 +812,10 @@ nav.close ~ .dashboard .top {
   appearance: none;
   width: 100%;
   cursor: pointer;
-  outline: none;
+  outline: 0;
   border-radius: 15px;
   height: 6px;
   background: var(--chargeslider-knob-color);
-}
-
-.rangeChargeControl input::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  height: 15px;
-  width: 15px;
-  background-color: #fff;
-  border-radius: 50%;
 }
 
 .ChargeControlButton {
@@ -862,7 +823,7 @@ nav.close ~ .dashboard .top {
   left: 30px;
   font-family: "Roboto", sans-serif;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 700;
   background: var(--dropdown-color);
   color: var(--text-color);
   width: calc(40%);
@@ -878,11 +839,11 @@ nav.close ~ .dashboard .top {
   transition-duration: 0.3s;
   -webkit-transition-property: box-shadow, transform;
   transition-property: box-shadow, transform;
-  border-color: #000000;
+  border-color: #000;
 }
 
-.ChargeControlButton.Set:hover,
-.ChargeControlButton.Set:active {
+.ChargeControlButton.Set:active,
+.ChargeControlButton.Set:hover {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   -webkit-transform: scale(1.1);
   transform: scale(1.01);
@@ -891,34 +852,31 @@ nav.close ~ .dashboard .top {
   transition: 0.3s;
 }
 
-.ChargeControlButton.Default:hover,
-.ChargeControlButton.Default:active {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  -webkit-transform: scale(1.1);
-  transform: scale(1.01);
+.ChargeControlButton.Default:active,
+.ChargeControlButton.Default:hover {
   background: var(--box2-color);
-  color: #fff;
-  transition: 0.3s;
 }
 
 .ChargeControlButton.Default {
   left: 50px;
 }
 
-.afterCheck {
-  top: -10px;
-}
-
-/*cbmem section */
+.afterCheck,
 .cbmemButtons {
   top: -10px;
 }
 
+.cbMem,
+.copyButton {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+
 .cbMem {
   top: 230px;
-  font-family: "Roboto", sans-serif;
   font-size: 18px;
-  font-weight: bold;
   background: var(--dropdown-color);
   color: var(--text-color);
   width: calc(100%);
@@ -928,43 +886,43 @@ nav.close ~ .dashboard .top {
   text-transform: uppercase;
   border: #000;
   border-radius: 8px;
-  cursor: pointer;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
   -webkit-transition-property: box-shadow, transform;
   transition-property: box-shadow, transform;
-  border-color: #000000;
+  border-color: #000;
 }
 
-.cbMem:hover,
-.cbMem:active {
+.ChargeControlButton.Default:active,
+.ChargeControlButton.Default:hover,
+.cbMem:active,
+.cbMem:hover {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   -webkit-transform: scale(1.1);
   transform: scale(1.01);
-  background: var(--getcbMem-color);
   color: #fff;
   transition: 0.3s;
+}
+
+.cbMem:active,
+.cbMem:hover {
+  background: var(--getcbMem-color);
 }
 
 .copyButton {
   top: 70px;
   left: calc(95%);
-  font-family: "Roboto", sans-serif;
-  font-weight: bold;
   font-size: 10%;
-  background: transparent;
+  background: 0 0;
   width: calc(1% - 15);
   padding: 5px;
   border-radius: 10px;
-  cursor: pointer;
-  transition-duration: 0.3s;
   z-index: 1;
-  border: none;
+  border: 0;
 }
 
-.copyButton:hover,
-.copyButton:focus {
+.copyButton:focus,
+.copyButton:hover {
   -webkit-transform: scale(1.2);
   transform: scale(1.2);
 }
@@ -1008,13 +966,17 @@ nav.close ~ .dashboard .top {
   transform: rotate(180deg);
 }
 
+.menu,
+.menu li {
+  border-radius: 0.5em;
+}
+
 .menu {
   list-style: none;
   padding: 0.2em 0.5em;
   background: var(--dropdown-color);
   border: 1px #323741 solid;
   box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
-  border-radius: 0.5em;
   color: var(--text-color);
   top: 4em;
   left: 50%;
@@ -1029,23 +991,23 @@ nav.close ~ .dashboard .top {
 .menu li {
   padding: 0.7em 0.5em;
   margin: 0.3em 0;
-  border-radius: 0.5em;
   cursor: pointer;
 }
 
+.active,
 .menu li:hover {
   background-color: var(--hover-color);
 }
 
-.active {
-  background-color: var(--hover-color);
+.menu-open,
+.pre {
+  overflow-y: scroll;
 }
 
 .menu-open {
   display: block;
   opacity: 1;
   height: 235px;
-  overflow-y: scroll;
 }
 
 .pre {
@@ -1054,20 +1016,17 @@ nav.close ~ .dashboard .top {
   border-radius: 10px;
   height: 160px;
   width: 96%;
-  overflow-y: scroll;
 }
 
 .code {
   padding: 20px;
 }
 
-/*main html file ends */
 .hiddentext {
-  font-size: 0px;
+  font-size: 0;
   color: var(--panel-color);
 }
 
-/*settings*/
 .settings {
   display: inline-grid;
   width: 100%;
@@ -1081,24 +1040,26 @@ nav.close ~ .dashboard .top {
   height: 20px;
 }
 
-/* Hide default HTML checkbox */
 .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-/* The slider */
+.slider,
+.slider:before {
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
 .slider {
   cursor: pointer;
   top: 0;
-  left: 0px;
+  left: 0;
   right: 0;
   bottom: 0;
   background-color: var(--cbmemCode-color);
   border: var(--slider-text-color) 1px solid;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
 }
 
 .slider:before {
@@ -1108,9 +1069,7 @@ nav.close ~ .dashboard .top {
   width: 12px;
   left: 3px;
   bottom: 3.5px;
-  background-color: #ffffff;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+  background-color: #fff;
 }
 
 input:checked + .slider {
@@ -1138,6 +1097,7 @@ input:checked + .slider:before {
 .center {
   top: 6px;
 }
+
 .switch.startupFan {
   grid-area: button1;
 }
