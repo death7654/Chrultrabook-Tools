@@ -30,13 +30,9 @@ jobs:
           releaseBody: 'See the assets to download this version and install.'
           releaseDraft: true
           prerelease: false
-      - name: Publishing new release
-        uses: softprops/action-gh-release@v1
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
         with:
-          tagName: __VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
-          releaseName: '__VERSION__'
-          releaseBody: 'See the assets to download this version and install.'
-          releaseDraft: true
-          prerelease: false
-          files: |
-            target/release/chrultrabook*.exe
+          name: Chrultrabook-Controller
+          retention-days: 5
+          path: target/release/chrultrabook*.exe

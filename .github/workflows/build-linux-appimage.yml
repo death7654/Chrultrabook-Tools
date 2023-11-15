@@ -29,13 +29,9 @@ jobs:
         run: npm run tauri build
       - name: Linux AppImage Packaging
         run: ./linux_build.sh
-      - name: Publishing new release
-        uses: softprops/action-gh-release@v1
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
         with:
-          tagName: "2.8.1" # the action automatically replaces \_\_VERSION\_\_ with the app version
-          releaseName: '__VERSION__'
-          releaseBody: 'See the assets to download this version and install.'
-          releaseDraft: true
-          prerelease: false
-          files: |
-            target/release/bundle/appimage/chrultrabook*.AppImage
+          name: Chrultrabook-Controller
+          retention-days: 5
+          path: target/release/bundle/appimage/chrultrabook*.AppImage
