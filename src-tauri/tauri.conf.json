@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "Chrultrabook Controller",
-    "version": "2.7.10"
+    "version": "2.8.1"
   },
   "tauri": {
     "systemTray": {
