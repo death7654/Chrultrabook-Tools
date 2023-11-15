@@ -12,26 +12,26 @@
     <title>Chultrabook Controller</title>
 
 <body style="overflow: hidden;">
-        <div id="notChromebook" class="notChromebook">
-            <span id="notChromebookButton" class="closebtn">✖</span>
+        <div id="notChromebook" class="notChromebook p-absolute">
+            <span id="notChromebookButton" class="closebtn p-absolute">✖</span>
             <h1>This Computer Is Not A Modified Chromebook<br><br>This App Works Best on Modified Chromebooks</h1>
         </div>
-        <div id="noEctools" class="noEctools">
+        <div id="noEctools" class="noEctools p-absolute">
             <h1 id="windows" class="display">You Are Missing Coolstar's EC Driver</h1>
             <h1 id="linux" class="display">You Are Missing Ectool and Cbmem Binaries</h1>
             <h1 id="macos" class="display">You Are Missing Ectool Binary</h1>
         </div>
     <div id="blur" class="app">
-    <div data-tauri-drag-region class="appFrame">
+    <div data-tauri-drag-region class="appFrame p-absolute">
         <div class="appFunctionButtons">
-            <button class="minimizeButton" id="minimize">━</button>
-            <button class="closeButton" id="close">✖</button>
+            <button class="minimizeButton p-absolute" id="minimize">━</button>
+            <button class="closeButton p-absolute" id="close">✖</button>
         </div>
     </div>
     <div style="overflow-y: scroll; height: 100vh; border-bottom-right-radius: 20px;  border-top-right-radius: 20px;">
         <nav>
             <!--LogoName-->
-            <div class="logo-name d-flex">
+            <div class="logo-name d-flex p-relative">
                 <div class="logo-image d-flex">
                     <img class="logoFilter" src="./src/assets/Icons/sidenavbar/chrome.svg" alt="">
                 </div>
@@ -45,25 +45,25 @@
                             <i class="uil uil-bars "></i>
                         </div>
                     </li>
-                    <li><a id="home" class="d-flex">
+                    <li><a id="home" class="d-flex p-relative">
                             <img class="navbarimg homeFilter" src="./src/assets/Icons/sidenavbar/home.svg" alt="">
                             <span class="link-name">Dashboard</span>
                         </a></li>
-                    <li><a id="fan" class="d-flex">
+                    <li><a id="fan" class="d-flex p-relative">
                             <img class="navbarimg fanFilter" src="./src/assets/Icons/sidenavbar/fan.svg" alt="">
                             <span class="link-name">Fan Control</span>
                         </a></li>
-                    <li><a id="options" class="d-flex">
+                    <li><a id="options" class="d-flex p-relative">
                             <img class="navbarimg systemoptionsFilter"
                                 src="./src/assets/Icons/sidenavbar/system-options.svg" alt="">
                             <span class="link-name">System Controls</span>
                         </a></li>
-                    <li><a id="diagnostics" class="d-flex">
+                    <li><a id="diagnostics" class="d-flex  p-relative">
                             <img class="navbarimg diagnosticFilter" src="./src/assets/Icons/sidenavbar/Diagnostics.svg"
                                 alt="">
                             <span class="link-name">System Information</span>
                         </a></li>
-                    <li><a id="information" class="d-flex">
+                    <li><a id="information" class="d-flex p-relative">
                             <img class="navbarimg settingFilter" src="./src/assets/Icons/sidenavbar/settings.svg"
                                 alt="">
                             <span class="link-name">Settings</span>
@@ -72,18 +72,18 @@
                 <!--DarkMode-->
                 <ul style="border: none" class="dark-mode">
                     <li class="mode d-flex">
-                        <a href="#" class="d-flex">
+                        <a href="#" class="d-flex  p-relative">
                         <span class="link-name" style="padding-left: 55px; padding-bottom: 12px;">Dark Mode</span>
                     </a>
-                    <div class="mode-toggle d-flex">
-                      <span class="switch"></span>
+                    <div class="mode-toggle d-flex p-absolute">
+                      <span class="switch p-relative"></span>
                     </div>
                     </li>
                 </ul>
             </div>
         </nav>
         <!--Dashboard-->
-        <section id="sectionDashboard" class="dashboard">
+        <section id="sectionDashboard" class="dashboard p-relative">
             <div class="dash-content">
                 <div class="overview info">
                     <div class="title d-flex">
@@ -108,7 +108,7 @@
                             <span id="ramPercentage" style="color: var(--textbox-color);">0%</span>
                         </div>
                     </div>
-                    <div id="onLoad" class="systemInfo">
+                    <div id="onLoad" class="systemInfo p-relative">
                         <div class="systemInfoText">
                             <h4 id="cpuName"></h4>
                             <h4 id="biosVersion"></h4>
@@ -121,7 +121,7 @@
             </div>
         </section>
         <!--fancontrols-->
-        <section id="sectionFan" class="dashboard">
+        <section id="sectionFan" class="dashboard p-relative">
             <div class="dash-content">
                 <div class="overview">
                     <div class="title d-flex">
@@ -142,18 +142,18 @@
                         <div class="box hidden" height="0" width="0"></div>
                     </div>
                     <div class="setFanSpeed">
-                        <h2 class="FanSpeedText">Fan Speeds</h2>
-                        <div class="fanButtons">
-                            <button id="fanAuto" href="#" class="FanAuto">Auto</button>
-                            <button id="fanOff" href="#" class="FanOff"> Off</button>
-                            <button id="fanMax" href="#" class="FanMax"> Max</button>
+                        <h2 class="FanSpeedText p-relative">Fan Speeds</h2>
+                        <div class="fanButtons p-relative">
+                            <button id="fanAuto" href="#" class="FanAuto p-relative">Auto</button>
+                            <button id="fanOff" href="#" class="FanOff p-relative"> Off</button>
+                            <button id="fanMax" href="#" class="FanMax p-relative"> Max</button>
                         </div>
                         <div class="customFanCurves">
-                            <h2 class="customFanSpeedText">Custom Fan Curves</h2>
-                            <div class="fancurves">
+                            <h2 class="customFanSpeedText p-absolute">Custom Fan Curves</h2>
+                            <div class="fancurves p-relative">
                                 <canvas id="fancurves"></canvas>
                             </div>
-                            <button id="setFan" href="#" class="setFan"> set</button>
+                            <button id="setFan" href="#" class="setFan p-relative"> set</button>
                         </div>
                     </div>
                 </div>
@@ -162,22 +162,22 @@
                 <br>
         </section>
         <!--System Controls-->
-        <section id="sectionOptions" class="dashboard">
+        <section id="sectionOptions" class="dashboard p-relative">
             <div class="dash-content">
                 <div class="overview">
-                    <div class="title options d-flex">
+                    <div class="title d-flex">
                         <img src="./src/assets/Icons/systemOptions/system-options.svg">
                         <span class="text">System Controls</span>
                     </div>
-                <div class="ActivityLight" id="ActivityLight">
+                <div class="ActivityLight p-relative" id="ActivityLight">
                     <h2 class="activitylightText" id="activityLightDropdown">&nbsp;&nbsp;Activity light</h2>
-                    <div class="dellActivityLight">
+                    <div class="dellActivityLight p-relative">
                         <div class="dropdownActivityLight">
                             <div class="select d-flex">
                                 <span class="selectedActivityLight">Pick A Color</span>
                                 <div class="caret"></div>
                             </div>
-                            <ul class="menu" id="activityLightMenu">
+                            <ul class="menu p-absolute" id="activityLightMenu">
                                 <!--If you change anything here make sure to change the name in main.js-->
                                 <li>Off</li>
                                 <li>Red</li>
@@ -192,59 +192,49 @@
                         </div>
                     </div>
                 </div>
-                <div class="keyboardBacklight" id="keyboardBacklight">
-                    <h2 class="backlightText" id="rangeBacklight">&nbsp;&nbsp;Keyboard Backlight</h2>
-                    <div class="rangeBacklight" id="rangeBacklightslider">
-                        <div class="sliderValue">
-                            <span>100</span>
+                <div class="keyboardBacklight p-relative" id="keyboardBacklight">
+                    <h2 class="backlightText p-relative" id="rangeBacklight">&nbsp;&nbsp;Keyboard Backlight</h2>
+                    <div class="rangeBacklight p-absolute" id="rangeBacklightslider">
+                        <div class="sliderValue p-relative">
+                            <span class="p-absolute">100</span>
                         </div>
-                        <div class="fieldBacklight d-flex">
-                            <div class="value left">
+                        <div class="fieldBacklight d-flex p-relative">
+                            <div class="value p-absolute left">
                                 0
                             </div>
                             <input type="range" min="0" max="100" value="100" step="10" id="backlightRangeSlider">
-                                <div class="value right" id="backlightRangeSliderText">100</div>
+                                <div class="value p-absolute right" id="backlightRangeSliderText">100</div>
                         </div>
                     </div>
                     </div>
                     <!--Keyboard Backlight Ends-->
                     <!--Charge Controls-->
                     <!--
-                    <div class="ChargeControl" id="ChargeControl">
-                        <h2 class="ChargeControlText" id="rangeChargeControl">&nbsp;&nbsp;Charge Control</h2>
-                        <div class="rangeChargeControl" id="rangeChargeControlslider">
-                            <div class="sliderValue">
+                    <div class="ChargeControl p-relative" id="ChargeControl">
+                        <h2 class="ChargeControlText p-relative" id="rangeChargeControl">&nbsp;&nbsp;Charge Control</h2>
+                        <div class="rangeChargeControl p-absolute" id="rangeChargeControlslider">
+                            <div class="sliderValue p-relative">
                                 <span>100</span>
                             </div>
-                            <div class="ChargeControlField d-flex">
-                                <div class="value left">
+                            <div class="ChargeControlField d-flex p-relative">
+                                <div class="value p-absolute left">
                                     70
                                 </div>
                                 <input type="range" min="70" max="100" value="100" steps="1" id="chargerSlider">
-                                <div class="value right" id="chargerSliderText">100</div>
+                                <div class="value p-absolute right" id="chargerSliderText">100</div>
                             </div>
                         </div>
-                        <button class="ChargeControlButton Set" id="chargeControlSet">Set</button>
-                        <button class="ChargeControlButton Default" id="chargeControlDefault">Default</button>
+                        <button class="ChargeControlButton p-relative Set" id="chargeControlSet">Set</button>
+                        <button class="ChargeControlButton p-relative Default" id="chargeControlDefault">Default</button>
                         
                     </div>
                     -->
                     <!--Charger Controls ends-->
                 </div>
             </div>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
         </section>
         <!--system information-->
-        <section id="sectionCbmem" class="dashboard">
+        <section id="sectionCbmem" class="dashboard p-relative">
 
             <div class="dash-content">
                 <div class="overview">
@@ -255,13 +245,13 @@
 
                 </div>
 
-                <div class="cbmemButtons">
+                <div class="cbmemButtons p-relative">
                     <div class="dropdown">
                         <div class="select d-flex">
                             <span class="selected">Select</span>
                             <div class="caret"></div>
                         </div>
-                        <ul class="menu" id="cbmemMenu">
+                        <ul class="menu p-absolute" id="cbmemMenu">
                             <!--If you change anything here make sure to change the name in main.js-->
                             <li id="nomacos1">Boot Timestamps</li>
                             <li id="nomacos2">Coreboot Log</li>
@@ -276,8 +266,8 @@
                             <!--everything else shold be fine, unless you change the class names-->
                         </ul>
                     </div>
-                    <button id="cbMem" href="#" class="cbMem">Refresh</button>
-                    <button id="copyButton" class="copyButton">
+                    <button id="cbMem" href="#" class="cbMem p-absolute">Refresh</button>
+                    <button id="copyButton" class="copyButton p-absolute">
                         <svg aria-hidden="true" focusable="false" role="img" class="octicon octicon-copy"
                             viewBox="0 0 16 16" width="16" height="16" fill="currentColor"
                             style="display: inline-block; user-select: none; vertical-align: text-bottom;">
@@ -290,7 +280,7 @@
                         </svg>
                     </button>
                 </div>
-                <pre class="pre">
+                <pre class="pre p-absolute">
                         <span class="cbmem">
                             <code class="code" id="cbMemInfo"></code>
                         </span>
@@ -298,7 +288,7 @@
             </div>
         </section>
         <!--settings-->
-        <section id="sectionSettings" class="dashboard" style="overflow-y:scroll; overflow-x:hidden;">
+        <section id="sectionSettings" class="dashboard p-relative" style="overflow-y:scroll; overflow-x:hidden;">
             <div class="dash-content">
                 <div class="overview">
                     <div class="title d-flex">
@@ -306,21 +296,21 @@
                         <span class="text">Settings </span>
                     </div>
                     <div class="settings">
-                        <label class="switch startupFan center" id="startupFan">
+                        <label class="switch startupFan center p-relative" id="startupFan">
                             <input id="startupFansInput" type="checkbox">
-                            <span class="slider round"></span>
+                            <span class="slider p-absolute round"></span>
                         </label>
-                        <label class="switch closeToTray center" id="systemTray">
+                        <label class="switch closeToTray center p-relative" id="systemTray">
                             <input id="systemTrayInput" type="checkbox">
-                            <span class="slider round"></span>
+                            <span class="slider p-absolute round"></span>
                         </label>
-                        <label class="switch startInTray center" id="startHiddenButton">
+                        <label class="switch startInTray center p-relative" id="startHiddenButton">
                             <input id="startHiddenInput" type="checkbox">
-                            <span class="slider round"></span>
+                            <span class="slider p-absolute round"></span>
                         </label>
-                        <label class="switch startBoot center" id="startOnBootButton">
+                        <label class="switch startBoot center p-relative" id="startOnBootButton">
                             <input id="startOnBootInput" type="checkbox">
-                            <span class="slider round"></span>
+                            <span class="slider  p-absolute round"></span>
                         </label>
                         <h3 class="startupFanText lines">Start Custom Fan Curves On App Startup</h3>
                         <h3 class="closeToTrayText lines">When Closed, App Minimizes To System Tray</h3>
