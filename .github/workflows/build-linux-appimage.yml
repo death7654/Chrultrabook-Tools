@@ -14,11 +14,9 @@ jobs:
       - name: setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 20
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
-        with: 
-         toolchain: 1.72
       - name: Install build dependencies
         run: |
           sudo apt-get update -y
@@ -34,7 +32,7 @@ jobs:
       - name: Publishing new release
         uses: softprops/action-gh-release@v1
         with:
-          tagName: __VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
+          tagName: "2.8.1" # the action automatically replaces \_\_VERSION\_\_ with the app version
           releaseName: '__VERSION__'
           releaseBody: 'See the assets to download this version and install.'
           releaseDraft: true
