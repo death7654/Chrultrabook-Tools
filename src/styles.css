@@ -1,1137 +1,930 @@
 @import url(https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap);
 * {
-  user-select: none;
-  -webkit-user-select: none;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-  transition: var(--tran-03);
+	user-select: none;
+	-webkit-user-select: none;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	box-sizing: border-box;
+	font-family: "Poppins", sans-serif;
+	transition: var(--tran-03);
 }
-
-.app,
-.notChromebook h1 {
-  background-color: var(--panel-color);
-  border-radius: 20px;
+.app, .notChromebook h1 {
+	background-color: var(--panel-color);
+	border-radius: 20px;
 }
-
 .notChromebook {
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
-  bottom: 0;
-  left: 0;
-  z-index: 6;
-  display: none;
-  align-items: center;
-  justify-content: center;
+	width: 100%;
+	height: 100%;
+	border-radius: 20px;
+	bottom: 0;
+	left: 0;
+	z-index: 6;
+	display: none;
+	align-items: center;
+	justify-content: center;
 }
-
-*,
+*, .notChromebook h1 {
+	color: var(--text-color);
+}
 .notChromebook h1 {
-  color: var(--text-color);
+	text-align: center;
+	padding: 20px;
+	font-size: 20px;
+	border-radius: 10px;
 }
-
-.notChromebook h1 {
-  text-align: center;
-  padding: 20px;
-  font-size: 20px;
-  border-radius: 10px;
-}
-
 .notChromebook span {
-  top: 10px;
-  right: 15px;
-  font-size: 40px;
-  font-weight: 100;
+	top: 10px;
+	right: 15px;
+	font-size: 40px;
+	font-weight: 100;
 }
-
 .notChromebook .closebtn {
-  font-size: 20px;
-  color: #fff;
+	font-size: 20px;
+	color: #fff;
 }
-
 .noEctools {
-  z-index: 6;
-  font-size: 8px;
-  background-color: var(--slider-color);
-  padding: 10px;
-  border-radius: 10px;
-  bottom: 10px;
-  left: 30%;
+	z-index: 6;
+	font-size: 8px;
+	background-color: var(--slider-color);
+	padding: 10px;
+	border-radius: 10px;
+	bottom: 10px;
+	left: 30%;
 }
-
-.noEctools,
-.noEctools .display {
-  display: none;
-  align-items: center;
+.noEctools, .noEctools .display {
+	display: none;
+	align-items: center;
 }
-
 .noEctools h1 {
-  color: #fff;
+	color: #fff;
 }
-
 .blur {
-  filter: blur(3px) brightness(25%);
-  -webkit-filter: blur(3px) brightness(25%);
+	filter: blur(3px) brightness(25%);
+	-webkit-filter: blur(3px) brightness(25%);
 }
-
 .appFrame {
-  color: #fff;
-  padding: 0;
-  width: 100%;
-  height: 35px;
-  right: 0;
-  z-index: 6;
-  -webkit-app-region: drag;
+	color: #fff;
+	padding: 0;
+	width: 100%;
+	height: 35px;
+	right: 0;
+	z-index: 6;
+	-webkit-app-region: drag;
 }
-
-.appFrame .closeButton,
-.appFrame .minimizeButton {
-  -webkit-app-region: none;
-  top: 15px;
-  font-family: "Roboto", sans-serif;
-  font-size: 6px;
-  height: 12px;
-  width: 12px;
-  font-weight: 700;
-  border: 0;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  border-radius: 50%;
-  cursor: pointer;
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-property: box-shadow, transform;
-  transition-property: box-shadow, transform;
+.appFrame .closeButton, .appFrame .minimizeButton {
+	-webkit-app-region: none;
+	top: 15px;
+	font-family: "Roboto", sans-serif;
+	font-size: 6px;
+	height: 12px;
+	width: 12px;
+	font-weight: 700;
+	border: 0;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	border-radius: 50%;
+	cursor: pointer;
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+	-webkit-transition-property: box-shadow, transform;
+	transition-property: box-shadow, transform;
 }
-
 .appFrame .closeButton {
-  right: 15px;
-  background: #ff6159;
-  color: #ff6159;
+	right: 15px;
+	background: #ff6159;
+	color: #ff6159;
 }
-
 .appFrame .closeButton:hover {
-  color: #000;
-  transition: all 0.3s ease-out;
-  transform: scale(1.1);
+	color: #000;
+	transition: all 0.3s ease-out;
+	transform: scale(1.1);
 }
-
 .appFrame .closeButton:active {
-  background-color: #bf4942;
+	background-color: #bf4942;
 }
-
 .appFrame .minimizeButton {
-  right: 32.5px;
-  background: #ffbd2e;
-  color: #ffbd2e;
+	right: 32.5px;
+	background: #ffbd2e;
+	color: #ffbd2e;
 }
-
 .appFrame .minimizeButton:hover {
-  color: #000;
-  transition: all 0.3s ease-out;
-  transform: scale(1.1);
+	color: #000;
+	transition: all 0.3s ease-out;
+	transform: scale(1.1);
 }
-
 .appFrame .minimizeButton:active {
-  background-color: #bf8e22;
+	background-color: #bf8e22;
 }
-
 .menu-items .nav-links .navbarimg {
-  padding-left: 6px;
-  padding-right: 8px;
-  text-align: right;
+	padding-left: 6px;
+	padding-right: 8px;
+	text-align: right;
 }
-
 :root {
-  --primary-color: #0e4bf1;
-  --panel-color: #fafafa;
-  --text-color: #000;
-  --textbox-color: #000;
-  --black-light-color: #bdbdbd;
-  --border-color: #b8b6b6;
-  --toggle-color: #ff7f50;
-  --box1-color: #ef476f;
-  --box2-color: #06d6a0;
-  --box3-color: #00acc2;
-  --box4-color: #ef476f;
-  --box5-color: #06d6a0;
-  --fanAuto-color: #239c00;
-  --fanMax-color: #9c0000;
-  --fanOff-color: #f04f00;
-  --fanCurves-color: #eef1f7;
-  --fanCurvesHover-color: #06d6a0;
-  --getcbMem-color: #d170e9;
-  --copy-color: #007fff;
-  --cbmemCode-color: #d6d9de;
-  --dropdown-color: #e6e6e6;
-  --hover-color: rgb(194, 194, 227);
-  --systeminfo-color: #d6d9de;
-  --title-icon-color: #ccc;
-  --switch-color: #fcefef;
-  --select-color: #f2f2f2;
-  --slider-knob-color: #06d6a0;
-  --slider-color: #ef476f;
-  --chargeslider-color: #0094ea;
-  --chargeslider-knob-color: #47e1ef;
-  --slider-text-color: #fff;
-  --remap-color: #00bae2;
-  --homeFilter: invert(27%) sepia(74%) saturate(4443%) hue-rotate(119deg)
-    brightness(97%) contrast(73%);
-  --fanFilter: invert(54%) sepia(61%) saturate(595%) hue-rotate(186deg)
-    brightness(95%) contrast(94%);
-  --optionsFilter: invert(39%) sepia(10%) saturate(771%) hue-rotate(168deg)
-    brightness(89%) contrast(87%);
-  --diagnosticFilter: invert(88%) sepia(31%) saturate(6481%) hue-rotate(343deg)
-    brightness(103%) contrast(101%);
-  --settingFilter: invert(20%) sepia(16%) saturate(0%) hue-rotate(240deg)
-    brightness(105%) contrast(89%);
-  --tran-05: all 0.5s ease;
-  --tran-03: all 0.3s ease;
-  --tran-03: all 0.2s ease;
+	--primary-color: #0e4bf1;
+	--panel-color: #fafafa;
+	--text-color: #000;
+	--textbox-color: #000;
+	--black-light-color: #bdbdbd;
+	--border-color: #b8b6b6;
+	--toggle-color: #ff7f50;
+	--box1-color: #ef476f;
+	--box2-color: #06d6a0;
+	--box3-color: #00acc2;
+	--box4-color: #ef476f;
+	--box5-color: #06d6a0;
+	--fanAuto-color: #239c00;
+	--fanMax-color: #9c0000;
+	--fanOff-color: #f04f00;
+	--fanCurves-color: #eef1f7;
+	--fanCurvesHover-color: #06d6a0;
+	--getcbMem-color: #d170e9;
+	--copy-color: #007fff;
+	--cbmemCode-color: #d6d9de;
+	--dropdown-color: #e6e6e6;
+	--hover-color: rgb(194, 194, 227);
+	--systeminfo-color: #d6d9de;
+	--title-icon-color: #ccc;
+	--switch-color: #fcefef;
+	--select-color: #f2f2f2;
+	--slider-knob-color: #06d6a0;
+	--slider-color: #ef476f;
+	--chargeslider-color: #0094ea;
+	--chargeslider-knob-color: #47e1ef;
+	--slider-text-color: #fff;
+	--remap-color: #00bae2;
+	--homeFilter: invert(27%) sepia(74%) saturate(4443%) hue-rotate(119deg) brightness(97%) contrast(73%);
+	--fanFilter: invert(54%) sepia(61%) saturate(595%) hue-rotate(186deg) brightness(95%) contrast(94%);
+	--optionsFilter: invert(39%) sepia(10%) saturate(771%) hue-rotate(168deg) brightness(89%) contrast(87%);
+	--diagnosticFilter: invert(88%) sepia(31%) saturate(6481%) hue-rotate(343deg) brightness(103%) contrast(101%);
+	--settingFilter: invert(20%) sepia(16%) saturate(0%) hue-rotate(240deg) brightness(105%) contrast(89%);
+	--tran-05: all 0.5s ease;
+	--tran-03: all 0.3s ease;
+	--tran-03: all 0.2s ease;
 }
-
 body.dark {
-  --primary-color: #0e4bf1;
-  --panel-color: #2e2e32;
-  --text-color: #fff;
-  --textbox-color: #000;
-  --black-light-color: #7e7e7e;
-  --border-color: #383737;
-  --toggle-color: #c438fb;
-  --box1-color: #3bd5f6;
-  --box2-color: #19e7e3;
-  --box3-color: #aefa92;
-  --box4-color: #64f3be;
-  --box5-color: #f9f871;
-  --fanAuto-color: #01b38c;
-  --fanMax-color: #f27b71;
-  --fanOff-color: #e89b26;
-  --fanCurves-color: #313030;
-  --fanCurvesHover-color: #fc3b52;
-  --getcbMem-color: #fc3b52;
-  --copy-color: #00bae2;
-  --cbmemCode-color: #313030;
-  --hover-color: #342d2d;
-  --dropdown-color: #413f3f;
-  --systeminfo-color: #3d3c3c;
-  --title-icon-color: #ccc;
-  --switch-color: #221824;
-  --select-color: #353434;
-  --slider-color: #4477ce;
-  --slider-knob-color: #ffcb10;
-  --chargeslider-color: #b84599;
-  --chargeslider-knob-color: #82ffe6;
-  --remap-color: #ff3d54;
-  --slider-text-color: #fff;
-  --logoFilter: invert(100%) sepia(0%) saturate(0%) hue-rotate(95deg)
-    brightness(103%) contrast(107%);
-  --homeFilter: invert(82%) sepia(53%) saturate(335%) hue-rotate(97deg)
-    brightness(101%) contrast(102%);
-  --fanFilter: invert(44%) sepia(33%) saturate(4509%) hue-rotate(182deg)
-    brightness(99%) contrast(108%);
-  --optionsFilter: invert(85%) sepia(6%) saturate(1727%) hue-rotate(181deg)
-    brightness(82%) contrast(87%);
-  --diagnosticFilter: invert(74%) sepia(25%) saturate(5073%) hue-rotate(339deg)
-    brightness(95%) contrast(99%);
-  --settingFilter: invert(51%) sepia(0%) saturate(1517%) hue-rotate(144deg)
-    brightness(91%) contrast(88%);
+	--primary-color: #0e4bf1;
+	--panel-color: #2e2e32;
+	--text-color: #fff;
+	--textbox-color: #000;
+	--black-light-color: #7e7e7e;
+	--border-color: #383737;
+	--toggle-color: #c438fb;
+	--box1-color: #3bd5f6;
+	--box2-color: #19e7e3;
+	--box3-color: #aefa92;
+	--box4-color: #64f3be;
+	--box5-color: #f9f871;
+	--fanAuto-color: #01b38c;
+	--fanMax-color: #f27b71;
+	--fanOff-color: #e89b26;
+	--fanCurves-color: #313030;
+	--fanCurvesHover-color: #fc3b52;
+	--getcbMem-color: #fc3b52;
+	--copy-color: #00bae2;
+	--cbmemCode-color: #313030;
+	--hover-color: #342d2d;
+	--dropdown-color: #413f3f;
+	--systeminfo-color: #3d3c3c;
+	--title-icon-color: #ccc;
+	--switch-color: #221824;
+	--select-color: #353434;
+	--slider-color: #4477ce;
+	--slider-knob-color: #ffcb10;
+	--chargeslider-color: #b84599;
+	--chargeslider-knob-color: #82ffe6;
+	--remap-color: #ff3d54;
+	--slider-text-color: #fff;
+	--logoFilter: invert(100%) sepia(0%) saturate(0%) hue-rotate(95deg) brightness(103%) contrast(107%);
+	--homeFilter: invert(82%) sepia(53%) saturate(335%) hue-rotate(97deg) brightness(101%) contrast(102%);
+	--fanFilter: invert(44%) sepia(33%) saturate(4509%) hue-rotate(182deg) brightness(99%) contrast(108%);
+	--optionsFilter: invert(85%) sepia(6%) saturate(1727%) hue-rotate(181deg) brightness(82%) contrast(87%);
+	--diagnosticFilter: invert(74%) sepia(25%) saturate(5073%) hue-rotate(339deg) brightness(95%) contrast(99%);
+	--settingFilter: invert(51%) sepia(0%) saturate(1517%) hue-rotate(144deg) brightness(91%) contrast(88%);
 }
-
 .logoFilter {
-  filter: var(--logoFilter);
+	filter: var(--logoFilter);
 }
-
 .homeFilter {
-  filter: var(--homeFilter);
+	filter: var(--homeFilter);
 }
-
 .fanFilter {
-  filter: var(--fanFilter);
+	filter: var(--fanFilter);
 }
-
 .systemoptionsFilter {
-  filter: var(--optionsFilter);
+	filter: var(--optionsFilter);
 }
-
 .diagnosticFilter {
-  filter: var(--diagnosticFilter);
+	filter: var(--diagnosticFilter);
 }
-
 .settingFilter {
-  filter: var(--settingFilter);
+	filter: var(--settingFilter);
 }
-
 ::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+	width: 0;
+	height: 0;
 }
-
 ::-webkit-scrollbar-track {
-  background: var(--panel-color);
+	background: var(--panel-color);
 }
-
 ::-webkit-scrollbar-thumb {
-  border-radius: 12px;
-  transition: all 0.3s ease;
+	border-radius: 12px;
+	transition: all 0.3s ease;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--panel-color);
-  color: var(--panel-color);
+	background: var(--panel-color);
+	color: var(--panel-color);
 }
-
-::-webkit-scrollbar-thumb,
-body.dark .activity-data::-webkit-scrollbar-thumb:hover,
-body.dark::-webkit-scrollbar-thumb:hover {
-  background: var(--panel-color);
+::-webkit-scrollbar-thumb, body.dark .activity-data::-webkit-scrollbar-thumb:hover, body.dark::-webkit-scrollbar-thumb:hover {
+	background: var(--panel-color);
 }
-
 .d-flex {
-  display: flex;
+	display: flex;
 }
-
 .p-relative {
-  position: relative;
+	position: relative;
 }
-
 .p-absolute {
-  position: absolute;
+	position: absolute;
 }
-
-.dashboard,
+.dashboard, nav {
+	padding: 10px 14px;
+	transition: var(--tran-05);
+}
 nav {
-  padding: 10px 14px;
-  transition: var(--tran-05);
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 250px;
+	border-right: 1px solid var(--border-color);
 }
-
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 250px;
-  border-right: 1px solid var(--border-color);
-}
-
 nav.close {
-  width: 73px;
+	width: 73px;
 }
-
 nav .logo-name {
-  align-items: center;
-  top: 0;
+	align-items: center;
+	top: 0;
 }
-
-nav .logo-image,
-nav .logo-name .logo_name {
-  color: var(--text-color);
-  transition: var(--tran-05);
+nav .logo-image, nav .logo-name .logo_name {
+	color: var(--text-color);
+	transition: var(--tran-05);
 }
-
 nav .logo-image {
-  justify-content: center;
-  min-width: 45px;
+	justify-content: center;
+	min-width: 45px;
 }
-
 nav .logo-image img {
-  width: 40px;
-  object-fit: cover;
-  border-radius: 50%;
-  color: var(--title-icon-color);
-  color: #fff;
+	width: 40px;
+	object-fit: cover;
+	border-radius: 50%;
+	color: var(--title-icon-color);
+	color: #fff;
 }
-
 nav .logo-name .logo_name {
-  font-size: 22px;
-  font-weight: 600;
-  margin-left: 14px;
+	font-size: 22px;
+	font-weight: 600;
+	margin-left: 14px;
 }
-
-nav.close .logo_name,
-nav.close li a .link-name {
-  opacity: 0;
-  pointer-events: none;
+nav.close .logo_name, nav.close li a .link-name {
+	opacity: 0;
+	pointer-events: none;
 }
-
 nav .menu-items {
-  margin-top: 40px;
-  height: calc(100% - 90px);
-  flex-direction: column;
-  justify-content: space-between;
+	margin-top: 40px;
+	height: calc(100% - 90px);
+	flex-direction: column;
+	justify-content: space-between;
 }
-
 .menu-items li {
-  list-style: none;
+	list-style: none;
 }
-
 .menu-items li a {
-  align-items: center;
-  height: 50px;
-  text-decoration: none;
+	align-items: center;
+	height: 50px;
+	text-decoration: none;
 }
-
-.nav-links li a:hover:before,
-.switch:before {
-  content: "";
-  position: absolute;
-  left: -7px;
-  height: 5px;
-  width: 5px;
-  border-radius: 50%;
-  background-color: var(--primary-color);
+.nav-links li a:hover:before, .switch:before {
+	content: "";
+	position: absolute;
+	left: -7px;
+	height: 5px;
+	width: 5px;
+	border-radius: 50%;
+	background-color: var(--primary-color);
 }
-
 body.dark li a:hover:before {
-  background-color: var(--text-color);
+	background-color: var(--text-color);
 }
-
 .menu-items li a .link-name {
-  font-size: 18px;
-  font-weight: 400;
-  padding-left: 8px;
-  color: var(--black-light-color);
-  transition: var(--tran-05);
+	font-size: 18px;
+	font-weight: 400;
+	padding-left: 8px;
+	color: var(--black-light-color);
+	transition: var(--tran-05);
 }
-
-.nav-links li a:hover .link-name,
-.nav-links li a:hover i {
-  color: var(--primary-color);
+.nav-links li a:hover .link-name, .nav-links li a:hover i {
+	color: var(--primary-color);
 }
-
-.boxes .box i,
-body.dark .nav-links li a:hover .link-name,
-body.dark .nav-links li a:hover i {
-  color: var(--text-color);
+.boxes .box i, body.dark .nav-links li a:hover .link-name, body.dark .nav-links li a:hover i {
+	color: var(--text-color);
 }
-
 .menu-items .dark-mode {
-  padding-top: 10px;
-  border-top: 1px solid var(--border-color);
+	padding-top: 10px;
+	border-top: 1px solid var(--border-color);
 }
-
 .menu-items .mode {
-  align-items: center;
-  white-space: nowrap;
+	align-items: center;
+	white-space: nowrap;
 }
-
 .menu-items .mode-toggle {
-  left: 14px;
-  top: 500px;
-  height: 50px;
-  min-width: 45px;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+	left: 14px;
+	top: 500px;
+	height: 50px;
+	min-width: 45px;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
 }
-
 .mode-toggle .switch {
-  display: inline-block;
-  height: 22px;
-  width: 40px;
-  border-radius: 25px;
-  background-color: var(--toggle-color);
+	display: inline-block;
+	height: 22px;
+	width: 40px;
+	border-radius: 25px;
+	background-color: var(--toggle-color);
 }
-
 .switch:before {
-  left: 5px;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 15px;
-  width: 15px;
-  background-color: var(--switch-color);
-  transition: var(--tran-03);
+	left: 5px;
+	top: 50%;
+	transform: translateY(-50%);
+	height: 15px;
+	width: 15px;
+	background-color: var(--switch-color);
+	transition: var(--tran-03);
 }
-
 body.dark .switch:before {
-  left: 20px;
+	left: 20px;
 }
-
 .dashboard {
-  left: 250px;
-  min-height: 100vh;
-  height: fit-content;
-  width: calc(100% - 250px);
-  z-index: 5;
+	left: 250px;
+	min-height: 100vh;
+	height: fit-content;
+	width: calc(100% - 250px);
+	z-index: 5;
 }
-
-nav.close ~ .dashboard,
-nav.close ~ .dashboard .top {
-  left: 73px;
-  width: calc(100% - 73px);
+nav.close~.dashboard, nav.close~.dashboard .top {
+	left: 73px;
+	width: calc(100% - 73px);
 }
-
 .sidebar-toggle {
-  font-size: 30px;
-  color: var(--text-color);
-  cursor: pointer;
-  margin-left: 7px;
+	font-size: 30px;
+	color: var(--text-color);
+	cursor: pointer;
+	margin-left: 7px;
 }
-
 .dashboard .dash-content {
-  padding-top: 30px;
+	padding-top: 30px;
 }
-
 .dash-content .title {
-  align-items: center;
-  margin: 60px 0 30px;
+	align-items: center;
+	margin: 60px 0 30px;
 }
-
 .dash-content .title .text {
-  font-size: 24px;
-  font-weight: 500;
-  color: var(--text-color);
-  margin-left: 10px;
+	font-size: 24px;
+	font-weight: 500;
+	color: var(--text-color);
+	margin-left: 10px;
 }
-
 .dash-content .boxes {
-  display: inline-grid;
-  width: 100%;
-  align-items: center;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 20px;
+	display: inline-grid;
+	width: 100%;
+	align-items: center;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-gap: 20px;
 }
-
 .dash-content .boxes .box {
-  flex-direction: column;
-  align-items: center;
-  border-radius: 12px;
-  padding: 15px 20px;
-  transition: var(--tran-05);
+	flex-direction: column;
+	align-items: center;
+	border-radius: 12px;
+	padding: 15px 20px;
+	transition: var(--tran-05);
 }
-
-.boxes .box.cpuLoad,
-.dash-content .boxes .box {
-  background-color: var(--box1-color);
+.boxes .box.cpuLoad, .dash-content .boxes .box {
+	background-color: var(--box1-color);
 }
-
 .boxes .box.cpuTemps {
-  background-color: var(--box2-color);
+	background-color: var(--box2-color);
 }
-
 .boxes .box.ram {
-  background-color: var(--box3-color);
+	background-color: var(--box3-color);
 }
-
 .dash-content .overview .systemInfo {
-  width: calc(100% - 15px);
-  font-weight: 400;
-  font-size: 15;
-  background-color: var(--systeminfo-color);
-  transition: var(--tran-05);
-  top: 40px;
-  border-radius: 20px;
-  z-index: 5;
+	width: calc(100% - 15px);
+	font-weight: 400;
+	font-size: 15;
+	background-color: var(--systeminfo-color);
+	transition: var(--tran-05);
+	top: 40px;
+	border-radius: 20px;
+	z-index: 5;
 }
-
 .dash-content .overview .systemInfoText {
-  padding: 20px;
+	padding: 20px;
 }
-
 .dash-content.boxes.fanSpeed {
-  background-color: var(--box4-color);
+	background-color: var(--box4-color);
 }
-
 .boxes .box .text {
-  white-space: nowrap;
-  font-size: 18px;
-  font-weight: 500;
-  color: #000;
+	white-space: nowrap;
+	font-size: 18px;
+	font-weight: 500;
+	color: #000;
 }
-
 .hiddentext {
-  display: none;
+	display: none;
 }
-
 .boxes .box.tempCPU {
-  background-color: var(--box5-color);
+	background-color: var(--box5-color);
 }
-
 .boxes .box.fanSpeed {
-  background-color: var(--box4-color);
+	background-color: var(--box4-color);
 }
-
 .boxes .box.hidden {
-  background-color: var(--panel-color);
-  display: none;
+	background-color: var(--panel-color);
+	display: none;
 }
-
 .activeButton {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  -webkit-transform: scale(1.1);
-  transform: scale(1.07);
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+	-webkit-transform: scale(1.1);
+	transform: scale(1.07);
 }
-
 .FanSpeedText {
-  top: 20px;
+	top: 20px;
 }
-
 .fanButtons {
-  display: inline-grid;
-  width: 100%;
-  align-items: center;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 10px;
-  top: 40px;
+	display: inline-grid;
+	width: 100%;
+	align-items: center;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-gap: 10px;
+	top: 40px;
 }
-
-.FanAuto,
-.FanMax,
-.FanOff {
-  font-family: "Roboto", sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  padding: 20px;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-property: box-shadow, transform;
-  transition-property: box-shadow, transform;
+.FanAuto, .FanMax, .FanOff {
+	font-family: "Roboto", sans-serif;
+	font-size: 18px;
+	font-weight: 700;
+	padding: 20px;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	color: #fff;
+	border-radius: 5px;
+	cursor: pointer;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+	-webkit-transition-property: box-shadow, transform;
+	transition-property: box-shadow, transform;
 }
-
-.FanAuto:active,
-.FanAuto:hover,
-.FanMax:active,
-.FanMax:hover,
-.FanOff:focus,
-.FanOff:hover {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  -webkit-transform: scale(1.1);
-  transform: scale(1.05);
+.FanAuto:active, .FanAuto:hover, .FanMax:active, .FanMax:hover, .FanOff:focus, .FanOff:hover {
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+	-webkit-transform: scale(1.1);
+	transform: scale(1.05);
 }
-
 .FanAuto {
-  background: var(--fanAuto-color);
+	background: var(--fanAuto-color);
 }
-
 .FanOff {
-  background: var(--fanOff-color);
+	background: var(--fanOff-color);
 }
-
 .FanMax {
-  background: var(--fanMax-color);
+	background: var(--fanMax-color);
 }
-
 .customFanSpeedText {
-  top: 475px;
+	top: 475px;
 }
-
 .fancurves {
-  width: 95%;
-  height: 400px;
-  top: 150px;
-  left: 1%;
-  background-color: var(--fanCurves-color);
-  transition: var(--tran-05);
-  border-radius: 20px;
-  cursor: pointer;
+	width: 95%;
+	height: 400px;
+	top: 150px;
+	left: 1%;
+	background-color: var(--fanCurves-color);
+	transition: var(--tran-05);
+	border-radius: 20px;
+	cursor: pointer;
 }
-
 .setFan {
-  top: 80px;
-  left: 60px;
-  font-family: "Roboto", sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  background: var(--dropdown-color);
-  color: var(--text-color);
-  width: 80%;
-  padding: 20px;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  border: #000;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-property: box-shadow, transform;
-  transition-property: box-shadow, transform;
-  border-color: #000;
+	top: 80px;
+	left: 60px;
+	font-family: "Roboto", sans-serif;
+	font-size: 18px;
+	font-weight: 700;
+	background: var(--dropdown-color);
+	color: var(--text-color);
+	width: 80%;
+	padding: 20px;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	border: #000;
+	border-radius: 8px;
+	cursor: pointer;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+	-webkit-transition-property: box-shadow, transform;
+	transition-property: box-shadow, transform;
+	border-color: #000;
 }
-
-.setFan:active,
-.setFan:hover {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  -webkit-transform: scale(1.1);
-  transform: scale(1.02);
-  background-color: var(--fanCurvesHover-color);
-  color: #fff;
+.setFan:active, .setFan:hover {
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+	-webkit-transform: scale(1.1);
+	transform: scale(1.02);
+	background-color: var(--fanCurvesHover-color);
+	color: #fff;
 }
-
 .ActivityLight {
-  top: 10px;
+	top: 10px;
 }
-
 .activitylightText {
-  font-size: 20px;
-  font-weight: 600;
-  top: 0;
-  left: 0;
+	font-size: 20px;
+	font-weight: 600;
+	top: 0;
+	left: 0;
 }
-
 .dellActivityLight {
-  top: 20px;
-  width: 97%;
+	top: 20px;
+	width: 97%;
 }
-
 .keyboardBacklight {
-  top: 45px;
+	top: 45px;
 }
-
 .backlightText {
-  font-size: 20px;
-  font-weight: 600;
-  top: 0;
-  left: 0;
+	font-size: 20px;
+	font-weight: 600;
+	top: 0;
+	left: 0;
 }
-
 .rangeBacklight {
-  top: 50px;
-  height: 60px;
-  width: calc(97%);
-  background: var(--slider-color);
-  border-radius: 10px;
-  padding: 0 65px 0 45px;
-  transition: var(--tran-03);
-  accent-color: var(--slider-knob-color);
+	top: 50px;
+	height: 60px;
+	width: calc(97%);
+	background: var(--slider-color);
+	border-radius: 10px;
+	padding: 0 65px 0 45px;
+	transition: var(--tran-03);
+	accent-color: var(--slider-knob-color);
 }
-
 .sliderValue {
-  width: 100%;
+	width: 100%;
 }
-
 .sliderValue span {
-  height: 45px;
-  width: 45px;
-  transform: translateX(-70%) scale(0);
-  font-weight: 500;
-  top: -40px;
-  line-height: 55px;
-  z-index: 3;
-  color: var(--text-color);
-  transform-origin: bottom;
-  transition: transform 0.2s ease-in-out;
+	height: 45px;
+	width: 45px;
+	transform: translateX(-70%) scale(0);
+	font-weight: 500;
+	top: -40px;
+	line-height: 55px;
+	z-index: 3;
+	color: var(--text-color);
+	transform-origin: bottom;
+	transition: transform 0.2s ease-in-out;
 }
-
 .fieldBacklight {
-  align-items: center;
-  justify-content: center;
-  height: 100%;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
 }
-
-.ChargeControlField .value,
-.fieldBacklight .value {
-  font-size: 18px;
-  color: var(--slider-text-color);
-  font-weight: 600;
+.ChargeControlField .value, .fieldBacklight .value {
+	font-size: 18px;
+	color: var(--slider-text-color);
+	font-weight: 600;
 }
-
 .fieldBacklight .value.left {
-  left: -22px;
+	left: -22px;
 }
-
 .fieldBacklight .value.right {
-  right: -43px;
+	right: -43px;
 }
-
 .rangeBacklight input {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  cursor: pointer;
-  outline: 0;
-  border-radius: 15px;
-  height: 6px;
-  background: var(--slider-knob-color);
+	-webkit-appearance: none;
+	appearance: none;
+	width: 100%;
+	cursor: pointer;
+	outline: 0;
+	border-radius: 15px;
+	height: 6px;
+	background: var(--slider-knob-color);
 }
-
-.rangeBacklight input::-webkit-slider-thumb,
-.rangeChargeControl input::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  height: 15px;
-  width: 15px;
-  background-color: #fff;
-  border-radius: 50%;
+.rangeBacklight input::-webkit-slider-thumb, .rangeChargeControl input::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	height: 15px;
+	width: 15px;
+	background-color: #fff;
+	border-radius: 50%;
 }
-
 .backlightRangeSlider {
-  background-color: red;
+	background-color: red;
 }
-
 .ChargeControl {
-  top: 130px;
+	top: 130px;
 }
-
 .ChargeControlText {
-  font-size: 20px;
-  font-weight: 600;
-  top: 6px;
-  left: 0;
+	font-size: 20px;
+	font-weight: 600;
+	top: 6px;
+	left: 0;
 }
-
 .rangeChargeControl {
-  top: 50px;
-  height: 60px;
-  width: calc(97%);
-  background: var(--chargeslider-color);
-  border-radius: 10px;
-  padding: 0 65px 0 45px;
-  transition: var(--tran-03);
-  accent-color: var(--chargeslider-knob-color);
+	top: 50px;
+	height: 60px;
+	width: calc(97%);
+	background: var(--chargeslider-color);
+	border-radius: 10px;
+	padding: 0 65px 0 45px;
+	transition: var(--tran-03);
+	accent-color: var(--chargeslider-knob-color);
 }
-
 .ChargeControlField {
-  align-items: center;
-  justify-content: center;
-  height: 100%;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
 }
-
 .ChargeControlField .value.left {
-  left: -28px;
+	left: -28px;
 }
-
 .ChargeControlField .value.right {
-  right: -43px;
+	right: -43px;
 }
-
 .rangeChargeControl input {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  cursor: pointer;
-  outline: 0;
-  border-radius: 15px;
-  height: 6px;
-  background: var(--chargeslider-knob-color);
+	-webkit-appearance: none;
+	appearance: none;
+	width: 100%;
+	cursor: pointer;
+	outline: 0;
+	border-radius: 15px;
+	height: 6px;
+	background: var(--chargeslider-knob-color);
 }
-
 .ChargeControlButton {
-  top: 100px;
-  left: 30px;
-  font-family: "Roboto", sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  background: var(--dropdown-color);
-  color: var(--text-color);
-  width: calc(40%);
-  padding: 20px;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  border: #000;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-property: box-shadow, transform;
-  transition-property: box-shadow, transform;
-  border-color: #000;
+	top: 100px;
+	left: 30px;
+	font-family: "Roboto", sans-serif;
+	font-size: 18px;
+	font-weight: 700;
+	background: var(--dropdown-color);
+	color: var(--text-color);
+	width: calc(40%);
+	padding: 20px;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	border: #000;
+	border-radius: 8px;
+	cursor: pointer;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+	-webkit-transition-property: box-shadow, transform;
+	transition-property: box-shadow, transform;
+	border-color: #000;
 }
-
-.ChargeControlButton.Set:active,
-.ChargeControlButton.Set:hover {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  -webkit-transform: scale(1.1);
-  transform: scale(1.01);
-  background: var(--box4-color);
-  color: #fff;
-  transition: 0.3s;
+.ChargeControlButton.Set:active, .ChargeControlButton.Set:hover {
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+	-webkit-transform: scale(1.1);
+	transform: scale(1.01);
+	background: var(--box4-color);
+	color: #fff;
+	transition: 0.3s;
 }
-
-.ChargeControlButton.Default:active,
-.ChargeControlButton.Default:hover {
-  background: var(--box2-color);
+.ChargeControlButton.Default:active, .ChargeControlButton.Default:hover {
+	background: var(--box2-color);
 }
-
 .ChargeControlButton.Default {
-  left: 50px;
+	left: 50px;
 }
-
-.afterCheck,
-.cbmemButtons {
-  top: -10px;
+.afterCheck, .cbmemButtons {
+	top: -10px;
 }
-
-.cbMem,
-.copyButton {
-  font-family: "Roboto", sans-serif;
-  font-weight: 700;
-  cursor: pointer;
-  transition-duration: 0.3s;
+.cbMem, .copyButton {
+	font-family: "Roboto", sans-serif;
+	font-weight: 700;
+	cursor: pointer;
+	transition-duration: 0.3s;
 }
-
 .cbMem {
-  top: 230px;
-  font-size: 18px;
-  background: var(--dropdown-color);
-  color: var(--text-color);
-  width: calc(100%);
-  padding: 20px;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  border: #000;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  -webkit-transition-duration: 0.3s;
-  -webkit-transition-property: box-shadow, transform;
-  transition-property: box-shadow, transform;
-  border-color: #000;
+	top: 230px;
+	font-size: 18px;
+	background: var(--dropdown-color);
+	color: var(--text-color);
+	width: calc(100%);
+	padding: 20px;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	border: #000;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	-webkit-transition-duration: 0.3s;
+	-webkit-transition-property: box-shadow, transform;
+	transition-property: box-shadow, transform;
+	border-color: #000;
 }
-
-.ChargeControlButton.Default:active,
-.ChargeControlButton.Default:hover,
-.cbMem:active,
-.cbMem:hover {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  -webkit-transform: scale(1.1);
-  transform: scale(1.01);
-  color: #fff;
-  transition: 0.3s;
+.ChargeControlButton.Default:active, .ChargeControlButton.Default:hover, .cbMem:active, .cbMem:hover {
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+	-webkit-transform: scale(1.1);
+	transform: scale(1.01);
+	color: #fff;
+	transition: 0.3s;
 }
-
-.cbMem:active,
-.cbMem:hover {
-  background: var(--getcbMem-color);
+.cbMem:active, .cbMem:hover {
+	background: var(--getcbMem-color);
 }
-
 .copyButton {
-  top: 70px;
-  left: calc(95%);
-  font-size: 10%;
-  background: 0 0;
-  width: calc(1% - 15);
-  padding: 5px;
-  border-radius: 10px;
-  z-index: 1;
-  border: 0;
+	top: 70px;
+	left: calc(95%);
+	font-size: 10%;
+	background: 0 0;
+	width: calc(1% - 15);
+	padding: 5px;
+	border-radius: 10px;
+	z-index: 1;
+	border: 0;
 }
-
-.copyButton:focus,
-.copyButton:hover {
-  -webkit-transform: scale(1.2);
-  transform: scale(1.2);
+.copyButton:focus, .copyButton:hover {
+	-webkit-transform: scale(1.2);
+	transform: scale(1.2);
 }
-
 .dropdown * {
-  box-sizing: border-box;
-  width: 100%;
+	box-sizing: border-box;
+	width: 100%;
 }
-
 .select {
-  background: var(--dropdown-color);
-  color: var(--text-color);
-  justify-content: space-between;
-  align-items: center;
-  border: 2px #2a2f3b;
-  border-radius: 0.5em;
-  padding: 1em;
-  cursor: pointer;
-  transition: var(--tran-03);
+	background: var(--dropdown-color);
+	color: var(--text-color);
+	justify-content: space-between;
+	align-items: center;
+	border: 2px #2a2f3b;
+	border-radius: 0.5em;
+	padding: 1em;
+	cursor: pointer;
+	transition: var(--tran-03);
 }
-
 .select-clicked {
-  border: 2px transparent solid;
-  box-shadow: 0 0 0.8em transparent;
+	border: 2px transparent solid;
+	box-shadow: 0 0 0.8em transparent;
 }
-
 .select:hover {
-  background: var(--hover-color);
+	background: var(--hover-color);
 }
-
 .caret {
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 6px solid var(--text-color);
-  transition: var(--tran-05);
+	width: 0;
+	height: 0;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 6px solid var(--text-color);
+	transition: var(--tran-05);
 }
-
 .caret-rotate {
-  transform: rotate(180deg);
+	transform: rotate(180deg);
 }
-
-.menu,
-.menu li {
-  border-radius: 0.5em;
+.menu, .menu li {
+	border-radius: 0.5em;
 }
-
 .menu {
-  list-style: none;
-  padding: 0.2em 0.5em;
-  background: var(--dropdown-color);
-  border: 1px #323741 solid;
-  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
-  color: var(--text-color);
-  top: 4em;
-  left: 50%;
-  width: 100%;
-  transform: translateX(-50%);
-  opacity: 0;
-  display: none;
-  transition: 0.2s;
-  z-index: 4;
+	list-style: none;
+	padding: 0.2em 0.5em;
+	background: var(--dropdown-color);
+	border: 1px #323741 solid;
+	box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+	color: var(--text-color);
+	top: 4em;
+	left: 50%;
+	width: 100%;
+	transform: translateX(-50%);
+	opacity: 0;
+	display: none;
+	transition: 0.2s;
+	z-index: 4;
 }
-
 .menu li {
-  padding: 0.7em 0.5em;
-  margin: 0.3em 0;
-  cursor: pointer;
+	padding: 0.7em 0.5em;
+	margin: 0.3em 0;
+	cursor: pointer;
 }
-
-.active,
-.menu li:hover {
-  background-color: var(--hover-color);
+.active, .menu li:hover {
+	background-color: var(--hover-color);
 }
-
-.menu-open,
-.pre {
-  overflow-y: scroll;
+.menu-open, .pre {
+	overflow-y: scroll;
 }
-
 .menu-open {
-  display: block;
-  opacity: 1;
-  height: 235px;
+	display: block;
+	opacity: 1;
+	height: 235px;
 }
-
 .pre {
-  top: 220px;
-  background-color: var(--cbmemCode-color);
-  border-radius: 10px;
-  height: 160px;
-  width: 96%;
+	top: 220px;
+	background-color: var(--cbmemCode-color);
+	border-radius: 10px;
+	height: 160px;
+	width: 96%;
 }
-
 .code {
-  padding: 20px;
+	padding: 20px;
 }
-
 .hiddentext {
-  font-size: 0;
-  color: var(--panel-color);
+	font-size: 0;
+	color: var(--panel-color);
 }
-
 .settings {
-  display: inline-grid;
-  width: 100%;
-  grid-template-columns: 15fr 1fr;
-  grid-template-areas: "option1 button1" "option2 button2" "option3 button3" "option4 button4";
-  gap: 30px 0;
+	display: inline-grid;
+	width: 100%;
+	grid-template-columns: 15fr 1fr;
+	grid-template-areas: "option1 button1" "option2 button2" "option3 button3" "option4 button4";
+	gap: 30px 0;
 }
-
 .switch {
-  width: 35px;
-  height: 20px;
+	width: 35px;
+	height: 20px;
 }
-
 .switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+	opacity: 0;
+	width: 0;
+	height: 0;
 }
-
-.slider,
-.slider:before {
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+.slider, .slider:before {
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
 }
-
 .slider {
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--cbmemCode-color);
-  border: var(--slider-text-color) 1px solid;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: var(--cbmemCode-color);
+	border: var(--slider-text-color) 1px solid;
 }
-
 .slider:before {
-  position: absolute;
-  content: "";
-  height: 12px;
-  width: 12px;
-  left: 3px;
-  bottom: 3.5px;
-  background-color: #fff;
+	position: absolute;
+	content: "";
+	height: 12px;
+	width: 12px;
+	left: 3px;
+	bottom: 3.5px;
+	background-color: #fff;
 }
-
-input:checked + .slider {
-  background-color: var(--box1-color);
+input:checked+.slider {
+	background-color: var(--box1-color);
 }
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
+input:focus+.slider {
+	box-shadow: 0 0 1px #2196f3;
 }
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(15px);
-  -ms-transform: translateX(15px);
-  transform: translateX(15px);
+input:checked+.slider:before {
+	-webkit-transform: translateX(15px);
+	-ms-transform: translateX(15px);
+	transform: translateX(15px);
 }
-
 .slider.round {
-  border-radius: 34px;
+	border-radius: 34px;
 }
-
 .slider.round:before {
-  border-radius: 50%;
+	border-radius: 50%;
 }
-
 .center {
-  top: 6px;
+	top: 6px;
 }
-
 .switch.startupFan {
-  grid-area: button1;
+	grid-area: button1;
 }
-
 .switch.closeToTray {
-  grid-area: button2;
+	grid-area: button2;
 }
-
 .switch.startInTray {
-  grid-area: button3;
+	grid-area: button3;
 }
-
 .switch.startBoot {
-  grid-area: button4;
+	grid-area: button4;
 }
-
 .lines {
-  border-bottom: var(--border-color) 1px solid;
-  padding-bottom: 20px;
-  width: 105%;
+	border-bottom: var(--border-color) 1px solid;
+	padding-bottom: 20px;
+	width: 105%;
 }
-
 .startupFanText {
-  grid-area: option1;
+	grid-area: option1;
 }
-
 .closeToTrayText {
-  grid-area: option2;
+	grid-area: option2;
 }
-
 .startInTrayText {
-  grid-area: option3;
+	grid-area: option3;
 }
-
 .startBootText {
-  grid-area: option4;
+	grid-area: option4;
 }
