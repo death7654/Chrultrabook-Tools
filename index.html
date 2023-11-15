@@ -31,39 +31,39 @@
     <div style="overflow-y: scroll; height: 100vh; border-bottom-right-radius: 20px;  border-top-right-radius: 20px;">
         <nav>
             <!--LogoName-->
-            <div class="logo-name">
-                <div class="logo-image">
+            <div class="logo-name d-flex">
+                <div class="logo-image d-flex">
                     <img class="logoFilter" src="./src/assets/Icons/sidenavbar/chrome.svg" alt="">
                 </div>
                 <span class="logo_name">Chrultrabook Tools</span>
             </div>
             <!--DashItems-->
-            <div class="menu-items">
+            <div class="menu-items d-flex">
                 <ul class="nav-links">
                     <li>
                         <div class="sidebar-toggle">
                             <i class="uil uil-bars "></i>
                         </div>
                     </li>
-                    <li><a id="home">
+                    <li><a id="home" class="d-flex">
                             <img class="navbarimg homeFilter" src="./src/assets/Icons/sidenavbar/home.svg" alt="">
                             <span class="link-name">Dashboard</span>
                         </a></li>
-                    <li><a id="fan">
+                    <li><a id="fan" class="d-flex">
                             <img class="navbarimg fanFilter" src="./src/assets/Icons/sidenavbar/fan.svg" alt="">
                             <span class="link-name">Fan Control</span>
                         </a></li>
-                    <li><a id="options">
+                    <li><a id="options" class="d-flex">
                             <img class="navbarimg systemoptionsFilter"
                                 src="./src/assets/Icons/sidenavbar/system-options.svg" alt="">
                             <span class="link-name">System Controls</span>
                         </a></li>
-                    <li><a id="diagnostics">
+                    <li><a id="diagnostics" class="d-flex">
                             <img class="navbarimg diagnosticFilter" src="./src/assets/Icons/sidenavbar/Diagnostics.svg"
                                 alt="">
                             <span class="link-name">System Information</span>
                         </a></li>
-                    <li><a id="information">
+                    <li><a id="information" class="d-flex">
                             <img class="navbarimg settingFilter" src="./src/assets/Icons/sidenavbar/settings.svg"
                                 alt="">
                             <span class="link-name">Settings</span>
@@ -71,11 +71,11 @@
                 </ul>
                 <!--DarkMode-->
                 <ul style="border: none" class="dark-mode">
-                    <li class="mode">
-                        <a href="#">
+                    <li class="mode d-flex">
+                        <a href="#" class="d-flex">
                         <span class="link-name" style="padding-left: 55px; padding-bottom: 12px;">Dark Mode</span>
                     </a>
-                    <div class="mode-toggle">
+                    <div class="mode-toggle d-flex">
                       <span class="switch"></span>
                     </div>
                     </li>
@@ -86,23 +86,23 @@
         <section id="sectionDashboard" class="dashboard">
             <div class="dash-content">
                 <div class="overview info">
-                    <div class="title">
+                    <div class="title d-flex">
                         <img src="./src/assets/Icons/dashboard/tachometer.svg">
                         <span class="text">Dashboard</span>
                     </div>
 
                     <div class="boxes">
-                        <div class="box cpuLoad">
+                        <div class="box cpuLoad d-flex">
                             <img src="./src/assets/Icons/dashboard/cpu.svg" alt="">
                             <span class="text" style="color: var(--textbox-color);">CPU Load</span>
                             <span id="cpuLoad" style="color: var(--textbox-color);">0%</span>
                         </div>
-                        <div class="box cpuTemps">
+                        <div class="box cpuTemps d-flex">
                             <img src="./src/assets/Icons/dashboard/thermometer.svg" alt="">
                             <span class="text" style="color: var(--textbox-color);">CPU TEMPS</span>
                             <span id="cpuTemp" style="color: var(--textbox-color);">0°C</span>
                         </div>
-                        <div class="box ram">
+                        <div class="box ram d-flex">
                             <img src="./src/assets/Icons/dashboard/ram.svg" alt="">
                             <span class="text" style="color: var(--textbox-color);">RAM USAGE</span>
                             <span id="ramPercentage" style="color: var(--textbox-color);">0%</span>
@@ -124,17 +124,17 @@
         <section id="sectionFan" class="dashboard">
             <div class="dash-content">
                 <div class="overview">
-                    <div class="title">
+                    <div class="title d-flex">
                         <img src="./src/assets/Icons/fancontrol/fancontroldash.svg">
                         <span class="text">Fan Control</span>
                     </div>
                     <div class="boxes">
-                        <div class="box fanSpeed">
+                        <div class="box fanSpeed d-flex">
                             <img src="./src/assets/Icons/fancontrol/animatedfan.svg" alt="">
                             <span class="text">Fan Speed</span>
                             <span id="fanSpeed" style="color: var(--textbox-color);">Unknown</span>
                         </div>
-                        <div class="box tempCPU">
+                        <div class="box tempCPU d-flex">
                             <img src="./src/assets/Icons/fancontrol/thermometer(white).svg" alt="">
                             <span class="text">CPU TEMPS</span>
                             <span id="cpuTempFan" style="color: var(--textbox-color);">0°C</span>
@@ -165,7 +165,7 @@
         <section id="sectionOptions" class="dashboard">
             <div class="dash-content">
                 <div class="overview">
-                    <div class="title options">
+                    <div class="title options d-flex">
                         <img src="./src/assets/Icons/systemOptions/system-options.svg">
                         <span class="text">System Controls</span>
                     </div>
@@ -173,7 +173,7 @@
                     <h2 class="activitylightText" id="activityLightDropdown">&nbsp;&nbsp;Activity light</h2>
                     <div class="dellActivityLight">
                         <div class="dropdownActivityLight">
-                            <div class="select">
+                            <div class="select d-flex">
                                 <span class="selectedActivityLight">Pick A Color</span>
                                 <div class="caret"></div>
                             </div>
@@ -198,7 +198,7 @@
                         <div class="sliderValue">
                             <span>100</span>
                         </div>
-                        <div class="fieldBacklight">
+                        <div class="fieldBacklight d-flex">
                             <div class="value left">
                                 0
                             </div>
@@ -216,7 +216,7 @@
                             <div class="sliderValue">
                                 <span>100</span>
                             </div>
-                            <div class="ChargeControlField">
+                            <div class="ChargeControlField d-flex">
                                 <div class="value left">
                                     70
                                 </div>
@@ -248,7 +248,7 @@
 
             <div class="dash-content">
                 <div class="overview">
-                    <div class="title">
+                    <div class="title d-flex">
                         <img src="./src/assets/Icons/cbmem/bugcbmemdash.svg">
                         <span class="text">System Information</span>
                     </div>
@@ -257,7 +257,7 @@
 
                 <div class="cbmemButtons">
                     <div class="dropdown">
-                        <div class="select">
+                        <div class="select d-flex">
                             <span class="selected">Select</span>
                             <div class="caret"></div>
                         </div>
@@ -301,7 +301,7 @@
         <section id="sectionSettings" class="dashboard" style="overflow-y:scroll; overflow-x:hidden;">
             <div class="dash-content">
                 <div class="overview">
-                    <div class="title">
+                    <div class="title d-flex">
                         <img src="./src/assets/Icons/settings/settings-page.svg">
                         <span class="text">Settings </span>
                     </div>
