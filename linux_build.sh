@@ -10,8 +10,8 @@ else
     exit 1
 fi
 
-APPDIR="$(find $APPIMAGEDIR -name "chrultrabook-controller*.AppDir")"
-APPIMAGE="$(find $APPIMAGEDIR -name "chrultrabook-controller*.AppImage")"
+APPDIR="$(find $APPIMAGEDIR -name "chrultrabook-tools*.AppDir")"
+APPIMAGE="$(find $APPIMAGEDIR -name "chrultrabook-tools*.AppImage")"
 APPIMAGETOOLURL="https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage"
 
 # modify appimage to add our stuff
