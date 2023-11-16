@@ -167,28 +167,28 @@
 }
 body.dark {
 	--primary-color: #0e4bf1;
-	--panel-color: #2e2e32;
+	--panel-color: #222223;
 	--text-color: #fff;
 	--textbox-color: #000;
 	--black-light-color: #7e7e7e;
 	--border-color: #383737;
 	--toggle-color: #c438fb;
-	--box1-color: #3bd5f6;
-	--box2-color: #19e7e3;
-	--box3-color: #aefa92;
-	--box4-color: #64f3be;
-	--box5-color: #f9f871;
+	--box1-color: #02e0d8;
+	--box2-color: #E8E288;
+	--box3-color: #7DCE82;
+	--box4-color: #56d2a5;
+	--box5-color: #E8E288;
 	--fanAuto-color: #01b38c;
 	--fanMax-color: #f27b71;
 	--fanOff-color: #e89b26;
-	--fanCurves-color: #313030;
+	--fanCurves-color: #282829;
 	--fanCurvesHover-color: #fc3b52;
 	--getcbMem-color: #fc3b52;
 	--copy-color: #00bae2;
-	--cbmemCode-color: #313030;
-	--hover-color: #342d2d;
-	--dropdown-color: #413f3f;
-	--systeminfo-color: #3d3c3c;
+	--cbmemCode-color: #282829;
+	--hover-color: #3d3d3f;
+	--dropdown-color: #2f2f30;
+	--systeminfo-color: #282829;
 	--title-icon-color: #ccc;
 	--switch-color: #221824;
 	--select-color: #353434;
@@ -200,9 +200,9 @@ body.dark {
 	--slider-text-color: #fff;
 	--logoFilter: invert(100%) sepia(0%) saturate(0%) hue-rotate(95deg) brightness(103%) contrast(107%);
 	--homeFilter: invert(82%) sepia(53%) saturate(335%) hue-rotate(97deg) brightness(101%) contrast(102%);
-	--fanFilter: invert(44%) sepia(33%) saturate(4509%) hue-rotate(182deg) brightness(99%) contrast(108%);
+	--fanFilter: brightness(0) saturate(100%) invert(54%) sepia(37%) saturate(2223%) hue-rotate(183deg) brightness(102%) contrast(101%);
 	--optionsFilter: invert(85%) sepia(6%) saturate(1727%) hue-rotate(181deg) brightness(82%) contrast(87%);
-	--diagnosticFilter: invert(74%) sepia(25%) saturate(5073%) hue-rotate(339deg) brightness(95%) contrast(99%);
+	--diagnosticFilter: brightness(0) saturate(100%) invert(82%) sepia(50%) saturate(548%) hue-rotate(357deg) brightness(102%) contrast(103%);
 	--settingFilter: invert(51%) sepia(0%) saturate(1517%) hue-rotate(144deg) brightness(91%) contrast(88%);
 }
 .logoFilter {
