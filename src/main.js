@@ -83,6 +83,7 @@ setTimeout(async () => {
 	keyboardBackLight = keyboardBackLight.split(" ");
 	document.getElementById("backlightRangeSliderText").value = keyboardBackLight[4];
 	//prevents laptops with no backlight form seeing this
+	//1 is EC ERROR 1
 	if (keyboardBackLight[3] === "1") {
 		document.getElementById("rangeBacklight").style.display = "none";
 		document.getElementById("rangeBacklightslider").style.display = "none";
