@@ -244,8 +244,7 @@ async fn get_cpu_cores() -> String {
     return match_result(exec("sysctl", Some(vec!["-n", "hw.ncpu"])));
 
     #[cfg(target_os = "linux")]
-    let path = fs::read_dir("/sys/class/hwmon/").unwrap();
-    let cores = fs::read_to_string(path);
+    let cores = fs::read_to_string("/sys/class/hwmon/").unwrap();
     cores = cores.split(" ");
     return cores[38];
     #[cfg(windows)]
