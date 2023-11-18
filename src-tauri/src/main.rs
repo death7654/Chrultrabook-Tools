@@ -17,6 +17,8 @@ use tauri::{Manager, Window};
 use tauri_plugin_autostart::MacosLauncher;
 use hidapi::HidApi;
 
+use num_cpus;
+
 #[cfg(target_os = "linux")]
 const EC: &str = "ectool";
 #[cfg(windows)]
@@ -239,35 +241,13 @@ async fn manufacturer() -> String {
 
 #[tauri::command]
 async fn get_cpu_cores() -> String {
-    #[cfg(target_os = "macos")]
-    return match_result(exec("sysctl", Some(vec!["-n", "hw.ncpu"])));
-
-    #[cfg(target_os = "linux")]
-    {
-    let cores = fs::read_to_string("/proc/cpuinfo").unwrap();
-    let system_info = cores.split(" ");
-    let total_cores = system_info[38]
-    return total_core.to_string()
-    }
-    #[cfg(windows)]
-    return match_result_vec(exec(
-        "wmic",
-        Some(vec!["cpu", "get", "NumberOfCores"]),
-    ));
+    let num = num_cpus::get_physical();
+    return num.to_string();
 }
 #[tauri::command]
 async fn get_cpu_threads() -> String {
-    #[cfg(target_os = "macos")]
-    return match_result(exec("sysctl", Some(vec!["-n", "hw.activecpu"])));
-
-    #[cfg(target_os = "linux")]
-    return match_result(exec("nproc", None));
-
-    #[cfg(windows)]
-    return match_result_vec(exec(
-        "wmic",
-        Some(vec!["cpu", "get", "NumberOfLogicalProcessors"]),
-    ));
+    let num = num_cpus::get();
+    return num.to_string();
 }
 
 #[tauri::command]

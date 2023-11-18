@@ -23,6 +23,7 @@ os_info = "3.7.0"
 substring = "1.4.5"
 fs = "0.0.5"
 hidapi = "2.4.1"
+num_cpus = "1.16.0"
 
 
 [features]
