@@ -9,7 +9,6 @@ use std::fs;
 use std::env;
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
-use serde_json::to_string;
 use sysinfo::{CpuExt, System, SystemExt};
 use tauri::{
     CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem,
@@ -258,7 +257,7 @@ async fn get_cpu_cores() -> String {
 #[tauri::command]
 async fn get_cpu_threads() -> String {
     #[cfg(target_os = "macos")]
-    return match_result(exec("sysctl", Some(vec!["-n", "hw.ncpu"])));
+    return match_result(exec("sysctl", Some(vec!["-n", "hw.activecpu"])));
 
     #[cfg(target_os = "linux")]
     return match_result(exec("nproc", None));
