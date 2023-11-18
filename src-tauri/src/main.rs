@@ -244,7 +244,7 @@ async fn get_cpu_cores() -> String {
 
     #[cfg(target_os = "linux")]
     {
-    let cores = fs::read_to_string("/sys/class/hwmon/").unwrap();
+    let cores = fs::read_to_string("/proc/cpuinfo").unwrap();
     let total_core = cores.split(" ");
     return total_core[38];
     }
