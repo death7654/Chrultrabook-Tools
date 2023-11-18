@@ -128,7 +128,7 @@
 	--panel-color: #fafafa;
 	--text-color: #000;
 	--textbox-color: #000;
-	--black-light-color: #bdbdbd;
+	--black-light-color: #3a3a3a;
 	--border-color: #b8b6b6;
 	--toggle-color: #ff7f50;
 	--box1-color: #ef476f;
@@ -170,7 +170,7 @@ body.dark {
 	--panel-color: #222223;
 	--text-color: #fff;
 	--textbox-color: #000;
-	--black-light-color: #7e7e7e;
+	--black-light-color: #b3b0b0;
 	--border-color: #383737;
 	--toggle-color: #c438fb;
 	--box1-color: #da5ea4;

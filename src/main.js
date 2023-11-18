@@ -184,9 +184,11 @@ setTimeout(async () => {
 	const boardname = await invoke("get_board_name");
 	const cores = await invoke("get_cpu_cores");
 	const cpuname = await invoke("get_cpu_name");
+	const threads = await invoke("get_cpu_threads");
 	document.getElementById("biosVersion").innerText = "Bios Version: " + bios;
 	document.getElementById("boardname").innerText = "Boardname: " + boardname;
 	document.getElementById("coreCPU").innerText = "Cores: " + cores + " Cores";
+	document.getElementById("threadCPU").innerText = "Threads: " + threads + " Threads";
 	document.getElementById("hostname").innerText = "Hostname: " + hostname;
 	document.getElementById("cpuName").innerText = "CPU: " + cpuname;
 	//checks if user is on a chromebook (except macos), and if they are in a chromebook checks if they have the necessary drivers installed per os

@@ -71,6 +71,7 @@ fn main() {
             get_board_name,
             manufacturer,
             get_cpu_cores,
+            get_cpu_threads,
             get_cpu_name,
             get_hostname,
             get_fan_rpm,
@@ -238,6 +239,20 @@ async fn manufacturer() -> String {
 
 #[tauri::command]
 async fn get_cpu_cores() -> String {
+    #[cfg(target_os = "macos")]
+    return match_result(exec("sysctl", Some(vec!["-n", "hw.ncpu"])));
+
+    #[cfg(target_os = "linux")]
+    return match_result(exec("nproc", None));
+
+    #[cfg(windows)]
+    return match_result_vec(exec(
+        "wmic",
+        Some(vec!["cpu", "get", "NumberOfCores"]),
+    ));
+}
+#[tauri::command]
+async fn get_cpu_threads() -> String {
     #[cfg(target_os = "macos")]
     return match_result(exec("sysctl", Some(vec!["-n", "hw.ncpu"])));
 
