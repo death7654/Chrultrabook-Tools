@@ -10,12 +10,24 @@ import {
 	enable
 } from "tauri-plugin-autostart-api";
 import {
-	Chart,
-	registerables
-} from "chart.js";
+    Chart,
+    LineController,
+    LineElement,
+    LinearScale,
+    CategoryScale,
+    PointElement,
+	Tooltip,
+  } from "chart.js";
+  Chart.register(
+    LineController,
+    LineElement,
+    LinearScale,
+    CategoryScale,
+    PointElement,
+	Tooltip
+  );
 import "chartjs-plugin-dragdata";
 import "./styles.css";
-Chart.register(...registerables);
 //prevents rightclick
 document.addEventListener("contextmenu", (event) => event.preventDefault());
 //checks what os the user is on

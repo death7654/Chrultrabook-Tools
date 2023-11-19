@@ -17,18 +17,11 @@
     },
     "allowlist": {
       "all": false,
-      "shell": {
-        "all": false,
-        "open": true
-      },
       "window": {
-        "all": false,
         "close": true,
         "hide": true,
         "show": true,
-        "maximize": false,
         "minimize": true,
-        "unmaximize": false,
         "unminimize": true,
         "startDragging": true,
         "center": true
