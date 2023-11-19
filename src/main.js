@@ -487,58 +487,58 @@ const selected = document.querySelector(".selected");
 async function getSystemInfo() {
 	switch (selected.innerText) {
 		case "Boot Timestamps":
-			document.getElementById("cbMemInfo").innerText = await invoke("cbmem", {
+			document.getElementById("cbMemInfo").innerText = "\n" + await invoke("cbmem", {
 				value: "-t",
 			});
 			break;
 		case "Coreboot Log":
-			document.getElementById("cbMemInfo").innerText = await invoke("cbmem", {
+			document.getElementById("cbMemInfo").innerText = "\n" + await invoke("cbmem", {
 				value: "-c1",
 			});
 			break;
 		case "Coreboot Extended Log":
-			document.getElementById("cbMemInfo").innerText = await invoke("cbmem", {
+			document.getElementById("cbMemInfo").innerText = "\n" + await invoke("cbmem", {
 				value: "-c",
 			});
 			break;
 		case "EC Console Log":
-			document.getElementById("cbMemInfo").innerText = await invoke("ectool", {
+			document.getElementById("cbMemInfo").innerText = "\n" + await invoke("ectool", {
 				value: "console",
 				value2: "",
 			});
 			break;
 		case "Battery Info":
-			document.getElementById("cbMemInfo").innerText = await invoke("ectool", {
+			document.getElementById("cbMemInfo").innerText = "\n" + await invoke("ectool", {
 				value: "battery",
 				value2: "",
 			});
 			break;
 		case "EC Chip Info":
-			document.getElementById("cbMemInfo").innerText = await invoke("ectool", {
+			document.getElementById("cbMemInfo").innerText = "\n" + await invoke("ectool", {
 				value: "chipinfo",
 				value2: "",
 			});
 			break;
 		case "SPI Info":
-			document.getElementById("cbMemInfo").innerText = await invoke("ectool", {
+			document.getElementById("cbMemInfo").innerText = "\n" + await invoke("ectool", {
 				value: "flashspiinfo",
 				value2: "",
 			});
 			break;
 		case "EC Protocol Info":
-			document.getElementById("cbMemInfo").innerText = await invoke("ectool", {
+			document.getElementById("cbMemInfo").innerText = "\n" + await invoke("ectool", {
 				value: "protoinfo",
 				value2: "",
 			});
 			break;
 		case "Temp Sensor Info":
-			document.getElementById("cbMemInfo").innerText = await invoke("ectool", {
+			document.getElementById("cbMemInfo").innerText = "\n" + await invoke("ectool", {
 				value: "tempsinfo",
 				value2: "all",
 			});
 			break;
 		case "Power Delivery Info":
-			document.getElementById("cbMemInfo").innerText = await invoke("ectool", {
+			document.getElementById("cbMemInfo").innerText = "\n" + await invoke("ectool", {
 				value: "pdlog",
 				value2: "",
 			});
