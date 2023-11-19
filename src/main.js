@@ -286,7 +286,7 @@ let setFan = document.getElementById("setFan");
 function setTemps() {
 	const cpuTemp = parseInt(averageTemp);
 	//built in protections for cpuTemps
-	if (cpuTemp <= 35) {
+	if (cpuTemp <= 40) {
 		invoke("ectool", {
 			value: "fanduty",
 			value2: "0"
@@ -339,7 +339,7 @@ function customFan() {
 	clearInterval(clearcustomFan);
 	clearcustomFan = setInterval(async () => {
 		setTemps();
-	}, 2000);
+	});
 	//saves the users custom fan curves
 	const toSave = JSON.stringify(myChart.data.datasets[0].data);
 	localStorage.setItem("customfanCurves", toSave);
