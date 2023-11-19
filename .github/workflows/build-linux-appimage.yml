@@ -2,6 +2,7 @@ name: 'build linux appimage'
 on: 
   push:
     branches: [ "master" ]
+  workflow_dispatch:
 
 jobs:
   build:
