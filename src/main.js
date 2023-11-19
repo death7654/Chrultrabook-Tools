@@ -456,6 +456,7 @@ activityLightColor.addEventListener("mousedown", () => activityLight());
 let sliderBacklight = document.getElementById("backlightRangeSlider");
 let outputBacklight = document.getElementById("backlightRangeSliderText");
 outputBacklight.innerHTML = sliderBacklight.value;
+
 //sends infrom from html to ec and changes keyboard remap opacity
 sliderBacklight.oninput = function() {
 	outputBacklight.innerText = this.value === "0" ? "off" : this.value;
