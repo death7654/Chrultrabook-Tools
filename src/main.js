@@ -339,7 +339,7 @@ function customFan() {
 	clearInterval(clearcustomFan);
 	clearcustomFan = setInterval(async () => {
 		setTemps();
-	});
+	}, 500);
 	//saves the users custom fan curves
 	const toSave = JSON.stringify(myChart.data.datasets[0].data);
 	localStorage.setItem("customfanCurves", toSave);
