@@ -81,7 +81,7 @@ function containsNumber(str) {
 let fan = false;
 let fanExist = await invoke("get_fan_rpm");
 fanExist = fanExist.split(/\b(\s)/);
-if (fanExist[3] === "1") {
+if (fanExist[0] !== "Fan") {
 	document.getElementById("fan").style.display = "none";
 } else {
 	fan = true;
