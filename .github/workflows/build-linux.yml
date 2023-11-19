@@ -1,4 +1,4 @@
-name: 'build linux appimage'
+name: 'linux build'
 on: 
   push:
     branches: [ "master" ]
@@ -20,16 +20,14 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
       - name: Install build dependencies
         run: |
-          sudo apt-get update -y
-          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
-          sudo apt-get install -y desktop-file-utils
-          sudo apt-get install -y librust-libudev-sys-dev
+          sudo apt update -y
+          sudo apt install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf desktop-file-utils librust-libudev-sys-dev
       - name: Install npm dependencies
         run: npm install 
       - name: Build application
         run: npm run tauri build
       - name: Linux AppImage Packaging
-        run: ./linux_build.sh
+        run: ./linux_appimage.sh
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
