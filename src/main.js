@@ -315,7 +315,6 @@ function setTemps() {
 	} else {
 		tempBetween = (temp2 - temp) * percentage + temp;
 	}
-	console.log(tempBetween)
 	invoke("ectool", {
 		value: "fanduty",
 		value2: tempBetween.toString()
@@ -407,51 +406,11 @@ buttonCustomFan.addEventListener("mousedown", () => customFan());
 //activity light
 const selectedActivityLight = document.querySelector(".selectedActivityLight");
 async function activityLight() {
-	switch (selectedActivityLight.innerText) {
-		case "Off":
-			invoke("set_activity_light", {
-				color: "black"
-			})
-			break;
-		case "Red":
-			invoke("set_activity_light", {
-				color: "red"
-			})
-			break;
-		case "Green":
-			invoke("set_activity_light", {
-				color: "green"
-			})
-			break;
-		case "Blue":
-			invoke("set_activity_light", {
-				color: "blue"
-			})
-			break;
-		case "White":
-			invoke("set_activity_light", {
-				color: "white"
-			})
-			break;
-		case "Cyan":
-			invoke("set_activity_light", {
-				color: "cyan"
-			})
-			break;
-		case "Magenta":
-			invoke("set_activity_light", {
-				color: "magenta"
-			})
-			break;
-		case "Yellow":
-			invoke("set_activity_light", {
-				color: "yellow"
-			})
-			break;
-	}
+	invoke("set_activity_light", {color: selectedActivityLight.innerText})
 }
 const activityLightColor = document.getElementById("activityLightMenu");
 activityLightColor.addEventListener("mousedown", () => activityLight());
+
 //keyboard backlight slider
 let sliderBacklight = document.getElementById("backlightRangeSlider");
 let outputBacklight = document.getElementById("backlightRangeSliderText");
@@ -498,68 +457,9 @@ document
 //sends info from html to ec, and pulls ec and sends it to HTML (system diagnostics)
 const selected = document.querySelector(".selected");
 async function getSystemInfo() {
-	switch (selected.innerText) {
-		case "Boot Timestamps":
-			document.getElementById("cbMemInfo").innerText = "\n" + await invoke("cbmem", {
-				value: "-t",
-			});
-			break;
-		case "Coreboot Log":
-			document.getElementById("cbMemInfo").innerText = "\n" + await invoke("cbmem", {
-				value: "-c1",
-			});
-			break;
-		case "Coreboot Extended Log":
-			document.getElementById("cbMemInfo").innerText = "\n" + await invoke("cbmem", {
-				value: "-c",
-			});
-			break;
-		case "EC Console Log":
-			document.getElementById("cbMemInfo").innerText = "\n" + await invoke("ectool", {
-				value: "console",
-				value2: "",
-			});
-			break;
-		case "Battery Info":
-			document.getElementById("cbMemInfo").innerText = "\n" + await invoke("ectool", {
-				value: "battery",
-				value2: "",
-			});
-			break;
-		case "EC Chip Info":
-			document.getElementById("cbMemInfo").innerText = "\n" + await invoke("ectool", {
-				value: "chipinfo",
-				value2: "",
-			});
-			break;
-		case "SPI Info":
-			document.getElementById("cbMemInfo").innerText = "\n" + await invoke("ectool", {
-				value: "flashspiinfo",
-				value2: "",
-			});
-			break;
-		case "EC Protocol Info":
-			document.getElementById("cbMemInfo").innerText = "\n" + await invoke("ectool", {
-				value: "protoinfo",
-				value2: "",
-			});
-			break;
-		case "Temp Sensor Info":
-			document.getElementById("cbMemInfo").innerText = "\n" + await invoke("ectool", {
-				value: "tempsinfo",
-				value2: "all",
-			});
-			break;
-		case "Power Delivery Info":
-			document.getElementById("cbMemInfo").innerText = "\n" + await invoke("ectool", {
-				value: "pdlog",
-				value2: "",
-			});
-			break;
-		default:
-			document.getElementById("cbMemInfo").innerText = "Select Something";
-	}
+	document.getElementById("cbMemInfo").innerText = "\n" + await invoke("get_system_info", {value: selected.innerText})
 }
+
 //copy functions
 const buttoncbMem = document.getElementById("cbMem");
 buttoncbMem.addEventListener("mousedown", () => getSystemInfo());

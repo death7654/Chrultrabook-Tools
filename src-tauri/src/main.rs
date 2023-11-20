@@ -80,6 +80,7 @@ fn main() {
             set_battery_limit,
             ectool,
             cbmem,
+            get_system_info,
             chargecontrol,
             set_activity_light
         ])
@@ -313,7 +314,24 @@ async fn cbmem(value: String) -> String {
     return String::from("Not available on this platform");
 
     #[cfg(any(windows, target_os = "linux"))]
-    return match_result(exec(MEM, Some(vec![&value.as_str()])));
+    return match_result(exec(MEM, Some(vec![&value])));
+}
+#[tauri::command]
+async fn get_system_info(value: String) -> String{
+    let requested_info: String = match value.as_str() {
+        "Boot Timestamps" => cbmem("-t".to_string()).await,
+        "Coreboot Log" => cbmem("-c1".to_string()).await,
+        "Coreboot Extended Log" => cbmem("-c".to_string()).await,
+        "EC Console Log" => ectool("console".to_string(), " ".to_string()).await,
+        "Battery Info" => ectool("battery".to_string(), " ".to_string()).await,
+        "EC Chip Info" => ectool("chipinfo".to_string(), " ".to_string()).await,
+        "SPI Info" => ectool("flashspiinfo".to_string(), " ".to_string()).await,
+        "EC Protocol Info" => ectool("protoinfo".to_string(), " ".to_string()).await,
+        "Temp Sensor Info" => ectool("tempsinfo".to_string(), "all".to_string()).await,
+        "Power Delivery Info" => ectool("pdlog".to_string(), " ".to_string()).await,
+        _ => "Please Select Something".to_string(),
+    };
+    return requested_info.to_string()
 }
 
 #[tauri::command]
@@ -334,14 +352,14 @@ async fn set_activity_light(color: String) {
     }
 
     let color_data: [u8; 4] = match color.as_str() {
-        "red" => [17, 1, 127, 32],
-        "green" => [17, 2, 146, 32],
-        "blue" => [17, 3, 165, 32],
-        "yellow" => [17, 4, 184, 32],
-        "magenta" => [17, 5, 203, 32],
-        "cyan" => [17, 6, 222, 32],
-        "white" => [17, 7, 241, 32],
-        "black" => [17, 8, 5, 32],
+        "Red" => [17, 1, 127, 32],
+        "Green" => [17, 2, 146, 32],
+        "Blue" => [17, 3, 165, 32],
+        "Yellow" => [17, 4, 184, 32],
+        "Magenta" => [17, 5, 203, 32],
+        "Cyan" => [17, 6, 222, 32],
+        "White" => [17, 7, 241, 32],
+        "Black" => [17, 8, 5, 32],
         _ => [0, 0, 0, 0],
     };
     let right_array: [u8; 60] = [
