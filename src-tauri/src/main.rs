@@ -235,7 +235,7 @@ async fn manufacturer() -> String {
     #[cfg(windows)]
     return match_result_vec(exec(
         "wmic",
-        Some(vec!["computersystem", "get", "manufacturer"]),
+        Some(vec!["baseboard", "get", "manufacturer"]),
     ));
 }
 
