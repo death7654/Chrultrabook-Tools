@@ -203,19 +203,6 @@ setTimeout(async () => {
 	document.getElementById("threadCPU").innerText = "Threads: " + threads + " Threads";
 	document.getElementById("hostname").innerText = "Hostname: " + hostname;
 	document.getElementById("cpuName").innerText = "CPU: " + cpuname;
-	//checks if user is on a chromebook (except macos), and if they are in a chromebook checks if they have the necessary drivers installed per os
-	let manufacturer = await invoke("manufacturer");
-	manufacturer = manufacturer.toLowerCase();
-	if (os !== "macos") {
-		if (manufacturer !== "google") {
-			document.getElementById("blur").classList.add("blur");
-			document.getElementById("notChromebook").style.display = "flex";
-			document.getElementById("notChromebookButton").addEventListener("mousedown", () => {
-				document.getElementById("blur").classList.remove("blur");
-				document.getElementById("notChromebook").style.display = "none";
-			});
-		}
-	}
 	//shows or hides activity light settings based on boardname (only shows to Candy and Kefka)
 	if (boardname !== "Candy" && boardname !== "Kefka") {
 		document.getElementById("ActivityLight").style.display = "none";

@@ -379,6 +379,7 @@ async fn set_activity_light(color: String) {
     return;
 }
 
+
 // Helper functions
 
 fn exec(program: &str, args: Option<Vec<&str>>) -> Result<std::process::Output, std::io::Error> {
