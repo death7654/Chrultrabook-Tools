@@ -458,6 +458,7 @@ document
 const selected = document.querySelector(".selected");
 async function getSystemInfo() {
 	document.getElementById("cbMemInfo").innerText = "\n" + await invoke("get_system_info", {value: selected.innerText})
+
 }
 
 //copy functions

@@ -323,7 +323,7 @@ async fn get_system_info(value: String) -> String{
         "Coreboot Log" => cbmem("-c1".to_string()).await,
         "Coreboot Extended Log" => cbmem("-c".to_string()).await,
         "EC Console Log" => ectool("console".to_string(), " ".to_string()).await,
-        "Battery Info" => ectool("battery".to_string(), " ".to_string()).await,
+        "Battery Info" => ectool("battery".to_string(), "".to_string()).await,
         "EC Chip Info" => ectool("chipinfo".to_string(), " ".to_string()).await,
         "SPI Info" => ectool("flashspiinfo".to_string(), " ".to_string()).await,
         "EC Protocol Info" => ectool("protoinfo".to_string(), " ".to_string()).await,
