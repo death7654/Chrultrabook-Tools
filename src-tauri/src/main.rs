@@ -170,18 +170,16 @@ async fn get_cpu_temp() -> i16 {
                 fs::read_to_string(format!("{}/name", path.as_ref().unwrap().path().display()))
                     .unwrap();
             if name.contains("k10temp") || name.contains("coretemp") {
-                return Some(
-                    (fs::read_to_string(format!(
-                        "{}/temp1_input",
-                        path.as_ref().unwrap().path().display()
-                    ))
+                return (fs::read_to_string(format!(
+                    "{}/temp1_input",
+                    path.as_ref().unwrap().path().display()
+                ))
+                .unwrap()
+                .split('\n')
+                .collect::<Vec<_>>()[0]
+                    .parse::<i16>()
                     .unwrap()
-                    .split('\n')
-                    .collect::<Vec<_>>()[0]
-                        .parse::<i16>()
-                        .unwrap()
-                        / 1000) as i16,
-                );
+                    / 1000);
             };
         }
         return None;
