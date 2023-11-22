@@ -261,42 +261,10 @@ let offFan = document.getElementById("fanOff");
 let maxFan = document.getElementById("fanMax");
 let setFan = document.getElementById("setFan");
 
+console.log(myChart.data.datasets[0].data);
+
 function setTemps() {
-	const cpuTemp = parseInt(averageTemp);
-	//built in protections for cpuTemps
-	if (cpuTemp <= 40) {
-		invoke("ectool", {
-			value: "fanduty",
-			value2: "0"
-		});
-		return;
-	}
-	if (cpuTemp >= 80) {
-		invoke("ectool", {
-			value: "fanduty",
-			value2: "100"
-		});
-		return;
-	}
-	//calculator for what speed (in percentage) to run the fans at
-	let base = cpuTemp - 40;
-	const percentage = [1, 0.2, 0.4, 0.6, 0.8][base % 5];
-	let index = (base - (base % 5)) / 5;
-	let temp = myChart.data.datasets[0].data[index];
-	index++;
-	let temp2 = myChart.data.datasets[0].data[index];
-	let tempBetween;
-	if (cpuTemp % 5 === 0) {
-		index--;
-		//prevents fans from using the next index and makes sure it doesnt calculate anything
-		tempBetween = myChart.data.datasets[0].data[index];
-	} else {
-		tempBetween = (temp2 - temp) * percentage + temp;
-	}
-	invoke("ectool", {
-		value: "fanduty",
-		value2: tempBetween.toString()
-	});
+	invoke("custom_fan_speeds", {value: myChart.data.datasets[0].data});
 }
 let clearcustomFan;
 //starts fans if avaliable

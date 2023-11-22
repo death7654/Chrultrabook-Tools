@@ -78,6 +78,7 @@ fn main() {
             get_hostname,
             get_fan_rpm,
             set_battery_limit,
+            custom_fan_speeds,
             ectool,
             cbmem,
             get_system_info,
@@ -131,8 +132,6 @@ async fn get_cpu_usage() -> String {
         let usage = sys.global_cpu_info().cpu_usage();
         std::thread::sleep(System::MINIMUM_CPU_UPDATE_INTERVAL);
         let cpu_usage = usage.round();
-        println!("usage {}", usage);
-        println!("cpuusage {}", cpu_usage);
         return cpu_usage.to_string();
     }
     #[cfg(windows)]
@@ -327,8 +326,32 @@ async fn set_battery_limit(value: String, value2: String) -> String {
     ));
 }
 #[tauri::command]
-async fn custom_fan_speeds(value: [u16;9]) {
-    //let cpu_temp:i32 = get_cpu_temp().await;
+async fn custom_fan_speeds(value: Vec<u8>) {
+    let cpu_temp:f64 = get_cpu_temp().await as f64;
+    if cpu_temp < 40.0
+    {
+        ectool("fanduty".to_string(), "0".to_string()).await;
+    }
+    if cpu_temp >= 80.0
+    {
+        ectool("fanduty".to_string(), "100".to_string()).await;
+    }
+    let base_value = cpu_temp - 40.0;
+    let avaliable_percentages = [1.0, 0.2, 0.4, 0.6, 0.8];
+    let percentages = avaliable_percentages[base_value as usize % 5];
+	let mut index = (base_value - (base_value % 5.0)) / 5.0;
+    let temp1 = value[index as usize];
+    index = index + 1.0;
+    let temp2 = value[index as usize];
+
+    if cpu_temp % 5.0 == 0.0 {
+        ectool("fanduty".to_string(), temp1.to_string()).await;
+    }
+    else {
+        let calculate_fan_speed_between = (temp2 as f64 - temp1 as f64) * percentages + temp1 as f64;
+        let fan_speed_between = calculate_fan_speed_between as i16;
+        ectool("fanduty".to_string(), fan_speed_between.to_string()).await;
+    }
 
 }
 
