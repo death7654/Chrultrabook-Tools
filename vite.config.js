@@ -6,8 +6,11 @@ export default defineConfig(async () => ({
   plugins: [],
 
   build: {
-    target: 'esnext'
+    target: 'esnext',
+    outDir: '../dist'
   },
+
+  root: "src/",
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //
