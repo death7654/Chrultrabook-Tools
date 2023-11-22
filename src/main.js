@@ -190,10 +190,9 @@ setTimeout(async () => {
 	const threads = await invoke("get_cpu_threads");
 	document.getElementById("biosVersion").innerText = "Bios Version: " + bios;
 	document.getElementById("boardname").innerText = "Boardname: " + boardname;
-	document.getElementById("coreCPU").innerText = "Cores: " + cores + " Cores";
 	document.getElementById("threadCPU").innerText = "Threads: " + threads + " Threads";
 	document.getElementById("hostname").innerText = "Hostname: " + hostname;
-	document.getElementById("cpuName").innerText = "CPU: " + cpuname;
+	document.getElementById("cpuName").innerText = "CPU: "+cores + " ⋅ " + cpuname;
 	//shows or hides activity light settings based on boardname (only shows to Candy and Kefka)
 	if (boardname !== "Candy" && boardname !== "Kefka") {
 		document.getElementById("ActivityLight").style.display = "none";
