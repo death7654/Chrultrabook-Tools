@@ -78,14 +78,13 @@ function containsNumber(str) {
 	return /[0-9]/.test(str);
 }
 //checks if fan exists
-let fan = false;
+let fan = true;
 let fanExist = await invoke("get_fan_rpm");
 fanExist = fanExist.split(/\b(\s)/);
-if (fanExist[0] !== "Fan") {
+if (containsNumber(fanExist) === false) {
 	document.getElementById("fan").style.display = "none";
-} else {
-	fan = true;
-}
+	fan = false;
+} 
 //sets current percantage for backlight and hides the slider if the chromebook has no backlight or battery controls
 setTimeout(async () => {
 	let keyboardBackLight = await invoke("ectool", {
@@ -118,26 +117,19 @@ async function startCpuRamInterval() {
 //seperates temps, so ectool doesnt spam errors
 async function startTempinterval() {
 	//cpu temps
-	const cpuTempFunction = await invoke("get_cpu_temp");
-	let sensors = 0;
-	let temps = 0;
-	cpuTempFunction.split("\n").forEach((line) => {
-		const num = line.split("C)")[0].trim().split(" ").pop().trim();
-		if (num && !isNaN(num)) {
-			temps += parseFloat(num);
-			sensors++;
-		}
-	});
-	averageTemp = temps / sensors;
-	document.getElementById("cpuTemp").innerText = averageTemp.toFixed(0) + "°C";
-	document.getElementById("cpuTempFan").innerText = averageTemp.toFixed(0) + "°C";
+	let cpuTemp = await invoke("get_cpu_temp");
+	document.getElementById("cpuTemp").innerText = cpuTemp + "°C";
+	document.getElementById("cpuTempFan").innerText = cpuTemp + "°C";
 }
 let tempInterval = setInterval(async () => {
 	startTempinterval()
 }, 1000);
 //stops ectools from trying to run and displays no ectools
+
 setTimeout(async () => {
-	if (containsNumber(averageTemp) === false) {
+	let ec = await invoke("ectool",{value: "hello", value2: ""});
+	ec = ec.split(" ");
+	if (ec[2] !== "hello!") {
 		clearInterval(tempInterval);
 		document.getElementById('noEctools').style.display = "block";
 		if (os === "windows") {
@@ -148,8 +140,8 @@ setTimeout(async () => {
 			document.getElementById('linux').style.display = "flex";
 		}
 	}
-	console.log(os)
 }, 2000)
+
 let intervalStarted = false;
 let previousInterval = false;
 let cpuRamInterval;
@@ -175,7 +167,6 @@ setInterval(async () => {
 if (fan === true) {
 	setInterval(async () => {
 		let fanRPM = await invoke("get_fan_rpm");
-		fanRPM = fanRPM.toString().split(":").pop().trim();
 		document.getElementById("fanSpeed").innerText = fanRPM + " RPM";
 	}, 1000);
 	//loads chart on startup

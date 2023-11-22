@@ -16,8 +16,9 @@ use tauri::{
 use tauri::{Manager, Window};
 use tauri_plugin_autostart::MacosLauncher;
 use hidapi::HidApi;
-
 use num_cpus;
+#[cfg(windows)]
+use regex::Regex;
 
 #[cfg(target_os = "linux")]
 const EC: &str = "ectool";
@@ -164,7 +165,7 @@ async fn get_ram_usage() -> String {
 }
 
 #[tauri::command]
-async fn get_cpu_temp() -> Option<String> {
+async fn get_cpu_temp() -> i16 {
     #[cfg(target_os = "linux")]
     {
         let paths = fs::read_dir("/sys/class/hwmon/").unwrap();
@@ -183,8 +184,7 @@ async fn get_cpu_temp() -> Option<String> {
                     .collect::<Vec<_>>()[0]
                         .parse::<i32>()
                         .unwrap()
-                        / 1000)
-                        .to_string(),
+                        / 1000),
                 );
             };
         }
@@ -192,7 +192,23 @@ async fn get_cpu_temp() -> Option<String> {
     };
 
     #[cfg(any(windows, target_os = "macos"))]
-    return Some(match_result(exec(EC, Some(vec!["temps", "all"]))));
+    let ec_output = match_result(exec(EC, Some(vec!["temps", "all"])));
+    let mut total_temp = 0;
+    let sensor = ec_output.split("\n").collect::<Vec<_>>().len() -1;
+    let temperature_regex = Regex::new(r#"\b(\d+)\sC\b"#).unwrap();
+    let mut temps: Vec<u32> = vec![];
+    for capture in temperature_regex.captures_iter(&ec_output) {
+        if let Some(matched_temp) = capture.get(1) {
+            let temp: u32 = matched_temp.as_str().parse().unwrap();
+            temps.push(temp);
+        }
+    }
+    for i in &temps {
+        total_temp += i;
+    }
+    let average_temp = total_temp/sensor as u32;
+    return average_temp.try_into().unwrap()
+
 }
 
 #[tauri::command]
@@ -287,7 +303,16 @@ async fn get_hostname() -> String {
 
 #[tauri::command]
 async fn get_fan_rpm() -> String {
-    return match_result(exec(EC, Some(vec!["pwmgetfanrpm"])));
+    let output: String = match_result(exec(EC, Some(vec!["pwmgetfanrpm"])));
+    let array: Vec<&str> = output.split(" ").collect::<Vec<_>>();
+    if array.len() == 4
+    {
+        return array[3].to_string()
+    }
+    else {
+        return "0".to_string();
+    }
+
 }
 
 #[tauri::command]
@@ -301,6 +326,11 @@ async fn set_battery_limit(value: String, value2: String) -> String {
             &value2.as_str(),
         ]),
     ));
+}
+#[tauri::command]
+async fn custom_fan_speeds(value: [u16;9]) {
+    //let cpu_temp:i32 = get_cpu_temp().await;
+
 }
 
 #[tauri::command]

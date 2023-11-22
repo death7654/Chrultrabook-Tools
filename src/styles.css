@@ -9,7 +9,13 @@
 	box-sizing: border-box;
 	font-family: "Poppins", sans-serif;
 	transition: var(--tran-03);
+	color: var(--text-color);
 }
+.app{
+	background-color: var(--panel-color);
+	border-radius: 20px;
+}
+
 .noEctools {
 	z-index: 6;
 	font-size: 8px;
@@ -25,10 +31,6 @@
 }
 .noEctools h1 {
 	color: #fff;
-}
-.blur {
-	filter: blur(3px) brightness(25%);
-	-webkit-filter: blur(3px) brightness(25%);
 }
 .appFrame {
 	color: #fff;
