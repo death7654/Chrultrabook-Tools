@@ -3,21 +3,19 @@
     windows_subsystem = "windows"
 )]
 
-#[cfg(target_os = "linux")]
-use std::fs;
-use std::env;
-#[cfg(windows)]
-use std::os::windows::process::CommandExt;
-use sysinfo::{CpuExt, System, SystemExt};
-use tauri::{
-    CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem,
-};
-use tauri::{Manager, Window};
-use tauri_plugin_autostart::MacosLauncher;
 use hidapi::HidApi;
 use num_cpus;
 #[cfg(any(windows, target_os = "macos"))]
 use regex::Regex;
+use std::env;
+#[cfg(target_os = "linux")]
+use std::fs;
+#[cfg(windows)]
+use std::os::windows::process::CommandExt;
+use sysinfo::{CpuExt, System, SystemExt};
+use tauri::{CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem};
+use tauri::{Manager, Window};
+use tauri_plugin_autostart::MacosLauncher;
 
 #[cfg(target_os = "linux")]
 const EC: &str = "ectool";
@@ -91,7 +89,7 @@ fn main() {
         ))
         .plugin(tauri_plugin_single_instance::init(|app, argv, cwd| {
             println!("{}, {argv:?}, {cwd}", app.package_info().name);
-          }))
+        }))
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -172,18 +170,16 @@ async fn get_cpu_temp() -> i16 {
                 fs::read_to_string(format!("{}/name", path.as_ref().unwrap().path().display()))
                     .unwrap();
             if name.contains("k10temp") || name.contains("coretemp") {
-                return Some(
-                    (fs::read_to_string(format!(
-                        "{}/temp1_input",
-                        path.as_ref().unwrap().path().display()
-                    ))
+                return (fs::read_to_string(format!(
+                    "{}/temp1_input",
+                    path.as_ref().unwrap().path().display()
+                ))
+                .unwrap()
+                .split('\n')
+                .collect::<Vec<_>>()[0]
+                    .parse::<i16>()
                     .unwrap()
-                    .split('\n')
-                    .collect::<Vec<_>>()[0]
-                        .parse::<i16>()
-                        .unwrap()
-                        / 1000) as i16,
-                );
+                    / 1000);
             };
         }
         return None;
@@ -191,24 +187,23 @@ async fn get_cpu_temp() -> i16 {
 
     #[cfg(any(windows, target_os = "macos"))]
     {
-    let ec_output = match_result(exec(EC, Some(vec!["temps", "all"])));
-    let mut total_temp = 0;
-    let sensor = ec_output.split("\n").collect::<Vec<_>>().len() -1;
-    let temperature_regex = Regex::new(r#"\b(\d+)\sC\b"#).unwrap();
-    let mut temps: Vec<u32> = vec![];
-    for capture in temperature_regex.captures_iter(&ec_output) {
-        if let Some(matched_temp) = capture.get(1) {
-            let temp: u32 = matched_temp.as_str().parse().unwrap();
-            temps.push(temp);
+        let ec_output = match_result(exec(EC, Some(vec!["temps", "all"])));
+        let mut total_temp = 0;
+        let sensor = ec_output.split("\n").collect::<Vec<_>>().len() - 1;
+        let temperature_regex = Regex::new(r#"\b(\d+)\sC\b"#).unwrap();
+        let mut temps: Vec<u32> = vec![];
+        for capture in temperature_regex.captures_iter(&ec_output) {
+            if let Some(matched_temp) = capture.get(1) {
+                let temp: u32 = matched_temp.as_str().parse().unwrap();
+                temps.push(temp);
+            }
         }
+        for i in &temps {
+            total_temp += i;
+        }
+        let average_temp = total_temp / sensor as u32;
+        return average_temp.try_into().unwrap();
     }
-    for i in &temps {
-        total_temp += i;
-    }
-    let average_temp = total_temp/sensor as u32;
-    return average_temp.try_into().unwrap()
-}
-
 }
 
 #[tauri::command]
@@ -250,10 +245,7 @@ async fn manufacturer() -> String {
     return match_result(exec("cat", Some(vec!["/sys/class/dmi/id/sys_vendor"])));
 
     #[cfg(windows)]
-    return match_result_vec(exec(
-        "wmic",
-        Some(vec!["baseboard", "get", "manufacturer"]),
-    ));
+    return match_result_vec(exec("wmic", Some(vec!["baseboard", "get", "manufacturer"])));
 }
 
 #[tauri::command]
@@ -305,14 +297,11 @@ async fn get_hostname() -> String {
 async fn get_fan_rpm() -> String {
     let output: String = match_result(exec(EC, Some(vec!["pwmgetfanrpm"])));
     let array: Vec<&str> = output.split(" ").collect::<Vec<_>>();
-    if array.len() == 4
-    {
-        return array[3].to_string()
-    }
-    else {
+    if array.len() == 4 {
+        return array[3].to_string();
+    } else {
         return "0".to_string();
     }
-
 }
 
 #[tauri::command]
@@ -329,32 +318,29 @@ async fn set_battery_limit(value: String, value2: String) -> String {
 }
 #[tauri::command]
 async fn custom_fan_speeds(value: Vec<u8>) {
-    let cpu_temp:f64 = get_cpu_temp().await as f64;
-    if cpu_temp < 40.0
-    {
+    let cpu_temp: f64 = get_cpu_temp().await as f64;
+    if cpu_temp < 40.0 {
         ectool("fanduty".to_string(), "0".to_string()).await;
     }
-    if cpu_temp >= 80.0
-    {
+    if cpu_temp >= 80.0 {
         ectool("fanduty".to_string(), "100".to_string()).await;
     }
     let base_value = cpu_temp - 40.0;
     let avaliable_percentages = [1.0, 0.2, 0.4, 0.6, 0.8];
     let percentages = avaliable_percentages[base_value as usize % 5];
-	let mut index = (base_value - (base_value % 5.0)) / 5.0;
+    let mut index = (base_value - (base_value % 5.0)) / 5.0;
     let temp1 = value[index as usize];
     index = index + 1.0;
     let temp2 = value[index as usize];
 
     if cpu_temp % 5.0 == 0.0 {
         ectool("fanduty".to_string(), temp1.to_string()).await;
-    }
-    else {
-        let calculate_fan_speed_between = (temp2 as f64 - temp1 as f64) * percentages + temp1 as f64;
+    } else {
+        let calculate_fan_speed_between =
+            (temp2 as f64 - temp1 as f64) * percentages + temp1 as f64;
         let fan_speed_between = calculate_fan_speed_between as i16;
         ectool("fanduty".to_string(), fan_speed_between.to_string()).await;
     }
-
 }
 
 #[tauri::command]
@@ -371,7 +357,7 @@ async fn cbmem(value: String) -> String {
     return match_result(exec(MEM, Some(vec![&value])));
 }
 #[tauri::command]
-async fn get_system_info(value: String) -> String{
+async fn get_system_info(value: String) -> String {
     let requested_info: String = match value.as_str() {
         "Boot Timestamps" => cbmem("-t".to_string()).await,
         "Coreboot Log" => cbmem("-c1".to_string()).await,
@@ -385,7 +371,7 @@ async fn get_system_info(value: String) -> String{
         "Power Delivery Info" => ectool("pdlog".to_string(), " ".to_string()).await,
         _ => "Please Select Something".to_string(),
     };
-    return requested_info.to_string()
+    return requested_info.to_string();
 }
 
 #[tauri::command]
@@ -395,13 +381,11 @@ async fn chargecontrol() -> Option<String> {
 #[tauri::command]
 async fn set_activity_light(color: String) {
     let activity_light;
-    
+
     let device_exists = HidApi::open(&HidApi::new().unwrap(), 0x04d8, 0x0b28).is_ok();
-    if device_exists == true
-    {
+    if device_exists == true {
         activity_light = HidApi::open(&HidApi::new().unwrap(), 0x04d8, 0x0b28).unwrap();
-    }
-    else {
+    } else {
         activity_light = HidApi::open(&HidApi::new().unwrap(), 0x046d, 0xc33c).unwrap();
     }
 
@@ -432,7 +416,6 @@ async fn set_activity_light(color: String) {
     activity_light.write(&command).unwrap();
     return;
 }
-
 
 // Helper functions
 
