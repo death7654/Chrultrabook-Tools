@@ -5,7 +5,6 @@
 
 #[cfg(target_os = "linux")]
 use std::fs;
-
 use std::env;
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
