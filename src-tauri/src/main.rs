@@ -16,7 +16,7 @@ use tauri::{Manager, Window};
 use tauri_plugin_autostart::MacosLauncher;
 use hidapi::HidApi;
 use num_cpus;
-#[cfg(windows)]
+#[cfg(any(windows, target_os = "macos"))]
 use regex::Regex;
 
 #[cfg(target_os = "linux")]
@@ -190,6 +190,7 @@ async fn get_cpu_temp() -> i16 {
     };
 
     #[cfg(any(windows, target_os = "macos"))]
+    {
     let ec_output = match_result(exec(EC, Some(vec!["temps", "all"])));
     let mut total_temp = 0;
     let sensor = ec_output.split("\n").collect::<Vec<_>>().len() -1;
@@ -206,6 +207,7 @@ async fn get_cpu_temp() -> i16 {
     }
     let average_temp = total_temp/sensor as u32;
     return average_temp.try_into().unwrap()
+}
 
 }
 
