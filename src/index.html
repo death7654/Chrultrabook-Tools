@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<link href="/vite.svg" rel="icon" type="image/svg+xml">
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<link href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-	<link href="./src/styles.css" rel="stylesheet">
-	<script src="./src/main.js" type="module">
+	<link href="./styles.css" rel="stylesheet">
+	<script src="./main.js" type="module">
 	</script>
 	<title>Chultrabook Controller</title>
 </head>
@@ -33,7 +32,7 @@
 			<nav>
 				<!--LogoName-->
 				<div class="logo-name d-flex p-relative">
-					<div class="logo-image d-flex"><img alt="" class="logoFilter" src="./src/assets/Icons/sidenavbar/chrome.svg"></div><span class="logo_name">Chrultrabook Tools</span>
+					<div class="logo-image d-flex"><img alt="" class="logoFilter" src="./assets/Icons/sidenavbar/chrome.svg"></div><span class="logo_name">Chrultrabook Tools</span>
 				</div><!--DashItems-->
 				<div class="menu-items d-flex">
 					<ul class="nav-links">
@@ -43,19 +42,19 @@
 							</div>
 						</li>
 						<li>
-							<a class="d-flex p-relative" id="home"><img alt="" class="navbarimg homeFilter" src="./src/assets/Icons/sidenavbar/home.svg"> <span class="link-name">Dashboard</span></a>
+							<a class="d-flex p-relative" id="home"><img alt="" class="navbarimg homeFilter" src="./assets/Icons/sidenavbar/home.svg"> <span class="link-name">Dashboard</span></a>
 						</li>
 						<li>
-							<a class="d-flex p-relative" id="fan"><img alt="" class="navbarimg fanFilter" src="./src/assets/Icons/sidenavbar/fan.svg"> <span class="link-name">Fan Control</span></a>
+							<a class="d-flex p-relative" id="fan"><img alt="" class="navbarimg fanFilter" src="./assets/Icons/sidenavbar/fan.svg"> <span class="link-name">Fan Control</span></a>
 						</li>
 						<li>
-							<a class="d-flex p-relative" id="options"><img alt="" class="navbarimg systemoptionsFilter" src="./src/assets/Icons/sidenavbar/system-options.svg"> <span class="link-name">System Controls</span></a>
+							<a class="d-flex p-relative" id="options"><img alt="" class="navbarimg systemoptionsFilter" src="./assets/Icons/sidenavbar/system-options.svg"> <span class="link-name">System Controls</span></a>
 						</li>
 						<li>
-							<a class="d-flex p-relative" id="diagnostics"><img alt="" class="navbarimg diagnosticFilter" src="./src/assets/Icons/sidenavbar/Diagnostics.svg"> <span class="link-name">System Information</span></a>
+							<a class="d-flex p-relative" id="diagnostics"><img alt="" class="navbarimg diagnosticFilter" src="./assets/Icons/sidenavbar/Diagnostics.svg"> <span class="link-name">System Information</span></a>
 						</li>
 						<li>
-							<a class="d-flex p-relative" id="information"><img alt="" class="navbarimg settingFilter" src="./src/assets/Icons/sidenavbar/settings.svg"> <span class="link-name">Settings</span></a>
+							<a class="d-flex p-relative" id="information"><img alt="" class="navbarimg settingFilter" src="./assets/Icons/sidenavbar/settings.svg"> <span class="link-name">Settings</span></a>
 						</li>
 					</ul><!--DarkMode-->
 					<ul class="dark-mode" style="border: none">
@@ -72,17 +71,17 @@
 				<div class="dash-content">
 					<div class="overview info">
 						<div class="title d-flex">
-							<img src="./src/assets/Icons/dashboard/tachometer.svg"> <span class="text">Dashboard</span>
+							<img src="./assets/Icons/dashboard/tachometer.svg"> <span class="text">Dashboard</span>
 						</div>
 						<div class="boxes">
 							<div class="box cpuLoad d-flex">
-								<img alt="" src="./src/assets/Icons/dashboard/cpu.svg"> <span class="text" style="color: var(--textbox-color);">CPU Load</span> <span id="cpuLoad" style="color: var(--textbox-color);">0%</span>
+								<img alt="" src="./assets/Icons/dashboard/cpu.svg"> <span class="text" style="color: var(--textbox-color);">CPU Load</span> <span id="cpuLoad" style="color: var(--textbox-color);">0%</span>
 							</div>
 							<div class="box cpuTemps d-flex">
-								<img alt="" src="./src/assets/Icons/dashboard/thermometer.svg"> <span class="text" style="color: var(--textbox-color);">CPU TEMPS</span> <span id="cpuTemp" style="color: var(--textbox-color);">0°C</span>
+								<img alt="" src="./assets/Icons/dashboard/thermometer.svg"> <span class="text" style="color: var(--textbox-color);">CPU TEMPS</span> <span id="cpuTemp" style="color: var(--textbox-color);">0°C</span>
 							</div>
 							<div class="box ram d-flex">
-								<img alt="" src="./src/assets/Icons/dashboard/ram.svg"> <span class="text" style="color: var(--textbox-color);">RAM USAGE</span> <span id="ramPercentage" style="color: var(--textbox-color);">0%</span>
+								<img alt="" src="./assets/Icons/dashboard/ram.svg"> <span class="text" style="color: var(--textbox-color);">RAM USAGE</span> <span id="ramPercentage" style="color: var(--textbox-color);">0%</span>
 							</div>
 						</div>
 						<div class="systemInfo p-relative" id="onLoad">
@@ -102,14 +101,14 @@
 				<div class="dash-content">
 					<div class="overview">
 						<div class="title d-flex">
-							<img src="./src/assets/Icons/fancontrol/fancontroldash.svg"> <span class="text">Fan Control</span>
+							<img src="./assets/Icons/fancontrol/fancontroldash.svg"> <span class="text">Fan Control</span>
 						</div>
 						<div class="boxes">
 							<div class="box fanSpeed d-flex">
-								<img alt="" src="./src/assets/Icons/fancontrol/animatedfan.svg"> <span class="text">Fan Speed</span> <span id="fanSpeed" style="color: var(--textbox-color);">Unknown</span>
+								<img alt="" src="./assets/Icons/fancontrol/animatedfan.svg"> <span class="text">Fan Speed</span> <span id="fanSpeed" style="color: var(--textbox-color);">Unknown</span>
 							</div>
 							<div class="box tempCPU d-flex">
-								<img alt="" src="./src/assets/Icons/fancontrol/thermometer(white).svg"> <span class="text">CPU TEMPS</span> <span id="cpuTempFan" style="color: var(--textbox-color);">0°C</span>
+								<img alt="" src="./assets/Icons/fancontrol/thermometer(white).svg"> <span class="text">CPU TEMPS</span> <span id="cpuTempFan" style="color: var(--textbox-color);">0°C</span>
 							</div>
 							<div class="box hidden"></div>
 						</div>
@@ -133,7 +132,7 @@
 				<div class="dash-content">
 					<div class="overview">
 						<div class="title d-flex">
-							<img src="./src/assets/Icons/systemOptions/system-options.svg"> <span class="text">System Controls</span>
+							<img src="./assets/Icons/systemOptions/system-options.svg"> <span class="text">System Controls</span>
 						</div>
 						<div class="ActivityLight p-relative" id="ActivityLight">
 							<h2 class="activitylightText" id="activityLightDropdown">&nbsp;&nbsp;Activity light</h2>
@@ -202,7 +201,7 @@
 				<div class="dash-content">
 					<div class="overview">
 						<div class="title d-flex">
-							<img src="./src/assets/Icons/cbmem/bugcbmemdash.svg"> <span class="text">System Information</span>
+							<img src="./assets/Icons/cbmem/bugcbmemdash.svg"> <span class="text">System Information</span>
 						</div>
 					</div>
 					<div class="cbmemButtons p-relative">
@@ -239,7 +238,7 @@
 				<div class="dash-content">
 					<div class="overview">
 						<div class="title d-flex">
-							<img src="./src/assets/Icons/settings/settings-page.svg"> <span class="text">Settings</span>
+							<img src="./assets/Icons/settings/settings-page.svg"> <span class="text">Settings</span>
 						</div>
 						<div class="settings">
 							<label class="switch startupFan center p-relative" id="startupFan"><input id="startupFansInput" type="checkbox"> <span class="slider p-absolute round"></span></label> <label class="switch closeToTray center p-relative" id="systemTray"><input id="systemTrayInput" type="checkbox"> <span class="slider p-absolute round"></span></label> <label class="switch startInTray center p-relative" id="startHiddenButton"><input id="startHiddenInput" type="checkbox"> <span class="slider p-absolute round"></span></label> <label class="switch startBoot center p-relative" id="startOnBootButton"><input id="startOnBootInput" type="checkbox"> <span class="slider p-absolute round"></span></label>

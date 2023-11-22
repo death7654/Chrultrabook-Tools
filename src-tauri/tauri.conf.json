@@ -62,7 +62,7 @@
         "height": 400,
         "decorations": false,
         "transparent": true,
-        "url": "splashscreen.html",
+        "url": "/splashscreen.html",
         "label": "splashscreen",
         "center": true
       }
