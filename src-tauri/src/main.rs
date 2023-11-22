@@ -180,9 +180,9 @@ async fn get_cpu_temp() -> i16 {
                     .unwrap()
                     .split('\n')
                     .collect::<Vec<_>>()[0]
-                        .parse::<i32>()
+                        .parse::<i16>()
                         .unwrap()
-                        / 1000),
+                        / 1000) as i16,
                 );
             };
         }
