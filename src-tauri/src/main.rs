@@ -170,7 +170,7 @@ async fn get_cpu_temp() -> i16 {
                 fs::read_to_string(format!("{}/name", path.as_ref().unwrap().path().display()))
                     .unwrap();
             if name.contains("k10temp") || name.contains("coretemp") {
-                return (fs::read_to_string(format!(
+                return fs::read_to_string(format!(
                     "{}/temp1_input",
                     path.as_ref().unwrap().path().display()
                 ))
@@ -179,10 +179,10 @@ async fn get_cpu_temp() -> i16 {
                 .collect::<Vec<_>>()[0]
                     .parse::<i16>()
                     .unwrap()
-                    / 1000);
+                    / 1000;
             };
         }
-        return None;
+        return -1;
     };
 
     #[cfg(any(windows, target_os = "macos"))]
