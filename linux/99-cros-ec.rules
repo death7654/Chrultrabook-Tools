@@ -1,1 +1,0 @@
-KERNEL=="cros_ec", MODE="0666", TAG+="uaccess"
