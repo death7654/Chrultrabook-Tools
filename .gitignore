@@ -14,6 +14,7 @@ dist-ssr
 
 # Editor directories and files
 .vscode/*
+.angular/
 !.vscode/extensions.json
 !.vscode/settings.json
 !.vscode/launch.json
@@ -31,4 +32,4 @@ Cargo.lock
 target
 
 # linux build
-*.AppImage
+*.AppImage 
