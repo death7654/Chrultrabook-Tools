@@ -194,7 +194,7 @@ async fn get_cpu_temp() -> i16 {
             .map(|i| i.as_str().parse::<i16>().unwrap())
             .collect();
         let total_temp: i16 = temps.iter().sum();
-        let average_temp: i16 = total_temp / temps.len() as i16;
+        let average_temp: i16 = total_temp / temps.len() as i16; //TODO: possible devide by zero
         return average_temp;
     }
 }

@@ -7,7 +7,8 @@ export default defineConfig(async () => ({
 
   build: {
     target: 'esnext',
-    outDir: '../dist'
+    outDir: '../dist',
+    emptyOutDir: true
   },
 
   root: "src/",
