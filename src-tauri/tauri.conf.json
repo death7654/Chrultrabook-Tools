@@ -1,71 +1,71 @@
 {
-  "build": {
-    "beforeDevCommand": "npm run dev",
-    "beforeBuildCommand": "npm run build",
-    "devPath": "http://localhost:1420",
-    "distDir": "../dist",
-    "withGlobalTauri": false
-  },
-  "package": {
-    "productName": "Chrultrabook Tools",
-    "version": "2.8.3"
-  },
-  "tauri": {
-    "systemTray": {
-      "iconPath": "icons/icon.png",
-      "iconAsTemplate": true
+    "build": {
+        "beforeDevCommand": "npm run dev",
+        "beforeBuildCommand": "npm run build",
+        "devPath": "http://localhost:1420",
+        "distDir": "../dist",
+        "withGlobalTauri": false
     },
-    "allowlist": {
-      "all": false,
-      "window": {
-        "close": true,
-        "hide": true,
-        "show": true,
-        "minimize": true,
-        "unminimize": true,
-        "startDragging": true,
-        "center": true
-      }
+    "package": {
+        "productName": "chrultrabook_tools",
+        "version": "2.8.3"
     },
-    "bundle": {
-      "active": true,
-      "targets": "all",
-      "identifier": "org.chrultrabooktools.chrultrabooktools",
-      "copyright": "GPL-3.0",
-      "icon": [
-        "icons/32x32.png",
-        "icons/128x128.png",
-        "icons/128x128@2x.png",
-        "icons/icon.icns",
-        "icons/icon.ico"
-      ]
-    },
-    "security": {
-      "csp": null
-    },
-    "windows": [
-      {
-        "decorations": false,
-        "fullscreen": false,
-        "resizable": false,
-        "title": "Chrultrabook Tools",
-        "width": 800,
-        "height": 550,
-        "transparent": true,
-        "fileDropEnabled": false,
-        "center": true,
-        "visible": false
-      },
-      {
-        "title": "Chrultrabook Tools",
-        "width": 300,
-        "height": 400,
-        "decorations": false,
-        "transparent": true,
-        "url": "splashscreen.html",
-        "label": "splashscreen",
-        "center": true
-      }
-    ]
-  }
+    "tauri": {
+        "systemTray": {
+            "iconPath": "icons/icon.png",
+            "iconAsTemplate": true
+        },
+        "allowlist": {
+            "all": false,
+            "window": {
+                "close": true,
+                "hide": true,
+                "show": true,
+                "minimize": true,
+                "unminimize": true,
+                "startDragging": true,
+                "center": true
+            }
+        },
+        "bundle": {
+            "active": true,
+            "targets": "all",
+            "identifier": "org.chrultrabooktools.chrultrabooktools",
+            "copyright": "GPL-3.0",
+            "icon": [
+                "icons/32x32.png",
+                "icons/128x128.png",
+                "icons/128x128@2x.png",
+                "icons/icon.icns",
+                "icons/icon.ico"
+            ]
+        },
+        "security": {
+            "csp": null
+        },
+        "windows": [
+            {
+                "decorations": false,
+                "fullscreen": false,
+                "resizable": false,
+                "title": "Chrultrabook Tools",
+                "width": 800,
+                "height": 550,
+                "transparent": true,
+                "fileDropEnabled": false,
+                "center": true,
+                "visible": false
+            },
+            {
+                "title": "Chrultrabook Tools",
+                "width": 300,
+                "height": 400,
+                "decorations": false,
+                "transparent": true,
+                "url": "splashscreen.html",
+                "label": "splashscreen",
+                "center": true
+            }
+        ]
+    }
 }

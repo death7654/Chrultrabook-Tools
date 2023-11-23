@@ -166,7 +166,7 @@ async fn get_cpu_temp() -> i16 {
     {
         let paths = match fs::read_dir("/sys/class/hwmon/") {
             Ok(out) => out,
-            Err(_err) => return -1
+            Err(_err) => return -1,
         };
         for path in paths {
             let name =
@@ -196,8 +196,11 @@ async fn get_cpu_temp() -> i16 {
             .find_iter(&ec_output)
             .map(|i| i.as_str().parse::<i16>().unwrap())
             .collect();
+        if temps.len() == 0 {
+            return 0;
+        };
         let total_temp: i16 = temps.iter().sum();
-        let average_temp: i16 = total_temp / temps.len() as i16; //TODO: possible devide by zero
+        let average_temp: i16 = total_temp / temps.len() as i16;
         return average_temp;
     }
 }
