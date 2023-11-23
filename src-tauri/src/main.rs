@@ -164,7 +164,10 @@ async fn get_ram_usage() -> String {
 async fn get_cpu_temp() -> i16 {
     #[cfg(target_os = "linux")]
     {
-        let paths = fs::read_dir("/sys/class/hwmon/").unwrap();
+        let paths = match fs::read_dir("/sys/class/hwmon/") {
+            Ok(out) => out,
+            Err(_err) => return -1
+        };
         for path in paths {
             let name =
                 fs::read_to_string(format!("{}/name", path.as_ref().unwrap().path().display()))
