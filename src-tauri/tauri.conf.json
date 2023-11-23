@@ -7,7 +7,7 @@
         "withGlobalTauri": false
     },
     "package": {
-        "productName": "chrultrabook_tools",
+        "productName": "Chrultrabook Tools",
         "version": "2.8.3"
     },
     "tauri": {
@@ -32,6 +32,7 @@
             "targets": "all",
             "identifier": "org.chrultrabooktools.chrultrabooktools",
             "copyright": "GPL-3.0",
+            "category": "Utility",
             "icon": [
                 "icons/32x32.png",
                 "icons/128x128.png",

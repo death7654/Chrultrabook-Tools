@@ -16,12 +16,6 @@
         },
         {
             "type": "lldb",
-            "request": "attach",
-            "name": "Attach to debug",
-            "program": "${workspaceFolder}/target/debug/chrultrabook_tools"
-        },
-        {
-            "type": "lldb",
             "request": "launch",
             "name": "Tauri Production Debug",
             "cargo": {
