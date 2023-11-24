@@ -6,8 +6,11 @@
     "configurations": [
         {
             "type": "lldb",
+            "env": {
+                "RUST_TRACEBACK": "1"
+            },
             "request": "launch",
-            "name": "Tauri Development Debug",
+            "name": "Dev Debug",
             "cargo": {
                 "args": ["build", "--no-default-features"]
             },
@@ -16,8 +19,24 @@
         },
         {
             "type": "lldb",
+            "env": {
+                "RUST_TRACEBACK": "1"
+            },
             "request": "launch",
-            "name": "Tauri Production Debug",
+            "name": "Dev Debug (ui:build)",
+            "cargo": {
+                "args": ["build"]
+            },
+            // task for the `beforeDevCommand` if used, must be configured in `.vscode/tasks.json`
+            "preLaunchTask": "ui:build"
+        },
+        {
+            "type": "lldb",
+            "env": {
+                "RUST_TRACEBACK": "1"
+            },
+            "request": "launch",
+            "name": "Prod Debug",
             "cargo": {
                 "args": ["build", "--release"]
             },
