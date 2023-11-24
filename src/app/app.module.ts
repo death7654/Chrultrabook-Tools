@@ -13,6 +13,6 @@ import { SidenavComponent } from "./sidenav/sidenav.component";
   declarations: [AppComponent, SidenavComponent, DashboardComponent, FancontrolComponent, SystemControlsComponent, SystemInformationComponent, SettingsComponent],
   imports: [BrowserModule],
   providers: [],
-  bootstrap: [AppComponent], 
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
