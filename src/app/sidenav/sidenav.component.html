@@ -1,39 +1,38 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-      <img alt="" class="navbar-brand logoFilter" src="../../assets/sidenavbar/chrome.svg">
-      Chrultrabook Tools
-    </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="bi bi-list"></i>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-          </li>
+<!DOCTYPE html>
+<nav>
+    <div class="logo-name d-flex p-relative">
+        <div class="logo-image d-flex"><img alt="" class="logoFilter" src="../../assets/sidenavbar/chrome.svg"></div><span class="logo_name">Chrultrabook Tools</span>
+    </div><!--DashItems-->
+    <div class="menu-items d-flex">
+        <ul class="nav-links">
+            <li>
+                <div class="sidebar-toggle">
+                    <i class="uil uil-bars"></i>
+                </div>
+            </li>
+            <li>
+                <a class="d-flex p-relative" id="home"><img alt="" class="navbarimg homeFilter" src="../../assets/sidenavbar/home.svg"> <span class="link-name">Dashboard</span></a>
+            </li>
+            <li>
+                <a class="d-flex p-relative" id="fan"><img alt="" class="navbarimg fanFilter" src="../../assets/sidenavbar/fan.svg"> <span class="link-name">Fan Control</span></a>
+            </li>
+            <li>
+                <a class="d-flex p-relative" id="options"><img alt="" class="navbarimg systemoptionsFilter" src="../../assets/sidenavbar/system-options.svg"> <span class="link-name">System Controls</span></a>
+            </li>
+            <li>
+                <a class="d-flex p-relative" id="diagnostics"><img alt="" class="navbarimg diagnosticFilter" src="../../assets/sidenavbar/Diagnostics.svg"> <span class="link-name">System Information</span></a>
+            </li>
+            <li>
+                <a class="d-flex p-relative" id="information"><img alt="" class="navbarimg settingFilter" src="../../assets/sidenavbar/settings.svg"> <span class="link-name">Settings</span></a>
+            </li>
+        </ul><!--DarkMode-->
+        <ul class="dark-mode" style="border: none">
+            <li class="mode d-flex">
+                <a class="d-flex p-relative" href="#"><span class="link-name" style="padding-left: 55px; padding-bottom: 12px;">Dark Mode</span></a>
+                <div class="mode-toggle d-flex p-absolute">
+                    <span class="switch p-relative"></span>
+                </div>
+            </li>
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>
     </div>
-  </nav>
+</nav>
