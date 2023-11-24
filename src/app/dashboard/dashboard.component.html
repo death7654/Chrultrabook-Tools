@@ -1,1 +1,29 @@
-<p>dashboard works!</p>
+<section class="dashboard p-relative" id="sectionDashboard">
+    <div class="dash-content">
+        <div class="overview info">
+            <div class="title d-flex">
+                <img src="./assets/Icons/dashboard/tachometer.svg"> <span class="text">Dashboard</span>
+            </div>
+            <div class="boxes">
+                <div class="box cpuLoad d-flex">
+                    <img alt="" src="./assets/Icons/dashboard/cpu.svg"> <span class="text" style="color: var(--textbox-color);">CPU Load</span> <span id="cpuLoad" style="color: var(--textbox-color);">0%</span>
+                </div>
+                <div class="box cpuTemps d-flex">
+                    <img alt="" src="./assets/Icons/dashboard/thermometer.svg"> <span class="text" style="color: var(--textbox-color);">CPU TEMPS</span> <span id="cpuTemp" style="color: var(--textbox-color);">0°C</span>
+                </div>
+                <div class="box ram d-flex">
+                    <img alt="" src="./assets/Icons/dashboard/ram.svg"> <span class="text" style="color: var(--textbox-color);">RAM USAGE</span> <span id="ramPercentage" style="color: var(--textbox-color);">0%</span>
+                </div>
+            </div>
+            <div class="systemInfo p-relative" id="onLoad">
+                <div class="systemInfoText">
+                    <h4 id="cpuName"></h4>
+                    <h4 id="biosVersion"></h4>
+                    <h4 id="hostname"></h4>
+                    <h4 id="boardname"></h4>
+                    <h4 id="threadCPU"></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
