@@ -460,10 +460,8 @@ if ((os === "windows")) {
 			localStorage.setItem("startOnBoot", "no");
 			setTimeout(async () => await disable());
 		}
-	});
+	});	
+	
 	//sets start on boot to checked if true
-	const onBoot = await isEnabled()
-	if (await isEnabled() == true) {
-		startOnBoot.checked = true; //TODO: Error: unresolved
-	}
+	isEnabled().then((v) => startOnBoot.checked = true)
 }
