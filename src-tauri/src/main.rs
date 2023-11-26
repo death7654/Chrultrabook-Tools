@@ -3,7 +3,7 @@
     windows_subsystem = "windows"
 )]
 
-use hidapi::HidApi;
+use hidapi::{HidApi, HidDevice};
 use num_cpus;
 #[cfg(any(windows, target_os = "macos"))]
 use regex::Regex;
@@ -381,14 +381,16 @@ async fn chargecontrol() -> Option<String> {
 }
 #[tauri::command]
 async fn set_activity_light(color: String) {
-    let activity_light;
-
-    let device_exists = HidApi::open(&HidApi::new().unwrap(), 0x04d8, 0x0b28).is_ok();
-    if device_exists == true {
-        activity_light = HidApi::open(&HidApi::new().unwrap(), 0x04d8, 0x0b28).unwrap();
-    } else {
-        activity_light = HidApi::open(&HidApi::new().unwrap(), 0x046d, 0xc33c).unwrap();
-    }
+    let hid_dev = &HidApi::new().unwrap();
+    let activity_light: HidDevice = match HidApi::open(hid_dev, 0x04d8, 0x0b28) {
+        Ok(dev) => dev,
+        Err(_err) => {
+            match HidApi::open(hid_dev, 0x046d, 0xc33c) {
+                Ok(dev) => dev,
+                Err(_e) => return
+            }
+        }
+    };
 
     let color_data: [u8; 4] = match color.as_str() {
         "Red" => [17, 1, 127, 32],
@@ -415,10 +417,7 @@ async fn set_activity_light(color: String) {
         whole
     };
     activity_light.write(&command).unwrap();
-    return;
 }
-
-// Helper functions
 
 fn exec(program: &str, args: Option<Vec<&str>>) -> Result<std::process::Output, std::io::Error> {
     let mut cmd = std::process::Command::new(program);
