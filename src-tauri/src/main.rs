@@ -5,7 +5,7 @@
 
 use hidapi::{HidApi, HidDevice};
 use num_cpus;
-#[cfg(any(windows, target_os = "macos"))]
+//#[cfg(any(windows, target_os = "macos"))]
 use regex::Regex;
 use std::env;
 #[cfg(target_os = "linux")]
