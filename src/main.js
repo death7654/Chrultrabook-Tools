@@ -77,14 +77,16 @@ document.getElementById("minimize").addEventListener("mousedown", () => appWindo
 function containsNumber(str) {
 	return /[0-9]/.test(str);
 }
-//checks if fan exists
+
+// checks if fan exists
 let fan = true;
-let fanExist = await invoke("get_fan_rpm");
-fanExist = fanExist.split(/\b(\s)/);
-if (containsNumber(fanExist) === false) {
-	document.getElementById("fan").style.display = "none";
-	fan = false;
-} 
+invoke("get_fan_rpm").then((x) => {
+	if (!containsNumber(x.split(/\b(\s)/))) {
+		document.getElementById("fan").style.display = "none";
+		fan = false;
+	}
+})
+
 //sets current percantage for backlight and hides the slider if the chromebook has no backlight or battery controls
 setTimeout(async () => {
 	let keyboardBackLight = await invoke("ectool", {
@@ -460,10 +462,8 @@ if ((os === "windows")) {
 			localStorage.setItem("startOnBoot", "no");
 			setTimeout(async () => await disable());
 		}
-	});
+	});	
+	
 	//sets start on boot to checked if true
-	const onBoot = await isEnabled()
-	if (await isEnabled() == true) {
-		startOnBoot.checked = true; //TODO: Error: unresolved
-	}
+	isEnabled().then((v) => startOnBoot.checked = true)
 }

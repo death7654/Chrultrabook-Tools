@@ -1,6 +1,6 @@
 [package]
 name = "chrultrabook_tools"
-version = "2.8.4"
+version = "2.8.3"
 description = "chrultrabook-tools"
 authors = ["Robinson Arysseril"]
 license = "gpl-3.0"

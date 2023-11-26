@@ -164,13 +164,16 @@ async fn get_ram_usage() -> String {
 async fn get_cpu_temp() -> i16 {
     #[cfg(target_os = "linux")]
     {
-        let paths = fs::read_dir("/sys/class/hwmon/").unwrap();
+        let paths = match fs::read_dir("/sys/class/hwmon/") {
+            Ok(out) => out,
+            Err(_err) => return -1,
+        };
         for path in paths {
             let name =
                 fs::read_to_string(format!("{}/name", path.as_ref().unwrap().path().display()))
                     .unwrap();
             if name.contains("k10temp") || name.contains("coretemp") {
-                return (fs::read_to_string(format!(
+                match fs::read_to_string(format!(
                     "{}/temp1_input",
                     path.as_ref().unwrap().path().display()
                 ))
@@ -178,31 +181,29 @@ async fn get_cpu_temp() -> i16 {
                 .split('\n')
                 .collect::<Vec<_>>()[0]
                     .parse::<i16>()
-                    .unwrap()
-                    / 1000);
+                {
+                    Ok(i) => return i / 1000,
+                    Err(_err) => return 0,
+                };
             };
         }
-        return None;
+        return 0;
     };
 
     #[cfg(any(windows, target_os = "macos"))]
     {
         let ec_output = match_result(exec(EC, Some(vec!["temps", "all"])));
-        let mut total_temp = 0;
-        let sensor = ec_output.split("\n").collect::<Vec<_>>().len() - 1;
-        let temperature_regex = Regex::new(r#"\b(\d+)\sC\b"#).unwrap();
-        let mut temps: Vec<u32> = vec![];
-        for capture in temperature_regex.captures_iter(&ec_output) {
-            if let Some(matched_temp) = capture.get(1) {
-                let temp: u32 = matched_temp.as_str().parse().unwrap();
-                temps.push(temp);
-            }
-        }
-        for i in &temps {
-            total_temp += i;
-        }
-        let average_temp = total_temp / sensor as u32;
-        return average_temp.try_into().unwrap();
+        let temps: Vec<i16> = Regex::new(r#"\b(\d+)\sC\b"#)
+            .unwrap()
+            .find_iter(&ec_output)
+            .map(|i| i.as_str().parse::<i16>().unwrap())
+            .collect();
+        if temps.len() == 0 {
+            return 0;
+        };
+        let total_temp: i16 = temps.iter().sum();
+        let average_temp: i16 = total_temp / temps.len() as i16;
+        return average_temp;
     }
 }
 
