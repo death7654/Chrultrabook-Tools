@@ -125,18 +125,10 @@ let tempInterval = setInterval(async () => {
 
 //stops ectools from trying to run and displays no ectools
 setTimeout(async () => {
-  let ec = await invoke("ectool", { value: "hello", value2: "" });
-  ec = ec.split(" ");
-  if (ec[2] !== "hello!") {
+  if (await invoke("check_ec")) {
     clearInterval(tempInterval);
     document.getElementById("noEctools").style.display = "block";
-    if (os === "windows") {
-      document.getElementById("windows").style.display = "flex";
-    } else if (os === "macos") {
-      document.getElementById("macos").style.display = "flex";
-    } else {
-      document.getElementById("linux").style.display = "flex";
-    }
+    document.getElementById(os).style.display = "flex";
   }
 }, 2000);
 
@@ -263,7 +255,7 @@ const config = {
       dragData: {
         round: 0,
         showTooltip: true,
-        onDragStart: () => {},
+        onDragStart: () => { },
       },
     },
     scales: {

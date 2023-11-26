@@ -81,7 +81,8 @@ fn main() {
             cbmem,
             get_system_info,
             chargecontrol,
-            set_activity_light
+            set_activity_light,
+            check_ec
         ])
         .plugin(tauri_plugin_autostart::init(
             MacosLauncher::LaunchAgent,
@@ -162,7 +163,7 @@ async fn get_ram_usage() -> String {
 
 #[tauri::command]
 async fn get_cpu_temp() -> i16 {
-    #[cfg(target_os = "linux")]
+    /*#[cfg(target_os = "linux")]
     {
         let paths = match fs::read_dir("/sys/class/hwmon/") {
             Ok(out) => out,
@@ -190,7 +191,7 @@ async fn get_cpu_temp() -> i16 {
         return 0;
     };
 
-    #[cfg(any(windows, target_os = "macos"))]
+    #[cfg(any(windows, target_os = "macos"))] // */
     {
         let ec_output = match_result(exec(EC, Some(vec!["temps", "all"])));
         let temps: Vec<i16> = Regex::new(r#"\b(\d+)\sC\b"#)
@@ -198,7 +199,7 @@ async fn get_cpu_temp() -> i16 {
             .find_iter(&ec_output)
             .map(|i| i.as_str().parse::<i16>().unwrap())
             .collect();
-        if temps.len() == 0 {
+        if temps.is_empty() {
             return 0;
         };
         let total_temp: i16 = temps.iter().sum();
@@ -317,6 +318,7 @@ async fn set_battery_limit(value: String, value2: String) -> String {
         ]),
     ));
 }
+
 #[tauri::command]
 async fn custom_fan_speeds(value: Vec<u8>) {
     let cpu_temp: f64 = get_cpu_temp().await as f64;
@@ -379,17 +381,16 @@ async fn get_system_info(value: String) -> String {
 async fn chargecontrol() -> Option<String> {
     return Some(match_result(exec(EC, Some(vec!["chargecontrol"]))));
 }
+
 #[tauri::command]
 async fn set_activity_light(color: String) {
     let hid_dev = &HidApi::new().unwrap();
     let activity_light: HidDevice = match HidApi::open(hid_dev, 0x04d8, 0x0b28) {
         Ok(dev) => dev,
-        Err(_err) => {
-            match HidApi::open(hid_dev, 0x046d, 0xc33c) {
-                Ok(dev) => dev,
-                Err(_e) => return
-            }
-        }
+        Err(_err) => match HidApi::open(hid_dev, 0x046d, 0xc33c) {
+            Ok(dev) => dev,
+            Err(_e) => return,
+        },
     };
 
     let color_data: [u8; 4] = match color.as_str() {
@@ -419,6 +420,11 @@ async fn set_activity_light(color: String) {
     activity_light.write(&command).unwrap();
 }
 
+#[tauri::command]
+async fn check_ec() ->  bool {
+    return exec(EC, Some(vec!["some"])).is_ok();
+}
+
 fn exec(program: &str, args: Option<Vec<&str>>) -> Result<std::process::Output, std::io::Error> {
     let mut cmd = std::process::Command::new(program);
     #[cfg(windows)]
@@ -436,7 +442,7 @@ fn match_result(result: Result<std::process::Output, std::io::Error>) -> String 
         Ok(output) => String::from_utf8_lossy(&output.stdout).to_string(),
         Err(e) => {
             let error_string = e.to_string();
-            if error_string.find("os error 2") != None {
+            if error_string.find("os error 2").is_some() {
                 println!("Missing Ectools or Cbmem Binaries");
             } else {
                 println!("Error `{}`.", e);
