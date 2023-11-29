@@ -6,7 +6,7 @@
     "analytics": false
   },
   "projects": {
-    "chrultrabook-tools": {
+    "tauri-app": {
       "root": "",
       "projectType": "application",
       "sourceRoot": "src",
@@ -15,20 +15,17 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/chrultrabook-tools",
+            "outputPath": "dist/tauri-app",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
+              "src/custom-theme.scss",
               "src/styles.css"
-            ]
+            ],
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -61,10 +58,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "chrultrabook-tools:build:production"
+              "browserTarget": "tauri-app:build:production"
             },
             "development": {
-              "browserTarget": "chrultrabook-tools:build:development"
+              "browserTarget": "tauri-app:build:development"
             }
           },
           "defaultConfiguration": "development"

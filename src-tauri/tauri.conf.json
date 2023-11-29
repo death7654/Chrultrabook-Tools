@@ -3,10 +3,10 @@
     "beforeDevCommand": "npm run start -- --port 1420",
     "beforeBuildCommand": "npm run build",
     "devPath": "http://localhost:1420",
-    "distDir": "../dist/chrultrabook-tools"
+    "distDir": "../dist/tauri-app"
   },
   "package": {
-    "productName": "Chrultrabook Tools",
+    "productName": "Chrultrabook_Tools",
     "version": "0.0.0"
   },
   "tauri": {
@@ -36,7 +36,7 @@
       {
         "fullscreen": false,
         "resizable": true,
-        "title": "chrultrabook-tools",
+        "title": "Chrultrabook Tools",
         "width": 800,
         "height": 550
       }

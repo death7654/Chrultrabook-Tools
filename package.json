@@ -1,5 +1,5 @@
 {
-  "name": "chrultrabook-tools",
+  "name": "tauri-app",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -11,10 +11,12 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^15.2.0",
+    "@angular/cdk": "^15.2.9",
     "@angular/common": "^15.2.0",
     "@angular/compiler": "^15.2.0",
     "@angular/core": "^15.2.0",
     "@angular/forms": "^15.2.0",
+    "@angular/material": "^15.2.9",
     "@angular/platform-browser": "^15.2.0",
     "@angular/platform-browser-dynamic": "^15.2.0",
     "@tauri-apps/api": "^1.5.1",
