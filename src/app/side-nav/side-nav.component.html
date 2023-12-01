@@ -1,1 +1,40 @@
-<p>side-nav works!</p>
+  <mat-sidenav-container autosize>
+    <mat-sidenav [opened]="true" mode="push" [ngClass]="!isCollapsed ? 'expanded' : 'closed'">
+      <span class="entry logo">
+      <img src="../../assets/sidenavbar/chrome.svg">
+      <span *ngIf="!isCollapsed" class="logo_name">Chrultrabook Tools</span>
+    </span>
+      <mat-nav-list>
+        <a mat-list-item class="nav_items">
+            <span class="entry" (click)="toggleMenu()">
+                <mat-icon>menu</mat-icon>
+            </span>
+          <span class="entry">
+            <img src="../../assets/sidenavbar/home.svg">
+            <span *ngIf="!isCollapsed">Dashboard</span>
+          </span>
+          <span class="entry">
+            <img src="../../assets/sidenavbar/fan.svg">
+            <span *ngIf="!isCollapsed">Fan Controls</span>
+          </span>
+          <span class="entry">
+            <img src="../../assets/sidenavbar/system-options.svg">
+            <span *ngIf="!isCollapsed">System Options</span>
+          </span>
+          <span class="entry">
+            <img src="../../assets/sidenavbar/Diagnostics.svg">
+            <span *ngIf="!isCollapsed">System Information</span>
+          </span>
+          <span class="entry">
+            <img src="../../assets/sidenavbar/settings.svg">
+            <span *ngIf="!isCollapsed">Settings</span>
+          </span>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <h2>Content</h2>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  

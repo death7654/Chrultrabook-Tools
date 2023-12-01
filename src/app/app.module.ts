@@ -12,7 +12,9 @@ import { SideNavComponent } from "./side-nav/side-nav.component";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from "./app-routing.module";
 
 @NgModule({
@@ -33,7 +35,9 @@ import { AppRoutingModule } from "./app-routing.module";
     MatIconModule,
     MatButtonModule,
     MatToolbarModule,
-    MatSidenavModule],
+    MatSidenavModule,
+    MatListModule,
+    RouterModule],
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -6,40 +6,66 @@
     "distDir": "../dist/tauri-app"
   },
   "package": {
-    "productName": "Chrultrabook_Tools",
-    "version": "0.0.0"
-  },
-  "tauri": {
+    "productName": "Chrultrabook Tools",
+    "version": "2.8.3"
+},
+"tauri": {
+    "systemTray": {
+        "iconPath": "icons/icon.png",
+        "iconAsTemplate": true
+    },
     "allowlist": {
-      "all": false,
-      "shell": {
         "all": false,
-        "open": true
-      }
+        "window": {
+            "close": true,
+            "hide": true,
+            "show": true,
+            "minimize": true,
+            "unminimize": true,
+            "startDragging": true,
+            "center": true
+        }
     },
     "bundle": {
-      "active": true,
-      "targets": "all",
-      "identifier": "com.tauri.dev",
-      "icon": [
-        "icons/32x32.png",
-        "icons/128x128.png",
-        "icons/128x128@2x.png",
-        "icons/icon.icns",
-        "icons/icon.ico"
-      ]
+        "active": true,
+        "targets": "all",
+        "identifier": "org.chrultrabooktools.chrultrabooktools",
+        "copyright": "GPL-3.0",
+        "category": "Utility",
+        "icon": [
+            "icons/32x32.png",
+            "icons/128x128.png",
+            "icons/128x128@2x.png",
+            "icons/icon.icns",
+            "icons/icon.ico"
+        ]
     },
     "security": {
-      "csp": null
+        "csp": null
     },
     "windows": [
-      {
-        "fullscreen": false,
-        "resizable": true,
-        "title": "Chrultrabook Tools",
-        "width": 800,
-        "height": 550
-      }
+        {
+            "decorations": true,
+            "fullscreen": false,
+            "resizable": false,
+            "title": "Chrultrabook Tools",
+            "width": 800,
+            "height": 550,
+            "transparent": false,
+            "fileDropEnabled": false,
+            "center": true,
+            "visible": false
+        },
+        {
+            "title": "Chrultrabook Tools",
+            "width": 300,
+            "height": 400,
+            "decorations": false,
+            "transparent": true,
+            "url": "splashscreen.html",
+            "label": "splashscreen",
+            "center": true
+        }
     ]
-  }
+}
 }

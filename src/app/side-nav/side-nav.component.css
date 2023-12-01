@@ -1,0 +1,54 @@
+
+mat-sidenav{
+    border-right: 1px solid red;
+    padding-left: -20px;
+
+}
+mat-toolbar {
+  position: fixed;
+  top: 0;
+  z-index: 2;
+}
+
+mat-sidenav-container {
+  height: 100%;
+}
+
+mat-sidenav {
+  padding-top: 10px;
+
+  .entry {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    padding: 0.5rem;
+  }
+}
+
+mat-sidenav-content {
+  padding-top: 20px;
+}
+.closed {
+    width: 73px;
+}
+.expanded {
+    width: 250px;
+}
+.logo{
+    font-size: 22px;
+	font-weight: 600;
+    padding-left: 6px; 
+}
+.logo_name {
+    position: absolute;
+    left: 70px;
+}
+mat-icon {
+    font-size: 32px;
+    height: 32px;
+    width: 60px;
+}
+.nav_items{
+    padding-top: 40px;
+	padding-left: 6px;
+}
