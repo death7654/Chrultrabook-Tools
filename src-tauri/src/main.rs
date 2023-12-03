@@ -5,8 +5,6 @@
 
 use hidapi::{HidApi, HidDevice};
 use num_cpus;
-//#[cfg(any(windows, target_os = "macos"))]
-use regex::Regex;
 use std::env;
 #[cfg(target_os = "linux")]
 use std::fs;
@@ -191,7 +189,7 @@ async fn get_cpu_temp() -> i16 {
         return 0;
     };
 
-    #[cfg(any(windows, target_os = "macos"))] // */
+    #[cfg(any(windows, target_os = "macos"))] 
     {
         let ec_output = match_result(exec(EC, Some(vec!["temps", "all"])));
         let temps: Vec<i16> = Regex::new(r#"\b(\d+)\sC\b"#)
@@ -205,7 +203,10 @@ async fn get_cpu_temp() -> i16 {
         let total_temp: i16 = temps.iter().sum();
         let average_temp: i16 = total_temp / temps.len() as i16;
         return average_temp;
-    }
+    }// */
+
+    // All above is unrelieable
+    return 0;
 }
 
 #[tauri::command]
