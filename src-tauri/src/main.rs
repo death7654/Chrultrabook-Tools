@@ -423,7 +423,7 @@ async fn set_activity_light(color: String) {
 
 #[tauri::command]
 async fn check_ec() ->  bool {
-    return exec(EC, Some(vec!["some"])).is_ok();
+    return exec(EC, Some(vec!["hello"])).is_ok();
 }
 
 fn exec(program: &str, args: Option<Vec<&str>>) -> Result<std::process::Output, std::io::Error> {
