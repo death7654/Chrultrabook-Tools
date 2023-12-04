@@ -1,1 +1,60 @@
-<p>system-controls works!</p>
+<div class="dashboard p-relative">
+  <div class="dash-content">
+    <div class="overview">
+      <div class="title d-flex">
+        <img src="../../assets/systemOptions/system-options.svg" />
+        <span class="text">System Controls</span>
+      </div>
+      <div class="ActivityLight p-relative" id="ActivityLight">
+        <h2 class="activitylightText" id="activityLightDropdown">
+          &nbsp;&nbsp;Activity light
+        </h2>
+        <div class="dellActivityLight p-relative">
+          <div class="dropdownActivityLight">
+            <div class="select d-flex">
+              <span class="selectedActivityLight">Pick A Color</span>
+              <div class="caret"></div>
+            </div>
+            <ul class="menu p-absolute" id="activityLightMenu">
+              <!--If you change anything here make sure to change the name in main.js-->
+              <li>Off</li>
+              <li>Red</li>
+              <li>Green</li>
+              <li>Blue</li>
+              <li>White</li>
+              <li>Cyan</li>
+              <li>Magenta</li>
+              <li>Yellow</li>
+              <!--everything else shold be fine, unless you change the class names-->
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="keyboardBacklight p-relative" id="keyboardBacklight">
+        <h2 class="backlightText p-relative" id="rangeBacklight">
+          &nbsp;&nbsp;Keyboard Backlight
+        </h2>
+        <div class="rangeBacklight p-absolute" id="rangeBacklightslider">
+          <div class="sliderValue p-relative">
+            <span class="p-absolute">100</span>
+          </div>
+          <div class="fieldBacklight d-flex p-relative">
+            <div class="value p-absolute left">0</div>
+            <input
+              id="backlightRangeSlider"
+              max="100"
+              min="0"
+              step="10"
+              type="range"
+              value="100"
+            />
+            <div class="value p-absolute right" id="backlightRangeSliderText">
+              100
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Keyboard Backlight Ends-->
+    </div>
+  </div>
+</div>

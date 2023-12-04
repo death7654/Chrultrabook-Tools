@@ -1,40 +1,41 @@
-  <mat-sidenav-container autosize>
-    <mat-sidenav [opened]="true" mode="push" [ngClass]="!isCollapsed ? 'expanded' : 'closed'">
-      <span class="entry logo">
-      <img src="../../assets/sidenavbar/chrome.svg">
-      <span *ngIf="!isCollapsed" class="logo_name">Chrultrabook Tools</span>
-    </span>
-      <mat-nav-list>
-        <a mat-list-item class="nav_items">
-            <span class="entry" (click)="toggleMenu()">
-                <mat-icon>menu</mat-icon>
-            </span>
-          <span class="entry">
-            <img src="../../assets/sidenavbar/home.svg">
-            <span *ngIf="!isCollapsed">Dashboard</span>
-          </span>
-          <span class="entry">
-            <img src="../../assets/sidenavbar/fan.svg">
-            <span *ngIf="!isCollapsed">Fan Controls</span>
-          </span>
-          <span class="entry">
-            <img src="../../assets/sidenavbar/system-options.svg">
-            <span *ngIf="!isCollapsed">System Options</span>
-          </span>
-          <span class="entry">
-            <img src="../../assets/sidenavbar/Diagnostics.svg">
-            <span *ngIf="!isCollapsed">System Information</span>
-          </span>
-          <span class="entry">
-            <img src="../../assets/sidenavbar/settings.svg">
-            <span *ngIf="!isCollapsed">Settings</span>
-          </span>
-        </a>
-      </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <h2>Content</h2>
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-  
+
+<div style="overflow-y: scroll; height: 100vh; border-bottom-right-radius: 20px; border-top-right-radius: 20px;">
+  <nav>
+    <!--LogoName-->
+    <div class="logo-name d-flex p-relative">
+      <div class="logo-image d-flex"><img alt="" class="logoFilter" src="../../assets/sidenavbar/chrome.svg"></div><span class="logo_name">Chrultrabook Tools</span>
+    </div><!--DashItems-->
+    <div class="menu-items d-flex">
+      <ul class="nav-links">
+        <li>
+          <div class="sidebar-toggle">
+            <i class="uil uil-bars"></i>
+          </div>
+        </li>
+        <li>
+          <a routerLink="/dashboard" class="d-flex p-relative" id="home"><img alt="" class="navbarimg homeFilter" src="../../assets/sidenavbar/home.svg"> <span class="link-name">Dashboard</span></a>
+        </li>
+        <li>
+          <a routerLink="/fan_controls" class="d-flex p-relative" id="fan"><img alt="" class="navbarimg fanFilter" src="../../assets/sidenavbar/fan.svg"> <span class="link-name">Fan Control</span></a>
+        </li>
+        <li>
+          <a routerLink="/system_controls" class="d-flex p-relative" id="options"><img alt="" class="navbarimg systemoptionsFilter" src="../../assets/sidenavbar/system-options.svg"> <span class="link-name">System Controls</span></a>
+        </li>
+        <li>
+          <a routerLink="/system_info" class="d-flex p-relative" id="diagnostics"><img alt="" class="navbarimg diagnosticFilter" src="../../assets/sidenavbar/Diagnostics.svg"> <span class="link-name">System Information</span></a>
+        </li>
+        <li>
+          <a routerLink="/settings"class="d-flex p-relative" id="information"><img alt="" class="navbarimg settingFilter" src="../../assets/sidenavbar/settings.svg"> <span class="link-name">Settings</span></a>
+        </li>
+      </ul><!--DarkMode-->
+      <ul class="dark-mode" style="border: none">
+        <li class="mode d-flex">
+          <a class="d-flex p-relative" href="#"><span class="link-name" style="padding-left: 55px; padding-bottom: 12px;">Dark Mode</span></a>
+          <div class="mode-toggle d-flex p-absolute">
+            <span class="switch p-relative"></span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <router-outlet></router-outlet>

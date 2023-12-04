@@ -9,13 +9,12 @@ import { SystemControlsComponent } from "./system-controls/system-controls.compo
 import { SystemInfoComponent } from "./system-info/system-info.component";
 import { SettingsComponent } from "./settings/settings.component";
 import { SideNavComponent } from "./side-nav/side-nav.component";
-import { MatButtonModule } from "@angular/material/button";
-import { MatIconModule } from "@angular/material/icon";
-import { MatSidenavModule } from "@angular/material/sidenav";
-import { MatListModule } from '@angular/material/list';
-import { MatToolbarModule } from "@angular/material/toolbar";
+
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from "./app-routing.module";
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+
 
 @NgModule({
   declarations: [
@@ -27,17 +26,14 @@ import { AppRoutingModule } from "./app-routing.module";
     SettingsComponent,
     SideNavComponent,
   ],
-  imports: [BrowserModule,
+  imports: [
     BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatIconModule,
-    MatButtonModule,
-    MatToolbarModule,
+    RouterModule,
     MatSidenavModule,
-    MatListModule,
-    RouterModule],
+    MatListModule],
   providers: [],
   bootstrap: [AppComponent],
 })
