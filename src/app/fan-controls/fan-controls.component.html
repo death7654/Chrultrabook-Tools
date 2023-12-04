@@ -1,28 +1,36 @@
-<div class="dashboard p-relative">
-<div class="dash-content">
-    <div class="overview">
-        <div class="title d-flex">
-            <img src="../../assets/fancontrol/fancontroldash.svg"> <span class="text">Fan Control</span>
-        </div>
-        <div class="boxes">
-            <div class="box fanSpeed d-flex">
-                <img alt="" src="../../assets/fancontrol/animatedfan.svg"> <span class="text">Fan Speed</span> <span id="fanSpeed" style="color: var(--textbox-color);">Unknown</span>
-            </div>
-            <div class="box tempCPU d-flex">
-                <img alt="" src="../../assets/fancontrol/thermometer(white).svg"> <span class="text">CPU TEMPS</span> <span id="cpuTempFan" style="color: var(--textbox-color);">0°C</span>
-            </div>
-            <div class="box hidden"></div>
-        </div>
-        <div class="setFanSpeed">
-            <h2 class="FanSpeedText p-relative">Fan Speeds</h2>
-            <div class="fanButtons p-relative">
-                <button class="FanAuto p-relative" id="fanAuto">Auto</button> <button class="FanOff p-relative" id="fanOff">Off</button> <button class="FanMax p-relative" id="fanMax">Max</button>
-            </div>
-            <div class="customFanCurves">
-                <h2 class="customFanSpeedText p-absolute">Custom Fan Curves</h2>
-                <div class="fancurves p-relative">
-                    <canvas id="fancurves"></canvas>
-                </div><button class="setFan p-relative" id="setFan">set</button>
-            </div>
-        </div>
+<div class="dash-content dashboard p-relative">
+  <div class="overview">
+    <div class="title d-flex">
+      <img src="../../assets/fancontrol/fancontroldash.svg" />
+      <span class="text">Fan Control</span>
     </div>
+    <div class="boxes">
+      <div class="box fanSpeed d-flex">
+        <img alt="" src="../../assets/fancontrol/animatedfan.svg" />
+        <span class="text">Fan Speed</span>
+        <span id="fanSpeed" style="color: var(--textbox-color)">Unknown</span>
+      </div>
+      <div class="box tempCPU d-flex">
+        <img alt="" src="../../assets/fancontrol/thermometer(white).svg" />
+        <span class="text">CPU TEMPS</span>
+        <span id="cpuTempFan" style="color: var(--textbox-color)">0°C</span>
+      </div>
+      <div class="box hidden"></div>
+    </div>
+    <div class="setFanSpeed">
+      <h2 class="FanSpeedText p-relative">Fan Speeds</h2>
+      <div class="fanButtons p-relative">
+        <button class="FanAuto p-relative" id="fanAuto">Auto</button>
+        <button class="FanOff p-relative" id="fanOff">Off</button>
+        <button class="FanMax p-relative" id="fanMax">Max</button>
+      </div>
+      <div class="customFanCurves">
+        <h2 class="customFanSpeedText p-absolute">Custom Fan Curves</h2>
+        <div class="fancurves p-relative">
+          <canvas id="fancurves"></canvas>
+        </div>
+        <button class="setFan p-relative" id="setFan">set</button>
+      </div>
+    </div>
+  </div>
+</div>
