@@ -125,11 +125,13 @@ let tempInterval = setInterval(async () => {
 
 //stops ectools from trying to run and displays no ectools
 setTimeout(async () => {
-  if (await invoke("check_ec")) {
-    clearInterval(tempInterval);
-    document.getElementById("noEctools").style.display = "block";
-    document.getElementById(os).style.display = "flex";
-  }
+  invoke("check_ec").then((x) => {
+    if (!x) {
+      clearInterval(tempInterval);
+      document.getElementById("noEctools").style.display = "block";
+      document.getElementById(os).style.display = "flex";
+    }
+  })
 }, 2000);
 
 let intervalStarted = false;
