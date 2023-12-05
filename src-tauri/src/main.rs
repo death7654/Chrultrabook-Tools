@@ -5,8 +5,6 @@
 
 use hidapi::{HidApi, HidDevice};
 use num_cpus;
-#[cfg(target_os = "linux")]
-use std::fs;
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
 use std::{env, fs};
