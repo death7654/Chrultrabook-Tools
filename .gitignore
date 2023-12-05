@@ -32,3 +32,6 @@ target
 
 # linux build
 *.AppImage
+
+# angular prep
+.angular/
