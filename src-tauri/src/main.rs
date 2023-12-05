@@ -166,7 +166,7 @@ fn get_temp() -> i32 {
     let mut sensors = 0;
     let mut temps = 0;
     for line in lines {
-        let temp = line.split("C)").collect::<Vec<_>>()[0].trim().split(" ").collect::<Vec<_>>().last().expect("idk what to put here").trim();
+        let temp = line.split("C)").collect::<Vec<_>>()[0].trim().split(" ").collect::<Vec<_>>().last().unwrap_or(&"").trim();
         match temp.parse::<i32>() {
             Ok(num) => {
                 temps += num;
