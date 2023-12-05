@@ -159,8 +159,28 @@ async fn get_ram_usage() -> String {
     return ram_percent.to_string();
 }
 
+
+fn get_temp() -> i32 {
+    let temps = match_result(exec(EC, Some(vec!["temps", "all"])));
+    let lines = temps.split("\n");
+    let mut sensors = 0;
+    let mut temps = 0;
+    for line in lines {
+        let temp = line.split("C)").collect::<Vec<_>>()[0].trim().split(" ").collect::<Vec<_>>().last().expect("idk what to put here").trim();
+        match temp.parse::<i32>() {
+            Ok(num) => {
+                temps += num;
+                sensors += 1;
+            },
+            Err(_e) => {/*nada*/},
+        }
+    }
+    if sensors == 0 || temps == 0 {return 0;};
+    return temps / sensors;
+}
+
 #[tauri::command]
-async fn get_cpu_temp() -> i16 {
+async fn get_cpu_temp() -> i32 {
     /*#[cfg(target_os = "linux")]
     {
         let paths = match fs::read_dir("/sys/class/hwmon/") {
@@ -206,7 +226,9 @@ async fn get_cpu_temp() -> i16 {
     }// */
 
     // All above is unrelieable
-    return 0;
+    
+    
+    return get_temp();
 }
 
 #[tauri::command]
