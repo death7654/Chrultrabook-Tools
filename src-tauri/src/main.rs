@@ -219,7 +219,7 @@ async fn get_temp_ec() -> i16 {
         } // */
         return 0;
     }
-    return temps as i16 / sensors as i16;
+    return temps / sensors;
 }
 
 #[tauri::command]
