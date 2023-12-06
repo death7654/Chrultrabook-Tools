@@ -105,7 +105,6 @@ setTimeout(async () => {
 }, 0);
 //homepage
 //cpu and ram
-let averageTemp;
 async function startCpuRamInterval() {
   const ramUsage = await invoke("get_ram_usage");
   const cpuUsage = await invoke("get_cpu_usage");
@@ -115,7 +114,7 @@ async function startCpuRamInterval() {
 //seperates temps, so ectool doesnt spam errors
 async function startTempinterval() {
   //cpu temps
-  let cpuTemp = await invoke("get_cpu_temp");
+  let cpuTemp = await invoke("get_temp_ec");
   document.getElementById("cpuTemp").innerText = cpuTemp + "°C";
   document.getElementById("cpuTempFan").innerText = cpuTemp + "°C";
 }
