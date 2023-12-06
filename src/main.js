@@ -115,7 +115,7 @@ async function startCpuRamInterval() {
 //seperates temps, so ectool doesnt spam errors
 async function startTempinterval() {
   //cpu temps
-  let cpuTemp = await invoke("get_cpu_temp");
+  let cpuTemp = await invoke("get_temp_ec");
   document.getElementById("cpuTemp").innerText = cpuTemp + "°C";
   document.getElementById("cpuTempFan").innerText = cpuTemp + "°C";
 }
