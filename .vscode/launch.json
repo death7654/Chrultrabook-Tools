@@ -23,12 +23,12 @@
                 "RUST_TRACEBACK": "1"
             },
             "request": "launch",
-            "name": "Dev Debug (ui:build)",
+            "name": "Build Debug",
             "cargo": {
                 "args": ["build"]
             },
             // task for the `beforeDevCommand` if used, must be configured in `.vscode/tasks.json`
-            "preLaunchTask": "ui:build"
+            //"preLaunchTask": "ui:build"
         },
         {
             "type": "lldb",
@@ -36,7 +36,7 @@
                 "RUST_TRACEBACK": "1"
             },
             "request": "launch",
-            "name": "Prod Debug",
+            "name": "Release Debug",
             "cargo": {
                 "args": ["build", "--release"]
             },

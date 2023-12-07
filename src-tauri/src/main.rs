@@ -130,6 +130,7 @@ async fn get_cpu_usage() -> String {
         let cpu_usage = usage.round();
         return cpu_usage.to_string();
     }
+
     #[cfg(windows)]
     {
         let mut sys = System::new_all();
@@ -373,6 +374,7 @@ async fn cbmem(value: String) -> String {
     #[cfg(any(windows, target_os = "linux"))]
     return match_result(exec(MEM, Some(vec![&value])));
 }
+
 #[tauri::command]
 async fn get_system_info(value: String) -> String {
     let requested_info: String = match value.as_str() {
