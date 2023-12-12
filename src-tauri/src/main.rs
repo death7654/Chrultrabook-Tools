@@ -5,13 +5,9 @@
 
 use hidapi::{HidApi, HidDevice};
 use num_cpus;
-//#[cfg(any(windows, target_os = "macos"))]
-//use regex::Regex;
-use std::env;
-#[cfg(target_os = "linux")]
-use std::fs;
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
+use std::{env, fs};
 use sysinfo::{CpuExt, System, SystemExt};
 use tauri::{CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem};
 use tauri::{Manager, Window};
@@ -65,7 +61,8 @@ fn main() {
             close_splashscreen,
             check_os,
             get_cpu_usage,
-            get_cpu_temp,
+            get_temp_ec,
+            get_temp_sys,
             get_ram_usage,
             get_bios_version,
             get_board_name,
@@ -88,10 +85,9 @@ fn main() {
             MacosLauncher::LaunchAgent,
             Some(vec!["--flag1", "--flag2"]),
         ))
-        /* 
         .plugin(tauri_plugin_single_instance::init(|app, argv, cwd| {
             println!("{}, {argv:?}, {cwd}", app.package_info().name);
-        }))*/
+        }))
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -100,6 +96,11 @@ fn main() {
 async fn quit_cmd(window: Window) {
     match_result(exec(EC, Some(vec!["autofanctrl"])));
     window.close().unwrap();
+}
+
+#[tauri::command]
+async fn check_os() -> String {
+    return env::consts::OS.to_string();
 }
 
 #[tauri::command]
@@ -119,11 +120,6 @@ async fn close_splashscreen(window: Window) {
 }
 
 #[tauri::command]
-async fn check_os() -> String {
-    return env::consts::OS.to_string();
-}
-
-#[tauri::command]
 async fn get_cpu_usage() -> String {
     #[cfg(any(target_os = "linux", target_os = "macos"))]
     {
@@ -134,6 +130,7 @@ async fn get_cpu_usage() -> String {
         let cpu_usage = usage.round();
         return cpu_usage.to_string();
     }
+
     #[cfg(windows)]
     {
         let mut sys = System::new_all();
@@ -163,53 +160,67 @@ async fn get_ram_usage() -> String {
 }
 
 #[tauri::command]
-async fn get_cpu_temp() -> i16 {
-    /*#[cfg(target_os = "linux")]
-    {
-        let paths = match fs::read_dir("/sys/class/hwmon/") {
-            Ok(out) => out,
-            Err(_err) => return -1,
-        };
-        for path in paths {
-            let name =
-                fs::read_to_string(format!("{}/name", path.as_ref().unwrap().path().display()))
-                    .unwrap();
-            if name.contains("k10temp") || name.contains("coretemp") {
-                match fs::read_to_string(format!(
-                    "{}/temp1_input",
-                    path.as_ref().unwrap().path().display()
-                ))
-                .unwrap()
-                .split('\n')
-                .collect::<Vec<_>>()[0]
-                    .parse::<i16>()
-                {
-                    Ok(i) => return i / 1000,
-                    Err(_err) => return 0,
-                };
-            };
-        }
-        return 0;
+async fn get_temp_sys() -> i16 {
+    let paths = match fs::read_dir("/sys/class/hwmon/") {
+        Ok(out) => out,
+        Err(_err) => return 0,
     };
-
-    #[cfg(any(windows, target_os = "macos"))]
-    {
-        let ec_output = match_result(exec(EC, Some(vec!["temps", "all"])));
-        let temps: Vec<i16> = Regex::new(r#"\b(\d+)\sC\b"#)
+    for path in paths {
+        let name = fs::read_to_string(format!("{}/name", path.as_ref().unwrap().path().display()))
+            .unwrap();
+        if name.contains("k10temp") || name.contains("coretemp") {
+            match fs::read_to_string(format!(
+                "{}/temp1_input",
+                path.as_ref().unwrap().path().display()
+            ))
             .unwrap()
-            .find_iter(&ec_output)
-            .map(|i| i.as_str().parse::<i16>().unwrap())
-            .collect();
-        if temps.is_empty() {
-            return 0;
+            .split('\n')
+            .collect::<Vec<_>>()[0]
+                .parse::<i16>()
+            {
+                Ok(i) => return i / 1000,
+                Err(_err) => return 0,
+            };
         };
-        let total_temp: i16 = temps.iter().sum();
-        let average_temp: i16 = total_temp / temps.len() as i16;
-        return average_temp;
-    } // */
-
-    //TODO
+    }
     return 0;
+}
+
+#[tauri::command]
+async fn get_temp_ec() -> i16 {
+    let ec_temps = match_result(exec(EC, Some(vec!["temps", "all"])));
+    let mut sensors: i16 = 0;
+    let temps: i16 = ec_temps
+        .split("\n")
+        .into_iter()
+        .map(|l: &str| {
+            match l.split("C)").collect::<Vec<_>>()[0]
+                .trim()
+                .split(" ")
+                .collect::<Vec<_>>()
+                .last()
+            {
+                Some(temp) => match temp.parse::<i16>() {
+                    Ok(num) => {
+                        sensors += 1;
+                        return num;
+                    }
+                    Err(_e) => return 0,
+                },
+                None => return 0,
+            }
+        })
+        .collect::<Vec<_>>()
+        .iter()
+        .sum();
+
+    if sensors == 0 || temps == 0 {
+        if env::consts::OS == "linux" {
+            return get_temp_sys().await;
+        } // */
+        return 0;
+    }
+    return temps / sensors;
 }
 
 #[tauri::command]
@@ -325,7 +336,7 @@ async fn set_battery_limit(value: String, value2: String) -> String {
 
 #[tauri::command]
 async fn custom_fan_speeds(value: Vec<u8>) {
-    let cpu_temp: f64 = get_cpu_temp().await as f64;
+    let cpu_temp: f64 = get_temp_ec().await as f64;
     if cpu_temp < 40.0 {
         ectool("fanduty".to_string(), "0".to_string()).await;
     }
@@ -363,6 +374,7 @@ async fn cbmem(value: String) -> String {
     #[cfg(any(windows, target_os = "linux"))]
     return match_result(exec(MEM, Some(vec![&value])));
 }
+
 #[tauri::command]
 async fn get_system_info(value: String) -> String {
     let requested_info: String = match value.as_str() {
@@ -425,8 +437,8 @@ async fn set_activity_light(color: String) {
 }
 
 #[tauri::command]
-async fn check_ec() ->  bool {
-    return exec(EC, Some(vec!["some"])).is_ok();
+async fn check_ec() -> bool {
+    return exec(EC, Some(vec!["hello"])).is_ok();
 }
 
 fn exec(program: &str, args: Option<Vec<&str>>) -> Result<std::process::Output, std::io::Error> {
