@@ -65,15 +65,18 @@ chmod a+x chrultrabook-controller_2.7.1_amd64.AppImage
 ```
 <h2>macOS</h2>
 <p>1. Download ectools
+  
 ```
 https://ethanthesleepy.one/public/chrultrabook/utils/
 ```
 <p>2. Open the terminal and navigate to the directory that ectool is in (downloads)
 <p>3. Move ectools to the appropriate directory.
+  
 ```
 sudo cp ./ectool /usr/local/bin/ectool
 ```
 <p>4. Mark The File as executable
+  
 ```
 sudo chmod +x /usr/local/bin/ectool`
 ```
