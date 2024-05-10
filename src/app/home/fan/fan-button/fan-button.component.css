@@ -1,0 +1,10 @@
+.fan_text {
+  grid-template-columns: 5fr 3fr 4.5fr;
+  column-gap: 5px;
+}
+.fan_title::before {
+  display: inline-block;
+  content: url(../../../../assets/fan/fan.svg);
+  padding-right: 10px;
+  vertical-align: middle;
+}
