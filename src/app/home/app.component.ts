@@ -10,7 +10,7 @@ import { FanSectionComponent } from './fan/fan-section/fan-section.component';
   standalone: true,
   imports: [CommonModule, RouterOutlet, FanSectionComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
 }

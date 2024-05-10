@@ -7,7 +7,7 @@ import { ButtonComponent } from '../../button/button.component';
   standalone: true,
   imports: [ButtonComponent],
   templateUrl: './fan-section.component.html',
-  styleUrl: './fan-section.component.css'
+  styleUrl: './fan-section.component.scss'
 })
 export class FanSectionComponent {
 
