@@ -7,7 +7,6 @@
   font-style: normal;
   user-select: none;
 	-webkit-user-select: none;
-  font-weight: 100;
 }
 ::-webkit-scrollbar {
 	width: 0;
@@ -17,10 +16,7 @@
   padding: 0;
   margin-top: 0;
 }
-.grid
-{
-  display: grid;
-}
+
 button {
   all: unset;
   background-color: #262525;
@@ -34,3 +30,4 @@ button {
 .button_img {
   padding-top: 15px;
 }
+

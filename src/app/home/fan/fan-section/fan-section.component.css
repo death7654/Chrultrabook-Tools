@@ -1,0 +1,20 @@
+.fan_info {
+    font-weight: 100;
+}
+
+.fan_text {
+    display: grid;
+    grid-template-columns: 5fr 3fr 4.5fr;
+    column-gap: 5px;
+}
+
+.fan_title::before {
+    display: inline-block;
+    content: url(../../../../assets/fan/fan.svg);
+    padding-right: 10px;
+    vertical-align: middle;
+}
+
+.fan_center_text {
+    padding-top: 6.5px;
+}

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { FanButtonComponent } from '../fan-button/fan-button.component';
+import { ButtonComponent } from '../../button/button.component';
 
 
 @Component({
   selector: 'app-fan-section',
   standalone: true,
-  imports: [FanButtonComponent],
+  imports: [ButtonComponent],
   templateUrl: './fan-section.component.html',
   styleUrl: './fan-section.component.css'
 })
