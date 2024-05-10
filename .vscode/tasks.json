@@ -12,7 +12,7 @@
       "isBackground": true,
       // change this to your `beforeDevCommand`:
       "command": "npm",
-      "args": ["run", "dev"]
+      "args": ["run", "start"]
     },
     {
       "label": "ui:build",
