@@ -13,4 +13,5 @@ export class ButtonComponent {
   @Input() button_function: string | undefined
   @Input() button_class: string | undefined
   @Input() svg: string | undefined
+  @Input() svg_class: string | undefined
 }

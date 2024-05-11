@@ -1,0 +1,13 @@
+<div class="fan_text">
+  <h4 class="fan_title fan_info">Fan - <span id="fan_mode">Auto</span></h4>
+  <h4 class="fan_info fan_center_text">CPU: <span id="cpuTemp">0°C</span></h4>
+  <h4 class="fan_info fan_center_text">
+    Fan: <span id="fanRPM">0000 RPM</span>
+  </h4>
+</div>
+<div class="button_format">
+  <app-button [button_function]="'Auto'" [button_class]="'fan_auto'" [svg]="'../assets/fan/leaf.svg'"></app-button>
+  <app-button [button_function]="'Off'" [button_class]="'fan_off'" [svg]="'../assets/fan/bicycle.svg'"></app-button>
+  <app-button [button_function]="'Max'" [button_class]="'fan_max'" [svg]="'../assets/fan/rocket.svg'"></app-button>
+  <app-button [button_function]="'Custom'" [button_class]="'fan_custom'" [svg]="'../assets/fan/wrench.svg'"></app-button>
+</div>

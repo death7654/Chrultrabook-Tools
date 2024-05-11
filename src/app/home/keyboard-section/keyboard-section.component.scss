@@ -1,0 +1,31 @@
+
+.keyboard {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  column-gap: 10px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+.keyboard_title::before {
+  display: inline-block;
+  content: url(../../../assets/keyboard/keyboard.svg);
+  padding-right: 10px;
+  vertical-align: middle;
+}
+.keyboard_text {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+.fan_info {
+  font-weight: 100;
+  font-size: 16px;
+}
+.keyboard_function {
+  display: grid;
+}
+.keyboard_info {
+  padding-top: 6px;
+}
+.form-range {
+  width: 100%;
+}

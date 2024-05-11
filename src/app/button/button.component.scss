@@ -1,0 +1,51 @@
+
+button {
+  all: unset;
+  background-color: #262525;
+  color: #fff;
+  border-radius: 8px;
+  border-width: 1px;
+  border-color: #c0c0c0;
+  text-align: center;
+  border-style: solid;
+  width: 100%;
+  height: 100%;
+}
+button:hover {
+  background-color: #3b3a3a;
+}
+.fan_auto:hover {
+  border-color: #5cecc0;
+}
+.fan_off:hover {
+  border-color: #fdda0d;
+}
+.fan_max:hover {
+  border-color: #ee4b2b;
+}
+.fan_custom:hover {
+  border-color: #ff8a57;
+}
+.fan_auto_selected {
+  border-color: #5cecc0;
+}
+.fan_off_selected {
+  border-color: #fdda0d;
+}
+.fan_max_selected {
+  border-color: #ee4b2b;
+}
+.fan_custom_selected {
+  border-color: #ff8a57;
+}
+.keyboard_custom_button{
+  height: 20px;
+}
+.button_img {
+  padding-top: 15px;
+}
+.keyboard_img
+{
+  position: relative;
+  bottom: 19px;
+}
