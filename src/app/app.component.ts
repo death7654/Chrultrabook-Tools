@@ -5,12 +5,13 @@ import { invoke } from "@tauri-apps/api/tauri";
 import { FanSectionComponent } from './home/fan-section/fan-section.component';
 import { KeyboardSectionComponent } from './home/keyboard-section/keyboard-section.component';
 import { ActivityLightSectionComponent } from './home/activity-light-section/activity-light-section.component';
+import { ExtraSectionComponent } from './home/extra-section/extra-section.component';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, FanSectionComponent, KeyboardSectionComponent,ActivityLightSectionComponent],
+  imports: [CommonModule, RouterOutlet, FanSectionComponent, KeyboardSectionComponent, ActivityLightSectionComponent, ExtraSectionComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
