@@ -6,8 +6,28 @@
   </h4>
 </div>
 <div class="button_format">
-  <app-button [button_function]="'Auto'" [button_class]="'fan_auto'" [svg]="'../assets/fan/leaf.svg'"></app-button>
-  <app-button [button_function]="'Off'" [button_class]="'fan_off'" [svg]="'../assets/fan/bicycle.svg'"></app-button>
-  <app-button [button_function]="'Max'" [button_class]="'fan_max'" [svg]="'../assets/fan/rocket.svg'"></app-button>
-  <app-button [button_function]="'Custom'" [button_class]="'fan_custom'" [svg]="'../assets/fan/wrench.svg'"></app-button>
+  <app-button
+    (click)="fan_auto()"
+    [button_label]="'Auto'"
+    [button_class]="'fan_auto'"
+    [svg]="'../assets/fan/leaf.svg'"
+  ></app-button>
+  <app-button
+    (click)="fan_off()"
+    [button_label]="'Off'"
+    [button_class]="'fan_off'"
+    [svg]="'../assets/fan/bicycle.svg'"
+  ></app-button>
+  <app-button
+    (click)="fan_max()"
+    [button_label]="'Max'"
+    [button_class]="'fan_max'"
+    [svg]="'../assets/fan/rocket.svg'"
+  ></app-button>
+  <app-button
+    (click)="fan_custom()"
+    [button_label]="'Custom'"
+    [button_class]="'fan_custom'"
+    [svg]="'../assets/fan/wrench.svg'"
+  ></app-button>
 </div>

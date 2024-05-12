@@ -10,4 +10,11 @@ import { ButtonComponent } from '../../button/button.component';
 })
 export class ExtraSectionComponent {
 
+  diagnostic(){
+    console.log('diag');
+  }
+  settings()
+  {
+    console.log('settings');
+  }
 }

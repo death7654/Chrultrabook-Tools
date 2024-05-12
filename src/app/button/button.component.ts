@@ -10,8 +10,14 @@ import { path } from '@tauri-apps/api';
 })
 export class ButtonComponent {
 
-  @Input() button_function: string | undefined
+  @Input() button_label: string | undefined
   @Input() button_class: string | undefined
   @Input() svg: string | undefined
   @Input() svg_class: string | undefined
+
+
+  keyboard_more()
+  {
+
+  }
 }

@@ -11,4 +11,20 @@ import { ButtonComponent } from '../../button/button.component';
 })
 export class FanSectionComponent {
 
+  fan_auto()
+  {
+    console.log('auto')
+  }
+  fan_off()
+  {
+    console.log('off')
+  }
+  fan_max()
+  {
+    console.log('max')
+  }
+  fan_custom()
+  {
+    console.log('custom')
+  }
 }

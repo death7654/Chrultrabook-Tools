@@ -10,4 +10,7 @@ import { ButtonComponent } from '../../button/button.component';
 })
 export class KeyboardSectionComponent {
 
+  keyboard_more(){
+    console.log('more')
+  }
 }
