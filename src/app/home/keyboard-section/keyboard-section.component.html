@@ -1,11 +1,12 @@
 <div class="keyboard_text keyboard">
   <h4 class="font keyboard_title">Keyboard</h4>
   <h4 class="font keyboard_info">
-    Brightness: <span id="backlight_percentage">0%</span>
+    Brightness: <span>{{backlight_percentage}}</span>
   </h4>
 </div>
 <div class="keyboard">
   <input
+  (click)="update_percentage($event)"
     type="range"
     class="form-range"
     min="0"
