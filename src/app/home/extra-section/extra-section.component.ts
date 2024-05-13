@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ButtonComponent } from '../../button/button.component';
+import { invoke } from '@tauri-apps/api/tauri'
 
 @Component({
   selector: 'app-extra-section',
@@ -16,5 +17,6 @@ export class ExtraSectionComponent {
   settings()
   {
     console.log('settings');
+    invoke('open_settings');
   }
 }
