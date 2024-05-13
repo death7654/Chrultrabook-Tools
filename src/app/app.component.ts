@@ -1,17 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { invoke } from "@tauri-apps/api/tauri";
-import { FanSectionComponent } from './home/fan-section/fan-section.component';
-import { KeyboardSectionComponent } from './home/keyboard-section/keyboard-section.component';
-import { ActivityLightSectionComponent } from './home/activity-light-section/activity-light-section.component';
-import { ExtraSectionComponent } from './home/extra-section/extra-section.component';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, FanSectionComponent, KeyboardSectionComponent, ActivityLightSectionComponent, ExtraSectionComponent],
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

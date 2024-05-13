@@ -17,6 +17,5 @@ export class ExtraSectionComponent {
   settings()
   {
     console.log('settings');
-    invoke('open_settings');
   }
 }

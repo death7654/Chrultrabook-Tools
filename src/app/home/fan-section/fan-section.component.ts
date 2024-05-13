@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ButtonComponent } from '../../button/button.component';
+import { invoke } from '@tauri-apps/api/tauri'
+import { RouterLink } from '@angular/router';
 
 
 @Component({
@@ -30,5 +32,6 @@ export class FanSectionComponent {
   {
     console.log('custom')
     this.selected_mode = 'Custom'
+    //invoke('open_custom_fan');
   }
 }
