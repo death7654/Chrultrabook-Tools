@@ -1,4 +1,4 @@
-<div class="keyboard_text keyboard">
+<div class="keyboard_text">
   <h4 class="font keyboard_title">Keyboard</h4>
   <h4 class="font keyboard_info">
     Brightness: <span>{{backlight_percentage}}</span>
@@ -12,8 +12,7 @@
     min="0"
     max="100"
     step="10"
-    id="keyboard_backlight"
-  />
+    id="keyboard_backlight"/>
   <app-button
     (click)="keyboard_more()"
     [button_class]="'keyboard_custom_button fan_custom'"

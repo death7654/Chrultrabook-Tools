@@ -1,6 +1,7 @@
 .activity_light {
   display: grid;
   grid-template-columns: 2fr 1fr;
+  padding-top: 10px;
 }
 .font {
   font-weight: 100;
@@ -23,7 +24,7 @@
     border: 0;
     height: 50px;
     width: 95%;
-    position: absolute;
+    position: relative;
     left: 8px;
 }
 .mode_alignment {

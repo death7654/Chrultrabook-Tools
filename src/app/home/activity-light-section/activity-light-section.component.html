@@ -1,11 +1,12 @@
 <div class="activity_light grid">
   <h4 class="font activity_light_title">Dell Activity Light</h4>
   <h4 class="font mode_alignment">
-    Color: <span id="activity_light_color">Black</span>
+    Color: <span>{{activity_light_color}}</span>
   </h4>
 </div>
 
-<select class="form-select">
+<select   (click)="update_color($event)"
+class="form-select">
   <option selected>Select A Color</option>
   <option value="Off">Off</option>
   <option value="Red">Red</option>

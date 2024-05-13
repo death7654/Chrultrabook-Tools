@@ -10,7 +10,7 @@ import { ButtonComponent } from '../../button/button.component';
 })
 export class KeyboardSectionComponent {
 
-  backlight_percentage: string = '0%'
+  backlight_percentage: string = 'N/A'
   update_percentage(event: MouseEvent)
   {
     this.backlight_percentage = (event.target as HTMLInputElement).value + "%"
