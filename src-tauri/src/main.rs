@@ -7,7 +7,7 @@ async fn open_custom_fan(handle: tauri::AppHandle) {
   let _docs_window = tauri::WindowBuilder::new(
     &handle,
     "custom-fan", /* the unique window label */
-    tauri::WindowUrl::App("index.html/#/custom_fan".parse().unwrap())
+    tauri::WindowUrl::App("custom_fan".parse().unwrap())
   ).build().unwrap();
 }
 
