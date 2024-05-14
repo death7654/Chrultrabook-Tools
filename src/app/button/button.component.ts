@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { path } from '@tauri-apps/api';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-button',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, RouterModule],
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss'
 })
@@ -14,6 +15,7 @@ export class ButtonComponent {
   @Input() button_class: string | undefined
   @Input() svg: string | undefined
   @Input() svg_class: string | undefined
+  @Input() router_path: string | undefined
 
 
   keyboard_more()

@@ -304,7 +304,7 @@ dependencies = [
 
 [[package]]
 name = "chrultrabook-tools"
-version = "0.0.0"
+version = "3.0.0"
 dependencies = [
  "serde",
  "serde_json",
