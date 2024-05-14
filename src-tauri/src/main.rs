@@ -2,13 +2,18 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-#[tauri::command]
-async fn open_custom_fan(handle: tauri::AppHandle) {
-  let _docs_window = tauri::WindowBuilder::new(
-    &handle,
-    "custom-fan", /* the unique window label */
-    tauri::WindowUrl::App("custom_fan".parse().unwrap())
+async fn new_window(handle: &tauri::AppHandle, label: &str, angular_path: &str) -> tauri::Window<tauri::Wry> {
+  return tauri::WindowBuilder::new(
+    handle,
+    label, /* the unique window label */
+    tauri::WindowUrl::App(angular_path.parse().unwrap())
   ).build().unwrap();
+}
+
+#[tauri::command]
+async fn open_custom_fan(handle: tauri::AppHandle)
+{
+  new_window(&handle, "fan", "custom_fan").await;
 }
 
 fn main() {
