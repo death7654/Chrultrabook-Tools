@@ -7,7 +7,7 @@ async fn new_window(handle: &tauri::AppHandle, label: &str, angular_path: &str, 
     handle,
     label, /* the unique window label */
     tauri::WindowUrl::App(angular_path.parse().unwrap())
-  ).inner_size(width, height).build().unwrap();
+  ).inner_size(width, height).resizable(false).build().unwrap();
 }
 
 #[tauri::command]
@@ -26,7 +26,7 @@ async fn open_keyboard_extra(handle: tauri::AppHandle)
 #[tauri::command]
 async fn open_diagnostics(handle: tauri::AppHandle)
 {
-  new_window(&handle, "diagnostics", "diagnostics", 500.0, 300.0).await;
+  new_window(&handle, "diagnostics", "diagnostics", 600.0, 375.0).await;
 }
 
 #[tauri::command]

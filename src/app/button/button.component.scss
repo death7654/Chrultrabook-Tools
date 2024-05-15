@@ -3,16 +3,17 @@ button {
   all: unset;
   background-color: #262525;
   color: #fff;
+  border-width: 0.5px;
+  border-color: #262525;
   border-radius: 8px;
-  border-width: 1px;
-  border-color: #c0c0c0;
   text-align: center;
   border-style: solid;
   width: 100%;
   height: 100%;
 }
-button:hover {
-  background-color: #3b3a3a;
+button:hover
+{
+  border-color: #ff8a57;
 }
 .fan_auto:hover {
   border-color: #5cecc0;
@@ -22,9 +23,6 @@ button:hover {
 }
 .fan_max:hover {
   border-color: #ee4b2b;
-}
-.fan_custom:hover {
-  border-color: #ff8a57;
 }
 .fan_auto_selected {
   border-color: #5cecc0;
@@ -50,6 +48,28 @@ button:hover {
   bottom: 19px;
 }
 .extra_section_svg
+{
+  padding-bottom: 10px;
+}
+.copy_button
+{
+  width: 30px;
+  height: 30px;
+  border: 0;
+  background-color: transparent;
+  position: absolute;
+  right: 15px;
+  top: 75px;
+}
+.copy_svg
+{
+  padding-top: 0;
+}
+.copy_button:hover
+{
+  background-color: #1e1d1d;
+}
+.diagnostic_img
 {
   padding-bottom: 10px;
 }

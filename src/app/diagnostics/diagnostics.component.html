@@ -1,1 +1,14 @@
-<p>diagnostics works!</p>
+<select class="form-select" aria-label="Default select example">
+    <option selected>Select</option>
+    <option value="1">One</option>
+    <option value="2">Two</option>
+    <option value="3">Three</option>
+  </select>
+<div class="information_box">
+    <app-button [svg]="'../../assets/diagnostics/copy.svg'" [button_class]="'copy_button'" [svg_class]="'copy_svg'"></app-button>
+    <span id="info"></span>
+</div>
+<div class="diagnostic_button_format">
+    <app-button [svg]="'../../assets/diagnostics/generate.svg'" [button_label]="'Generate'" [button_class]="'generate_class'" [svg_class]="'diagnostic_img'" ></app-button>
+    <app-button [svg]="'../../assets/diagnostics/save.svg'" [button_label]="'Save'" [svg_class]="'diagnostic_img'"></app-button>
+</div>

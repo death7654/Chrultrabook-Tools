@@ -21,7 +21,9 @@
       {
         "title": "chrultrabook-tools",
         "width": 375,
-        "height": 440
+        "height": 430,
+        "maximizable": false,
+        "resizable": false
       }
     ],
     "security": {
