@@ -13,9 +13,11 @@ export class ExtraSectionComponent {
 
   diagnostic(){
     console.log('diag');
+    invoke('open_diagnostics');
   }
   settings()
   {
     console.log('settings');
+    invoke('open_settings');
   }
 }

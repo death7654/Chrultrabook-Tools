@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ButtonComponent } from '../../button/button.component';
+import { invoke } from '@tauri-apps/api/tauri'
+
 
 @Component({
   selector: 'app-keyboard-section',
@@ -17,6 +19,7 @@ export class KeyboardSectionComponent {
   }
 
   keyboard_more(){
-    console.log('more')
+    console.log('more');
+    invoke('open_keyboard_extra');
   }
 }

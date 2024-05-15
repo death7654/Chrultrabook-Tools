@@ -16,9 +16,28 @@ async fn open_custom_fan(handle: tauri::AppHandle)
   new_window(&handle, "fan", "custom_fan").await;
 }
 
+#[tauri::command]
+async fn open_keyboard_extra(handle: tauri::AppHandle)
+{
+  new_window(&handle, "keyboard", "keyboard_extra").await;
+}
+
+
+#[tauri::command]
+async fn open_diagnostics(handle: tauri::AppHandle)
+{
+  new_window(&handle, "diagnostics", "diagnostics").await;
+}
+
+#[tauri::command]
+async fn open_settings(handle: tauri::AppHandle)
+{
+  new_window(&handle, "settings", "settings").await;
+}
+
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![open_custom_fan])
+        .invoke_handler(tauri::generate_handler![open_custom_fan, open_keyboard_extra,open_diagnostics,open_settings ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
