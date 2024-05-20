@@ -4,6 +4,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { invoke } from "@tauri-apps/api/tauri";
 
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
