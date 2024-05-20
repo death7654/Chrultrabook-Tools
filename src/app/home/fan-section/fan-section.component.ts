@@ -9,10 +9,14 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [ButtonComponent],
   templateUrl: './fan-section.component.html',
-  styleUrl: './fan-section.component.scss'
+  styleUrl: './fan-section.component.scss',
 })
 export class FanSectionComponent {
   selected_mode: string = 'N/A'
+  fan_exists: boolean = !true;
+  fan_class: string = '';
+
+
   fan_auto()
   {
     console.log('auto');

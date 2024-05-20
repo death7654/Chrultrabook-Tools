@@ -1,33 +1,39 @@
 <div class="fan_text">
   <h4 class="fan_title fan_info">Fan - <span id="selected_mode">{{selected_mode}}</span></h4>
   <h4 class="fan_info fan_center_text">CPU: <span id="cpuTemp">0°C</span></h4>
-  <h4 class="fan_info fan_center_text">
-    Fan: <span id="fanRPM">0000 RPM</span>
-  </h4>
+  <h4 class="fan_info fan_center_text">Fan: <span id="fanRPM">N/A</span></h4>
 </div>
-<div class="button_format">
+<div #fan_exists:boolean #fan_class:string class="button_format">
   <app-button
     (click)="fan_auto()"
     [button_label]="'Auto'"
-    [button_class]="'fan_auto'"
+    [button_class]="'fan_auto' + ' ' + fan_class"
     [svg]="'../assets/fan/leaf.svg'"
+    [disabled_state]="fan_exists"
+    id="fan"
   ></app-button>
   <app-button
     (click)="fan_off()"
     [button_label]="'Off'"
-    [button_class]="'fan_off'"
+    [button_class]="'fan_off' + ' ' + fan_class"
     [svg]="'../assets/fan/bicycle.svg'"
+    [disabled_state]="fan_exists"
+    id="fan"
   ></app-button>
   <app-button
     (click)="fan_max()"
     [button_label]="'Max'"
-    [button_class]="'fan_max'"
+    [button_class]="'fan_max' + ' ' + fan_class"
     [svg]="'../assets/fan/rocket.svg'"
+    [disabled_state]="fan_exists"
+    id="fan"
   ></app-button>
   <app-button
     (click)="fan_custom()"
     [button_label]="'Custom'"
-    [button_class]="'fan_custom'"
+    [button_class]="'fan_custom'+ ' ' + fan_class"
     [svg]="'../assets/fan/wrench.svg'"
+    [disabled_state]="fan_exists"
+    id="fan"
   ></app-button>
 </div>

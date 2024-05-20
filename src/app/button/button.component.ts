@@ -15,7 +15,7 @@ export class ButtonComponent {
   @Input() button_class: string | undefined
   @Input() svg: string | undefined
   @Input() svg_class: string | undefined
-  @Input() router_path: string | undefined
+  @Input() disabled_state: boolean | undefined;
 
 
   keyboard_more()

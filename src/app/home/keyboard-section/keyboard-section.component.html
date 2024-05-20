@@ -12,11 +12,13 @@
     min="0"
     max="100"
     step="10"
-    id="keyboard_backlight"/>
+    id="keyboard_backlight"
+    />
   <app-button
     (click)="keyboard_more()"
     [button_class]="'keyboard_custom_button fan_custom'"
     [svg]="'../assets/keyboard/more.svg'"
     [svg_class]="'keyboard_img'"
+    [disabled_state]="true"
   ></app-button>
 </div>
