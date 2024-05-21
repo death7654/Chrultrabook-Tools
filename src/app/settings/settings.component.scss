@@ -1,8 +1,17 @@
+
+.settings_title
+{
+    font-size: 16px;
+    padding: 10px;
+    padding-bottom: 0;
+    text-align: center;
+}
+
 .settings_format
 {
     display: grid;
     grid-template-rows: 1fr 1fr 1fr 1fr;
-    row-gap: 10px;
-    padding: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
     padding-bottom: 0;
 }

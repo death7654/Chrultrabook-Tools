@@ -26,13 +26,13 @@ async fn open_keyboard_extra(handle: tauri::AppHandle)
 #[tauri::command]
 async fn open_diagnostics(handle: tauri::AppHandle)
 {
-  new_window(&handle, "diagnostics", "diagnostics", 600.0, 375.0).await;
+  new_window(&handle, "diagnostics", "diagnostics", 600.0, 430.0).await;
 }
 
 #[tauri::command]
 async fn open_settings(handle: tauri::AppHandle)
 {
-  new_window(&handle, "settings", "settings", 500.0, 425.0).await;
+  new_window(&handle, "settings", "settings", 500.0, 325.0).await;
 }
 
 fn main() {

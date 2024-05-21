@@ -15,12 +15,7 @@ canvas{
 .fan_info
 {
     font-size: 16px;
-}
-.fan_title::before
-{
-    content: url(../../assets/fan/fan.svg);
-    padding-right: 10px;
-    vertical-align: middle;
+    text-align: center;
 }
 .custom_fan_grid
 {
