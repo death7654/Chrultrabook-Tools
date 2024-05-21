@@ -1,1 +1,18 @@
-<canvas baseChart [data]="lineChartData" [type]="'line'"> </canvas>
+<div class="fan_text">
+    <h4 class="fan_title fan_info">Custom Fan Curves</h4>
+  </div>
+<div class="chart">
+<canvas id="canvas">{{ chart }}</canvas>
+</div>
+<div class="custom_fan_grid">
+  <app-button
+    [svg]="'../../../assets/diagnostics/save.svg'"
+    [button_label]="'Save'"
+    [svg_class]="'diagnostic_img'"
+  ></app-button>
+  <app-button
+    [svg]="'../../../assets/fan/set.svg'"
+    [button_label]="'Apply'"
+    [svg_class]="'diagnostic_img'"
+  ></app-button>
+</div>
