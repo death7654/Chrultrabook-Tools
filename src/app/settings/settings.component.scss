@@ -13,3 +13,17 @@
     grid-template-rows: 1fr 1fr 1fr 1fr;
     padding: 20px;
 }
+.settings_info
+{
+    text-align: middle;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+.version_info
+{
+    font-size: 10px;
+    color: #c0c0c0;
+    padding: 10px;
+    padding-bottom: 0;
+}

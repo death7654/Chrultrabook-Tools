@@ -32,7 +32,7 @@ async fn open_diagnostics(handle: tauri::AppHandle)
 #[tauri::command]
 async fn open_settings(handle: tauri::AppHandle)
 {
-  new_window(&handle, "settings", "settings", 500.0, 325.0).await;
+  new_window(&handle, "settings", "settings", 500.0, 350.0).await;
 }
 
 fn main() {
