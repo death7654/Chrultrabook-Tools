@@ -19,11 +19,12 @@
     },
     "windows": [
       {
-        "title": "chrultrabook-tools",
+        "title": "Chrultrabook Tools",
         "width": 375,
         "height": 430,
         "maximizable": false,
-        "resizable": false
+        "resizable": false,
+        "theme":"Dark"
       }
     ],
     "security": {
@@ -32,7 +33,7 @@
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "com.tauri.dev",
+      "identifier": "com.chrultrabook.org",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
