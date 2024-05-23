@@ -13,7 +13,7 @@ async fn new_window(handle: &tauri::AppHandle, label: &str, angular_path: &str, 
 #[tauri::command]
 async fn open_custom_fan(handle: tauri::AppHandle)
 {
-  new_window(&handle, "fan", "custom_fan", 600.0, 475.0).await;
+  new_window(&handle, "fan", "custom_fan", 600.0, 450.0).await;
 }
 
 #[tauri::command]
@@ -26,7 +26,7 @@ async fn open_keyboard_extra(handle: tauri::AppHandle)
 #[tauri::command]
 async fn open_diagnostics(handle: tauri::AppHandle)
 {
-  new_window(&handle, "diagnostics", "diagnostics", 600.0, 430.0).await;
+  new_window(&handle, "diagnostics", "diagnostics", 600.0, 420.0).await;
 }
 
 #[tauri::command]

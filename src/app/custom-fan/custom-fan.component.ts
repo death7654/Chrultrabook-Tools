@@ -1,8 +1,8 @@
 import { Component } from "@angular/core";
-import { Chart, ChartConfiguration } from "chart.js/auto";
+import { Chart, ChartConfiguration,  } from "chart.js/auto";
 import { BaseChartDirective } from 'ng2-charts';
 import { ButtonComponent } from "../button/button.component";
-import  * as dragData  from 'chartjs-plugin-dragdata';
+import 'chartjs-plugin-dragdata';
 
 
 @Component({
@@ -13,10 +13,7 @@ import  * as dragData  from 'chartjs-plugin-dragdata';
   styleUrl: "./custom-fan.component.scss",
 })
 export class CustomFanComponent {
-  ngOnInit()
-  {
-    Chart.register(dragData)
-  }
+  
   public lineChartData: ChartConfiguration['data'] = {
     datasets: [
       {
