@@ -2,20 +2,27 @@
   "build": {
     "beforeDevCommand": "npm run start",
     "beforeBuildCommand": "npm run build",
-    "devPath": "http://localhost:1420",
-    "distDir": "../dist/chrultrabook-tools/browser"
+    "frontendDist": "../dist/chrultrabook-tools/browser",
+    "devUrl": "http://localhost:1420"
   },
-  "package": {
-    "productName": "chrultrabook-tools",
-    "version": "3.0.1"
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
   },
-  "tauri": {
-    "allowlist": {
-      "all": false,
-      "shell": {
-        "all": false,
-        "open": true
-      }
+  "productName": "chrultrabook-tools",
+  "version": "3.0.1",
+  "identifier": "com.chrultrabook.org",
+  "plugins": {},
+  "app": {
+    "security": {
+      "csp": null
     },
     "windows": [
       {
@@ -24,23 +31,8 @@
         "height": 430,
         "maximizable": false,
         "resizable": false,
-        "theme":"Dark"
+        "theme": "Dark"
       }
-    ],
-    "security": {
-      "csp": null
-    },
-    "bundle": {
-      "active": true,
-      "targets": "all",
-      "identifier": "com.chrultrabook.org",
-      "icon": [
-        "icons/32x32.png",
-        "icons/128x128.png",
-        "icons/128x128@2x.png",
-        "icons/icon.icns",
-        "icons/icon.ico"
-      ]
-    }
+    ]
   }
 }

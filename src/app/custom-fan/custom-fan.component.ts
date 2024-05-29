@@ -1,9 +1,8 @@
 import { Component } from "@angular/core";
-import { Chart, ChartConfiguration,  } from "chart.js/auto";
-import { BaseChartDirective } from 'ng2-charts';
+import { Chart, ChartConfiguration } from "chart.js/auto";
+import { BaseChartDirective } from "ng2-charts";
 import { ButtonComponent } from "../button/button.component";
-import 'chartjs-plugin-dragdata';
-
+import "chartjs-plugin-dragdata";
 
 @Component({
   selector: "app-custom-fan",
@@ -13,19 +12,18 @@ import 'chartjs-plugin-dragdata';
   styleUrl: "./custom-fan.component.scss",
 })
 export class CustomFanComponent {
-  
-  public lineChartData: ChartConfiguration['data'] = {
+  public lineChartData: ChartConfiguration["data"] = {
     datasets: [
       {
         data: [0, 10, 25, 40, 60, 80, 95, 100, 100, 100, 100],
-        label: 'Fan Speed In Percentage',
-        backgroundColor: 'rgba(232,72,85,0.2)',
-        borderColor: '#FF6694',
-        pointBackgroundColor: '#FF6694',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-        fill: 'origin',
+        label: "Fan Speed In Percentage",
+        backgroundColor: "rgba(232,72,85,0.2)",
+        borderColor: "#FF6694",
+        pointBackgroundColor: "#FF6694",
+        pointBorderColor: "#fff",
+        pointHoverBackgroundColor: "#fff",
+        pointHoverBorderColor: "rgba(148,159,177,0.8)",
+        fill: "origin",
       },
     ],
     labels: [
@@ -38,9 +36,10 @@ export class CustomFanComponent {
       "70°C",
       "75°C",
       "80°C",
-    ],  };
+    ],
+  };
 
-  public lineChartOptions: ChartConfiguration['options'] = {
+  public lineChartOptions: ChartConfiguration["options"] = {
     elements: {
       line: {
         tension: 0.5,
@@ -48,22 +47,21 @@ export class CustomFanComponent {
     },
     scales: {
       y: {
-        position: 'left',
-        grid:
-        {
-          color:'#c0c0c0'
-        }
+        position: "left",
+        grid: {
+          color: "#c0c0c0",
+        },
       },
-      x:
-      {
-        grid:
-        {
-          color:'#c0c0c0'
-        }
-      }
+      x: {
+        grid: {
+          color: "#c0c0c0",
+        },
+      },
     },
     plugins: {
-      legend: { display: false },
-      },
-    }
-  }
+      legend: { 
+        display: false 
+      }
+    },
+  };
+}

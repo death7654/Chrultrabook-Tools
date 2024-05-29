@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ButtonComponent } from '../../button/button.component';
-import { invoke } from '@tauri-apps/api/tauri'
+import { invoke } from "@tauri-apps/api/core"
 
 
 @Component({

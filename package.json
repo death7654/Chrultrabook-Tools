@@ -1,6 +1,6 @@
 {
   "name": "chrultrabook-tools",
-  "version": "0.0.0",
+  "version": "3.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -18,7 +18,7 @@
     "@angular/platform-browser": "^17.0.0",
     "@angular/platform-browser-dynamic": "^17.0.0",
     "@angular/router": "^17.0.0",
-    "@tauri-apps/api": "^1",
+    "@tauri-apps/plugin-shell": "^2.0.0-beta.4",
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.3",
     "chartjs-plugin-dragdata": "^2.2.5",
@@ -31,7 +31,8 @@
     "@angular-devkit/build-angular": "^17.0.0",
     "@angular/cli": "^17.0.0",
     "@angular/compiler-cli": "^17.0.0",
-    "@tauri-apps/cli": "^1",
+    "@tauri-apps/api": "^2.0.0-beta.13",
+    "@tauri-apps/cli": "^2.0.0-beta.19",
     "@types/jasmine": "~5.1.0",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",

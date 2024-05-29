@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ButtonComponent } from '../../button/button.component';
-import { invoke } from '@tauri-apps/api/tauri'
+import { invoke } from "@tauri-apps/api/core"
 import { RouterLink } from '@angular/router';
 
 
