@@ -2,6 +2,8 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 mod open_window;
+mod execute;
+
 
 #[tauri::command]
 async fn open_custom_fan(handle: tauri::AppHandle) {
@@ -22,6 +24,8 @@ async fn open_diagnostics(handle: tauri::AppHandle) {
 async fn open_settings(handle: tauri::AppHandle) {
     open_window::new_window(&handle, "settings", "settings", 500.0, 350.0).await;
 }
+
+
 
 fn main() {
     tauri::Builder::default()
