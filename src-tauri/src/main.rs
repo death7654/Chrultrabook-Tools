@@ -4,6 +4,27 @@
 mod open_window;
 mod execute;
 
+//location of ectool excuteable
+#[cfg(target_os = "linux")]
+const ECTOOL: &str = "ectool";
+#[cfg(windows)]
+const ECTOOL: &str = "C:\\Program Files\\crosec\\ectool";
+#[cfg(target_os = "macos")]
+const ECTOOL: &str = "/usr/local/bin/ectool";
+
+//location of cbmem excuteable
+#[cfg(target_os = "linux")]
+const CBMEM: &str = "cbmem";
+#[cfg(windows)]
+const CBMEM: &str = "C:\\Program Files\\crosec\\cbmem";
+
+
+
+#[tauri::command]
+fn test(handle: tauri::AppHandle)
+{
+    execute::test(&handle, ECTOOL, &["temps", "all"], true);
+}
 
 #[tauri::command]
 async fn open_custom_fan(handle: tauri::AppHandle) {
@@ -34,7 +55,8 @@ fn main() {
             open_custom_fan,
             open_keyboard_extra,
             open_diagnostics,
-            open_settings
+            open_settings,
+            test
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

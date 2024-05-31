@@ -1,5 +1,5 @@
 {
-  "identifier": "migrated",
+  "identifier": "Windows",
   "description": "permissions that were migrated from v1",
   "local": true,
   "windows": ["main"],
@@ -18,9 +18,10 @@
       "identifier": "shell:deny-execute",
       "allow": [
         {
-          "name": "ectool",
-          "cmd": "ectool",
+          "name": "powershell",
+          "cmd": "powershell",
           "args": [
+            "C:\\Program Files\\crosec\\ectool",
             "pwmgetkblight",
             "fanduty",
             "autofanctrl",

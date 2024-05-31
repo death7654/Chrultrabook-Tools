@@ -1,5 +1,5 @@
 {
-  "identifier": "migrated",
+  "identifier": "Linux",
   "description": "permissions that were migrated from v1",
   "local": true,
   "windows": ["main"],
@@ -19,7 +19,7 @@
       "allow": [
         {
           "name": "ectool",
-          "cmd": "C:\\Program Files\\crosec\\ectool",
+          "cmd": "ectool",
           "args": [
             "pwmgetkblight",
             "fanduty",
