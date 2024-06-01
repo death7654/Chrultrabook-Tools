@@ -37,6 +37,5 @@ export class FanSectionComponent {
     console.log('custom')
     this.selected_mode = 'Custom'
     invoke('open_custom_fan');
-    invoke('test');
   }
 }

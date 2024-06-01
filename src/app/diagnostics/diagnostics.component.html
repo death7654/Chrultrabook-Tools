@@ -1,7 +1,7 @@
 <div class="diagnostics">
     <h4 class="diagnostics_text">Diagnostics</h4>
 </div>
-<select class="form-select" aria-label="Default select example">
+<select (click)="get_info($event)" class="form-select" aria-label="Default select example">
     <option selected>Select</option>
     <option value="Chromebook Information" >Chromebook Information</option>
     <option value="Boot Timestraps" >Boot Timestraps</option>
@@ -13,12 +13,10 @@
     <option value="EC Protocol Info">EC Protocol Info</option>
     <option value="Temperature Sensor Info">Temperature Sensor Info</option>
     <option value="Power Delivery Info">Power Delivery Info</option>
-
-
-  </select>
+</select>
 <div class="information_box">
     <app-button [svg]="'../../assets/diagnostics/copy.svg'" [button_class]="'copy_button'" [svg_class]="'copy_svg'"></app-button>
-    <span id="info"></span>
+    <span>{{collected_info}}</span>
 </div>
 <div class="diagnostic_button_format">
     <app-button [svg]="'../../assets/diagnostics/generate.svg'" [button_label]="'Generate'" [button_class]="'generate_class'" [svg_class]="'diagnostic_img'" ></app-button>

@@ -4,26 +4,13 @@
 mod open_window;
 mod execute;
 
-//location of ectool excuteable
-#[cfg(target_os = "linux")]
-const ECTOOL: &str = "ectool";
-#[cfg(windows)]
-const ECTOOL: &str = "C:\\Program Files\\crosec\\ectool";
-#[cfg(target_os = "macos")]
-const ECTOOL: &str = "/usr/local/bin/ectool";
-
-//location of cbmem excuteable
-#[cfg(target_os = "linux")]
-const CBMEM: &str = "cbmem";
-#[cfg(windows)]
-const CBMEM: &str = "C:\\Program Files\\crosec\\cbmem";
 
 
 
 #[tauri::command]
-fn test(handle: tauri::AppHandle)
+fn execute(handle: tauri::AppHandle, program: &str, arguments: [&str; 3], reply: bool) -> String
 {
-    execute::test(&handle, ECTOOL, &["temps", "all"], true);
+    execute::execute_relay(handle, &program, &arguments, reply)
 }
 
 #[tauri::command]
@@ -56,7 +43,7 @@ fn main() {
             open_keyboard_extra,
             open_diagnostics,
             open_settings,
-            test
+            execute
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
