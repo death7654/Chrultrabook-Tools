@@ -8,9 +8,9 @@ mod execute;
 
 
 #[tauri::command]
-fn execute(handle: tauri::AppHandle, program: &str, arguments: [&str; 3], reply: bool) -> String
+fn execute(handle: tauri::AppHandle, program: &str, arguments: Vec<String>, reply: bool) -> String
 {
-    execute::execute_relay(handle, &program, &arguments, reply)
+    execute::execute_relay(handle, &program, arguments, reply)
 }
 
 #[tauri::command]

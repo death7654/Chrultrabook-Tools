@@ -28,6 +28,12 @@
     margin-left: 10px;
     margin-top: 20px;
     border-radius: 10px;
+    overflow: scroll;
+}
+.box{
+    margin: 10px;
+    white-space: pre;
+    font-family: monospace;
 }
 .diagnostic_button_format
 {

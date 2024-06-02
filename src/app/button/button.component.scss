@@ -57,9 +57,9 @@ button:hover
   height: 30px;
   border: 0;
   background-color: transparent;
-  position: relative;
-  left: 545px;
-  top: 5px
+  position: absolute;
+  right: 13px;
+  top: 110px
 
 }
 .copy_svg
@@ -82,10 +82,4 @@ button:hover
 .disabled:hover
 {
   border-color: #262525;
-}
-
-.github
-{
-  position: relative;
-  bottom: 7px;
 }

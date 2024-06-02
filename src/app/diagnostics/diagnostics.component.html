@@ -3,20 +3,22 @@
 </div>
 <select (click)="get_info($event)" class="form-select" aria-label="Default select example">
     <option selected>Select</option>
-    <option value="Chromebook Information" >Chromebook Information</option>
+    <option value="General Information" >General Information</option>
     <option value="Boot Timestraps" >Boot Timestraps</option>
     <option value="Coreboot Log">Coreboot Log</option>
     <option value="Coreboot Extended Log">Coreboot Extended Log</option>  
-    <option value="Battery Info">Battery Info</option>
-    <option value="EC Chip Info">EC Chip Info</option>
-    <option value="SPI Info">SPI Info</option>
-    <option value="EC Protocol Info">EC Protocol Info</option>
-    <option value="Temperature Sensor Info">Temperature Sensor Info</option>
-    <option value="Power Delivery Info">Power Delivery Info</option>
+    <option value="Battery Information">Battery Information</option>
+    <option value="EC Chip Information">EC Chip Information</option>
+    <option value="SPI Information">SPI Information</option>
+    <option value="EC Protocol Information">EC Protocol Information</option>
+    <option value="Temperature Sensor Information">Temperature Sensor Information</option>
+    <option value="Power Delivery Information">Power Delivery Information</option>
 </select>
 <div class="information_box">
     <app-button [svg]="'../../assets/diagnostics/copy.svg'" [button_class]="'copy_button'" [svg_class]="'copy_svg'"></app-button>
+<div class="box">
     <span>{{collected_info}}</span>
+</div>
 </div>
 <div class="diagnostic_button_format">
     <app-button [svg]="'../../assets/diagnostics/generate.svg'" [button_label]="'Generate'" [button_class]="'generate_class'" [svg_class]="'diagnostic_img'" ></app-button>

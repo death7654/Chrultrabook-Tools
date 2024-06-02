@@ -16,7 +16,7 @@ const CBMEM: &str = "cbmem";
 const CBMEM: &str = "C:\\Program Files\\crosec\\cbmem";
 
 
-fn execute(app: &tauri::AppHandle, program: &str, arguments: &[&str], reply: bool) -> String {
+fn execute(app: &tauri::AppHandle, program: &str, arguments: Vec<String>, reply: bool) -> String {
     let shell = app.shell();
     let output = tauri::async_runtime::block_on(async move {
         shell
@@ -39,7 +39,7 @@ fn execute(app: &tauri::AppHandle, program: &str, arguments: &[&str], reply: boo
         }
     }
 
-pub fn execute_relay(handle: tauri::AppHandle, wanted_program: &str, arguments: &[&str], reply: bool) -> String
+pub fn execute_relay(handle: tauri::AppHandle, wanted_program: &str, arguments: Vec<String>, reply: bool) -> String
 {
     let program;
     match wanted_program {
@@ -47,5 +47,6 @@ pub fn execute_relay(handle: tauri::AppHandle, wanted_program: &str, arguments: 
         "cbmem" => program = CBMEM,
         _ => program = "echo"
     }
+    println!("{:?}", program);
     execute(&handle, program, arguments, reply).to_string()
 }
