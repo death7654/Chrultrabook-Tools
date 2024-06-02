@@ -37,8 +37,8 @@ fn execute(app: &tauri::AppHandle, program: &str, arguments: Vec<String>, reply:
         }
     } else {
         return " ".to_string();
-        }
     }
+}
 
 pub fn execute_relay(
     handle: tauri::AppHandle,

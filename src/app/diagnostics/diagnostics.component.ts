@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
 import { invoke } from '@tauri-apps/api/core';
-import { writeText } from '@tauri-apps/plugin-clipboard-manager';
 
 @Component({
   selector: 'app-diagnostics',
@@ -12,9 +11,15 @@ import { writeText } from '@tauri-apps/plugin-clipboard-manager';
 })
 export class DiagnosticsComponent {
   collected_info: string = ""
+  selected_function: string = "";
+
+  select(event: MouseEvent)
+  {
+    this.selected_function = (event.target as HTMLInputElement).value
+  }
+
   async get_info(event: MouseEvent) {
-    let selected_function = (event.target as HTMLInputElement).value
-    switch (selected_function) {
+    switch (this.selected_function) {
       case "Boot Timestraps":
         this.collected_info = await invoke("execute", { program: "cbmem", arguments: ['-t'], reply: true })
         break;
@@ -52,7 +57,6 @@ export class DiagnosticsComponent {
   }
   async copy_to_clipboard()
   {
-    invoke("copy_to_clipboard",{text: this.collected_info})
-    console.log('click')
+    invoke("copy",{text: this.collected_info})
   }
 }

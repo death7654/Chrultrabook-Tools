@@ -3,7 +3,7 @@
 
 mod execute;
 mod open_window;
-mod clipboard;
+mod copy;
 //open windows
 
 #[tauri::command]
@@ -33,13 +33,14 @@ fn execute(handle: tauri::AppHandle, program: &str, arguments: Vec<String>, repl
 }
 
 #[tauri::command]
-fn copy_to_clipboard(text: String)
+fn copy(handle: tauri::AppHandle, text: String)
 {
-    clipboard::copy(app: &tauri::AppHandle, text: String)
+    copy::copy_text(&handle, text)
 }
 
 fn main() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_single_instance::init(|_app, _args, _cwd|{}))
         .plugin(tauri_plugin_clipboard_manager::init())
         .plugin(tauri_plugin_shell::init())
         .invoke_handler(tauri::generate_handler![
@@ -48,7 +49,7 @@ fn main() {
             open_diagnostics,
             open_settings,
             execute,
-            copy_to_clipboard
+            copy
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

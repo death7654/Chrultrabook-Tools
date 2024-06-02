@@ -1,9 +1,9 @@
 <div class="diagnostics">
     <h4 class="diagnostics_text">Diagnostics</h4>
 </div>
-<select (click)="get_info($event)" class="form-select" aria-label="Default select example">
+<select (click)="select($event)"  class="form-select" aria-label="Default select example" #dropdown>
     <option selected>Select</option>
-s    <option value="Boot Timestraps" >Boot Timestraps</option>
+    <option value="Boot Timestraps" >Boot Timestraps</option>
     <option value="Coreboot Log">Coreboot Log</option>
     <option value="Coreboot Extended Log">Coreboot Extended Log</option>  
     <option value="Battery Information">Battery Information</option>
@@ -21,6 +21,6 @@ s    <option value="Boot Timestraps" >Boot Timestraps</option>
 </div>
 </div>
 <div class="diagnostic_button_format">
-    <app-button [svg]="'../../assets/diagnostics/generate.svg'" [button_label]="'Generate'" [button_class]="'generate_class'" [svg_class]="'diagnostic_img'" ></app-button>
+    <app-button (click)="get_info($event)" [svg]="'../../assets/diagnostics/generate.svg'" [button_label]="'Generate'" [button_class]="'generate_class'" [svg_class]="'diagnostic_img'" ></app-button>
     <app-button [svg]="'../../assets/diagnostics/save.svg'" [button_label]="'Save'" [svg_class]="'diagnostic_img'"></app-button>
 </div>
