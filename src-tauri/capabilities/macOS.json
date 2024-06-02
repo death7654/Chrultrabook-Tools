@@ -14,8 +14,6 @@
     "tray:default",
     "shell:deny-execute",
     "shell:deny-open",
-    {
-      "identifier": "shell:deny-execute"
-    }
+    "clipboard-manager:allow-write-text"
   ]
 }

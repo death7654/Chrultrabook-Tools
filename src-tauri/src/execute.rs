@@ -15,7 +15,6 @@ const CBMEM: &str = "cbmem";
 #[cfg(windows)]
 const CBMEM: &str = "C:\\Program Files\\crosec\\cbmem";
 
-
 fn execute(app: &tauri::AppHandle, program: &str, arguments: Vec<String>, reply: bool) -> String {
     let shell = app.shell();
     let output = tauri::async_runtime::block_on(async move {
@@ -28,25 +27,30 @@ fn execute(app: &tauri::AppHandle, program: &str, arguments: Vec<String>, reply:
     });
     if reply == true {
         if output.status.success() {
-            return String::from_utf8(output.stdout).expect("execute_failure").to_string()
+            return String::from_utf8(output.stdout)
+                .expect("execute_failure")
+                .to_string();
         } else {
             println!("Exit with code: {}", output.status.code().unwrap());
-            return output.status.code().unwrap().to_string()
+            let status_code = output.status.code().unwrap();
+            return "Exit with code: ".to_string() + &status_code.to_string();
         }
-    }
-    else {
-        return " ".to_string()
+    } else {
+        return " ".to_string();
         }
     }
 
-pub fn execute_relay(handle: tauri::AppHandle, wanted_program: &str, arguments: Vec<String>, reply: bool) -> String
-{
+pub fn execute_relay(
+    handle: tauri::AppHandle,
+    wanted_program: &str,
+    arguments: Vec<String>,
+    reply: bool,
+) -> String {
     let program;
     match wanted_program {
         "ectool" => program = ECTOOL,
         "cbmem" => program = CBMEM,
-        _ => program = "echo"
+        _ => program = "echo",
     }
-    println!("{:?}", program);
     execute(&handle, program, arguments, reply).to_string()
 }

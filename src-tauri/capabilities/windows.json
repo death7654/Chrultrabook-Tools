@@ -2,7 +2,7 @@
   "identifier": "Windows",
   "description": "permissions that were migrated from v1",
   "local": true,
-  "windows": ["main"],
+  "windows": ["main", "diagnostics"],
   "platforms": ["windows"],
   "permissions": [
     "path:default",
@@ -11,8 +11,6 @@
     "app:default",
     "resources:default",
     "menu:default",
-    "tray:default",
-    "shell:allow-execute",
-    "shell:allow-open"
+    "tray:default"
   ]
 }

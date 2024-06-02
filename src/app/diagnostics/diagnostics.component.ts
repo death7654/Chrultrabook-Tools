@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
 import { invoke } from '@tauri-apps/api/core';
+import { writeText } from '@tauri-apps/plugin-clipboard-manager';
 
 @Component({
   selector: 'app-diagnostics',
@@ -14,41 +15,44 @@ export class DiagnosticsComponent {
   async get_info(event: MouseEvent) {
     let selected_function = (event.target as HTMLInputElement).value
     switch (selected_function) {
-      case "General Information":
-        console.log(selected_function);
-        break;
       case "Boot Timestraps":
-        console.log(selected_function);
+        this.collected_info = await invoke("execute", { program: "cbmem", arguments: ['-t'], reply: true })
         break;
       case "Coreboot Log":
-        console.log(selected_function)
+        this.collected_info = await invoke("execute", { program: "cbmem", arguments: ['-c1'], reply: true })
         break;
       case "Coreboot Extended Log":
-        console.log(selected_function)
+        this.collected_info = await invoke("execute", { program: "cbmem", arguments: ['-c'], reply: true })
+        break;
+      case "EC Console Log":
+        this.collected_info = await invoke("execute", { program: "ectool", arguments: ['console'], reply: true })
         break;
       case "Battery Information":
-        console.log(selected_function)
+        this.collected_info = await invoke("execute", { program: "ectool", arguments: ['battery'], reply: true })
         break;
       case "EC Chip Information":
-        console.log(selected_function)
+        this.collected_info = await invoke("execute", { program: "ectool", arguments: ['chipinfo'], reply: true })
         break;
       case "SPI Information":
-        console.log(selected_function)
+        this.collected_info = await invoke("execute", { program: "ectool", arguments: ['flashspiinfo'], reply: true })
         break;
       case "EC Protocol Information":
-        console.log(selected_function)
+        this.collected_info = await invoke("execute", { program: "ectool", arguments: ['protoinfo'], reply: true })
         break;
       case "Temperature Sensor Information":
-        console.log(selected_function)
+        this.collected_info = await invoke("execute", { program: "ectool", arguments: ['tempsinfo',"all"], reply: true })
         break;
       case "Power Delivery Information":
-        console.log(selected_function);
+        this.collected_info = await invoke("execute", { program: "ectool", arguments: ['pdlog'], reply: true })
         break;
       default:
         this.collected_info = "Select An Option"
         break;
     }
-    this.collected_info = await invoke("execute", { program: "cbmem", arguments: ['-t'], reply: true })
-    console.log(this.collected_info)
+  }
+  async copy_to_clipboard()
+  {
+    invoke("copy_to_clipboard",{text: this.collected_info})
+    console.log('click')
   }
 }
