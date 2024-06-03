@@ -19,6 +19,8 @@
     "@angular/platform-browser-dynamic": "^17.0.0",
     "@angular/router": "^17.0.0",
     "@tauri-apps/plugin-clipboard-manager": "^2.1.0-beta.3",
+    "@tauri-apps/plugin-dialog": "^2.0.0-beta.5",
+    "@tauri-apps/plugin-fs": "^2.0.0-beta.5",
     "@tauri-apps/plugin-shell": "^2.0.0-beta.4",
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.3",

@@ -22,5 +22,5 @@
 </div>
 <div class="diagnostic_button_format">
     <app-button (click)="get_info($event)" [svg]="'../../assets/diagnostics/generate.svg'" [button_label]="'Generate'" [button_class]="'generate_class'" [svg_class]="'diagnostic_img'" ></app-button>
-    <app-button [svg]="'../../assets/diagnostics/save.svg'" [button_label]="'Save'" [svg_class]="'diagnostic_img'"></app-button>
+    <app-button (click)="save()" [svg]="'../../assets/diagnostics/save.svg'" [button_label]="'Save to Files'" [svg_class]="'diagnostic_img'"></app-button>
 </div>

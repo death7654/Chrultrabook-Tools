@@ -1,9 +1,10 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+mod copy;
 mod execute;
 mod open_window;
-mod copy;
+mod save;
 //open windows
 
 #[tauri::command]
@@ -33,14 +34,19 @@ fn execute(handle: tauri::AppHandle, program: &str, arguments: Vec<String>, repl
 }
 
 #[tauri::command]
-fn copy(handle: tauri::AppHandle, text: String)
-{
+fn copy(handle: tauri::AppHandle, text: String) {
     copy::copy_text(&handle, text)
+}
+#[tauri::command]
+fn save(app: tauri::AppHandle, filename: String, content: String) {
+    save::select_path(app, filename, content);
 }
 
 fn main() {
     tauri::Builder::default()
-        .plugin(tauri_plugin_single_instance::init(|_app, _args, _cwd|{}))
+        .plugin(tauri_plugin_fs::init())
+        .plugin(tauri_plugin_dialog::init())
+        .plugin(tauri_plugin_single_instance::init(|_app, _args, _cwd| {}))
         .plugin(tauri_plugin_clipboard_manager::init())
         .plugin(tauri_plugin_shell::init())
         .invoke_handler(tauri::generate_handler![
@@ -49,7 +55,8 @@ fn main() {
             open_diagnostics,
             open_settings,
             execute,
-            copy
+            copy,
+            save
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

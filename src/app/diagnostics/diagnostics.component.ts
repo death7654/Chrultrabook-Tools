@@ -59,4 +59,9 @@ export class DiagnosticsComponent {
   {
     invoke("copy",{text: this.collected_info})
   }
+
+  save()
+  {
+    invoke("save", {filename: this.selected_function, content: this.collected_info});
+  }
 }
