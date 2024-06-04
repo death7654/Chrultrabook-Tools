@@ -1,13 +1,46 @@
 import { Component } from '@angular/core';
-import { SliderAndTextComponent } from './slider-and-text/slider-and-text.component';
 import { ButtonComponent } from '../button/button.component';
+import { NgFor } from '@angular/common';
+import { invoke } from '@tauri-apps/api/core';
+
+
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [SliderAndTextComponent, ButtonComponent],
+  imports: [ButtonComponent, NgFor],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss'
 })
 export class SettingsComponent {
-
+  items = [
+    {
+      id: 1,
+      function: 'Start Custom Fan Curves On App Startup',
+      answer: false
+    },
+    {
+      id: 2,
+      function: 'App Minimizes To Tray On Exit',
+      answer: false
+    },
+    {
+      id: 3,
+      function: 'Start App in System Tray',
+      answer: false
+    },
+    {
+      id: 4,
+      function: 'Start App On Boot',
+      answer: false
+    }
+  ]
+  toggle(i: number) {
+    if (this.items[i].answer) {
+      this.items[i].answer = false
+    } else {
+      this.items[i].answer = true
+    }
+    console.log(this.items[i].function + this.items[i].answer)
+    invoke("test")
+  }
 }

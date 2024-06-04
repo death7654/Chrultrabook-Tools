@@ -2,13 +2,13 @@
     <h4 class="settings_title">Settings</h4>
 </div>
 <div class="settings_format">
-    <app-slider-and-text [function]="'Start Custom Fan Curves On App Startup'"></app-slider-and-text>
+    <div *ngFor="let item of items; let i = index">
+    <div class="form-check form-switch form-check-reverse">
+        <label class="form-check-label" for="flexSwitchCheckDefault">{{item.function}}</label>
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" (click)="toggle(i)">
+    </div>
     <hr>
-    <app-slider-and-text [function]="'App Minimizes To Tray On Exit'"></app-slider-and-text>
-    <hr>
-    <app-slider-and-text [function]="'Start App in System Tray'"></app-slider-and-text>
-    <hr>
-    <app-slider-and-text [function]="'Start App On Boot'"></app-slider-and-text>
+</div>
 </div>
 <div class="settings_info">
     <h4 class="version_info">Chrultrabook Tools Version 3.0.1</h4>
