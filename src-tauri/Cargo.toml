@@ -19,6 +19,7 @@ tauri-plugin-shell = "2.0.0-beta.5"
 tauri-plugin-clipboard-manager = "2.1.0-beta.4"
 tauri-plugin-dialog = "2.0.0-beta.9"
 tauri-plugin-fs = "2.0.0-beta.9"
+tauri-plugin-store = "2.0.0-beta.8"
 
 [features]
 # This feature is used for production builds or when a dev server is not specified, DO NOT REMOVE!!
