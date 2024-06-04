@@ -1,3 +1,4 @@
+<div [class]="disabled_class">
 <div class="keyboard_text">
   <h4 class="font keyboard_title">Keyboard</h4>
   <h4 class="font keyboard_info">
@@ -13,12 +14,15 @@
     max="100"
     step="10"
     id="keyboard_backlight"
+    [value]="percentage"
+    [disabled]="backlight_exists"
     />
   <app-button
     (click)="keyboard_more()"
-    [button_class]="'keyboard_custom_button fan_custom'"
+    [button_class]="'keyboard_custom_button fan_custom disabled'"
     [svg]="'../assets/keyboard/more.svg'"
     [svg_class]="'keyboard_img'"
     [disabled_state]="true"
   ></app-button>
+</div>
 </div>
