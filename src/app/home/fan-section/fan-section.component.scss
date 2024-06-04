@@ -3,7 +3,7 @@
   font-size: 14px;
 }
 
-.fan_text {
+.fan_text { 
   display: grid;
   grid-template-columns: 5fr 3fr 4.5fr;
   column-gap: 8px;
@@ -29,4 +29,8 @@
   padding-left: 5px;
   padding-bottom: 10px;
   padding-top: 5px;
+}
+.disabled
+{
+  filter: brightness(0.8);
 }

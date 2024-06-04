@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ButtonComponent } from '../../button/button.component';
 import { invoke } from "@tauri-apps/api/core"
-import { RouterLink } from '@angular/router';
 
 
 @Component({
@@ -13,29 +12,53 @@ import { RouterLink } from '@angular/router';
 })
 export class FanSectionComponent {
   selected_mode: string = 'N/A'
+  temp: string = '0'
   fan_exists: boolean = !true;
   fan_class: string = '';
 
+  async ngOnInit() {
+    setTimeout(async () => {
+      setInterval(this.get_cpu_temp, 2000);
+    }, 0);
+    let output: String = await invoke("execute", { program: "ectool", arguments: ['pwmgetfanrpm', "all"], reply: true })
+    let split = output.split(" ");
+    if (split[0] !== "Fan") {
+      this.fan_exists = false
+      this.fan_class = 'disabled'
+    }
+    else
+    {
+      this.selected_mode = 'Auto'
+      setInterval(this.get_fan_rpm, 2000)
+    }
+  }
 
-  fan_auto()
+  async get_cpu_temp()
   {
-    console.log('auto');
-    this.selected_mode = 'Auto'
+    let output: number = await invoke("get_temps");
+    (document.getElementById('temp') as HTMLInputElement).innerText = output.toString().trim()
   }
-  fan_off()
+  async get_fan_rpm()
   {
-    console.log('off')
-    this.selected_mode = 'Off'
+    let output: string = await invoke("execute", { program: "ectool", arguments: ['pwmgetfanrpm',"all"], reply: true });
+    let split = output.split(" ");
+    (document.getElementById('fanRPM') as HTMLInputElement).innerText = split[3].trim()
   }
-  fan_max()
-  {
-    console.log('max')
-    this.selected_mode = 'Max'
+
+  fan_auto() {
+    invoke("execute", { program: "ectool", arguments: ['autofanctrl'], reply: false });
+    this.selected_mode = 'Auto';
   }
-  fan_custom()
-  {
-    console.log('custom')
-    this.selected_mode = 'Custom'
+  fan_off() {
+    invoke("execute", { program: "ectool", arguments: ['fanduty', '0'], reply: false });
+    this.selected_mode = 'Off';
+  }
+  fan_max() {
+    invoke("execute", { program: "ectool", arguments: ['fanduty', '100'], reply: false });
+    this.selected_mode = 'Max';
+  }
+  fan_custom() {
+    this.selected_mode = 'Custom';
     invoke('open_custom_fan');
   }
 }

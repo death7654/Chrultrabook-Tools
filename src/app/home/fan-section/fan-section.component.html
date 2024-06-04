@@ -1,9 +1,9 @@
 <div class="fan_text">
-  <h4 class="fan_title fan_info">Fan - <span id="selected_mode">{{selected_mode}}</span></h4>
-  <h4 class="fan_info fan_center_text">CPU: <span id="cpuTemp">0°C</span></h4>
-  <h4 class="fan_info fan_center_text">Fan: <span id="fanRPM">N/A</span></h4>
+  <h4 class="fan_title fan_info" [class]="fan_class">Fan - <span id="selected_mode">{{selected_mode}}</span></h4>
+  <h4 class="fan_info fan_center_text">CPU: <span id="temp">0</span> °C</h4>
+  <h4 class="fan_info fan_center_text" [class]="fan_class">Fan: <span id="fanRPM">0000</span> RPM</h4>
 </div>
-<div #fan_exists:boolean #fan_class:string class="button_format">
+<div #fan_exists:boolean #fan_class:string class="button_format" [class]="fan_class">
   <app-button
     (click)="fan_auto()"
     [button_label]="'Auto'"

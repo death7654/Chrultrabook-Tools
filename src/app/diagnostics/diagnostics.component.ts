@@ -10,7 +10,7 @@ import { invoke } from '@tauri-apps/api/core';
   styleUrl: './diagnostics.component.scss'
 })
 export class DiagnosticsComponent {
-  collected_info: string = ""
+  collected_info: string = "";
   selected_function: string = "";
 
   select(event: MouseEvent)
