@@ -5,6 +5,7 @@ mod copy;
 mod execute;
 mod open_window;
 mod save;
+mod temps;
 //open windows
 
 #[tauri::command]
@@ -42,6 +43,13 @@ fn save(app: tauri::AppHandle, filename: String, content: String) {
     save::select_path(app, filename, content);
 }
 
+#[tauri::command]
+fn get_temps(handle: tauri::AppHandle) -> i16
+{
+    let temps: String = execute::execute_relay(handle, "ectool", vec!["temps".to_string(), "all".to_string()], true);
+    temps::get_temp(temps)
+}
+
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_fs::init())
@@ -57,6 +65,7 @@ fn main() {
             execute,
             copy,
             save
+            get_temps
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
