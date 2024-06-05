@@ -50,6 +50,8 @@ pub fn execute_relay(
     match wanted_program {
         "ectool" => program = ECTOOL,
         "cbmem" => program = CBMEM,
+        "wmic" => program = "wmic",
+        "cat" => program = "cat",
         _ => program = "echo",
     }
     execute(&handle, program, arguments, reply).to_string()

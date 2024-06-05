@@ -43,15 +43,54 @@ fn save(app: tauri::AppHandle, filename: String, content: String) {
     save::select_path(app, filename, content);
 }
 
+/*
 #[tauri::command]
 fn get_temps(handle: tauri::AppHandle) -> i16
 {
     let temps: String = execute::execute_relay(handle, "ectool", vec!["temps".to_string(), "all".to_string()], true);
+fn get_temps(handle: tauri::AppHandle) -> i16 {
+    let temps: String = execute::execute_relay(
+        handle,
+        "ectool",
+        vec!["temps".to_string(), "all".to_string()],
+        true,
+    );
     temps::get_temp(temps)
 }
 
+#[tauri::command]
+fn boardname(handle: tauri::AppHandle) -> String {
+    #[cfg(windows)]
+    {
+        return execute::execute_relay(
+            handle,
+            "wmic",
+            vec![
+                "baseboard".to_string(),
+                "get".to_string(),
+                "Product".to_string(),
+            ],
+            true,
+        );
+    }
+    #[cfg(target_os = "linux")]
+    {
+        return execute::execute_relay(
+            handle,
+            "cat",
+            vec!["/sys/class/dmi/id/product_name".to_string()],
+            true,
+        );
+    }
+
+    #[cfg(target_os = "macos")]
+    {
+        return String::from("unknown");
+    }
+}
 fn main() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_store::Builder::new().build())
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_single_instance::init(|_app, _args, _cwd| {}))
@@ -65,7 +104,9 @@ fn main() {
             execute,
             copy,
             save
-            get_temps
+            get_temps,
+            boardname,
+            os
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
