@@ -16,7 +16,6 @@ export class KeyboardSectionComponent {
   backlight_exists: boolean = !true;
   disabled_class: string = ''
   async ngOnInit() {
-    console.log('hello')
     let output: string = await invoke("execute", { program: "ectool", arguments: ['pwmgetkblight'], reply: true });
     let split = output.split(" ");
     if (split[0] !== "Current")
@@ -33,7 +32,8 @@ export class KeyboardSectionComponent {
 
   update_percentage(event: MouseEvent)
   {
-    this.backlight_percentage = (event.target as HTMLInputElement).value + "%"
+    this.backlight_percentage = (event.target as HTMLInputElement).value
+    invoke("execute", { program: "ectool", arguments: ["pwmsetkblight", this.backlight_percentage], reply: false })
   }
 
 
