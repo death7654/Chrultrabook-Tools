@@ -52,10 +52,8 @@ pub fn get_temp(ec_temps: String) -> i16 {
         .iter()
         .sum();
 
-    if sensors == 0 || temps == 0 
-    {
-        if env::consts::OS == "linux" 
-        {
+    if sensors == 0 || temps == 0 {
+        if env::consts::OS == "linux" {
             return get_temp_sys();
         } // */
         return 0;
