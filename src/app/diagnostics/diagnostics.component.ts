@@ -12,6 +12,17 @@ import { invoke } from '@tauri-apps/api/core';
 export class DiagnosticsComponent {
   collected_info: string = "";
   selected_function: string = "";
+  disabled: boolean = false;
+
+  async ngOnInit()
+  {
+    let os = await invoke("os");
+    console.log(os)
+    if(os == "macOS")
+      {
+        this.disabled = true;
+      }
+  }
 
   select(event: MouseEvent)
   {

@@ -45,7 +45,6 @@ fn save(app: tauri::AppHandle, filename: String, content: String) {
 
 /*
 #[tauri::command]
-fn get_temps(handle: tauri::AppHandle) -> i16
 {
     let temps: String = execute::execute_relay(handle, "ectool", vec!["temps".to_string(), "all".to_string()], true);
 fn get_temps(handle: tauri::AppHandle) -> i16 {
@@ -88,6 +87,15 @@ fn boardname(handle: tauri::AppHandle) -> String {
         return String::from("unknown");
     }
 }
+#[tauri::command]
+fn os() -> String {
+    #[cfg(target_os = "macos")]
+    {
+        return String::from("macOS");
+    }
+    return String::from("not macOS");
+}
+
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_store::Builder::new().build())

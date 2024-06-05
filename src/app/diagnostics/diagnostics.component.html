@@ -3,9 +3,9 @@
 </div>
 <select (click)="select($event)"  class="form-select" aria-label="Default select example" #dropdown>
     <option selected>Select</option>
-    <option value="Boot Timestraps" >Boot Timestraps</option>
-    <option value="Coreboot Log">Coreboot Log</option>
-    <option value="Coreboot Extended Log">Coreboot Extended Log</option>  
+    <option value="Boot Timestraps" [disabled]="disabled">Boot Timestraps</option>
+    <option value="Coreboot Log" [disabled]="disabled">Coreboot Log</option>
+    <option value="Coreboot Extended Log" [disabled]="disabled">Coreboot Extended Log</option>  
     <option value="Battery Information">Battery Information</option>
     <option value="EC Console Log">EC Console Log</option>
     <option value="EC Chip Information">EC Chip Information</option>
