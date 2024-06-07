@@ -15,6 +15,8 @@ export class KeyboardSectionComponent {
   percentage: number = 0
   backlight_exists: boolean = !true;
   disabled_class: string = ''
+  extension: string = ''
+
   async ngOnInit() {
     let output: string = await invoke("execute", { program: "ectool", arguments: ['pwmgetkblight'], reply: true });
     let split = output.split(" ");
@@ -27,6 +29,7 @@ export class KeyboardSectionComponent {
       {
         this.backlight_percentage = split[4]
         this.percentage = Number(split[4])
+        this.extension = '%'
       }
   }
 

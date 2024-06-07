@@ -1,8 +1,7 @@
-<div [class]="disabled_class">
-<div class="keyboard_text">
+<div class="keyboard_text" [class]="disabled_class">
   <h4 class="font keyboard_title">Keyboard</h4>
   <h4 class="font keyboard_info">
-    Brightness: <span>{{backlight_percentage}} %</span>
+    Brightness: <span>{{backlight_percentage}} {{extension}}</span>
   </h4>
 </div>
 <div class="keyboard">
@@ -25,5 +24,4 @@
     [disabled_state]="true"
     class="disabled"
   ></app-button>
-</div>
 </div>

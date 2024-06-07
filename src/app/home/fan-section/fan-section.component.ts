@@ -15,6 +15,7 @@ export class FanSectionComponent {
   temp: string = '0'
   fan_exists: boolean = !true;
   fan_class: string = '';
+  extension: string = ''
 
   async ngOnInit() {
     setTimeout(async () => {
@@ -25,10 +26,12 @@ export class FanSectionComponent {
     if (split[0] !== "Fan") {
       this.fan_exists = false
       this.fan_class = 'disabled'
+      this.extension = 'N/A'
     }
     else
     {
       this.selected_mode = 'Auto'
+      this.extension = 'RPM'
       setInterval(this.get_fan_rpm, 2000)
     }
   }
