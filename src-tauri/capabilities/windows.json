@@ -5,6 +5,7 @@
   "windows": ["main", "diagnostics"],
   "platforms": ["windows"],
   "permissions": [
+    "webview:allow-internal-toggle-devtools",
     "path:default",
     "event:default",
     "window:default",
