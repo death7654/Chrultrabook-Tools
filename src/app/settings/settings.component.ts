@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
 import { NgFor } from '@angular/common';
 import { invoke } from '@tauri-apps/api/core';
+import { version } from '../../../package.json';
 
 
 @Component({
@@ -12,6 +13,14 @@ import { invoke } from '@tauri-apps/api/core';
   styleUrl: './settings.component.scss'
 })
 export class SettingsComponent {
+  version_applied: string = '';
+  ngOnInit()
+  {
+    let version_imported = version
+    this.version_applied = version_imported
+    console.log(version_imported)
+  }
+
   items = [
     {
       id: 1,
