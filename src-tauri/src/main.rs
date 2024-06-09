@@ -89,10 +89,10 @@ fn local_storage_get(option: &str) -> Option<String>
 
 #[tauri::command]
 fn get_temps(handle: tauri::AppHandle) -> i16 {
-    let temps: String = execute::execute_relay(
+    let temps: String = execute(
         handle,
         "ectool",
-        vec!["temps".to_string(), "all".to_string()],
+        helper::to_vec_string(vec!["temps", "all"]),
         true,
     );
     temps::get_temp(temps)
@@ -105,11 +105,11 @@ fn boardname(handle: tauri::AppHandle) -> String {
         return execute::execute_relay(
             handle,
             "wmic",
-            vec![
-                "baseboard".to_string(),
-                "get".to_string(),
-                "Product".to_string(),
-            ],
+            helper::to_vec_string(vec![
+                "baseboard",
+                "get",
+                "Product",
+            ]),
             true,
         );
     }
