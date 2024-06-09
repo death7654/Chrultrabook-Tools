@@ -1,12 +1,13 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+mod activity_light;
 mod copy;
 mod execute;
+mod helper;
 mod open_window;
 mod save;
 mod temps;
-mod helper;
 
 //external crates
 use web_local_storage_api;
@@ -39,26 +40,73 @@ fn execute(handle: tauri::AppHandle, program: &str, arguments: Vec<String>, repl
     execute::execute_relay(handle, &program, arguments, reply)
 }
 #[tauri::command]
-fn diagnostics(handle: tauri::AppHandle, selected: &str) -> String
-{
+fn diagnostics(handle: tauri::AppHandle, selected: &str) -> String {
     let output;
-    match selected 
-    {
-        "Boot Timestraps" => output = execute(handle, "cbmem", helper::to_vec_string(vec!["-t"]), true),
-        "Coreboot Log" => output = execute(handle, "cbmem", helper::to_vec_string(vec!["-c1"]), true),
-        "Coreboot Extended Log" => output = execute(handle, "cbmem", helper::to_vec_string(vec!["-c"]), true),
-        "EC Console Log" => output = execute(handle, "ectool", helper::to_vec_string(vec!["console"]), true),
-        "Battery Information" => output = execute(handle, "ectool", helper::to_vec_string(vec!["battery"]), true),
-        "EC Chip Information" => output = execute(handle, "ectool", helper::to_vec_string(vec!["chipinfo"]), true),
-        "SPI Information" => output = execute(handle, "ectool", helper::to_vec_string(vec!["flashspiinfo"]), true),
-        "EC Protocol Information" => output = execute(handle, "ectool", helper::to_vec_string(vec!["protoinfo"]), true),
-        "Temperature Sensor Information" => output = execute(handle, "ectool", helper::to_vec_string(vec!["tempsinfo", "all"]), true),
-        "Power Delivery Information" => output = execute(handle, "ectool", helper::to_vec_string(vec!["pdlog"]), true),
-        _ => output = "Select An Option".to_string()
+    match selected {
+        "Boot Timestraps" => {
+            output = execute(handle, "cbmem", helper::to_vec_string(vec!["-t"]), true)
+        }
+        "Coreboot Log" => {
+            output = execute(handle, "cbmem", helper::to_vec_string(vec!["-c1"]), true)
+        }
+        "Coreboot Extended Log" => {
+            output = execute(handle, "cbmem", helper::to_vec_string(vec!["-c"]), true)
+        }
+        "EC Console Log" => {
+            output = execute(
+                handle,
+                "ectool",
+                helper::to_vec_string(vec!["console"]),
+                true,
+            )
+        }
+        "Battery Information" => {
+            output = execute(
+                handle,
+                "ectool",
+                helper::to_vec_string(vec!["battery"]),
+                true,
+            )
+        }
+        "EC Chip Information" => {
+            output = execute(
+                handle,
+                "ectool",
+                helper::to_vec_string(vec!["chipinfo"]),
+                true,
+            )
+        }
+        "SPI Information" => {
+            output = execute(
+                handle,
+                "ectool",
+                helper::to_vec_string(vec!["flashspiinfo"]),
+                true,
+            )
+        }
+        "EC Protocol Information" => {
+            output = execute(
+                handle,
+                "ectool",
+                helper::to_vec_string(vec!["protoinfo"]),
+                true,
+            )
+        }
+        "Temperature Sensor Information" => {
+            output = execute(
+                handle,
+                "ectool",
+                helper::to_vec_string(vec!["tempsinfo", "all"]),
+                true,
+            )
+        }
+        "Power Delivery Information" => {
+            output = execute(handle, "ectool", helper::to_vec_string(vec!["pdlog"]), true)
+        }
+        _ => output = "Select An Option".to_string(),
     }
-    return output.trim().to_string()
+    return output.trim().to_string();
 }
-
 
 #[tauri::command]
 fn copy(handle: tauri::AppHandle, text: String) {
@@ -70,20 +118,15 @@ fn save(app: tauri::AppHandle, filename: String, content: String) {
 }
 
 #[tauri::command]
-fn local_storage_save(option: &str, value: &str)
-{
+fn local_storage_save(option: &str, value: &str) {
     let _ = web_local_storage_api::set_item(option, value);
 }
 #[tauri::command]
-fn local_storage_get(option: &str) -> Option<String>
-{
-    if let Ok(output) = web_local_storage_api::get_item(option)
-    {
-        return output
-    }
-    else
-    {
-        return Some(" ".to_string())
+fn local_storage_get(option: &str) -> Option<String> {
+    if let Ok(output) = web_local_storage_api::get_item(option) {
+        return output;
+    } else {
+        return Some(" ".to_string());
     }
 }
 
@@ -105,11 +148,7 @@ fn boardname(handle: tauri::AppHandle) -> String {
         return execute::execute_relay(
             handle,
             "wmic",
-            helper::to_vec_string(vec![
-                "baseboard",
-                "get",
-                "Product",
-            ]),
+            helper::to_vec_string(vec!["baseboard", "get", "Product"]),
             true,
         );
     }
@@ -137,9 +176,14 @@ fn os() -> String {
     return String::from("not macOS");
 }
 
+#[tauri::command]
+fn change_activity_light(selected: String) {
+    activity_light::set_color(selected);
+}
+
 fn main() {
     tauri::Builder::default()
-        .plugin(tauri_plugin_store::Builder::new().build())
+        .plugin(tauri_plugin_autostart::init())
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_single_instance::init(|_app, _args, _cwd| {}))
@@ -158,7 +202,8 @@ fn main() {
             local_storage_get,
             get_temps,
             boardname,
-            os
+            os,
+            change_activity_light
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

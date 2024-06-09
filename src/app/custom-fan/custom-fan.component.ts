@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, ViewChild } from "@angular/core";
+import { FanSectionComponent } from "../home/fan-section/fan-section.component";
 import { ChartConfiguration, Plugin, Chart } from "chart.js/auto";
 import { BaseChartDirective } from "ng2-charts";
 import { ButtonComponent } from "../button/button.component";
@@ -7,7 +8,7 @@ import { default as dragData } from "chartjs-plugin-dragdata";
 @Component({
   selector: "app-custom-fan",
   standalone: true,
-  imports: [ButtonComponent, BaseChartDirective],
+  imports: [ButtonComponent, FanSectionComponent, BaseChartDirective],
   templateUrl: "./custom-fan.component.html",
   styleUrl: "./custom-fan.component.scss",
 })

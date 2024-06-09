@@ -30,8 +30,10 @@ export class ActivityLightSectionComponent {
     let selected_color = (event.target as HTMLInputElement).value;
     if (selected_color === "Select A Color") {
       this.activity_light_color = "Off";
+      invoke("change_activity_light", {selected: "black"});
     } else {
       this.activity_light_color = selected_color;
+      invoke("change_activity_light", {selected: this.activity_light_color});
     }
   }
 }
