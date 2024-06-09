@@ -17,7 +17,6 @@ export class DiagnosticsComponent {
   async ngOnInit()
   {
     let os = await invoke("os");
-    console.log(os)
     if(os == "macOS")
       {
         this.disabled = true;
@@ -30,41 +29,7 @@ export class DiagnosticsComponent {
   }
 
   async get_info(event: MouseEvent) {
-    switch (this.selected_function) {
-      case "Boot Timestraps":
-        this.collected_info = await invoke("execute", { program: "cbmem", arguments: ['-t'], reply: true })
-        break;
-      case "Coreboot Log":
-        this.collected_info = await invoke("execute", { program: "cbmem", arguments: ['-c1'], reply: true })
-        break;
-      case "Coreboot Extended Log":
-        this.collected_info = await invoke("execute", { program: "cbmem", arguments: ['-c'], reply: true })
-        break;
-      case "EC Console Log":
-        this.collected_info = await invoke("execute", { program: "ectool", arguments: ['console'], reply: true })
-        break;
-      case "Battery Information":
-        this.collected_info = await invoke("execute", { program: "ectool", arguments: ['battery'], reply: true })
-        break;
-      case "EC Chip Information":
-        this.collected_info = await invoke("execute", { program: "ectool", arguments: ['chipinfo'], reply: true })
-        break;
-      case "SPI Information":
-        this.collected_info = await invoke("execute", { program: "ectool", arguments: ['flashspiinfo'], reply: true })
-        break;
-      case "EC Protocol Information":
-        this.collected_info = await invoke("execute", { program: "ectool", arguments: ['protoinfo'], reply: true })
-        break;
-      case "Temperature Sensor Information":
-        this.collected_info = await invoke("execute", { program: "ectool", arguments: ['tempsinfo',"all"], reply: true })
-        break;
-      case "Power Delivery Information":
-        this.collected_info = await invoke("execute", { program: "ectool", arguments: ['pdlog'], reply: true })
-        break;
-      default:
-        this.collected_info = "Select An Option"
-        break;
-    }
+    this.collected_info = await invoke("diagnostics", {selected: this.selected_function})
   }
   async copy_to_clipboard()
   {

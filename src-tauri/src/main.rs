@@ -6,6 +6,10 @@ mod execute;
 mod open_window;
 mod save;
 mod temps;
+mod helper;
+
+//external crates
+
 //open windows
 
 #[tauri::command]
@@ -33,6 +37,27 @@ async fn open_settings(handle: tauri::AppHandle) {
 fn execute(handle: tauri::AppHandle, program: &str, arguments: Vec<String>, reply: bool) -> String {
     execute::execute_relay(handle, &program, arguments, reply)
 }
+#[tauri::command]
+fn diagnostics(handle: tauri::AppHandle, selected: &str) -> String
+{
+    let output;
+    match selected 
+    {
+        "Boot Timestraps" => output = execute(handle, "cbmem", helper::to_vec_string(vec!["-t"]), true),
+        "Coreboot Log" => output = execute(handle, "cbmem", helper::to_vec_string(vec!["-c1"]), true),
+        "Coreboot Extended Log" => output = execute(handle, "cbmem", helper::to_vec_string(vec!["-c"]), true),
+        "EC Console Log" => output = execute(handle, "ectool", helper::to_vec_string(vec!["console"]), true),
+        "Battery Information" => output = execute(handle, "ectool", helper::to_vec_string(vec!["battery"]), true),
+        "EC Chip Information" => output = execute(handle, "ectool", helper::to_vec_string(vec!["chipinfo"]), true),
+        "SPI Information" => output = execute(handle, "ectool", helper::to_vec_string(vec!["flashspiinfo"]), true),
+        "EC Protocol Information" => output = execute(handle, "ectool", helper::to_vec_string(vec!["protoinfo"]), true),
+        "Temperature Sensor Information" => output = execute(handle, "ectool", helper::to_vec_string(vec!["tempsinfo", "all"]), true),
+        "Power Delivery Information" => output = execute(handle, "ectool", helper::to_vec_string(vec!["pdlog"]), true),
+        _ => output = "Select An Option".to_string()
+    }
+    return output.trim().to_string()
+}
+
 
 #[tauri::command]
 fn copy(handle: tauri::AppHandle, text: String) {
@@ -43,7 +68,6 @@ fn save(app: tauri::AppHandle, filename: String, content: String) {
     save::select_path(app, filename, content);
 }
 
-/*
 #[tauri::command]
 {
     let temps: String = execute::execute_relay(handle, "ectool", vec!["temps".to_string(), "all".to_string()], true);
@@ -110,6 +134,7 @@ fn main() {
             open_diagnostics,
             open_settings,
             execute,
+            diagnostics,
             copy,
             save
             get_temps,
