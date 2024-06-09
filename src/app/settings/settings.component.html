@@ -5,7 +5,7 @@
     <div *ngFor="let item of items; let i = index">
     <div class="form-check form-switch form-check-reverse">
         <label class="form-check-label" for="flexSwitchCheckDefault">{{item.function}}</label>
-        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" (click)="toggle(i)">
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" [checked]="item.answer" (click)="toggle(i)">
     </div>
     <hr>
 </div>

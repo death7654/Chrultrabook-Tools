@@ -14,11 +14,32 @@ import { version } from '../../../package.json';
 })
 export class SettingsComponent {
   version_applied: string = '';
-  ngOnInit()
+  async ngOnInit()
   {
     let version_imported = version
     this.version_applied = version_imported
-    console.log(version_imported)
+
+    let fan_boot = await invoke('local_storage_get', {option:"fan_boot"});
+    let app_tray = await invoke('local_storage_get', {option:"app_tray"});
+    let start_app_tray = await invoke('local_storage_get', {option:"start_app_tray"});
+    let app_boot = await invoke('local_storage_get', {option: "app_boot"});
+
+    if(fan_boot == "true")
+      {
+        this.items[0].answer = true;
+      }
+    if(app_tray == "true")
+      {
+        this.items[1].answer = true;
+      }
+    if(start_app_tray == "true")
+      {
+        this.items[2].answer = true
+      }
+    if(app_boot == "true")
+      {
+        this.items[3].answer = true
+      }
   }
 
   items = [
@@ -44,12 +65,48 @@ export class SettingsComponent {
     }
   ]
   toggle(i: number) {
-    if (this.items[i].answer) {
-      this.items[i].answer = false
-    } else {
-      this.items[i].answer = true
+    switch(i)
+    {
+      case 0:
+        if (this.items[0].answer) {
+          this.items[0].answer = false
+          invoke("local_storage_save", {option:"fan_boot",value: "false"});
+        } else {
+          this.items[0].answer = true
+          invoke("local_storage_save", {option:"fan_boot",value: "true"});
+        }
+        console.log('1')
+        break;
+      case 1:
+        if (this.items[1].answer) {
+          this.items[1].answer = false
+          invoke("local_storage_save", {option:"app_tray",value: "false"});
+        } else {
+          this.items[1].answer = true
+          invoke("local_storage_save", {option:"app_tray",value: "true"});
+        }
+        console.log('2')
+        break;
+      case 2:
+        if (this.items[2].answer) {
+          this.items[2].answer = false
+          invoke("local_storage_save", {option:"start_app_tray",value: "false"});
+        } else {
+          this.items[2].answer = true
+          invoke("local_storage_save", {option:"start_app_tray",value: "true"});
+        }
+        console.log('3')
+        break;
+      case 3:
+        if (this.items[3].answer) {
+          this.items[3].answer = false
+          invoke("local_storage_save", {option:"app_boot",value: "false"});
+        } else {
+          this.items[3].answer = true
+          invoke("local_storage_save", {option:"app_boot",value: "true"});
+        }
+        console.log('4')
+        break;
     }
-    console.log(this.items[i].function + this.items[i].answer)
-    invoke("test")
   }
 }

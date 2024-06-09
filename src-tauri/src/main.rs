@@ -9,6 +9,7 @@ mod temps;
 mod helper;
 
 //external crates
+use web_local_storage_api;
 
 //open windows
 
@@ -69,8 +70,24 @@ fn save(app: tauri::AppHandle, filename: String, content: String) {
 }
 
 #[tauri::command]
+fn local_storage_save(option: &str, value: &str)
 {
-    let temps: String = execute::execute_relay(handle, "ectool", vec!["temps".to_string(), "all".to_string()], true);
+    let _ = web_local_storage_api::set_item(option, value);
+}
+#[tauri::command]
+fn local_storage_get(option: &str) -> Option<String>
+{
+    if let Ok(output) = web_local_storage_api::get_item(option)
+    {
+        return output
+    }
+    else
+    {
+        return Some(" ".to_string())
+    }
+}
+
+#[tauri::command]
 fn get_temps(handle: tauri::AppHandle) -> i16 {
     let temps: String = execute::execute_relay(
         handle,
@@ -136,7 +153,9 @@ fn main() {
             execute,
             diagnostics,
             copy,
-            save
+            save,
+            local_storage_save,
+            local_storage_get,
             get_temps,
             boardname,
             os
