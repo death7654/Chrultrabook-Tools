@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ButtonComponent } from '../../button/button.component';
 import { invoke } from "@tauri-apps/api/core"
-
 
 @Component({
   selector: 'app-fan-section',
@@ -60,8 +59,12 @@ export class FanSectionComponent {
     invoke("execute", { program: "ectool", arguments: ['fanduty', '100'], reply: false });
     this.selected_mode = 'Max';
   }
-  fan_custom() {
+  fan_custom()
+  {
     this.selected_mode = 'Custom';
+    console.log('hello')
+  }
+  open_fan_custom_window() {
     invoke('open_custom_fan');
   }
 }
