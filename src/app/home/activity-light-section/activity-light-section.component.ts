@@ -25,7 +25,7 @@ export class ActivityLightSectionComponent {
 
 
 
-  activity_light_color: string = "Off";
+  activity_light_color: string = "N/A";
   update_color(event: MouseEvent) {
     let selected_color = (event.target as HTMLInputElement).value;
     if (selected_color === "Select A Color") {
