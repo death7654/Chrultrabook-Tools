@@ -21,7 +21,7 @@ jobs:
       - name: Install build dependencies
         run: |
           sudo apt update -y
-          sudo apt install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf desktop-file-utils librust-libudev-sys-dev
+          sudo apt install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf desktop-file-utils librust-libudev-sys-dev libsoup3.0-dev
       - name: Install npm dependencies
         run: npm install 
       - name: Build application
