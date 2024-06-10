@@ -203,7 +203,8 @@ fn main() {
             get_temps,
             boardname,
             os,
-            change_activity_light
+            change_activity_light,
+            autostart
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
