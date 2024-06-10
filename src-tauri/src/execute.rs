@@ -17,6 +17,12 @@ const CBMEM: &str = "C:\\Program Files\\crosec\\cbmem";
 #[cfg(target_os = "macos")]
 const CBMEM: &str = "echo";
 
+//executeable to get system information
+#[cfg(any(target_os = "linux", target_os = "macos"))]
+const GETSYSINFO: &str = "cat";
+#[cfg(windows)]
+const GETSYSINFO: &str = "wmic";
+
 fn execute(app: &tauri::AppHandle, program: &str, arguments: Vec<String>, reply: bool) -> String {
     let shell = app.shell();
     let output = tauri::async_runtime::block_on(async move {
@@ -52,8 +58,7 @@ pub fn execute_relay(
     match wanted_program {
         "ectool" => program = ECTOOL,
         "cbmem" => program = CBMEM,
-        "wmic" => program = "wmic",
-        "cat" => program = "cat",
+        "wmic" | "cat" => program = GETSYSINFO,
         _ => program = "echo",
     }
     execute(&handle, program, arguments, reply).to_string()
