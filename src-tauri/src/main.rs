@@ -6,10 +6,11 @@ mod copy;
 mod execute;
 mod helper;
 mod open_window;
-mod save;
+mod save_to_files;
 mod temps;
 
 //external crates
+use tauri_plugin_autostart::MacosLauncher;
 use web_local_storage_api;
 
 //open windows
@@ -114,20 +115,22 @@ fn copy(handle: tauri::AppHandle, text: String) {
 }
 #[tauri::command]
 fn save(app: tauri::AppHandle, filename: String, content: String) {
-    save::select_path(app, filename, content);
+    save_to_files::select_path(app, filename, content);
 }
 
 #[tauri::command]
-fn local_storage_save(option: &str, value: &str) {
-    let _ = web_local_storage_api::set_item(option, value);
-}
-#[tauri::command]
-fn local_storage_get(option: &str) -> Option<String> {
-    if let Ok(output) = web_local_storage_api::get_item(option) {
-        return output;
-    } else {
+fn local_storage(function: &str, option: &str, value: &str) -> Option<String> {
+    if function == "save" {
+        let _ = web_local_storage_api::set_item(option, value);
         return Some(" ".to_string());
+    } else if function == "get" {
+        if let Ok(output) = web_local_storage_api::get_item(option) {
+            return output;
+        } else {
+            return Some(" ".to_string());
+        }
     }
+    return Some(" ".to_string());
 }
 
 #[tauri::command]
@@ -189,7 +192,10 @@ fn autostart(value: bool)
 */
 fn main() {
     tauri::Builder::default()
-        //.plugin(tauri_plugin_autostart::init())
+        .plugin(tauri_plugin_autostart::init(
+            MacosLauncher::LaunchAgent,
+            Some(vec!["--flag1", "--flag2"]),
+        ))
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_single_instance::init(|_app, _args, _cwd| {}))
@@ -204,8 +210,7 @@ fn main() {
             diagnostics,
             copy,
             save,
-            local_storage_save,
-            local_storage_get,
+            local_storage,
             get_temps,
             boardname,
             os,

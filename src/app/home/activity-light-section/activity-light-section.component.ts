@@ -14,9 +14,10 @@ export class ActivityLightSectionComponent {
 
   async ngOnInit()
   {
-    let boardname: string = await invoke("boardname")
-    let split = boardname.trim().split("\n")
-    if (split[2] == "Candy" || split[2] == "Kefka")
+    let output: string = await invoke("boardname")
+    console.log(output);
+    let boardname = output.trim().split("\n")
+    if (boardname[2] == "Candy" || boardname[2] == "Kefka")
       {
         this.disabled = false
         this.class = ' '

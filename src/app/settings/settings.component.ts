@@ -19,10 +19,10 @@ export class SettingsComponent {
     let version_imported = version
     this.version_applied = version_imported
 
-    let fan_boot = await invoke('local_storage_get', {option:"fan_boot"});
-    let app_tray = await invoke('local_storage_get', {option:"app_tray"});
-    let start_app_tray = await invoke('local_storage_get', {option:"start_app_tray"});
-    let app_boot = await invoke('local_storage_get', {option: "app_boot"});
+    let fan_boot = await invoke('local_storage', {function: "get", option:"fan_boot", value: ''});
+    let app_tray = await invoke('local_storage', {function: "get", option:"app_tray", value: ''});
+    let start_app_tray = await invoke('local_storage', {function: "get", option:"start_app_tray", value: ''});
+    let app_boot = await invoke('local_storage', {function: "get", option: "app_boot", value: ''});
 
     if(fan_boot == "true")
       {
@@ -70,40 +70,40 @@ export class SettingsComponent {
       case 0:
         if (this.items[0].answer) {
           this.items[0].answer = false
-          invoke("local_storage_save", {option:"fan_boot",value: "false"});
+          invoke("local_storage", {function: "save", option:"fan_boot",value: "false"});
         } else {
           this.items[0].answer = true
-          invoke("local_storage_save", {option:"fan_boot",value: "true"});
+          invoke("local_storage", {function: "save", option:"fan_boot",value: "true"});
         }
         console.log('1')
         break;
       case 1:
         if (this.items[1].answer) {
           this.items[1].answer = false
-          invoke("local_storage_save", {option:"app_tray",value: "false"});
+          invoke("local_storage", {function: "save", option:"app_tray",value: "false"});
         } else {
           this.items[1].answer = true
-          invoke("local_storage_save", {option:"app_tray",value: "true"});
+          invoke("local_storage", {function: "save", option:"app_tray",value: "true"});
         }
         console.log('2')
         break;
       case 2:
         if (this.items[2].answer) {
           this.items[2].answer = false
-          invoke("local_storage_save", {option:"start_app_tray",value: "false"});
+          invoke("local_storage", {function: "save", option:"start_app_tray",value: "false"});
         } else {
           this.items[2].answer = true
-          invoke("local_storage_save", {option:"start_app_tray",value: "true"});
+          invoke("local_storage", {function: "save", option:"start_app_tray",value: "true"});
         }
         console.log('3')
         break;
       case 3:
         if (this.items[3].answer) {
           this.items[3].answer = false
-          invoke("local_storage_save", {option:"app_boot",value: "false"});
+          invoke("local_storage", {function: "save", option:"app_boot",value: "false"});
         } else {
           this.items[3].answer = true
-          invoke("local_storage_save", {option:"app_boot",value: "true"});
+          invoke("local_storage", {function: "save", option:"app_boot",value: "true"});
         }
         console.log('4')
         break;
