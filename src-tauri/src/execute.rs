@@ -14,6 +14,8 @@ const ECTOOL: &str = "/usr/local/bin/ectool";
 const CBMEM: &str = "cbmem";
 #[cfg(windows)]
 const CBMEM: &str = "C:\\Program Files\\crosec\\cbmem";
+#[cfg(target_os = "macos")]
+const CBMEM: &str = "echo";
 
 fn execute(app: &tauri::AppHandle, program: &str, arguments: Vec<String>, reply: bool) -> String {
     let shell = app.shell();
