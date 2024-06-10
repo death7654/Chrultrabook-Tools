@@ -180,10 +180,16 @@ fn os() -> String {
 fn change_activity_light(selected: String) {
     activity_light::set_color(selected);
 }
+/*
+#[tauri::command]
+fn autostart(value: bool)
+{
 
+}
+*/
 fn main() {
     tauri::Builder::default()
-        .plugin(tauri_plugin_autostart::init())
+        //.plugin(tauri_plugin_autostart::init())
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_single_instance::init(|_app, _args, _cwd| {}))
@@ -204,7 +210,7 @@ fn main() {
             boardname,
             os,
             change_activity_light,
-            autostart
+            //autostart
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
