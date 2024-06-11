@@ -56,11 +56,10 @@ button:hover
   width: 30px;
   height: 30px;
   border: 0;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.2);
   position: absolute;
   right: 13px;
-  top: 110px
-
+  top: 110px;
 }
 .copy_svg
 {
