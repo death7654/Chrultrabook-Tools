@@ -12,7 +12,7 @@ mod temps;
 //external crates
 use tauri_plugin_autostart::{MacosLauncher, ManagerExt};
 use tauri::menu::{MenuBuilder, MenuItemBuilder};
-use tauri::tray::{TrayIconBuilder};
+use tauri::tray::TrayIconBuilder;
 use tauri::Manager;
 use web_local_storage_api;
 use tauri::AppHandle;
@@ -122,18 +122,18 @@ fn save(app: tauri::AppHandle, filename: String, content: String) {
 }
 
 #[tauri::command]
-fn local_storage(function: &str, option: &str, value: &str) -> Option<String> {
+fn local_storage(function: &str, option: &str, value: &str) -> String {
     if function == "save" {
         let _ = web_local_storage_api::set_item(option, value);
-        return Some(" ".to_string());
+        return " ".to_string();
     } else if function == "get" {
         if let Ok(output) = web_local_storage_api::get_item(option) {
-            return output;
+            return output.expect("conversion failed").to_string();
         } else {
-            return Some(" ".to_string());
+            return " ".to_string();
         }
     }
-    return Some(" ".to_string());
+    return " ".to_string();
 }
 
 #[tauri::command]
@@ -206,6 +206,7 @@ fn autostart(app: AppHandle, value: bool)
 fn main() {
     tauri::Builder::default()
     .setup(|app| {
+
         let quit = MenuItemBuilder::new("Quit").id("quit").build(app).unwrap();
         let hide = MenuItemBuilder::new("Hide").id("hide").build(app).unwrap();
         let show = MenuItemBuilder::new("Show").id("show").build(app).unwrap();
@@ -231,7 +232,19 @@ fn main() {
             _ => {}
           })
           .build(app);
-  
+
+        //to hide app if user wants it hidden upon boot
+        let start_app_in_tray = local_storage("get", "start_app_tray", " ");
+        if start_app_in_tray == "true"
+        {
+            let window = app.get_webview_window("main").unwrap();
+            window.hide().unwrap();
+        }
+        else
+        {
+            let window = app.get_webview_window("main").unwrap();
+            window.show().unwrap();
+        }
         Ok(())
       })
         .plugin(tauri_plugin_autostart::init(
@@ -261,4 +274,6 @@ fn main() {
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+
+    
 }
