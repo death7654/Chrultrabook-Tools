@@ -10,9 +10,9 @@ mod save_to_files;
 mod temps;
 
 //external crates
-use tauri_plugin_autostart::MacosLauncher;
+use tauri_plugin_autostart::{MacosLauncher, AutoLaunchManager};
 use web_local_storage_api;
-
+use tauri::AppHandle;
 //open windows
 
 #[tauri::command]
@@ -183,18 +183,30 @@ fn os() -> String {
 fn change_activity_light(selected: String) {
     activity_light::set_color(selected);
 }
-/*
-#[tauri::command]
-fn autostart(value: bool)
-{
 
+#[tauri::command]
+fn autostart(app: AppHandle, value: bool)
+{
+    use tauri_plugin_autostart::ManagerExt;
+
+    let autolaunch = app.autolaunch();
+
+    let enabled_state = autolaunch.is_enabled().unwrap_or(false);
+    if value || !enabled_state
+    {
+        let _ = autolaunch.enable();
+    }
+    else if !value || enabled_state
+    {
+        let _ = autolaunch.disable();
+    }
 }
-*/
+
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_autostart::init(
             MacosLauncher::LaunchAgent,
-            Some(vec!["--flag1", "--flag2"]),
+            Some(vec!["--auto"]),
         ))
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_dialog::init())
@@ -215,7 +227,7 @@ fn main() {
             boardname,
             os,
             change_activity_light,
-            //autostart
+            autostart
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
