@@ -188,17 +188,13 @@ fn change_activity_light(selected: String) {
 }
 
 #[tauri::command]
-fn autostart(app: AppHandle, value: bool)
-{
+fn autostart(app: AppHandle, value: bool) {
     let autolaunch = app.autolaunch();
 
     let enabled_state = autolaunch.is_enabled().unwrap_or(false);
-    if value || !enabled_state
-    {
+    if value || !enabled_state {
         let _ = autolaunch.enable();
-    }
-    else if !value || enabled_state
-    {
+    } else if !value || enabled_state {
         let _ = autolaunch.disable();
     }
 }
