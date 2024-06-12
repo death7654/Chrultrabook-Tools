@@ -14,11 +14,13 @@ baseChart
     [svg]="'../../../assets/diagnostics/save.svg'"
     [button_label]="'Save'"
     [svg_class]="'diagnostic_img'"
+    (click)="save()"
   ></app-button>
   <app-button
     [svg]="'../../../assets/fan/set.svg'"
-    [button_label]="'Apply'"
+    [button_label]="'Save and Apply'"
     [svg_class]="'diagnostic_img'"
+    (click)="save_and_apply()"
   ></app-button>
 </div>
 

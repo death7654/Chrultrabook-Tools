@@ -1,9 +1,10 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, EventEmitter, Output, ViewChild, viewChild } from "@angular/core";
 import { FanSectionComponent } from "../home/fan-section/fan-section.component";
 import { ChartConfiguration, Plugin, Chart } from "chart.js/auto";
 import { BaseChartDirective } from "ng2-charts";
 import { ButtonComponent } from "../button/button.component";
 import { default as dragData } from "chartjs-plugin-dragdata";
+import { invoke } from "@tauri-apps/api/core";
 
 @Component({
   selector: "app-custom-fan",
@@ -13,6 +14,18 @@ import { default as dragData } from "chartjs-plugin-dragdata";
   styleUrl: "./custom-fan.component.scss",
 })
 export class CustomFanComponent {
+  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
+
+  save() 
+  {
+    console.log(this.lineChartData.datasets[0].data)
+    invoke("local_storage", {function: "save", option: "fan_curves", value: this.lineChartData.datasets[0].data.toString()})
+  }
+  save_and_apply()
+  {
+    console.log('hello');
+    invoke("local_storage", {function: "save", option: "fan_curves", value: this.lineChartData.datasets[0].data.toString()})
+  }
 
   public lineChartData: ChartConfiguration["data"] = {
     
