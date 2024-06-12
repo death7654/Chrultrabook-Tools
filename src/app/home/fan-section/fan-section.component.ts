@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ButtonComponent } from '../../button/button.component';
 import { invoke } from "@tauri-apps/api/core"
 
@@ -47,6 +47,7 @@ export class FanSectionComponent {
     (document.getElementById('fanRPM') as HTMLInputElement).innerText = split[3].trim()
   }
 
+
   fan_auto() {
     invoke("execute", { program: "ectool", arguments: ['autofanctrl'], reply: false });
     this.selected_mode = 'Auto';
@@ -59,10 +60,11 @@ export class FanSectionComponent {
     invoke("execute", { program: "ectool", arguments: ['fanduty', '100'], reply: false });
     this.selected_mode = 'Max';
   }
+
   fan_custom()
   {
     this.selected_mode = 'Custom';
-    console.log('hello')
+    console.log(this.selected_mode);
   }
   open_fan_custom_window() {
     invoke('open_custom_fan');

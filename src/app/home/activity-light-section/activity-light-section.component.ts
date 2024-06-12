@@ -15,7 +15,6 @@ export class ActivityLightSectionComponent {
   async ngOnInit()
   {
     let output: string = await invoke("boardname")
-    console.log(output);
     let boardname = output.trim().split("\n")
     if (boardname[2] == "Candy" || boardname[2] == "Kefka")
       {
