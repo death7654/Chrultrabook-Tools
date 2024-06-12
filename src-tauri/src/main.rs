@@ -10,12 +10,13 @@ mod save_to_files;
 mod temps;
 
 //external crates
-use tauri::menu::{MenuBuilder, MenuItemBuilder};
+use tauri::menu::{MenuBuilder, MenuItemBuilder, IconMenuItemBuilder};
 use tauri::tray::TrayIconBuilder;
-use tauri::AppHandle;
-use tauri::Manager;
+use tauri::{AppHandle, Manager};
 use tauri_plugin_autostart::{MacosLauncher, ManagerExt};
+use tauri::image::Image;
 use web_local_storage_api;
+use open;
 //open windows
 
 #[tauri::command]
@@ -226,12 +227,18 @@ fn main() {
             _ => {}
         })
         .setup(|app| {
+            let img = IconMenuItemBuilder::new("Chrultrabook Tools").id("app").enabled(false).icon(Image::from_bytes(include_bytes!("../icons/icon.png")).unwrap()).build(app).unwrap();
             let quit = MenuItemBuilder::new("Quit").id("quit").build(app).unwrap();
             let hide = MenuItemBuilder::new("Hide").id("hide").build(app).unwrap();
             let show = MenuItemBuilder::new("Show").id("show").build(app).unwrap();
+            let github = MenuItemBuilder::new("Check for Updates").id("github").build(app).unwrap();
             // we could opt handle an error case better than calling unwrap
             let menu = MenuBuilder::new(app)
+            .item(&img)
+                .separator()
                 .items(&[&quit, &hide, &show])
+                .separator()
+                .item(&github)
                 .build()
                 .unwrap();
 
@@ -251,6 +258,10 @@ fn main() {
                         for (_, window) in window.iter() {
                             let _ = window.show();
                         }
+                    }
+                    "github" =>
+                    {
+                        let _ = open::that("https://github.com/death7654/Chrultrabook-Tools/releases");
                     }
                     _ => {}
                 })
