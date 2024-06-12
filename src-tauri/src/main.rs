@@ -205,29 +205,27 @@ fn autostart(app: AppHandle, value: bool)
 
 fn main() {
     tauri::Builder::default()
-    .setup(|app| {
-
-        let quit = MenuItemBuilder::new("Quit").id("quit").build(app).unwrap();
-        let hide = MenuItemBuilder::new("Hide").id("hide").build(app).unwrap();
-        let show = MenuItemBuilder::new("Show").id("show").build(app).unwrap();
-        // we could opt handle an error case better than calling unwrap
-        let menu = MenuBuilder::new(app)
-          .items(&[&quit, &hide, &show])
-          .build()
-          .unwrap();
-  
-        let _ = TrayIconBuilder::new()
-          .icon(app.default_window_icon().unwrap().clone())
-          .menu(&menu)
-          .on_menu_event(|app, event| match event.id().as_ref() {
-            "quit" => app.exit(0),
-            "hide" => {
-              let window = app.get_webview_window("main").unwrap();
-              window.hide().unwrap();
-            }
-            "show" => {
-              let window = app.get_webview_window("main").unwrap();
-              window.show().unwrap();
+        .on_window_event(|window, event| match event {
+            tauri::WindowEvent::CloseRequested { api, .. } => {
+                let close_app_to_tray = local_storage("get", "app_tray", " ");
+                if close_app_to_tray == "true" {
+                    if window.label() == "main" 
+                    {
+                        let windows = window.webview_windows();
+                        for (_, window) in windows.iter() {
+                            let window_name = window.label();
+                            if window_name == "main"
+                            {
+                                window.hide().unwrap()
+                            }
+                            else
+                            {
+                                window.get_webview_window(window_name).expect("notfound").close().unwrap()
+                            }
+                        }
+                        api.prevent_close();
+                    }
+                }
             }
             _ => {}
         })
