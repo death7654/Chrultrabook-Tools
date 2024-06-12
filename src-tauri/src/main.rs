@@ -10,12 +10,12 @@ mod save_to_files;
 mod temps;
 
 //external crates
-use tauri_plugin_autostart::{MacosLauncher, ManagerExt};
 use tauri::menu::{MenuBuilder, MenuItemBuilder};
 use tauri::tray::TrayIconBuilder;
-use tauri::Manager;
-use web_local_storage_api;
 use tauri::AppHandle;
+use tauri::Manager;
+use tauri_plugin_autostart::{MacosLauncher, ManagerExt};
+use web_local_storage_api;
 //open windows
 
 #[tauri::command]
@@ -230,23 +230,46 @@ fn main() {
               window.show().unwrap();
             }
             _ => {}
-          })
-          .build(app);
+        })
+        .setup(|app| {
+            let quit = MenuItemBuilder::new("Quit").id("quit").build(app).unwrap();
+            let hide = MenuItemBuilder::new("Hide").id("hide").build(app).unwrap();
+            let show = MenuItemBuilder::new("Show").id("show").build(app).unwrap();
+            // we could opt handle an error case better than calling unwrap
+            let menu = MenuBuilder::new(app)
+                .items(&[&quit, &hide, &show])
+                .build()
+                .unwrap();
 
-        //to hide app if user wants it hidden upon boot
-        let start_app_in_tray = local_storage("get", "start_app_tray", " ");
-        if start_app_in_tray == "true"
-        {
-            let window = app.get_webview_window("main").unwrap();
-            window.hide().unwrap();
-        }
-        else
-        {
-            let window = app.get_webview_window("main").unwrap();
-            window.show().unwrap();
-        }
-        Ok(())
-      })
+            let _ = TrayIconBuilder::new()
+                .icon(app.default_window_icon().unwrap().clone())
+                .menu(&menu)
+                .on_menu_event(|app, event| match event.id().as_ref() {
+                    "quit" => app.exit(0),
+                    "hide" => {
+                        let window = app.webview_windows();
+                        for (_, window) in window.iter() {
+                            let _ = window.hide();
+                        }
+                    }
+                    "show" => {
+                        let window = app.webview_windows();
+                        for (_, window) in window.iter() {
+                            let _ = window.show();
+                        }
+                    }
+                    _ => {}
+                })
+                .build(app);
+
+            //to hide app if user wants it hidden upon boot
+            let start_app_in_tray = local_storage("get", "start_app_tray", " ");
+            if start_app_in_tray == "true" {
+                let window = app.get_webview_window("main").unwrap();
+                window.hide().unwrap();
+            }
+            Ok(())
+        })
         .plugin(tauri_plugin_autostart::init(
             MacosLauncher::LaunchAgent,
             Some(vec!["--auto"]),
@@ -274,6 +297,4 @@ fn main() {
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
-
-    
 }
