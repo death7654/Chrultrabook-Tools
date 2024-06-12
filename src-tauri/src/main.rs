@@ -223,6 +223,15 @@ fn main() {
                         api.prevent_close();
                     }
                 }
+                else {
+                    {
+                        let windows = window.webview_windows();
+                        for (_, window) in windows.iter() {
+                            let window_name = window.label();
+                            window.get_webview_window(window_name).expect("notfound").close().unwrap()
+                        }
+                    }
+                }
             }
             _ => {}
         })
