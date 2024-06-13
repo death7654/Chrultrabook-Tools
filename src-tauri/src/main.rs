@@ -21,7 +21,7 @@ use open;
 
 #[tauri::command]
 async fn open_custom_fan(handle: tauri::AppHandle) {
-    open_window::new_window(&handle, "fan", "custom_fan", 600.0, 450.0).await;
+    open_window::new_window(&handle, "fan", "custom_fan", 600.0, 440.0).await;
 }
 
 #[tauri::command]
@@ -31,7 +31,7 @@ async fn open_keyboard_extra(handle: tauri::AppHandle) {
 
 #[tauri::command]
 async fn open_diagnostics(handle: tauri::AppHandle) {
-    open_window::new_window(&handle, "diagnostics", "diagnostics", 600.0, 420.0).await;
+    open_window::new_window(&handle, "diagnostics", "diagnostics", 600.0, 405.0).await;
 }
 
 #[tauri::command]
@@ -224,12 +224,17 @@ fn main() {
                     }
                 }
                 else {
+                    if window.label() == "main"
                     {
                         let windows = window.webview_windows();
                         for (_, window) in windows.iter() {
                             let window_name = window.label();
                             window.get_webview_window(window_name).expect("notfound").close().unwrap()
                         }
+                    }
+                    else
+                    {
+                        let _ = window.close();
                     }
                 }
             }
