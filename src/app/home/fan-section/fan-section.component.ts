@@ -10,6 +10,7 @@ import { invoke } from "@tauri-apps/api/core"
   styleUrl: './fan-section.component.scss',
 })
 export class FanSectionComponent {
+
   selected_mode: string = 'N/A'
   temp: string = '0'
   fan_exists: boolean = !true;
@@ -89,7 +90,6 @@ export class FanSectionComponent {
     this.fan_custom_class = 'fan_custom_selected';
   }
   open_fan_custom_window() {
-    this.selected_mode = 'Custom';
     invoke('open_custom_fan');
   }
 }

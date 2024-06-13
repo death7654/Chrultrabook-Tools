@@ -11,6 +11,7 @@ pub async fn new_window(
         tauri::WebviewUrl::App(angular_path.parse().unwrap()),
     )
     .inner_size(width, height)
+    .title(label)
     .resizable(false)
     .maximizable(false)
     .build()

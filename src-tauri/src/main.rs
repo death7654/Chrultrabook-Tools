@@ -21,22 +21,22 @@ use open;
 
 #[tauri::command]
 async fn open_custom_fan(handle: tauri::AppHandle) {
-    open_window::new_window(&handle, "fan", "custom_fan", 600.0, 440.0).await;
+    open_window::new_window(&handle, "Fan", "custom_fan", 600.0, 440.0).await;
 }
 
 #[tauri::command]
 async fn open_keyboard_extra(handle: tauri::AppHandle) {
-    open_window::new_window(&handle, "keyboard", "keyboard_extra", 500.0, 300.0).await;
+    open_window::new_window(&handle, "Extras", "keyboard_extra", 500.0, 300.0).await;
 }
 
 #[tauri::command]
 async fn open_diagnostics(handle: tauri::AppHandle) {
-    open_window::new_window(&handle, "diagnostics", "diagnostics", 600.0, 405.0).await;
+    open_window::new_window(&handle, "Diagnostics", "diagnostics", 600.0, 405.0).await;
 }
 
 #[tauri::command]
 async fn open_settings(handle: tauri::AppHandle) {
-    open_window::new_window(&handle, "settings", "settings", 500.0, 350.0).await;
+    open_window::new_window(&handle, "Settings", "settings", 500.0, 350.0).await;
 }
 
 //commands
@@ -241,6 +241,13 @@ fn main() {
             _ => {}
         })
         .setup(|app| {
+              //to hide app if user wants it hidden upon boot
+              let start_app_in_tray = local_storage("get", "start_app_tray", " ");
+              if start_app_in_tray == "true" {
+                  let window = app.get_webview_window("main").unwrap();
+                  window.hide().unwrap();
+              }
+
             let img = IconMenuItemBuilder::new("Chrultrabook Tools").id("app").enabled(false).icon(Image::from_bytes(include_bytes!("../icons/icon.png")).unwrap()).build(app).unwrap();
             let quit = MenuItemBuilder::new("Quit").id("quit").build(app).unwrap();
             let hide = MenuItemBuilder::new("Hide").id("hide").build(app).unwrap();
@@ -280,13 +287,6 @@ fn main() {
                     _ => {}
                 })
                 .build(app);
-
-            //to hide app if user wants it hidden upon boot
-            let start_app_in_tray = local_storage("get", "start_app_tray", " ");
-            if start_app_in_tray == "true" {
-                let window = app.get_webview_window("main").unwrap();
-                window.hide().unwrap();
-            }
             Ok(())
         })
         .plugin(tauri_plugin_autostart::init(
