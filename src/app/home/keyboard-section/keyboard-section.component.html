@@ -1,10 +1,10 @@
-<div class="keyboard_text" [class]="disabled_class">
-  <h4 class="font keyboard_title">Keyboard</h4>
-  <h4 class="font keyboard_info">
-    Brightness: <span>{{backlight_percentage}} {{extension}}</span>
+<div class="grid keyboard_text pt-1" [class]="disabled_class">
+  <h4 class="fs-4 fw-light"><img src="../../../assets/keyboard/keyboard.svg" class="align-text-middle px-2">Keyboard</h4>
+  <h4 class="fs-4 fw-light keyboard_info_alignment">
+    Brightness: <span>{{backlight_percentage}}{{extension}}</span>
   </h4>
 </div>
-<div class="keyboard">
+<div class="grid keyboard_controls px-2">
   <input
   (click)="update_percentage($event)"
     type="range"
@@ -20,7 +20,7 @@
     (click)="keyboard_more()"
     [button_class]="'keyboard_custom_button fan_custom disabled'"
     [svg]="'../assets/keyboard/more.svg'"
-    [svg_class]="'keyboard_img'"
+    [svg_class]="'keyboard_img position-relative'"
     [disabled_state]="true"
     class="disabled"
   ></app-button>

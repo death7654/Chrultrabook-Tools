@@ -1,7 +1,7 @@
-<div class="diagnostics">
-    <h4 class="diagnostics_text">Diagnostics</h4>
+<div class="text-center p-3 pb-0">
+    <h4 class="fs-3">Diagnostics</h4>
 </div>
-<select (click)="select($event)"  class="form-select" aria-label="Default select example" #dropdown>
+<select (click)="select($event)"  class="form-select text-white border-0 position-relative fs-4 pt-1 top-10px bg-secondary" aria-label="Default select example" #dropdown>
     <option selected>Select</option>
     <option value="Boot Timestraps" [disabled]="disabled">Boot Timestraps</option>
     <option value="Coreboot Log" [disabled]="disabled">Coreboot Log</option>
@@ -14,13 +14,13 @@
     <option value="Temperature Sensor Information">Temperature Sensor Information</option>
     <option value="Power Delivery Information">Power Delivery Information</option>
 </select>
-<div class="information_box">
-    <app-button (click)="copy_to_clipboard()" [svg]="'../../assets/diagnostics/copy.svg'" [button_class]="'copy_button'" [svg_class]="'copy_svg'"></app-button>
-<div class="box">
+<div class="information_box mx-2 mt-3 rounded-3 overflow-scroll bg-light">
+    <app-button (click)="copy_to_clipboard()" [svg]="'../../assets/diagnostics/copy.svg'" [button_class]="'copy_button position-absolute'" [svg_class]="'copy_svg'"></app-button>
+<div class="box font-monospace m-2">
     <span>{{collected_info}}</span>
 </div>
 </div>
-<div class="diagnostic_button_format">
-    <app-button (click)="get_info($event)" [svg]="'../../assets/diagnostics/generate.svg'" [button_label]="'Generate'" [button_class]="'generate_class'" [svg_class]="'diagnostic_img'" ></app-button>
-    <app-button (click)="save()" [svg]="'../../assets/diagnostics/save.svg'" [button_label]="'Save to Files'" [svg_class]="'diagnostic_img'"></app-button>
+<div class="diagnostic_button_format grid pt-2 px-2">
+    <app-button (click)="get_info($event)" [svg]="'../../assets/diagnostics/generate.svg'" [button_label]="'Generate'" [button_class]="'fan_custom generate_class'" [svg_class]="'pt-3 pb-2'" ></app-button>
+    <app-button (click)="save()" [svg]="'../../assets/diagnostics/save.svg'" [button_label]="'Save to Files'" [button_class]="'fan_custom'"  [svg_class]="'pt-3 pb-2'"></app-button>
 </div>

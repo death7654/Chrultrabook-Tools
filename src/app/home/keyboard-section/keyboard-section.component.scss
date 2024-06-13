@@ -1,35 +1,12 @@
-.keyboard {
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  column-gap: 10px;
-  padding-right: 10px;
-  padding-left: 10px;
-}
-.keyboard_title::before {
-  display: inline-block;
-  content: url(../../../assets/keyboard/keyboard.svg);
-  padding-right: 10px;
-  vertical-align: middle;
-}
 .keyboard_text {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  padding-right: 10px;
-  padding-left: 10px;
-  padding-top: 5px;
+  grid-template-columns: 2fr 1.2fr;
 }
-.font {
-  font-weight: 100;
-  font-size: 14px;
+.keyboard_info_alignment {
+  padding-top: 7px;
 }
-.keyboard_function {
-  display: grid;
-}
-.keyboard_info {
-  padding-top: 6px;
-}
-.form-range {
-  width: 100%;
+.keyboard_controls {
+  grid-template-columns: 3fr 1fr;
+  column-gap: 8px;
 }
 .disabled
 {

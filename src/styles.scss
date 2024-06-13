@@ -1,9 +1,27 @@
 @import "../node_modules/bootstrap/scss/functions";
 
 // Include any default variable overrides here
+$secondary: #2e2e30;
+$light: #363639;
+$dark: #262525;
+
+$h3-font-size: 16px;
+$h4-font-size: 14px;
+$h5-font-size: 12px;
+$h6-font-size: 10px;
+$border-color: #262525;
+
+$position-values: (
+  0: 0,
+  10px: 10px,
+  50: 50%,
+  100: 100%
+);
 
 @import "../node_modules/bootstrap/scss/variables";
 @import "../node_modules/bootstrap/scss/variables-dark";
+
+$enable-cssgrid: true;
 
 // Include any default map overrides here
 
@@ -13,14 +31,14 @@
 
 
 // Optionals: Remove whats not required later
-//@import "../node_modules/bootstrap/scss/utilities";
-//@import "../node_modules/bootstrap/scss/reboot";
-//@import "../node_modules/bootstrap/scss/type";
-//@import "../node_modules/bootstrap/scss/images";
-//@import "../node_modules/bootstrap/scss/containers";
-//@import "../node_modules/bootstrap/scss/grid";
-//@import "../node_modules/bootstrap/scss/helpers";
-//@import "../node_modules/bootstrap/scss/utilities/api";
+@import "../node_modules/bootstrap/scss/utilities";
+@import "../node_modules/bootstrap/scss/reboot";
+@import "../node_modules/bootstrap/scss/type";
+@import "../node_modules/bootstrap/scss/images";
+@import "../node_modules/bootstrap/scss/containers";
+@import "../node_modules/bootstrap/scss/grid";
+@import "../node_modules/bootstrap/scss/helpers";
+@import "../node_modules/bootstrap/scss/utilities/api";
 
 // All custom CSS below
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");

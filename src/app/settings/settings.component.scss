@@ -1,42 +1,16 @@
 
-.settings_title
-{
-    font-size: 16px;
-    padding: 10px;
-    padding-bottom: 0;
-    text-align: center;
-}
 
 .settings_format
 {
-    display: grid;
     grid-template-rows: 1fr 1fr 1fr 1fr;
-    padding: 20px;
-}
-.settings_info
-{
-    position: absolute;
-    width: 100%; 
-    bottom: 0;
-    text-align: center;
+    row-gap: 0;
 }
 .version_info
 {
-    font-size: 10px;
     color: #c0c0c0;
-    padding: 10px;
-    padding-bottom: 0;
 }
 .form-check-input
 {
     width: 40px;
     height: 20px;
-}
-.form-check-label
-{
-    font-size: 14px;
-}
-.form-check-reverse
-{
-    text-align: left;
 }

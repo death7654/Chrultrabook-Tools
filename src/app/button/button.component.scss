@@ -2,64 +2,49 @@
 button {
   all: unset;
   background-color: #262525;
-  color: #fff;
-  border-width: 0.5px;
-  border-color: #262525;
-  border-radius: 8px;
-  text-align: center;
-  border-style: solid;
-  width: 100%;
-  height: 100%;
 }
-button:hover
+.button:hover
 {
   border-color: #ff8a57;
 }
 .fan_auto:hover {
-  border-color: #5cecc0;
+  border-color: #5cecc0 !important;
 }
 .fan_off:hover {
-  border-color: #fdda0d;
+  border-color: #fdda0d !important;
 }
 .fan_max:hover {
-  border-color: #ee4b2b;
+  border-color: #ee4b2b !important;
+}
+.fan_custom:hover {
+  border-color: #ff8a57 !important;
 }
 .fan_auto_selected {
-  border-color: #5cecc0;
+  border-color: #5cecc0 !important;
 }
 .fan_off_selected {
-  border-color: #fdda0d;
+  border-color: #fdda0d !important;
 }
 .fan_max_selected {
-  border-color: #ee4b2b;
+  border-color: #ee4b2b !important;
 }
 .fan_custom_selected {
-  border-color: #ff8a57;
+  border-color: #ff8a57 !important;
 }
 .keyboard_custom_button{
-  height: 20px;
-}
-.button_img {
-  padding-top: 15px;
+  height: 20px !important;
 }
 .keyboard_img
 {
-  position: relative;
-  bottom: 19px;
-}
-.extra_section_svg
-{
-  padding-bottom: 10px;
+  bottom: 4px;
 }
 .copy_button
 {
-  width: 30px;
-  height: 30px;
-  border: 0;
-  background-color: rgba(0, 0, 0, 0.2);
-  position: absolute;
+  width: 30px !important;
+  height: 30px !important;
+  background-color: rgba(0, 0, 0, 0.2) !important; 
   right: 13px;
-  top: 110px;
+  top: 113px;
 }
 .copy_svg
 {
@@ -67,14 +52,10 @@ button:hover
 }
 .copy_button:hover
 {
-  background-color: #1e1d1d;
-}
-.diagnostic_img
-{
-  padding-bottom: 8px;
+  background-color: #1e1d1d !important;
 }
 
 .disabled:hover
 {
-  border-color: #262525;
+  border-color: #262525 !important;
 }

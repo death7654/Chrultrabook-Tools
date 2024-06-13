@@ -13,7 +13,11 @@ export class FanSectionComponent {
   selected_mode: string = 'N/A'
   temp: string = '0'
   fan_exists: boolean = !true;
-  fan_class: string = '';
+  disabled_class: string = ''
+  fan_auto_class: string = '';
+  fan_off_class: string = '';
+  fan_max_class: string = '';
+  fan_custom_class: string = '';
   extension: string = ''
 
   async ngOnInit() {
@@ -24,25 +28,26 @@ export class FanSectionComponent {
     let split = output.split(" ");
     if (split[0] !== "Fan") {
       this.fan_exists = false
-      this.fan_class = 'disabled'
+      this.disabled_class = 'disabled'
       this.extension = 'N/A'
     }
-    else
-    {
+    else {
       this.selected_mode = 'Auto'
       this.extension = 'RPM'
       setInterval(this.get_fan_rpm, 2000)
+      this.fan_auto_class = 'fan_auto_selected';
+      this.fan_off_class = ' ';
+      this.fan_max_class = ' ';
+      this.fan_custom_class = ' ';
     }
   }
 
-  async get_cpu_temp()
-  {
+  async get_cpu_temp() {
     let output: number = await invoke("get_temps");
     (document.getElementById('temp') as HTMLInputElement).innerText = output.toString().trim()
   }
-  async get_fan_rpm()
-  {
-    let output: string = await invoke("execute", { program: "ectool", arguments: ['pwmgetfanrpm',"all"], reply: true });
+  async get_fan_rpm() {
+    let output: string = await invoke("execute", { program: "ectool", arguments: ['pwmgetfanrpm', "all"], reply: true });
     let split = output.split(" ");
     (document.getElementById('fanRPM') as HTMLInputElement).innerText = split[3].trim()
   }
@@ -51,22 +56,40 @@ export class FanSectionComponent {
   fan_auto() {
     invoke("execute", { program: "ectool", arguments: ['autofanctrl'], reply: false });
     this.selected_mode = 'Auto';
+    this.fan_auto_class = 'fan_auto_selected';
+    this.fan_off_class = ' ';
+    this.fan_max_class = ' ';
+    this.fan_custom_class = ' ';
   }
   fan_off() {
     invoke("execute", { program: "ectool", arguments: ['fanduty', '0'], reply: false });
     this.selected_mode = 'Off';
+    this.fan_auto_class = ' ';
+    this.fan_off_class = 'fan_off_selected';
+    this.fan_max_class = ' ';
+    this.fan_custom_class = ' ';
   }
   fan_max() {
     invoke("execute", { program: "ectool", arguments: ['fanduty', '100'], reply: false });
     this.selected_mode = 'Max';
+    this.selected_mode = 'Off';
+    this.fan_auto_class = ' ';
+    this.fan_off_class = ' ';
+    this.fan_max_class = 'fan_max_selected';
+    this.fan_custom_class = ' ';
   }
 
-  fan_custom()
-  {
+  fan_custom() {
     this.selected_mode = 'Custom';
     console.log(this.selected_mode);
+    this.selected_mode = 'Off';
+    this.fan_auto_class = ' ';
+    this.fan_off_class = ' ';
+    this.fan_max_class = ' ';
+    this.fan_custom_class = 'fan_custom_selected';
   }
   open_fan_custom_window() {
+    this.selected_mode = 'Custom';
     invoke('open_custom_fan');
   }
 }

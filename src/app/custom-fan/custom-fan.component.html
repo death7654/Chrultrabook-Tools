@@ -1,25 +1,28 @@
-<div class="fan_text">
-    <h4 class="fan_title fan_info" id="test">Custom Fan Controls</h4>
+<div class="p-2 pb-0">
+    <h4 class="text-center fs-3" id="test">Custom Fan Controls</h4>
   </div>
-<div class="chart">
+<div class="chart p-2"> 
 <canvas
+class="bg-dark p-2 rounded-3"
 baseChart
 [data]="lineChartData"
 [options]="lineChartOptions"
 [type]="'line'"
 ></canvas>
 </div>
-<div class="custom_fan_grid">
+<div class="custom_fan_grid grid p-2">
   <app-button
     [svg]="'../../../assets/diagnostics/save.svg'"
     [button_label]="'Save'"
-    [svg_class]="'diagnostic_img'"
+    [button_class]="'fan_custom'"
+    [svg_class]="'pt-3 pb-2'"
     (click)="save()"
   ></app-button>
   <app-button
     [svg]="'../../../assets/fan/set.svg'"
     [button_label]="'Save and Apply'"
-    [svg_class]="'diagnostic_img'"
+    [button_class]="'fan_custom'"
+    [svg_class]="'pt-3 pb-2'"
     (click)="save_and_apply()"
   ></app-button>
 </div>

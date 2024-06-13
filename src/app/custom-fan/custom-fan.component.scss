@@ -1,26 +1,6 @@
-canvas{
-    background-color: #262525;
-    border-radius: 10px;
-    padding: 10px;
-}
-.chart
-{
-    padding: 10px;
-}
-.fan_text
-{
-    padding-left: 10px;
-    padding-top: 10px;
-}
-.fan_info
-{
-    font-size: 16px;
-    text-align: center;
-}
+
 .custom_fan_grid
 {
-    display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 8px;
-    padding: 10px;
 }

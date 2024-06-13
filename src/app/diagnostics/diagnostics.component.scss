@@ -1,44 +1,19 @@
-.diagnostics
-{ 
-    text-align: center;
-    padding: 10px;
-    padding-bottom: 0;
-}
-.diagnostics_text
-{
-    font-size: 16px;
-}
+
 .form-select
 {
-    background-color: #2e2e30;
-    color: #fff;
-    border: 0;
     height: 50px;
-    width: 580px;
-    position: relative;
-    top: 10px;
-    left: 10px;
-    font-size: 14px;
+    width: 585px;
+    left: 8px;
 }
 .information_box
 {
-    background-color: #363639;
     height: 200px;
-    width: 580px;
-    margin-left: 10px;
-    margin-top: 20px;
-    border-radius: 10px;
-    overflow: scroll;
 }
 .box{
-    margin: 10px;
     white-space: pre;
-    font-family: monospace;
 }
 .diagnostic_button_format
 {
-    display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 10px;
-    padding: 10px;
 }
