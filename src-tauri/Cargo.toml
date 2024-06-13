@@ -1,8 +1,8 @@
 [package]
 name = "chrultrabook-tools"
-version = "3.0.1"
+version = "3.1.1"
 description = "Chrultrabook hardware controller"
-authors = ["Robinson George Arysseril"]
+authors = ["Robinson Arysseril"]
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
