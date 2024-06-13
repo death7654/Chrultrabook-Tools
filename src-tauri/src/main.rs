@@ -249,15 +249,15 @@ fn main() {
               }
 
             let img = IconMenuItemBuilder::new("Chrultrabook Tools").id("app").enabled(false).icon(Image::from_bytes(include_bytes!("../icons/icon.png")).unwrap()).build(app).unwrap();
-            let quit = MenuItemBuilder::new("Quit").id("quit").build(app).unwrap();
-            let hide = MenuItemBuilder::new("Hide").id("hide").build(app).unwrap();
             let show = MenuItemBuilder::new("Show").id("show").build(app).unwrap();
+            let hide = MenuItemBuilder::new("Hide").id("hide").build(app).unwrap();
+            let quit = MenuItemBuilder::new("Quit").id("quit").build(app).unwrap();
             let github = MenuItemBuilder::new("Check for Updates").id("github").build(app).unwrap();
             // we could opt handle an error case better than calling unwrap
             let menu = MenuBuilder::new(app)
             .item(&img)
                 .separator()
-                .items(&[&quit, &hide, &show])
+                .items(&[&show, &hide, &quit])
                 .separator()
                 .item(&github)
                 .build()

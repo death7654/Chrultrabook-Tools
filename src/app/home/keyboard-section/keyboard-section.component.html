@@ -1,10 +1,10 @@
-<div class="grid keyboard_text pt-1" [class]="disabled_class">
+<div class="grid keyboard_text pt-2" [class]="disabled_class">
   <h4 class="fs-4 fw-light"><img src="../../../assets/keyboard/keyboard.svg" class="align-text-middle px-2">Keyboard</h4>
   <h4 class="fs-4 fw-light keyboard_info_alignment">
     Brightness: <span>{{backlight_percentage}}{{extension}}</span>
   </h4>
 </div>
-<div class="grid keyboard_controls px-2">
+<div class="grid keyboard_controls px-2 pt-1">
   <input
   (click)="update_percentage($event)"
     type="range"
