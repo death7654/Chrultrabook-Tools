@@ -90,6 +90,7 @@ export class FanSectionComponent {
     this.fan_custom_class = 'fan_custom_selected';
   }
   open_fan_custom_window() {
+    this.selected_mode = 'Custom';
     invoke('open_custom_fan');
   }
 }

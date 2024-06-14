@@ -41,12 +41,10 @@ $enable-cssgrid: true;
 @import "../node_modules/bootstrap/scss/utilities/api";
 
 // All custom CSS below
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wdth,wght@75..100,300..800&display=swap');
 body {
-  font-family: "Poppins", sans-serif;
-  font-size: 14px;
-  font-weight: 100;
+  font-family: "Open sans", sans-serif;
+  font-weight: 300;
   background-color: #181819;
   color: #fff;
   font-synthesis: none;

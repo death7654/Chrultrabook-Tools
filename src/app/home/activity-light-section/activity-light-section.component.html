@@ -1,12 +1,12 @@
 <div [class]="class">
-  <div class="activity_light pt-2 grid">
-    <h4 class="fs-4 fw-light"><img src="../../../assets/activity_light/activity.svg" class="align-text-middle px-2">Dell Activity Light</h4>
-    <h4 class="fs-4 fw-light mode_alignment">
+  <div class="activity_light pt-3 grid">
+    <h4 class="fs-4 fw-heavy"><img src="../../../assets/activity_light/activity.svg" class="align-text-middle px-2">Dell Activity Light</h4>
+    <h4 class="fs-4 fw-heavy mode_alignment">
       Color: <span>{{activity_light_color}}</span>
     </h4>
   </div>
-<div class="pt-2">
-  <select (click)="update_color($event)" class="form-select position-relative border-0 fs-4 text-white bg-secondary pt-2" [disabled]="disabled">
+<div class="pt-2 px-2">
+  <select (click)="update_color($event)" class="form-select position-relative fw-normal border-0 fs-4 text-white bg-secondary pt-2" [disabled]="disabled">
     <option selected>Select A Color</option>
     <option value="Off">Off</option>
     <option value="Red">Red</option>

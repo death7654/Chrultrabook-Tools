@@ -4,7 +4,7 @@
 <div class="settings_format grid p-4 px-3" style="--bs-rows: 4; --bs-columns: 0">
     <div *ngFor="let item of items; let i = index">
     <div class="form-check form-switch form-check-reverse text-start">
-        <label class="form-check-label fs-4" for="flexSwitchCheckDefault">{{item.function}}</label>
+        <label class="form-check-label fs-4 fw-normal" for="flexSwitchCheckDefault">{{item.function}}</label>
         <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" [checked]="item.answer" (click)="toggle(i)">
     </div>
     <hr>

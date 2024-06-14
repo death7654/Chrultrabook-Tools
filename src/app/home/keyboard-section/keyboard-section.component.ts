@@ -27,7 +27,7 @@ export class KeyboardSectionComponent {
       }
       else
       {
-        this.backlight_percentage = split[4]
+        this.backlight_percentage = split[4].trim()
         this.percentage = Number(split[4])
         this.extension = '%'
       }

@@ -1,5 +1,5 @@
 <div class="p-2 pb-0">
-    <h4 class="text-center fs-3" id="test">Custom Fan Controls</h4>
+    <h4 class="text-center fs-3 fw-heavy">Custom Fan Controls</h4>
   </div>
 <div class="chart p-2"> 
 <canvas
@@ -14,14 +14,14 @@ baseChart
   <app-button
     [svg]="'../../../assets/diagnostics/save.svg'"
     [button_label]="'Save'"
-    [button_class]="'fan_custom'"
+    [button_class]="'fan_custom fs-4 fw-normal'"
     [svg_class]="'pt-3 pb-2'"
     (click)="save()"
   ></app-button>
   <app-button
     [svg]="'../../../assets/fan/set.svg'"
     [button_label]="'Save and Apply'"
-    [button_class]="'fan_custom'"
+    [button_class]="'fan_custom fs-4 fw-normal'"
     [svg_class]="'pt-3 pb-2'"
     (click)="save_and_apply()"
   ></app-button>

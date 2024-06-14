@@ -1,42 +1,42 @@
 <div class="grid fan_text text-left pt-2">
-  <h4 class="fs-4 fw-light" [class]="disabled_class"><img src="../../../assets/fan/fan.svg" class="align-text-middle px-2">Fan - <span id="selected_mode">{{selected_mode}}</span></h4>
-  <h4 class="fs-4 fw-light pt-1">CPU: <span id="temp">0</span> °C</h4>
-  <h4 class="fs-4 fw-light pt-1" [class]="disabled_class">Fan: <span id="fanRPM">0</span> {{extension}}</h4>
+  <h4 class="fs-4 fw-heavy" [class]="disabled_class"><img src="../../../assets/fan/fan.svg" class="align-text-middle px-2">Fan - <span id="selected_mode">{{selected_mode}}</span></h4>
+  <h4 class="fs-4 fw-heavy pt-2">CPU: <span id="temp">0</span> °C</h4>
+  <h4 class="fs-4 fw-heavy pt-2" [class]="disabled_class">Fan: <span id="fanRPM">0</span> {{extension}}</h4>
 </div>
-<div class="button_format grid p-1 pb-2" [class]="disabled_class">
+<div class="button_format grid p-1 pt-2 px-2" [class]="disabled_class">
   <app-button
     (click)="fan_auto()"
     [button_label]="'Auto'"
-    [button_class]="'fan_auto' + ' ' + fan_auto_class + ' ' + disabled_class"
+    [button_class]="'fan_auto fs-4 fw-normal' + ' ' + fan_auto_class + ' ' + disabled_class"
     [svg]="'../assets/fan/leaf.svg'"
-    [svg_class]="'pt-3'"
+    [svg_class]="'pt-3 pb-2'"
     [disabled_state]="fan_exists"
     id="fan"
-  ></app-button>
+  ></app-button> 
   <app-button
     (click)="fan_off()"
     [button_label]="'Off'"
-    [button_class]="'fan_off' + ' ' + fan_off_class + ' ' + disabled_class"
+    [button_class]="'fan_off fs-4 fw-normal' + ' ' + fan_off_class + ' ' + disabled_class"
     [svg]="'../assets/fan/bicycle.svg'"
-    [svg_class]="'pt-3'"
+    [svg_class]="'pt-3 pb-2'"
     [disabled_state]="fan_exists"
     id="fan"
   ></app-button>
   <app-button
     (click)="fan_max()"
     [button_label]="'Max'"
-    [button_class]="'fan_max' + ' ' + fan_max_class + ' ' + disabled_class"
+    [button_class]="'fan_max fs-4 fw-normal' + ' ' + fan_max_class + ' ' + disabled_class"
     [svg]="'../assets/fan/rocket.svg'"
-    [svg_class]="'pt-3'"
+    [svg_class]="'pt-3 pb-2'"
     [disabled_state]="fan_exists"
     id="fan"
   ></app-button>
   <app-button
     (click)="open_fan_custom_window()"
     [button_label]="'Custom'"
-    [button_class]="'fan_custom'+ ' ' + fan_custom_class + ' ' + disabled_class"
+    [button_class]="'fan_custom fs-4 fw-normal'+ ' ' + fan_custom_class + ' ' + disabled_class"
     [svg]="'../assets/fan/wrench.svg'"
-    [svg_class]="'pt-3'"
+    [svg_class]="'pt-3 pb-2'"
     [disabled_state]="fan_exists"
     id="fan"
   ></app-button>
