@@ -17,8 +17,16 @@ Control your Chrultrabook's hardware your way
 - System Diagnostics
 
 ## Screenshots
+<img width="299" alt="image" src="https://github.com/death7654/Chrultrabook-Tools/assets/72635727/6ddf5053-8d2f-421f-8f32-42372dce4a6f">
+<img width="373" alt="image" src="https://github.com/death7654/Chrultrabook-Tools/assets/72635727/3c398863-257a-4187-b8d3-3731b0e831f6">
+<img width="450" alt="image" src="https://github.com/death7654/Chrultrabook-Tools/assets/72635727/bf5662e3-1f67-4964-bfb6-1077ae927922">
+<img width="450" alt="image" src="https://github.com/death7654/Chrultrabook-Tools/assets/72635727/90de8af1-ac26-4ff2-89bb-ad90207332a6">
 
-//to be added later
+
+
+
+
+
 
 ## Prerequisites
 
