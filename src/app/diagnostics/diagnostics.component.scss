@@ -7,13 +7,21 @@
 .buttons
 {
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr 5fr;
+    grid-template-rows: 1fr 5fr 1fr 1fr;
     row-gap: 10px;
 }
-
+.form-select
+{
+    height: 40px;
+    grid-row: 1 /  3;
+}
+.button2
+{
+    padding-bottom: 1px; //me angry
+}
 .information_box
 {
-    height: 350px;
+    height: 100%;
 }
 .box{
     white-space: pre;

@@ -1,6 +1,6 @@
 [package]
 name = "chrultrabook-tools"
-version = "3.1.1"
+version = "3.0.0"
 description = "Chrultrabook hardware controller"
 authors = ["Robinson Arysseril"]
 edition = "2021"
