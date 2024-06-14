@@ -1,19 +1,20 @@
-
-.form-select
+.diagnostics
 {
-    height: 50px;
-    width: 585px;
-    left: 8px;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    height: 350px;
 }
+.buttons
+{
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 5fr;
+    row-gap: 10px;
+}
+
 .information_box
 {
-    height: 200px;
+    height: 350px;
 }
 .box{
     white-space: pre;
-}
-.diagnostic_button_format
-{
-    grid-template-columns: 1fr 1fr;
-    column-gap: 10px;
 }

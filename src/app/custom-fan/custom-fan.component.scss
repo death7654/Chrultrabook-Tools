@@ -1,6 +1,9 @@
-
-.custom_fan_grid
+.header
 {
-    grid-template-columns: 1fr 1fr;
-    column-gap: 8px;
+    display: grid;
+    grid-template-columns: 5fr 2fr 2fr;
+}
+.fan_curves
+{
+    height: 100%;
 }

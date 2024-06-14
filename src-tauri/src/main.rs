@@ -21,7 +21,7 @@ use open;
 
 #[tauri::command]
 async fn open_custom_fan(handle: tauri::AppHandle) {
-    open_window::new_window(&handle, "Fan", "custom_fan", 600.0, 440.0).await;
+    open_window::new_window(&handle, "Fan", "custom_fan", 700.0, 440.0).await;
 }
 
 #[tauri::command]
@@ -31,7 +31,7 @@ async fn open_keyboard_extra(handle: tauri::AppHandle) {
 
 #[tauri::command]
 async fn open_diagnostics(handle: tauri::AppHandle) {
-    open_window::new_window(&handle, "Diagnostics", "diagnostics", 600.0, 405.0).await;
+    open_window::new_window(&handle, "Diagnostics", "diagnostics", 660.0, 410.0).await;
 }
 
 #[tauri::command]
