@@ -12,7 +12,11 @@
       in
       {
         devShells.default = pkgs.mkShell {
-          nativeBuildInputs = [ pkgs.pkg-config ];
+          nativeBuildInputs = [ 
+	    pkgs.pkg-config 
+            pkgs.libappindicator
+	    pkgs.libayatana-appindicator
+	  ];
           buildInputs = [
             (pkgs.rust-bin.fromRustupToolchain {
               channel = "stable"; # feel free to change the channel
@@ -24,6 +28,8 @@
             pkgs.atk
             pkgs.pango
             pkgs.libsoup_3
+            pkgs.libappindicator
+	    pkgs.libayatana-appindicator
             pkgs.webkitgtk_4_1
             pkgs.openssl
             pkgs.cargo-tauri
