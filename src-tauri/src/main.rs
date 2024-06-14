@@ -128,10 +128,9 @@ fn local_storage(function: &str, option: &str, value: &str) -> String {
         let _ = web_local_storage_api::set_item(option, value);
         return " ".to_string();
     } else if function == "get" {
-        if let Ok(output) = web_local_storage_api::get_item(option) {
-            return output.expect("conversion failed").to_string();
-        } else {
-            return " ".to_string();
+        match web_local_storage_api::get_item(option) {
+            Ok(out) => return out.unwrap_or(String::new()),
+            Err(_err) => return String::new()
         }
     }
     return " ".to_string();
