@@ -64,6 +64,7 @@ Contributions, issues and feature requests are welcome!
 
 Feel free to check [issues page](https://github.com/death7654/Chrultrabook-Tools/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc). 
 You can also take a look at the [contributing guide](https://github.com/death7654/Chrultrabook-Tools/wiki/Contributing).
+If you have any features you would like to see look at [feature requests](https://github.com/death7654/Chrultrabook-Tools/discussions)
 
 ## Show your support
 
