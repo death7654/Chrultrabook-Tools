@@ -12,11 +12,6 @@
       in
       {
         devShells.default = pkgs.mkShell {
-          nativeBuildInputs = [ 
-	    pkgs.pkg-config 
-            pkgs.libappindicator
-	    pkgs.libayatana-appindicator
-	  ];
           buildInputs = [
             (pkgs.rust-bin.fromRustupToolchain {
               channel = "stable"; # feel free to change the channel
@@ -24,17 +19,21 @@
               targets = [ "wasm32-unknown-unknown" ];
               profile = "minimal";
             })
-            pkgs.pkg-config
-            pkgs.atk
-            pkgs.pango
-            pkgs.libsoup_3
+            pkgs.cairo
+            pkgs.curl
+            pkgs.dbus
+            pkgs.gdk-pixbuf
+            pkgs.glib
+            pkgs.gtk3
             pkgs.libappindicator
-	    pkgs.libayatana-appindicator
-            pkgs.webkitgtk_4_1
-            pkgs.openssl
-            pkgs.cargo-tauri
-            pkgs.trunk
+            pkgs.libayatana-appindicator
+            pkgs.librsvg
+            pkgs.libsoup
+            pkgs.openssl_3
+            pkgs.pkg-config
             pkgs.systemdLibs
+            pkgs.webkitgtk_4_1
+            pkgs.wget
           ];
         };
       }
