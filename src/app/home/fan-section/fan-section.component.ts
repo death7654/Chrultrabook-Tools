@@ -84,7 +84,6 @@ export class FanSectionComponent {
   fan_max() {
     invoke("execute", { program: "ectool", arguments: ['fanduty', '100'], reply: false });
     this.selected_mode = 'Max';
-    this.selected_mode = 'Off';
     this.fan_auto_class = ' ';
     this.fan_off_class = ' ';
     this.fan_max_class = 'fan_max_selected';
