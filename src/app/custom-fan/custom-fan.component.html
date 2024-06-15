@@ -4,15 +4,12 @@
       Curves</h4>
   </div>
   <div class="p-1">
-    <select class="form-select fw-normal border-0 fs-4 text-white bg-secondary pt-2 h-100 rounded-3"
+    <select (click)="fan_profiles($event)" class="form-select fw-normal border-0 fs-4 text-white bg-secondary pt-2 h-100 rounded-3"
       aria-label="Default select example">
-      <option selected>Select</option>
-      <option value="Custom">Custom</option>
+      <option selected>Default</option>
       <option value="Aggressive">Aggressive</option>
-      <option value="Passive">Passive</option>
       <option value="Quiet">Quiet</option>
-      <option value="Max RPM">Max RPM</option>
-      <option value="Off">Off</option>
+      <option value="Custom">Custom</option>
     </select>
   </div>
   <div class="p-1 button">

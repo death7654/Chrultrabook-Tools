@@ -28,9 +28,8 @@ export class FanSectionComponent {
   async ngOnInit() {
 
     this.mode_source = this.mode.mode_selected.subscribe(res => {
-      console.log('click')
       this.selected_mode = res
-      console.log(this.selected_mode)
+      console.log(res)
     })
 
     setTimeout(async () => {
