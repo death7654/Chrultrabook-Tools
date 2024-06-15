@@ -1,5 +1,6 @@
 import { Component, ViewChild } from "@angular/core";
 import { FanSectionComponent } from "../home/fan-section/fan-section.component";
+import { FanService } from "../services/fan.service";
 import { ButtonComponent } from "../button/button.component";
 import { invoke } from "@tauri-apps/api/core";
 
@@ -16,15 +17,14 @@ import { default as dragData } from "chartjs-plugin-dragdata";
   styleUrl: "./custom-fan.component.scss",
 })
 export class CustomFanComponent {
+  mode_value: string = 'Custom'
 
-  save() 
-  {
-    console.log(this.lineChartData.datasets[0].data)
-    invoke("local_storage", {function: "save", option: "fan_curves", value: this.lineChartData.datasets[0].data.toString()})
-  }
+  constructor(private mode:FanService) { }
   save_and_apply()
   {
+    console.log('click')
     invoke("local_storage", {function: "save", option: "fan_curves", value: this.lineChartData.datasets[0].data.toString()})
+    this.mode.changeMode(this.mode_value)
   }
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;

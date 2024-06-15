@@ -18,6 +18,7 @@ export class KeyboardSectionComponent {
   extension: string = ''
 
   async ngOnInit() {
+    setTimeout(async () => {
     let output: string = await invoke("execute", { program: "ectool", arguments: ['pwmgetkblight'], reply: true });
     let split = output.split(" ");
     if (split[0] !== "Current")
@@ -31,6 +32,7 @@ export class KeyboardSectionComponent {
         this.percentage = Number(split[4])
         this.extension = '%'
       }
+    },0);
   }
 
   update_percentage(event: MouseEvent)
