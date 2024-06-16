@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -6,13 +6,14 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class FanService {
 
-  private fan_source = new BehaviorSubject('Auto');
-  mode_selected = this.fan_source.asObservable();
+  private fan_mode = new BehaviorSubject('N/A');
+  mode_selected = this.fan_mode.asObservable();
 
   constructor() { }
 
   changeMode(mode: string)
   {
-    this.fan_source.next(mode);
+    console.log(this.mode_selected)
+    this.fan_mode.next(mode);
   }
 }

@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonComponent } from '../../button/button.component';
 import { FanService } from '../../services/fan.service';
 import { invoke } from "@tauri-apps/api/core"
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-fan-section',
@@ -12,7 +11,6 @@ import { Subscription } from 'rxjs';
   styleUrl: './fan-section.component.scss',
 })
 export class FanSectionComponent {
-  mode_source!: Subscription;
   selected_mode: string = 'N/A'
   temp: string = '0'
   fan_exists: boolean = !true;
@@ -23,14 +21,11 @@ export class FanSectionComponent {
   fan_custom_class: string = '';
   extension: string = ''
 
-  constructor(private mode: FanService) {}
+  private fanService = inject(FanService)
 
   async ngOnInit() {
-
-    this.mode_source = this.mode.mode_selected.subscribe(res => {
-      this.selected_mode = res
-      console.log(res)
-    })
+    let data = this.fanService.mode_selected;
+    console.log(data)
 
     setTimeout(async () => {
       setInterval(this.get_cpu_temp, 2000);

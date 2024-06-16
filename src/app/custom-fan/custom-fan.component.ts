@@ -1,4 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, ViewChild, inject } from "@angular/core";
 import { FanSectionComponent } from "../home/fan-section/fan-section.component";
 import { FanService } from "../services/fan.service";
 import { ButtonComponent } from "../button/button.component";
@@ -17,14 +17,14 @@ import { default as dragData } from "chartjs-plugin-dragdata";
   styleUrl: "./custom-fan.component.scss",
 })
 export class CustomFanComponent {
-  mode_value: string = ' '
-
-  constructor(private mode:FanService) { }
+  mode_value: string = ' ';
+  
+  private fanService = inject(FanService)
+  
   save_and_apply()
   {
-    console.log('click')
+    this.fanService.changeMode(this.mode_value)
     invoke("local_storage", {function: "save", option: "fan_curves", value: this.lineChartData.datasets[0].data.toString()})
-    this.mode.changeMode(this.mode_value)
   }
   fan_profiles(event: MouseEvent)
   {
