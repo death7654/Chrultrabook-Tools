@@ -24,8 +24,9 @@ export class FanSectionComponent {
   private fanService = inject(FanService)
 
   async ngOnInit() {
-    let data = this.fanService.mode_selected;
-    console.log(data)
+    this.fanService.mode_selected.subscribe((res: string) =>{
+      console.log(res);
+    })
 
     setTimeout(async () => {
       setInterval(this.get_cpu_temp, 2000);
