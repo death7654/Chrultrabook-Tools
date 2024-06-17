@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
-          cache: 'linux'
+          cache: 'npm'
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
       - name: Install build dependencies

@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'windows'
+          cache: 'npm'
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable
       - name: install frontend dependencies
