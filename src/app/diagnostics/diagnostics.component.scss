@@ -1,8 +1,9 @@
+
 .diagnostics
 {
     display: grid;
     grid-template-columns: 1fr 3fr;
-    height: 350px;
+    height: 100%;
 }
 .buttons
 {
@@ -18,10 +19,6 @@
 .button2
 {
     padding-bottom: 1px; //me angry
-}
-.information_box
-{
-    height: 100%;
 }
 .box{
     white-space: pre;

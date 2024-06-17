@@ -33,13 +33,13 @@ export class CustomFanComponent {
     switch(fan_profile)
     {
       case "Default":
-        this.lineChartData.datasets[0].data = [0, 10, 25, 40, 60, 80, 95, 100, 100, 100, 100, 100];
+        this.lineChartData.datasets[0].data = [0, 10, 25, 40, 60, 80, 95, 100, 100, 100, 100, 100, 100];
         break;
       case "Aggressive":
-        this.lineChartData.datasets[0].data = [0, 10, 40, 50, 60, 90, 100, 100, 100, 100, 100, 100];
+        this.lineChartData.datasets[0].data = [0, 10, 40, 50, 60, 90, 100, 100, 100, 100, 100, 100, 100];
         break;
       case "Quiet":
-        this.lineChartData.datasets[0].data = [0, 15, 20, 30, 40, 55, 90, 100, 100, 100, 100, 100];
+        this.lineChartData.datasets[0].data = [0, 15, 20, 30, 40, 55, 90, 100, 100, 100, 100, 100, 100];
         break;
     }
     this.chart?.update();
@@ -52,7 +52,7 @@ export class CustomFanComponent {
     
     datasets: [
       {
-        data: [0, 10, 25, 40, 60, 80, 95, 100, 100, 100, 100, 100],
+        data: [0, 10, 25, 40, 60, 80, 95, 100, 100, 100, 100, 100, 100],
         label: "Fan Speed In Percentage",
         backgroundColor: "rgba(232,72,85,0.1)",
         borderColor: "#FF6694",
@@ -64,6 +64,8 @@ export class CustomFanComponent {
       },
     ],
     labels: [
+      "30°C",
+      "35°C",
       "40°C",
       "45°C",
       "50°C",
@@ -73,6 +75,7 @@ export class CustomFanComponent {
       "70°C",
       "75°C",
       "80°C",
+      "85°C",
     ],
   };
 

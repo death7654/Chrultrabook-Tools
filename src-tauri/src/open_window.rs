@@ -4,6 +4,7 @@ pub async fn new_window(
     angular_path: &str, //same as routing path in app.routes.ts
     width: f64,
     height: f64,
+    resizeable: bool
 ) -> tauri::WebviewWindow<tauri::Wry> {
     return tauri::WebviewWindowBuilder::new(
         handle,
@@ -12,8 +13,8 @@ pub async fn new_window(
     )
     .inner_size(width, height)
     .title(label)
-    .resizable(false)
-    .maximizable(false)
+    .resizable(resizeable)
+    .maximizable(resizeable)
     .build()
     .unwrap();
 }
