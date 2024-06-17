@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ButtonComponent } from '../../button/button.component';
 import { FanService } from '../../services/fan.service';
 import { invoke } from "@tauri-apps/api/core"
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-fan-section',
@@ -21,10 +22,13 @@ export class FanSectionComponent {
   fan_custom_class: string = '';
   extension: string = ''
 
+  destroy = new Subject();
+
+
   private fanService = inject(FanService)
 
   async ngOnInit() {
-    this.fanService.mode_selected.subscribe((res: string) =>{
+    this.fanService.mode_selected.pipe(takeUntil(this.destroy)).subscribe((res: string) =>{
       console.log(res);
     })
 
