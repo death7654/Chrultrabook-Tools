@@ -156,7 +156,8 @@ fn boardname(handle: tauri::AppHandle) -> String {
             "wmic",
             helper::to_vec_string(vec!["baseboard", "get", "Product"]),
             true,
-        );
+        ).trim().split("\n").map(|x| x.to_string()).collect::<Vec<String>>()[2].clone()
+        
     }
     #[cfg(target_os = "linux")]
     {
@@ -165,7 +166,7 @@ fn boardname(handle: tauri::AppHandle) -> String {
             "cat",
             vec!["/sys/class/dmi/id/product_name".to_string()],
             true,
-        );
+        )
     }
 
     #[cfg(target_os = "macos")]
