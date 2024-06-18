@@ -1,25 +1,17 @@
-<div class="header p-1 pt-2 pb-2">
-  <div class="p-2">
-    <h4 class="fs-3 fw-heavy pt-2"><img src="../../assets/fan/custom_fan.svg" class="align-text-middle px-2">Custom Fan
-      Curves</h4>
-  </div>
-  <div class="p-1">
-    <select (click)="fan_profiles($event)" class="form-select fw-normal border-0 fs-4 text-white bg-secondary pt-2 h-100 rounded-3"
-      aria-label="Default select example">
-      <option selected>Default</option>
-      <option value="Aggressive">Aggressive</option>
-      <option value="Quiet">Quiet</option>
-      <option value="Custom">Custom</option>
-    </select>
-  </div>
-  <div class="p-1 button">
-    <app-button [button_label]="'Save and Apply'" [button_class]="'fan_custom fs-4 fw-normal lh-sm'"
-      (click)="save_and_apply()"></app-button>
-  </div>
+<div class="p-2">
+  <h4 class="fs-3 fw-heavy pt-2"><img src="../../assets/fan/custom_fan.svg" class="align-text-middle px-2">Custom Fan
+    Curves</h4>
 </div>
-<div class="chart">
-  <div class="p-2 pt-0 w-100">
-    <canvas class="bg-dark p-2 rounded-3 w-100" baseChart [data]="lineChartData" [options]="lineChartOptions"
-      [type]="'line'"></canvas>
+<div class="window">
+  <div class="button p-1 pt-0 ps-2 pe-0 h-50 position-relative">
+    <app-button [button_label]="'Fan Curves'" [button_class]="'fan_custom fs-4 fw-normal lh-sm' + ' ' + curves"
+      routerLink="fan_curves" (click)="fan_curves()"></app-button>
+    <app-button [button_label]="'Profiles'" [button_class]="'fan_custom fs-4 fw-normal lh-sm' + ' ' + profile"
+      routerLink="fan_profiles" (click)="fan_profile()"></app-button>
+    <app-button [button_label]="'Data'" [button_class]="'fan_custom fs-4 fw-normal lh-sm' + ' ' + data"
+      routerLink="fan_data" (click)="fan_data()"></app-button>
+  </div>
+  <div>
+    <router-outlet></router-outlet>
   </div>
 </div>

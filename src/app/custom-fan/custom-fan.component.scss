@@ -1,13 +1,14 @@
-.header
+.window
 {
+    width: 700px;
+    height: 85vh; 
     display: grid;
-    grid-template-columns: 5fr 2fr 2fr;
-}
-.fan_curves
-{
-    height: 100%;
+    grid-template-columns: 1fr 3fr;
 }
 .button
 {
-    padding-bottom: 5px !important;
+    display: grid;
+    grid-template-rows: auto auto auto;
+    row-gap: 10px;
+    padding-top: 100px;
 }
