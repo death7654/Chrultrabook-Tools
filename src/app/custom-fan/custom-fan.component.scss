@@ -1,14 +1,12 @@
 .window
 {
-    width: 700px;
-    height: 85vh; 
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 1fr 5fr;
 }
 .button
 {
     display: grid;
-    grid-template-rows: auto auto auto;
+    grid-template-rows: 1fr 1fr 1fr;
     row-gap: 10px;
-    padding-top: 100px;
+    height: 29%;
 }

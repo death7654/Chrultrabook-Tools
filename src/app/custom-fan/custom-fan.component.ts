@@ -14,6 +14,12 @@ export class CustomFanComponent {
   profile: string = '';
   fan_data: string = '';
 
+  refresh()
+  {
+    console.log('hi')
+    window.location.reload()
+  }
+
   data = [
     {
       name: "Default",

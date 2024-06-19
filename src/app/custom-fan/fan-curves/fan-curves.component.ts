@@ -78,6 +78,8 @@ export class FanCurvesComponent {
   };
 
   public lineChartOptions: ChartConfiguration["options"] = {
+    responsive: true,
+    maintainAspectRatio: false,
     scales: {
       y: {
         position: "left",

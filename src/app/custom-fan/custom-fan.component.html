@@ -1,9 +1,9 @@
-<div class="p-2">
+<div class="p-2" (window:resize)="refresh()">
   <h4 class="fs-3 fw-heavy pt-2"><img src="../../assets/fan/custom_fan.svg" class="align-text-middle px-2">Custom Fan
     Curves</h4>
 </div>
-<div class="window">
-  <div class="button p-1 pt-0 ps-2 pe-0 h-50 position-relative">
+<div class="window h-100">
+  <div class="button p-0 pt-0 ps-2">
     <app-button [button_label]="'Fan Curves'" [button_class]="'fan_custom fs-4 fw-normal lh-sm' + ' ' + curves"
       routerLink="fan_curves" (click)="fan_curves()"></app-button>
     <app-button [button_label]="'Profiles'" [button_class]="'fan_custom fs-4 fw-normal lh-sm' + ' ' + profile"

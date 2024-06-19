@@ -1,7 +1,17 @@
-.container
+
+.container2
 {
     display: grid;
-    grid-template-rows: 1fr 1fr 5fr;
+    grid-template-rows: 1fr 10fr;
     row-gap: 10px;
-    height: 100%;
+}
+.options
+{
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 10px;
+}
+.chart
+{
+    height: 83% !important;
 }

@@ -48,7 +48,7 @@ export class FanSectionComponent {
       setInterval(this.get_cpu_temp, 2000);
     }, 0);
     let output: String = await invoke("execute", { program: "ectool", arguments: ['pwmgetfanrpm', "all"], reply: true })
-    let split = 'boo'//output.split(" ");
+    let split = output.split(" ");
     if (split[0] !== "Fan") {
       this.fan_exists = true
       this.disabled_class = 'disabled'
