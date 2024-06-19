@@ -17,19 +17,17 @@ import { default as dragData } from "chartjs-plugin-dragdata";
   styleUrl: './fan-curves.component.scss'
 })
 export class FanCurvesComponent {
-  mode_value: string = ' ';
+  mode_value: string = 'Default';
   
-  private fanService = inject(FanService)
-  
+  constructor(private fan_mode: FanService){}
   save_and_apply()
   {
-    this.fanService.changeMode(this.mode_value)
+    this.fan_mode.changeMode(this.mode_value);
     invoke("local_storage", {function: "save", option: "fan_curves", value: this.lineChartData.datasets[0].data.toString()})
   }
   fan_profiles(event: MouseEvent)
   {
     let fan_profile = (event.target as HTMLInputElement).value;
-    console.log(fan_profile);
     switch(fan_profile)
     {
       case "Default":

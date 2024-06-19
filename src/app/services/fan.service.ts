@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FanService {
 
-  private fan_mode = new BehaviorSubject('N/A');
-  mode_selected = this.fan_mode.asObservable();
+  selected_mode = 'custom';
+  modeChange: Subject<string> = new Subject<string>;
 
-  getMode()
-  {
-    return this.mode_selected
-  }
   changeMode(mode: string)
   {
-    console.log(this.mode_selected)
-    this.fan_mode.next(mode);
+    console.log(mode)
+    this.selected_mode = mode
+    this.modeChange.next(mode)
   }
+  getMode() {
+    return this.selected_mode;
+  }
+
 }

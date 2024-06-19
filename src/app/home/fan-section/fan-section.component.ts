@@ -10,11 +10,12 @@ import { Subject, takeUntil } from 'rxjs';
   imports: [ButtonComponent],
   templateUrl: './fan-section.component.html',
   styleUrl: './fan-section.component.scss',
+  providers: [FanService]
 })
 export class FanSectionComponent {
   selected_mode: string = 'N/A'
   temp: string = '0'
-  fan_exists: boolean = !true;
+  fan_exists: boolean = false;
   disabled_class: string = ''
   fan_auto_class: string = '';
   fan_off_class: string = '';
@@ -22,23 +23,34 @@ export class FanSectionComponent {
   fan_custom_class: string = '';
   extension: string = ''
 
-  destroy = new Subject();
+  fanService: FanService = inject(FanService);
 
+  constructor(){}
 
-  private fanService = inject(FanService)
+  get mode(): string
+  {
+    return this.fanService.selected_mode;
+  }
+
+  test()
+  {
+    console.log(this.selected_mode)
+  }
 
   async ngOnInit() {
-    this.fanService.mode_selected.pipe(takeUntil(this.destroy)).subscribe((res: string) =>{
-      console.log(res);
+    this.fanService.modeChange.subscribe(value => {
+      let mode = this.fanService.getMode()
+      this.selected_mode = mode;
+      console.log(value);
     })
 
     setTimeout(async () => {
       setInterval(this.get_cpu_temp, 2000);
     }, 0);
     let output: String = await invoke("execute", { program: "ectool", arguments: ['pwmgetfanrpm', "all"], reply: true })
-    let split = output.split(" ");
+    let split = 'boo'//output.split(" ");
     if (split[0] !== "Fan") {
-      this.fan_exists = false
+      this.fan_exists = true
       this.disabled_class = 'disabled'
       this.extension = 'N/A'
     }

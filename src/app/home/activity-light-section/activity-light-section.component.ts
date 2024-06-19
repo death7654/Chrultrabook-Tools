@@ -15,7 +15,6 @@ export class ActivityLightSectionComponent {
   async ngOnInit()
   {
     let output: string = await invoke("boardname")
-    console.log(output)
     if (output == "Candy" || output == "Kefka")
       {
         this.disabled = false
