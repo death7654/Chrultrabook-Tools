@@ -37,4 +37,4 @@ jobs:
         with:
           name: Chrultrabook-Controller
           retention-days: 5
-          path: target/release/chrultrabook*.exe
+          path: src-tauri/target/release/chrultrabook*.exe
