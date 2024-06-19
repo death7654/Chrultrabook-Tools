@@ -9,8 +9,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-latest]
-
+        include:
+          - platform: 'macos-latest'
+            args: '--target x86_64-apple-darwin'
+            
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v4
