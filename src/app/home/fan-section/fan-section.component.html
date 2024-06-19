@@ -4,6 +4,7 @@
   <h4 class="fs-4 fw-heavy pt-2" [class]="disabled_class">Fan: <span id="fanRPM">0</span> {{extension}}</h4>
 </div>
 <div class="button_format grid p-1 pt-2 px-2" [class]="disabled_class">
+  <!--change test to fan_auto once service is working-->
   <app-button
     (click)="test()"
     [button_label]="'Auto'"
