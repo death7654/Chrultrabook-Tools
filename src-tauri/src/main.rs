@@ -105,7 +105,7 @@ fn diagnostics(handle: tauri::AppHandle, selected: &str) -> String {
                 true,
             )
         }
-        "Power Delivery Information" => {
+        "Power Delivery Information" => {   
             output = execute(handle, "ectool", helper::to_vec_string(vec!["pdlog"]), true)
         }
         _ => output = "Select An Option".to_string(),
