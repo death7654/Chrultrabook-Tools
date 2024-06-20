@@ -23,10 +23,13 @@ export class DiagnosticsComponent {
       }
   }
 
-  select(event: MouseEvent)
+  async select(event: MouseEvent)
   {
     this.selected_function = (event.target as HTMLInputElement).value
-    this.collected_info = await invoke("diagnostics", {selected: this.selected_function})
+    if(this.selected_function !== "Select")
+      {
+        this.collected_info = await invoke("diagnostics", {selected: this.selected_function})
+      }
   }
 
   async get_info(event: MouseEvent) {
