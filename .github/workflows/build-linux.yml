@@ -34,7 +34,7 @@ jobs:
         with:
           name: Chrultrabook-Controller
           retention-days: 5
-          path: target/release/bundle/appimage/chrultrabook*.AppImage
+          path: src-tauri/target/release/bundle/appimage/chrultrabook*.AppImage
       - uses: tauri-apps/tauri-action@v0
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
