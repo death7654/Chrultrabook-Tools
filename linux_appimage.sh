@@ -14,10 +14,15 @@ APPDIR="$(find $APPIMAGEDIR -name "chrultrabook-tools*.AppDir")"
 APPIMAGE="$(find $APPIMAGEDIR -name "chrultrabook-tools*.AppImage")"
 APPIMAGETOOLURL="https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage"
 
+if [[ -z $APPDIR ]] || [[ -z $APPIMAGE ]]; then
+	echo "Error: Unable to find AppImage"
+	exit 1
+fi
+
 # modify appimage to add our stuff
 rm $APPIMAGE
 cd $APPIMAGEDIR
-cp $ROOT/linux/AppRun $APPDIR
+cp $ROOT/Linux/AppRun $APPDIR
 curl -L https://tree123.org/chrultrabook/utils/ectool -o $APPDIR/usr/bin/ectool
 curl -L https://tree123.org/chrultrabook/utils/cbmem -o $APPDIR/usr/bin/cbmem
 chmod +x $APPDIR/usr/bin/*

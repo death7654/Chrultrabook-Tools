@@ -35,13 +35,4 @@ jobs:
           name: Chrultrabook-Controller
           retention-days: 5
           path: src-tauri/target/release/bundle/appimage/chrultrabook*.AppImage
-      - uses: tauri-apps/tauri-action@v0
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tagName: __VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
-          releaseName: 'v__VERSION__'
-          releaseBody: 'See the assets to download this version and install. Replace AppImage with one uploaded in artifact'
-          releaseDraft: true
-          prerelease: false
   
