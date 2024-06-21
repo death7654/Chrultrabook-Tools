@@ -38,6 +38,7 @@ export class FanSectionComponent {
   }
 
   async ngOnInit() {
+
     this.fanService.modeChange.subscribe(value => {
       let mode = this.fanService.getMode()
       this.selected_mode = mode;

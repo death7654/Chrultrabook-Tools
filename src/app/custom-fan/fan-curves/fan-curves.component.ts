@@ -1,9 +1,10 @@
 import { Component, ViewChild, inject } from "@angular/core";
 import { FanSectionComponent } from "../../home/fan-section/fan-section.component";
 import { FanService } from "../../services/fan.service";
+import { profile } from "../../services/profiles";
 import { ButtonComponent } from "../../button/button.component";
 import { invoke } from "@tauri-apps/api/core";
-
+import { NgFor } from "@angular/common";
 
 import { BaseChartDirective } from "ng2-charts";
 import { ChartConfiguration, Plugin, Chart } from "chart.js/auto";
@@ -12,36 +13,34 @@ import { default as dragData } from "chartjs-plugin-dragdata";
 @Component({
   selector: 'app-fan-curves',
   standalone: true,
-  imports: [BaseChartDirective, ButtonComponent, FanSectionComponent],
+  imports: [BaseChartDirective, ButtonComponent, FanSectionComponent, NgFor],
   templateUrl: './fan-curves.component.html',
   styleUrl: './fan-curves.component.scss'
 })
 export class FanCurvesComponent {
   mode_value: string = 'Default';
-  
-  constructor(private fan_mode: FanService){}
-  save_and_apply()
+  profiles: profile[] = []
+  fan_service: FanService = inject(FanService)
+
+  constructor(){
+    this.profiles = this.fan_service.getProfiles()
+  }
+
+  save()
   {
-    this.fan_mode.changeMode(this.mode_value);
     invoke("local_storage", {function: "save", option: "fan_curves", value: this.lineChartData.datasets[0].data.toString()})
+  }
+  apply()
+  {
+    console.log('apply')
   }
   fan_profiles(event: MouseEvent)
   {
-    let fan_profile = (event.target as HTMLInputElement).value;
-    switch(fan_profile)
-    {
-      case "Default":
-        this.lineChartData.datasets[0].data = [0, 10, 25, 40, 60, 80, 95, 100, 100, 100, 100, 100, 100];
-        break;
-      case "Aggressive":
-        this.lineChartData.datasets[0].data = [0, 10, 40, 50, 60, 90, 100, 100, 100, 100, 100, 100, 100];
-        break;
-      case "Quiet":
-        this.lineChartData.datasets[0].data = [0, 15, 20, 30, 40, 55, 90, 100, 100, 100, 100, 100, 100];
-        break;
-    }
+    let profile = (event.target as HTMLInputElement).value;
+    let array = this.fan_service.getProfileArrayByName(profile)
+    this.lineChartData.datasets[0].data = array!.array
     this.chart?.update();
-    this.mode_value = fan_profile;
+    this.mode_value = profile;
   }
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
