@@ -1,21 +1,22 @@
 <div class="input-group px-2" data-bs-theme="dark">
-    <input type="text" id="text" autocomplete="off" class="form-control p-1 rounded-3 w-100 bg-secondary text-bg-dark px-2" placeholder="Profile Name">
-    <app-button class="p-1 h-100 pt-0 pb-0 ps-2" [button_class]="'fan_custom p-0'"
-        [svg]="'../assets/fan/add.svg'" (click)="addProfiles()" ></app-button>
+    <input type="text" id="text" autocomplete="off"
+        class="form-control p-1 rounded-3 w-100 bg-secondary text-bg-dark px-2" placeholder="Profile Name" required>
+    <app-button class="p-1 h-100 pt-0 pb-0 ps-2" [button_class]="'fan_custom p-0'" [svg]="'../assets/fan/add.svg'"
+        (click)="addProfiles()"></app-button>
 </div>
 <div class="table-css p-3 ps-2">
-<table class="table table-dark rounded-3">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Profiles</th>
-        </tr>
-    </thead>
-    <tbody *ngFor="let item of profiles; let i = index;">
-        <tr>
-            <th scope="row"></th>
-            <td>{{item.name}}</td> 
-        </tr>
-    </tbody>
-</table>
+    <table class="table table-dark rounded-3 overflow-auto">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Profiles</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let item of profiles; let i = index;">
+            <tr>
+                <th scope="row"></th>
+                <td>{{item.name}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>

@@ -23,7 +23,8 @@ export class FanCurvesComponent {
   fan_service: FanService = inject(FanService)
 
   constructor(){
-    this.profiles = this.fan_service.getProfiles()
+    setTimeout(() =>{this.profiles = this.fan_service.getProfiles();
+    },550)
   }
 
   save()

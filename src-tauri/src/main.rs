@@ -127,7 +127,7 @@ fn local_storage(function: &str, option: &str, value: &str) -> String {
     if function == "get" {
         match web_local_storage_api::get_item(option) {
             Ok(out) => return out.unwrap_or(String::new()),
-            Err(_err) => return String::new()
+            Err(_err) => return "null".to_string()
         }
     } else if function == "remove"
     {
@@ -137,6 +137,11 @@ fn local_storage(function: &str, option: &str, value: &str) -> String {
     else if function == "save" {
         let _ = web_local_storage_api::set_item(option, value);
         return String::new();
+    }
+    else if function == "clear"
+    {
+        let _ = web_local_storage_api::clear();
+        return String::new()
     }
     return String::new();
 }
@@ -202,6 +207,20 @@ fn autostart(app: AppHandle, value: bool) {
         let _ = autolaunch.enable();
     } else if !value || enabled_state {
         let _ = autolaunch.disable();
+    }
+}
+#[tauri::command]
+async fn get_json() -> String
+{
+    let output = local_storage("get", "profiles", "");
+    let default_array = String::from("[{\"id\":0,\"name\":\"Default\",\"array\":[0,10,25,40,60,80,95,100,100,100,100,100,100],\"selected\":true},{\"id\":1,\"name\":\"Aggressive\",\"array\":[0,10,40,50,60,90,100,100,100,100,100,100,100],\"selected\":false},{\"id\":2,\"name\":\"Quiet\",\"array\":[0,15,20,30,40,55,90,100,100,100,100,100,100],\"selected\":false}]");
+    if output.contains("id") == false
+    {
+        return default_array
+    }
+    else
+    {
+        return output;
     }
 }
 
@@ -317,7 +336,8 @@ fn main() {
             boardname,
             os,
             change_activity_light,
-            autostart
+            autostart,
+            get_json
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
