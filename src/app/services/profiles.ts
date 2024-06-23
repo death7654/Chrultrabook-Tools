@@ -3,5 +3,6 @@ export interface profile {
     name: string;
     array: any;
     selected: boolean;
+    disabled: boolean;
   }
   

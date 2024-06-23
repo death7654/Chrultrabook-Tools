@@ -26,6 +26,7 @@
     "@tauri-apps/plugin-store": "^2.0.0-beta.5",
     "@types/chart.js": "^2.9.41",
     "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
     "chart.js": "^4.4.3",
     "chartjs-plugin-dragdata": "^2.2.5",
     "ng2-charts": "^6.0.1",
