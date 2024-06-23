@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, HostListener, inject } from "@angular/core";
 import { ButtonComponent } from "../../button/button.component";
 import { FanService } from "../../services/fan.service";
 import { profile } from "../../services/profiles";
@@ -11,6 +11,7 @@ import { NgFor } from "@angular/common";
   templateUrl: "./fan-profiles.component.html",
   styleUrl: "./fan-profiles.component.scss",
 })
+
 export class FanProfilesComponent {
   edit_class: string = 'transparent'
   img_class: string = 'btn-outline-info'
@@ -26,10 +27,20 @@ export class FanProfilesComponent {
     }, 550);
   }
 
+  @HostListener('window:keydown', ['$event'])
+  enter(event: KeyboardEvent)
+  {
+    if (event.code == 'Enter')
+      {
+        this.addProfiles();
+      }
+  }
+
   addProfiles() {
     let name = (document.getElementById("text") as HTMLInputElement).value;
     if (name !== "")
       {
+        (document.getElementById('text') as HTMLInputElement).value = " ";
         this.fan_service.addProfile(name);
       }
   }
@@ -38,11 +49,6 @@ export class FanProfilesComponent {
   {
     this.global_id = i;
     this.editProfile(i)
-  }
-
-  removeTransparent()
-  {
-    document.getElementById('profile_editor')!.classList.remove('transparent')
   }
 
   editProfile(i: number)
