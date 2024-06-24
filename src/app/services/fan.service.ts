@@ -37,7 +37,10 @@ export class FanService {
       name: name,
       array: [0, 10, 25, 40, 60, 80, 95, 100, 100, 100, 100, 100, 100],
       selected: false,
-      disabled: true
+      disabled: true,
+      class: "transparent",
+      img_class: "btn-outline-info",
+      img: "\uF4CB"
     };
     this.profiles_list.push(newProfile);
     let jsonString = JSON.stringify(this.profiles_list);
@@ -48,15 +51,26 @@ export class FanService {
     });
   }
 
+  editProfileName(i: number, name: string)
+  {
+    this.profiles_list[i].name = name;
+    this.save_to_rust();
+  }
+
   deleteProfile(i: number)
   {
     this.profiles_list.splice(i, 1);
+    this.save_to_rust();
+  }
+
+  save_to_rust()
+  {
     let jsonString = JSON.stringify(this.profiles_list);
     invoke("local_storage", {
       function: "save",
       option: "profiles",
       value: jsonString,
-    });
+    }); 
   }
 
   changeMode(mode: string) {

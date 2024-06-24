@@ -4,5 +4,8 @@ export interface profile {
     array: any;
     selected: boolean;
     disabled: boolean;
+    class: string;
+    img_class: string;
+    img: string;
   }
   

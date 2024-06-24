@@ -13,7 +13,7 @@ import { NgFor } from "@angular/common";
 })
 
 export class FanProfilesComponent {
-  edit_class: string = 'transparent'
+  edit: boolean = false
   img_class: string = 'btn-outline-info'
   img: string = "\uF4CB";
   global_id: number = 10000;
@@ -24,6 +24,7 @@ export class FanProfilesComponent {
   constructor() {
     setTimeout(() => {
       this.profiles = this.fan_service.getProfiles();
+      console.log(this.profiles)
     }, 550);
   }
 
@@ -49,26 +50,33 @@ export class FanProfilesComponent {
   {
     this.global_id = i;
     this.editProfile(i)
+
   }
 
   editProfile(i: number)
   {
     console.log(i)
-    if (i === this.global_id && this.img === "\uF4CB")
+    if(this.profiles[i].class === "transparent")
       {
-        this.edit_class = 'edit bg-secondary text-bg-dark'
-        this.img_class = 'btn-outline-success'
-        this.img = '\uF7D8'
-        this.profiles[i].disabled = false
+        this.profiles[i].class = "edit"
+        this.profiles[i].img = '\uF7D8'
+        this.profiles[i].img_class = 'btn-outline-success'
+        this.profiles[i].disabled = false;
       }
-      else if(this.global_id === i)
+      else
       {
-        this.edit_class = 'transparent'
-        this.img_class = 'btn-outline-info'
-        this.img = '\uF4CB'
-        this.profiles[i].disabled = true
+        this.profiles[i].class = "transparent"
+        this.profiles[i].img = '\uF4CB'
+        this.profiles[i].img_class = 'btn-outline-info'
+        this.profiles[i].disabled = true;
+        let changed_name = (document.getElementById(this.profiles[i].id.toString()) as HTMLInputElement).value
+        if (changed_name !== "")
+          {
+            this.profiles[i].name = changed_name;
+            this.fan_service.editProfileName(i, changed_name);
+            (document.getElementById(this.profiles[i].id.toString()) as HTMLInputElement).value = "";
+          }
       }
-    
   }
 
   deleteProfiles(i: number)

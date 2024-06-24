@@ -22,8 +22,8 @@
         <tbody *ngFor="let item of profiles; let i = index;">
             <tr>
                 <th scope="row"></th>
-                <td class="w-100" colspan="4"><input type="text" autocomplete="off" class="form-control text-bg-dark" #profile_editor [class]="edit_class" [placeholder]="item.name" [disabled]="item.disabled"></td>
-                <td><button type="button" class="btn" [class]="img_class" (click)="changeGlobalID(i)">{{img}}</button></td><!--edit-->
+                <td class="w-100" colspan="4"><input type="text" autocomplete="off" class="form-control text-bg-dark" [id]="item.id.toString()" [class]="item.class"  [placeholder]="item.name" [disabled]="item.disabled"></td>
+                <td><button type="button" class="btn" [class]="item.img_class" (click)="changeGlobalID(i)">{{item.img}}</button></td><!--edit-->
                 <td><button type="button" class="btn btn-outline-danger" (click)="deleteProfiles(i)">&#xF78B;</button></td><!--delete-->
             </tr>
         </tbody>
