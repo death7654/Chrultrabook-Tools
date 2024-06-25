@@ -22,6 +22,8 @@ jobs:
           cache: 'npm'
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable
+      - name: add Darwin Rust
+        run: rustup target add x86_64-apple-darwin
       - name: install frontend dependencies
         run: npm install # change this to npm or pnpm depending on which one you use
       - uses: tauri-apps/tauri-action@v0
