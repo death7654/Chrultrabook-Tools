@@ -176,7 +176,7 @@ fn boardname(handle: tauri::AppHandle) -> String {
             "cat",
             vec!["/sys/class/dmi/id/product_name".to_string()],
             true,
-        )
+        ).trim()
     }
 
     #[cfg(target_os = "macos")]
