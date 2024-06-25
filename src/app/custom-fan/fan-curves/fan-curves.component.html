@@ -2,13 +2,13 @@
   <div class="options w-100 h-100">
     <div>
       <select (click)="fan_profiles($event)"
-        class="form-select fw-normal border-0 fs-4 text-white bg-secondary h-100 rounded-3">
-        <option *ngFor="let item of profiles; let i = index" [selected]="item.selected" [value]="item.name">{{item.name}}</option>
+        class="form-select fw-normal border-0 fs-4 text-white bg-secondary h-100 rounded-3" id="selector">
+        <option *ngFor="let item of profiles; public let i = index" [selected]="item.selected" [value]="item.name">{{item.name}}</option>
       </select>
     </div>
     <div class="w-100 h-100">
       <app-button [button_label]="'Save'" [button_class]="'fan_custom fs-4 fw-normal lh-sm'"
-        (click)="save()"></app-button>
+        (click)="saveArray()"></app-button>
     </div>
     <div class="w-100 h-100">
       <app-button [button_label]="'Apply'" [button_class]="'fan_custom fs-4 fw-normal lh-sm'"

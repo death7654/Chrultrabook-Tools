@@ -24,7 +24,6 @@ export class FanProfilesComponent {
   constructor() {
     setTimeout(() => {
       this.profiles = this.fan_service.getProfiles();
-      console.log(this.profiles)
     }, 550);
   }
 

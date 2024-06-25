@@ -27,6 +27,19 @@ export class FanService {
     return this.profiles_list.find((profile) => profile.name === name);
   }
 
+  getProfileIndexByName(name: string)
+  {
+    let objIndex = -1;
+    for (let i = 0; i < this.profiles_list.length; i++) {
+      if (this.profiles_list[i].name === name) {
+          objIndex = i;
+          return objIndex;
+          break;
+      }
+  }
+  return -1
+  }
+
   addProfile(name: string) {
     let id = 0;
     for (let key in this.profiles_list) {
