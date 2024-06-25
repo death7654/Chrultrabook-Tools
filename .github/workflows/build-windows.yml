@@ -33,8 +33,9 @@ jobs:
           releaseDraft: true
           prerelease: false
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Chrultrabook-Controller
           retention-days: 5
           path: src-tauri/target/release/chrultrabook*.exe
+

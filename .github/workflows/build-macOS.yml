@@ -3,13 +3,16 @@ on:
   push:
     branches: [ "3.X.X" ]
   workflow_dispatch:
-
 jobs:
   test-tauri:
     strategy:
       fail-fast: false
-            
-    runs-on: macos-13
+      matrix:
+        include:
+          - platform: 'macos-latest'
+            args: '--target x86_64-apple-darwin'
+
+    runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v4
       - name: setup node
@@ -30,3 +33,4 @@ jobs:
           releaseBody: 'See the assets to download this version and install. Replace AppImage with one uploaded in artifact'
           releaseDraft: true
           prerelease: false
+          args: ${{ matrix.args }}

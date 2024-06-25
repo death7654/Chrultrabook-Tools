@@ -25,8 +25,16 @@ jobs:
           sudo apt install libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev desktop-file-utils libudev-dev
       - name: Install npm dependencies
         run: npm install 
-      - name: Build application
-        run: npm run tauri build
+      - name: Build Application
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: __VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
+          releaseName: 'v__VERSION__'
+          releaseBody: 'See the assets to download this version and install. Replace AppImage with one uploaded in artifact'
+          releaseDraft: true
+          prerelease: false
       - name: Linux AppImage Packaging
         run: ./linux_appimage.sh
       - name: Upload build artifacts
