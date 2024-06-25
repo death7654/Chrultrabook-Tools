@@ -1,18 +1,18 @@
 <div class="container2 p-2 pt-0 w-100 h-100 ">
   <div class="options w-100 h-100">
     <div>
-      <select (click)="fan_profiles($event)"
+      <select (click)="fan_profiles()"
         class="form-select fw-normal border-0 fs-4 text-white bg-secondary h-100 rounded-3" id="selector">
         <option *ngFor="let item of profiles; public let i = index" [selected]="item.selected" [value]="item.name">{{item.name}}</option>
       </select>
     </div>
     <div class="w-100 h-100">
       <app-button [button_label]="'Save'" [button_class]="'fan_custom fs-4 fw-normal lh-sm'"
-        (click)="saveArray()"></app-button>
+        (click)="save()"></app-button>
     </div>
     <div class="w-100 h-100">
-      <app-button [button_label]="'Apply'" [button_class]="'fan_custom fs-4 fw-normal lh-sm'"
-        (click)="apply()"></app-button>
+      <app-button [button_label]="'Save And Apply'" [button_class]="'fan_custom fs-4 fw-normal lh-sm'"
+        (click)="saveAndApply()"></app-button>
     </div>
   </div>
   <div class="pt-0 pb-0 h-100 chart">

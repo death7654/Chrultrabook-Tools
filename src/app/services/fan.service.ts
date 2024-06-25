@@ -70,6 +70,34 @@ export class FanService {
     this.save_to_rust();
   }
 
+  editFanCurves(i: number, array: any)
+  {
+    this.profiles_list[i].array = array
+    this.save_to_rust();
+  }
+
+  saveSelected(index: number)
+  {
+    for(let i = 0; i < this.profiles_list.length; i++)
+      {
+        this.profiles_list[i].selected = false;
+      }
+    this.profiles_list[index].selected = true;
+    this.save_to_rust();
+  }
+
+  getSelected()
+  {
+    for(let i = 0; i < this.profiles_list.length; i++)
+      {
+        if (this.profiles_list[i].selected === true)
+          {
+            return [this.profiles_list[i].name, this.profiles_list[i].array]
+          }
+      }
+      return 'Auto'
+  }
+
   deleteProfile(i: number)
   {
     this.profiles_list.splice(i, 1);
@@ -78,19 +106,21 @@ export class FanService {
 
   save_to_rust()
   {
-    let jsonString = JSON.stringify(this.profiles_list);
     invoke("local_storage", {
       function: "save",
       option: "profiles",
-      value: jsonString,
+      value: JSON.stringify(this.profiles_list),
     }); 
   }
 
+
+  //functions below are WIP
   changeMode(mode: string) {
     console.log(mode);
     this.selected_mode = mode;
     this.modeChange.next(mode);
   }
+
   getMode() {
     return this.selected_mode;
   }

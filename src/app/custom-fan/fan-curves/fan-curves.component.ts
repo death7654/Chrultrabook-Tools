@@ -18,39 +18,39 @@ import DragData from "chartjs-plugin-dragdata";
   styleUrl: "./fan-curves.component.scss",
 })
 export class FanCurvesComponent {
-  mode_value: string = "Default";
+  mode_value: string = " ";
   profiles: profile[] = [];
   fan_service: FanService = inject(FanService);
-  selected_option: number = 10000000000
 
   constructor() {
     setTimeout(() => {
       this.profiles = this.fan_service.getProfiles();
+      console.log(this.profiles);
+      setTimeout(() => {
+        this.fan_profiles()
+      });
     }, 550);
   }
 
   ngOnInit() {
     Chart.register(DragData);
   }
-  saveArray()
-  {
+
+  save() {
     let name = (document.getElementById('selector') as HTMLInputElement).value
     let index = this.fan_service.getProfileIndexByName(name)
     console.log(index);
+    this.fan_service.editFanCurves(index, this.lineChartData.datasets[0].data)
+  }
+  saveAndApply() {
+    this.save();
+    let name = (document.getElementById('selector') as HTMLInputElement).value
+    let index = this.fan_service.getProfileIndexByName(name)
+    this.fan_service.saveSelected(index);
   }
 
-  save() {
-    invoke("local_storage", {
-      function: "save",
-      option: "fan_curves",
-      value: this.lineChartData.datasets[0].data.toString(),
-    });
-  }
-  apply() {
-    console.log("apply");
-  }
-  fan_profiles(event: MouseEvent) {
-    let profile = (event.target as HTMLInputElement).value;
+  fan_profiles() {
+    let profile = (document.getElementById('selector') as HTMLInputElement).value
     let array = this.fan_service.getProfileArrayByName(profile);
     this.lineChartData.datasets[0].data = array!.array;
     this.chart?.update();
