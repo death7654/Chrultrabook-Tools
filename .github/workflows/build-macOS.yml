@@ -8,12 +8,8 @@ jobs:
   test-tauri:
     strategy:
       fail-fast: false
-      matrix:
-        include:
-          - platform: 'macos-latest'
-            args: '--target x86_64-apple-darwin'
             
-    runs-on: ${{ matrix.platform }}
+    runs-on: macos-13
     steps:
       - uses: actions/checkout@v4
       - name: setup node
