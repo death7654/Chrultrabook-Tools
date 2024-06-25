@@ -40,7 +40,7 @@ export class FanProfilesComponent {
     let name = (document.getElementById("text") as HTMLInputElement).value;
     if (name !== "")
       {
-        (document.getElementById('text') as HTMLInputElement).value = " ";
+        (document.getElementById('text') as HTMLInputElement).value = "";
         this.fan_service.addProfile(name);
       }
   }
