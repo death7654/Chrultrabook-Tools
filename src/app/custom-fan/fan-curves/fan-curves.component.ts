@@ -65,7 +65,7 @@ export class FanCurvesComponent {
         label: "Fan Speed In Percentage",
         backgroundColor: "rgba(232,72,85,0.1)",
         borderColor: "#FF6694",
-        pointBackgroundColor: "#FF6694",
+        pointBackgroundColor: "#fff",
         pointBorderColor: "#fff",
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "rgba(148,159,177,0.8)",
@@ -97,12 +97,12 @@ export class FanCurvesComponent {
       y: {
         position: "left",
         grid: {
-          color: "#c0c0c0",
+          color: "#797979",
         },
       },
       x: {
         grid: {
-          color: "#c0c0c0",
+          color: "#797979",
         },
       },
     },

@@ -15,11 +15,12 @@ export class FanProfilesComponent {
   edit: boolean = false
   img_class: string = 'btn-outline-info'
   img: string = "\uF4CB";
-  global_id: number = 10000;
 
   profiles: profile[] = [];
   fan_service: FanService = inject(FanService);
 
+
+  //TODO, transfer data from this component to fan section component in the home component using the fan service
   constructor() {
     setTimeout(() => {
       this.profiles = this.fan_service.getProfiles();
@@ -46,7 +47,6 @@ export class FanProfilesComponent {
 
   changeGlobalID(i: number)
   {
-    this.global_id = i;
     this.editProfile(i)
 
   }

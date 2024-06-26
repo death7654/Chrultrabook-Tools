@@ -46,7 +46,7 @@ export class FanSectionComponent {
     })
 
     setTimeout(async () => {
-      setInterval(this.get_cpu_temp, 2000);
+      setInterval(this.get_cpu_temp, 1000);
     }, 0);
     let output: String = await invoke("execute", { program: "ectool", arguments: ['pwmgetfanrpm', "all"], reply: true })
     let split = output.split(" ");
@@ -59,7 +59,7 @@ export class FanSectionComponent {
     else {
       this.selected_mode = 'Auto'
       this.extension = 'RPM'
-      setInterval(this.get_fan_rpm, 2000)
+      setInterval(this.get_fan_rpm, 1000)
       this.button = 'btn-border-none'
       this.fan_auto_class = 'btn-outline-success active';
       this.fan_off_class = 'btn-outline-warning ';
@@ -108,8 +108,8 @@ export class FanSectionComponent {
     this.selected_mode = 'Custom';
     this.fan_auto_class = 'btn-outline-success';
     this.fan_off_class = 'btn-outline-warning';
-    this.fan_max_class = '';
-    this.fan_custom_class = 'btn-outline-info btn-outline-info-custom active';
+    this.fan_max_class = 'btn-outline-danger';
+    this.fan_custom_class = 'btn-outline-info btn-outline-info-custom';
   }
   open_fan_custom_window() {
     invoke('open_custom_fan');

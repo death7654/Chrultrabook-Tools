@@ -1,1 +1,25 @@
-<p>fan-data works!</p>
+<div class="container2 p-2 pt-0 h-100">
+      <div class="options pb-2 h-100">
+            <div>
+                  <select id="time" class="form-select text-white bg-secondary fs-4 h-100">
+                        <option value="1000">1 Second</option>
+                        <option value="5000">5 Seconds</option>
+                        <option selected value="10000">10 Seconds</option>
+                        <option value="30000">30 Seconds</option>
+                        <option value="60000">60 Seconds</option>
+                        <option value="120000">120 Seconds</option>
+                        <option value="300000">300 Seconds</option>
+                  </select>
+            </div>
+            <button class="btn btn-border-none btn-outline-secondary fs-4"
+                  (click)="collect()">{{button_label}}</button>
+            <button class="btn btn-border-none btn-outline-secondary fs-4" (click)="clear()">Clear</button>
+
+      </div>
+      <div class="container3">
+            <canvas class="bg-dark p-2 rounded-3" baseChart #myChart="base-chart" [data]="lineChartData" [options]="lineChartOptions"
+                  [type]="'line'"></canvas>
+            <canvas class="bg-dark p-2 rounded-3" baseChart #myChart2="base-chart" [data]="lineChartData2" [options]="lineChartOptions"
+                  [type]="'line'"></canvas>
+      </div>
+</div>
