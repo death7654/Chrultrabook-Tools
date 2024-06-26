@@ -1,22 +1,17 @@
-<div class="container2 p-2 pt-0 w-100 h-100 ">
-  <div class="options w-100 h-100">
+<div class="container2 h-100 ps-2 pt-0">
+  <div class="options">
     <div>
       <select (click)="fan_profiles()"
         class="form-select fw-normal border-0 fs-4 text-white bg-secondary h-100 rounded-3" id="selector">
-        <option *ngFor="let item of profiles; public let i = index" [selected]="item.selected" [value]="item.name">{{item.name}}</option>
+        <option *ngFor="let item of profiles; public let i = index" [selected]="item.selected" [value]="item.name">
+          {{item.name}}</option>
       </select>
     </div>
-    <div class="w-100 h-100">
-      <app-button [button_label]="'Save'" [button_class]="'fan_custom fs-4 fw-normal lh-sm'"
-        (click)="save()"></app-button>
+    <button class="btn btn-outline-secondary btn-outline-none" (click)="save()">Save</button>
+    <button class="btn btn-outline-secondary btn-outline-none" (click)="saveAndApply()">Save and Apply</button>
     </div>
-    <div class="w-100 h-100">
-      <app-button [button_label]="'Save And Apply'" [button_class]="'fan_custom fs-4 fw-normal lh-sm'"
-        (click)="saveAndApply()"></app-button>
+    <div class="pt-0 pb-0 pe-2 chart">
+      <canvas class="bg-dark p-2 rounded-3" baseChart [data]="lineChartData" [options]="lineChartOptions"
+        [type]="'line'"></canvas>
     </div>
   </div>
-  <div class="pt-0 pb-0 h-100 chart">
-    <canvas class="bg-dark p-2 rounded-3" baseChart [data]="lineChartData" [options]="lineChartOptions"
-      [type]="'line'"></canvas>
-  </div>
-</div>

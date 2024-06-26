@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { ButtonComponent } from '../button/button.component';
 import { invoke } from '@tauri-apps/api/core';
 
 @Component({
   selector: 'app-diagnostics',
   standalone: true,
-  imports: [ButtonComponent],
+  imports: [],
   templateUrl: './diagnostics.component.html',
   styleUrl: './diagnostics.component.scss'
 })
@@ -23,18 +22,15 @@ export class DiagnosticsComponent {
       }
   }
 
-  async select(event: MouseEvent)
+  async select()
   {
-    this.selected_function = (event.target as HTMLInputElement).value
+    this.selected_function = (document.getElementById("diagnostic_dropdown") as HTMLInputElement).value
     if(this.selected_function !== "Select")
       {
         this.collected_info = await invoke("diagnostics", {selected: this.selected_function})
       }
   }
 
-  async get_info(event: MouseEvent) {
-    this.collected_info = await invoke("diagnostics", {selected: this.selected_function})
-  }
   async copy_to_clipboard()
   {
     invoke("copy",{text: this.collected_info})

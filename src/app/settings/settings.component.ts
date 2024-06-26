@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ButtonComponent } from '../button/button.component';
 import { NgFor } from '@angular/common';
 import { invoke } from '@tauri-apps/api/core';
 import { version } from '../../../package.json';
@@ -8,7 +7,7 @@ import { version } from '../../../package.json';
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [ButtonComponent, NgFor],
+  imports: [NgFor],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss'
 })

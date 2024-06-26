@@ -1,43 +1,11 @@
 <div class="grid fan_text text-left pt-2">
   <h4 class="fs-4 fw-heavy" [class]="disabled_class"><img src="../../../assets/fan/fan.svg" class="align-text-middle px-2">Fan - <span id="selected_mode">{{selected_mode}}</span></h4>
   <h4 class="fs-4 fw-heavy pt-2">CPU: <span id="temp">0</span> °C</h4>
-  <h4 class="fs-4 fw-heavy pt-2" [class]="disabled_class">Fan: <span id="fanRPM">0</span> {{extension}}</h4>
+  <h4 class="fs-4 fw-heavy pt-2" [class]="disabled_class">Fan: <span id="fanRPM"></span> {{extension}}</h4>
 </div>
 <div class="button_format grid p-1 pt-2 px-2" [class]="disabled_class">
-  <app-button
-    (click)="fan_auto()"
-    [button_label]="'Auto'"
-    [button_class]="'fan_auto fs-4 fw-normal' + ' ' + fan_auto_class + ' ' + disabled_class"
-    [svg]="'../assets/fan/leaf.svg'"
-    [svg_class]="'pt-3 pb-2'"
-    [disabled_state]="fan_exists"
-    id="fan"
-  ></app-button> 
-  <app-button
-    (click)="fan_off()"
-    [button_label]="'Off'"
-    [button_class]="'fan_off fs-4 fw-normal' + ' ' + fan_off_class + ' ' + disabled_class"
-    [svg]="'../assets/fan/bicycle.svg'"
-    [svg_class]="'pt-3 pb-2'"
-    [disabled_state]="fan_exists"
-    id="fan"
-  ></app-button>
-  <app-button
-    (click)="fan_max()"
-    [button_label]="'Max'"
-    [button_class]="'fan_max fs-4 fw-normal' + ' ' + fan_max_class + ' ' + disabled_class"
-    [svg]="'../assets/fan/rocket.svg'"
-    [svg_class]="'pt-3 pb-2'"
-    [disabled_state]="fan_exists"
-    id="fan"
-  ></app-button>
-  <app-button
-    (click)="open_fan_custom_window()"
-    [button_label]="'Custom'"
-    [button_class]="'fan_custom fs-4 fw-normal'+ ' ' + fan_custom_class + ' ' + disabled_class"
-    [svg]="'../assets/fan/wrench.svg'"
-    [svg_class]="'pt-3 pb-2'"
-    [disabled_state]="fan_exists"
-    id="fan"
-  ></app-button>
+  <button type="button" class="btn fs-4" [class]="fan_auto_class + ' ' + button" [disabled]="fan_exists" (click)="fan_auto()"  data-bs-toggle="button"><img class="p-2 pb-2" src="../../../assets/fan/leaf.svg"><br>Auto</button>
+  <button type="button" class="btn fs-4" [class]="fan_off_class + ' ' + button" [disabled]="fan_exists" (click)="fan_off()" data-bs-toggle="button"><img class="p-2 pb-2" src="../../../assets/fan/bicycle.svg"><br>Off</button>
+  <button type="button" class="btn fs-4" [class]="fan_max_class + ' ' + button" [disabled]="fan_exists" (click)="fan_max()" data-bs-toggle="button"><img class="p-2 pb-2" src="../../../assets/fan/rocket.svg"><br>Max</button>
+  <button type="button" class="btn fs-4" [class]="fan_custom_class  + ' ' + button" [disabled]="fan_exists" (click)="open_fan_custom_window()" data-bs-toggle="button"><img class="p-2 pb-2" src="../../../assets/fan/bicycle.svg"><br>Custom</button>
 </div>

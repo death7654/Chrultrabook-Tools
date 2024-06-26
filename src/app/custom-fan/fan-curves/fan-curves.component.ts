@@ -2,7 +2,6 @@ import { Component, ViewChild, inject } from "@angular/core";
 import { FanSectionComponent } from "../../home/fan-section/fan-section.component";
 import { FanService } from "../../services/fan.service";
 import { profile } from "../../services/profiles";
-import { ButtonComponent } from "../../button/button.component";
 import { invoke } from "@tauri-apps/api/core";
 import { NgFor } from "@angular/common";
 
@@ -13,7 +12,7 @@ import DragData from "chartjs-plugin-dragdata";
 @Component({
   selector: "app-fan-curves",
   standalone: true,
-  imports: [BaseChartDirective, ButtonComponent, FanSectionComponent, NgFor],
+  imports: [BaseChartDirective, FanSectionComponent, NgFor],
   templateUrl: "./fan-curves.component.html",
   styleUrl: "./fan-curves.component.scss",
 })

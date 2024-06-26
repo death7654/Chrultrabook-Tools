@@ -1,16 +1,4 @@
 <div class="extra_format grid p-1 pt-3 px-2">
-  <app-button
-    (click)="diagnostic()"
-    [button_label]="'Diagnostics'"
-    [button_class]="'fan_custom fs-4 fw-normal'"
-    [svg]="'../assets/extra/bug.svg'"
-    [svg_class]="'pt-4 pb-3'"
-  ></app-button>
-  <app-button
-    (click)="settings()"
-    [button_label]="'Settings'"
-    [button_class]="'fan_custom fs-4 fw-normal'"
-    [svg]="'../assets/extra/settings.svg'"
-    [svg_class]="'pt-4 pb-3'"
-  ></app-button>
+  <button class="btn btn-outline-secondary btn-border-none fs-4" (click)="diagnostic()"><img class="pt-3 pb-2" src="../../../assets/extra/bug.svg"><br>Diagnostics</button>
+  <button class="btn btn-outline-secondary btn-border-none fs-4" (click)="settings()"><img class="pt-3 pb-2" src="../../../assets/extra/settings.svg"><br>Settings</button>
 </div>

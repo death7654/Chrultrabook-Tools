@@ -8,7 +8,8 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
   column-gap: 8px;
 }
-.disabled
+.disable
 {
   filter: brightness(0.8);
+  color: white !important;
 }

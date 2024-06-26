@@ -8,7 +8,7 @@
   <input
   (click)="update_percentage($event)"
     type="range"
-    class="form-range"
+    class="form-range pt-1"
     min="0"
     max="100"
     step="10"
@@ -16,12 +16,5 @@
     [value]="percentage"
     [disabled]="backlight_exists"
     />
-  <app-button
-    (click)="keyboard_more()"
-    [button_class]="'keyboard_custom_button fan_custom disabled'"
-    [svg]="'../assets/keyboard/more.svg'"
-    [svg_class]="'keyboard_img position-relative'"
-    [disabled_state]="true"
-    class="disabled"
-  ></app-button>
+  <button class="btn btn-outline-secondary pb-0 pt-0" (click)="keyboard_more()" disabled><img class="p-0" src="../../../assets/keyboard/more.svg"></button>
 </div>

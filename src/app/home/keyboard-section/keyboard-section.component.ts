@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { ButtonComponent } from '../../button/button.component';
 import { invoke } from "@tauri-apps/api/core"
 
 
 @Component({
   selector: 'app-keyboard-section',
   standalone: true,
-  imports: [ButtonComponent],
+  imports: [],
   templateUrl: './keyboard-section.component.html',
   styleUrl: './keyboard-section.component.scss'
 })

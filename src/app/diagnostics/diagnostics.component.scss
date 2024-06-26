@@ -1,8 +1,4 @@
-.container2
-{
-    height: 100%;
-    width:  100%;
-}
+
 .diagnostics
 {
     display: grid;
@@ -17,12 +13,23 @@
 }
 .form-select
 {
-    height: 20%;
-    grid-row: 1 /  3;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+.button1
+{
+    grid-row-start: 3;
+    grid-row-end: 4;
 }
 .button2
 {
-    padding-bottom: 1px; //me angry
+    grid-row-start: 4;
+    grid-row-end: 5;
+}
+.copy
+{
+    right: 17px;
+    top: 60px;
 }
 .box{
     white-space: pre;

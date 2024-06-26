@@ -1,12 +1,11 @@
-<div class="container2 p-1">
+<div class="h-100 w-100 p-1">
     <div class="text-center p-3 pb-2">
         <h4 class="fs-3">Diagnostics</h4>
     </div>
-    <div class="diagnostics px-1 w-100">
-        <div class="buttons h-100 w-100 p-0 px-1">
-            <select (click)="select($event)"
-                class="form-select text-white border-0 fs-4 pt-1 bg-secondary w-100 rounded-3"
-                aria-label="Default select example" #dropdown>
+    <div class="diagnostics w-100">
+        <div class="buttons h-100 w-100">
+            <select (click)="select()" class="form-select text-white border-0 fs-4 pt-1 bg-secondary w-100 rounded-3"
+                id="diagnostic_dropdown" #dropdown>
                 <option selected>Select</option>
                 <option value="Boot Timestraps" [disabled]="disabled">
                     Boot Timestraps
@@ -27,20 +26,18 @@
                     Power Delivery Information
                 </option>
             </select>
-            <div>
-                <app-button (click)="get_info($event)" [button_label]="'Generate Report'"
-                    [button_class]="'fan_custom generate_class fs-4 fw-normal lh-sm h-25'"></app-button>
+            <div class="button1">
+                <button class="btn btn-outline-secondary fs-4 btn-border-none w-100 h-100" (click)="select()">Generate
+                    Report</button>
             </div>
             <div class="button2">
-                <app-button (click)="save()" [button_label]="'Save to Files'"
-                    [button_class]="'fan_custom fs-4 fw-normal lh-sm h-75'"></app-button>
+                <button class="btn btn-outline-secondary fs-4 btn-border-none w-100 h-100" (click)="save()">Save to Files</button>
             </div>
         </div>
         <div class="p-1 m-2 mt-0 mb-0 pb-1 rounded-3 overflow-auto bg-light">
-            <app-button (click)="copy_to_clipboard()" [svg]="'../../assets/diagnostics/copy.svg'"
-                [button_class]="'copy_button position-absolute'" [svg_class]="'copy_svg'"></app-button>
+            <button class="btn btn-outline-light btn-border-none position-absolute copy" (click)="copy_to_clipboard()"><img class="p-0" src="../../assets/diagnostics/copy.svg"></button>
             <div class="box fs-4 font-monospace m-2">
-                <span>{{ collected_info }}</span>
+                <span>{{collected_info}}</span>
             </div>
         </div>
     </div>
