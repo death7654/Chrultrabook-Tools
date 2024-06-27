@@ -2,9 +2,9 @@
   <div class="options pb-2 h-100">
     <div>
       <select id="time" class="form-select text-white bg-secondary fs-4 h-100">
-        <option value="1000">1 Second</option>
+        <option selected value="1000">1 Second</option>
         <option value="5000">5 Seconds</option>
-        <option selected value="10000">10 Seconds</option>
+        <option value="10000">10 Seconds</option>
         <option value="30000">30 Seconds</option>
         <option value="60000">60 Seconds</option>
         <option value="120000">120 Seconds</option>
@@ -16,6 +16,9 @@
     </button>
     <button class="btn btn-border-none btn-outline-secondary fs-4" (click)="clear()">
       Clear
+    </button>
+    <button class="btn btn-border-none btn-outline-secondary fs-4" (click)="retrieveCollectedData()">
+      {{data_label}}
     </button>
   </div>
   <div class="container3">

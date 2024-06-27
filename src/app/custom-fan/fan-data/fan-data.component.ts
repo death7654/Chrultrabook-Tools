@@ -14,8 +14,15 @@ import { invoke } from "@tauri-apps/api/core";
 export class FanDataComponent {
   fan_service: FanService = inject(FanService);
   button_label: string = "Collect Data";
+  data_label: string = "Show All Data";
   label: number = 0;
   interval: any;
+  tiny_cpu: any = [];
+  tiny_rpm: any = [];
+  tiny_label: any = []
+  data_cpu: any = [];
+  data_rpm: any = [];
+  total_label: any = [];
 
   @ViewChild("myChart") myChart?: BaseChartDirective;
   @ViewChild("myChart2") myChart2?: BaseChartDirective;
@@ -35,12 +42,35 @@ export class FanDataComponent {
   }
 
   clear() {
-    this.lineChartData.datasets[0].data = [];
-    this.lineChartData.datasets[1].data = [];
-    this.lineChartData.labels = [];
-    this.lineChartData2.labels = [];
-    this.myChart?.update();
-    this.myChart2?.update();
+    this.tiny_cpu = [];
+    this.tiny_rpm = [];
+    this.tiny_label = [];
+    this.data_cpu = [];
+    this.data_rpm = [];
+    this.total_label = [];
+    this.retrieveCollectedData();
+  }
+
+  retrieveCollectedData() {
+    if (this.data_label == "Show All Data") {
+      this.data_label = "Show Last 10";
+      this.lineChartData.datasets[0].data = this.data_cpu;
+      this.lineChartData2.datasets[0].data = this.data_rpm;
+      this.lineChartData.labels = this.total_label;
+      this.lineChartData2.labels = this.total_label;
+      this.myChart?.update();
+      this.myChart2?.update();
+    }
+    else
+    {
+      this.data_label = "Show All Data";
+      this.lineChartData.datasets[0].data = this.tiny_cpu;
+      this.lineChartData2.datasets[0].data = this.tiny_rpm;
+      this.lineChartData.labels = this.tiny_label;
+      this.lineChartData2.labels = this.tiny_label;
+      this.myChart?.update();
+      this.myChart2?.update();
+    }
   }
 
   async updateChart(time: number) {
@@ -58,15 +88,20 @@ export class FanDataComponent {
     this.label = this.label + time / 1000;
 
     if (cpuDataArrayLength > 9) {
-      this.lineChartData.datasets[0].data.splice(0, 1);
-      this.lineChartData2.datasets[0].data.splice(0, 1);
-      this.lineChartData.labels?.splice(0, 1);
-      this.lineChartData2.labels?.splice(0, 1);
+      this.tiny_cpu.splice(0,1);
+      this.tiny_label.splice(0,1);
+      this.tiny_rpm.splice(0,1);
     }
-    this.lineChartData.datasets[0].data.push(temp);
-    this.lineChartData2.datasets[0].data.push(rpm);
-    this.lineChartData.labels?.push(this.label.toString());
-    this.lineChartData2.labels?.push(this.label.toString());
+    this.tiny_cpu.push(temp);
+    this.tiny_rpm.push(rpm);
+    this.tiny_label.push(this.label.toString())
+    this.data_cpu.push(temp);
+    this.data_rpm.push(rpm);
+    this.total_label.push(this.label.toString())
+    this.lineChartData.datasets[0].data = this.tiny_cpu;
+    this.lineChartData2.datasets[0].data = this.tiny_rpm;
+    this.lineChartData.labels = this.tiny_label;
+    this.lineChartData2.labels = this.tiny_label;
     this.myChart?.update();
     this.myChart2?.update();
   }
