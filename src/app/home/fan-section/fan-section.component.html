@@ -9,43 +9,20 @@
   </h4>
 </div>
 <div class="button_format grid p-1 pt-2 px-2" [class]="disabled_class">
-  <button
-    type="button"
-    class="btn fs-4"
-    [class]="fan_auto_class + ' ' + button"
-    [disabled]="fan_exists"
-    (click)="fan_auto()"
-    data-bs-toggle="button"
-  >
+  <button type="button" class="btn fs-4" [class]="fan_auto_class + ' ' + button" [disabled]="fan_exists"
+    (click)="fan_auto()" data-bs-toggle="button">
     <img class="p-2 pb-2" src="../../../assets/fan/leaf.svg" /><br />Auto
   </button>
-  <button
-    type="button"
-    class="btn fs-4"
-    [class]="fan_off_class + ' ' + button"
-    [disabled]="fan_exists"
-    (click)="fan_off()"
-    data-bs-toggle="button"
-  >
+  <button type="button" class="btn fs-4" [class]="fan_off_class + ' ' + button" [disabled]="fan_exists"
+    (click)="fan_off()" data-bs-toggle="button">
     <img class="p-2 pb-2" src="../../../assets/fan/bicycle.svg" /><br />Off
   </button>
-  <button
-    type="button"
-    class="btn fs-4"
-    [class]="fan_max_class + ' ' + button"
-    [disabled]="fan_exists"
-    (click)="fan_max()"
-    data-bs-toggle="button"
-  >
+  <button type="button" class="btn fs-4" [class]="fan_max_class + ' ' + button" [disabled]="fan_exists"
+    (click)="fan_max()" data-bs-toggle="button">
     <img class="p-2 pb-2" src="../../../assets/fan/rocket.svg" /><br />Max
   </button>
-  <button
-    type="button"
-    class="btn fs-4"
-    [class]="fan_custom_class + ' ' + button"
-    [disabled]="fan_exists"
-    (click)="open_fan_custom_window()"
-  >
+  <button type="button" class="btn fs-4" [class]="fan_custom_class + ' ' + button" [disabled]="fan_exists"
+    (click)="open_fan_custom_window()">
     <img class="p-2 pb-2" src="../../../assets/fan/bicycle.svg" /><br />Custom
   </button>
 </div>
