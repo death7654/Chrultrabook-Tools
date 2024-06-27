@@ -1,4 +1,4 @@
-use tauri::{Manager, WebviewWindow};
+use tauri::{Manager};
 
 pub async fn new_window(
     handle: &tauri::AppHandle,
