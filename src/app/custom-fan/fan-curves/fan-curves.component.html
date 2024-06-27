@@ -1,17 +1,40 @@
 <div class="container2 h-100 ps-2 pt-0">
   <div class="options pe-2">
     <div>
-      <select (click)="fan_profiles()"
-        class="form-select fw-normal border-0 fs-4 text-white bg-secondary h-100 rounded-3" id="selector">
-        <option *ngFor="let item of profiles; public let i = index" [selected]="item.selected" [value]="item.name">
-          {{item.name}}</option>
+      <select
+        (click)="fan_profiles()"
+        class="form-select fw-normal border-0 fs-4 text-white bg-secondary h-100 rounded-3"
+        id="selector"
+      >
+        <option
+          *ngFor="let item of profiles; public; let i = index"
+          [selected]="item.selected"
+          [value]="item.name"
+        >
+          {{ item.name }}
+        </option>
       </select>
     </div>
-    <button class="btn btn-outline-secondary btn-outline-none fs-4" (click)="save()">Save</button>
-    <button class="btn btn-outline-secondary btn-outline-none fs-4" (click)="saveAndApply()">Save and Apply</button>
-    </div>
-    <div class="pt-0 pb-0 pe-2 chart">
-      <canvas class="bg-dark p-2 rounded-3" baseChart [data]="lineChartData" [options]="lineChartOptions"
-        [type]="'line'"></canvas>
-    </div>
+    <button
+      class="btn btn-outline-secondary btn-outline-none fs-4"
+      (click)="save()"
+    >
+      Save
+    </button>
+    <button
+      class="btn btn-outline-secondary btn-outline-none fs-4"
+      (click)="saveAndApply()"
+    >
+      Save and Apply
+    </button>
   </div>
+  <div class="pt-0 pb-0 pe-2 chart">
+    <canvas
+      class="bg-dark p-2 rounded-3"
+      baseChart
+      [data]="lineChartData"
+      [options]="lineChartOptions"
+      [type]="'line'"
+    ></canvas>
+  </div>
+</div>

@@ -1,30 +1,68 @@
 <div class="input-group px-2" data-bs-theme="dark">
-    <input type="text" id="text" autocomplete="off"
-        class="form-control bg-secondary text-bg-dark" placeholder="Profile Name">
-    <button class="btn btn-outline-secondary"><img src="../../../assets/fan/add.svg"></button>
+  <input
+    type="text"
+    id="text"
+    autocomplete="off"
+    class="form-control bg-secondary text-bg-dark"
+    placeholder="Profile Name"
+  />
+  <button class="btn btn-outline-secondary">
+    <img src="../../../assets/fan/add.svg" />
+  </button>
 </div>
 <div class="p-2 pb-0">
-<div class="w-100 position-relative table-wrapper">
+  <div class="w-100 position-relative table-wrapper">
     <div>
-    <table class="table table-dark rounded-3 align-middle table-hover p-0">
+      <table class="table table-dark rounded-3 align-middle table-hover p-0">
         <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Profiles</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-            </tr>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Profiles</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
         </thead>
-        <tbody *ngFor="let item of profiles; let i = index;">
-            <tr>
-                <th scope="row"></th>
-                <td class="w-100" colspan="4"><input type="text" autocomplete="off" class="form-control text-bg-dark" [id]="item.id.toString()" [class]="item.class"  [placeholder]="item.name" [disabled]="item.disabled"></td>
-                <td><button type="button" class="btn" [class]="item.img_class" (click)="changeGlobalID(i)">{{item.img}}</button></td><!--edit-->
-                <td><button type="button" class="btn btn-outline-danger" (click)="deleteProfiles(i)">&#xF78B;</button></td><!--delete-->
-            </tr>
+        <tbody *ngFor="let item of profiles; let i = index">
+          <tr>
+            <th scope="row"></th>
+            <td class="w-100" colspan="4">
+              <input
+                type="text"
+                autocomplete="off"
+                class="form-control text-bg-dark"
+                [id]="item.id.toString()"
+                [class]="item.class"
+                [placeholder]="item.name"
+                [disabled]="item.disabled"
+              />
+            </td>
+            <td>
+              <button
+                type="button"
+                class="btn"
+                [class]="item.img_class"
+                (click)="changeGlobalID(i)"
+              >
+                {{ item.img }}
+              </button>
+            </td>
+            <!--edit-->
+            <td>
+              <button
+                type="button"
+                class="btn btn-outline-danger"
+                (click)="deleteProfiles(i)"
+              >
+                &#xF78B;
+              </button>
+            </td>
+            <!--delete-->
+          </tr>
         </tbody>
-    </table>
+      </table>
+    </div>
+  </div>
 </div>

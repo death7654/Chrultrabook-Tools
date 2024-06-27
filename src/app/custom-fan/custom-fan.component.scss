@@ -1,12 +1,10 @@
-.window
-{
-    display: grid;
-    grid-template-columns: 1fr 5fr;
+.window {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
 }
-.button
-{
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
-    row-gap: 10px;
-    height: 29%;
+.button {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  row-gap: 10px;
+  height: 29%;
 }

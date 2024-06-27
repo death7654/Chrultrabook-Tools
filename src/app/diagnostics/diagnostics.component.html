@@ -1,44 +1,62 @@
 <div class="h-100 w-100 p-1">
-    <div class="text-center p-3 pb-2">
-        <h4 class="fs-3">Diagnostics</h4>
+  <div class="text-center p-3 pb-2">
+    <h4 class="fs-3">Diagnostics</h4>
+  </div>
+  <div class="diagnostics w-100">
+    <div class="buttons h-100 w-100">
+      <select
+        (click)="select()"
+        class="form-select text-white border-0 fs-4 pt-1 bg-secondary w-100 rounded-3"
+        id="diagnostic_dropdown"
+        #dropdown
+      >
+        <option selected>Select</option>
+        <option value="Boot Timestraps" [disabled]="disabled">
+          Boot Timestraps
+        </option>
+        <option value="Coreboot Log" [disabled]="disabled">Coreboot Log</option>
+        <option value="Coreboot Extended Log" [disabled]="disabled">
+          Coreboot Extended Log
+        </option>
+        <option value="Battery Information">Battery Information</option>
+        <option value="EC Console Log">EC Console Log</option>
+        <option value="EC Chip Information">EC Chip Information</option>
+        <option value="SPI Information">SPI Information</option>
+        <option value="EC Protocol Information">EC Protocol Information</option>
+        <option value="Temperature Sensor Information">
+          Temperature Sensor Information
+        </option>
+        <option value="Power Delivery Information">
+          Power Delivery Information
+        </option>
+      </select>
+      <div class="button1">
+        <button
+          class="btn btn-outline-secondary fs-4 btn-border-none w-100 h-100"
+          (click)="select()"
+        >
+          Generate Report
+        </button>
+      </div>
+      <div class="button2">
+        <button
+          class="btn btn-outline-secondary fs-4 btn-border-none w-100 h-100"
+          (click)="save()"
+        >
+          Save to Files
+        </button>
+      </div>
     </div>
-    <div class="diagnostics w-100">
-        <div class="buttons h-100 w-100">
-            <select (click)="select()" class="form-select text-white border-0 fs-4 pt-1 bg-secondary w-100 rounded-3"
-                id="diagnostic_dropdown" #dropdown>
-                <option selected>Select</option>
-                <option value="Boot Timestraps" [disabled]="disabled">
-                    Boot Timestraps
-                </option>
-                <option value="Coreboot Log" [disabled]="disabled">Coreboot Log</option>
-                <option value="Coreboot Extended Log" [disabled]="disabled">
-                    Coreboot Extended Log
-                </option>
-                <option value="Battery Information">Battery Information</option>
-                <option value="EC Console Log">EC Console Log</option>
-                <option value="EC Chip Information">EC Chip Information</option>
-                <option value="SPI Information">SPI Information</option>
-                <option value="EC Protocol Information">EC Protocol Information</option>
-                <option value="Temperature Sensor Information">
-                    Temperature Sensor Information
-                </option>
-                <option value="Power Delivery Information">
-                    Power Delivery Information
-                </option>
-            </select>
-            <div class="button1">
-                <button class="btn btn-outline-secondary fs-4 btn-border-none w-100 h-100" (click)="select()">Generate
-                    Report</button>
-            </div>
-            <div class="button2">
-                <button class="btn btn-outline-secondary fs-4 btn-border-none w-100 h-100" (click)="save()">Save to Files</button>
-            </div>
-        </div>
-        <div class="p-1 m-2 mt-0 mb-0 pb-1 rounded-3 overflow-auto bg-light">
-            <button class="btn btn-outline-light btn-border-none position-absolute copy" (click)="copy_to_clipboard()"><img class="p-0" src="../../assets/diagnostics/copy.svg"></button>
-            <div class="box fs-4 font-monospace m-2">
-                <span>{{collected_info}}</span>
-            </div>
-        </div>
+    <div class="p-1 m-2 mt-0 mb-0 pb-1 rounded-3 overflow-auto bg-light">
+      <button
+        class="btn btn-outline-light btn-border-none position-absolute copy"
+        (click)="copy_to_clipboard()"
+      >
+        <img class="p-0" src="../../assets/diagnostics/copy.svg" />
+      </button>
+      <div class="box fs-4 font-monospace m-2">
+        <span>{{ collected_info }}</span>
+      </div>
     </div>
+  </div>
 </div>

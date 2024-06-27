@@ -10,13 +10,13 @@ mod save_to_files;
 mod temps;
 
 //external crates
-use tauri::menu::{MenuBuilder, MenuItemBuilder, IconMenuItemBuilder};
+use open;
+use tauri::image::Image;
+use tauri::menu::{IconMenuItemBuilder, MenuBuilder, MenuItemBuilder};
 use tauri::tray::TrayIconBuilder;
 use tauri::{AppHandle, Manager};
 use tauri_plugin_autostart::{MacosLauncher, ManagerExt};
-use tauri::image::Image;
 use web_local_storage_api;
-use open;
 //open windows
 
 #[tauri::command]
@@ -105,7 +105,7 @@ fn diagnostics(handle: tauri::AppHandle, selected: &str) -> String {
                 true,
             )
         }
-        "Power Delivery Information" => {   
+        "Power Delivery Information" => {
             output = execute(handle, "ectool", helper::to_vec_string(vec!["pdlog"]), true)
         }
         _ => output = "Select An Option".to_string(),
@@ -127,21 +127,17 @@ fn local_storage(function: &str, option: &str, value: &str) -> String {
     if function == "get" {
         match web_local_storage_api::get_item(option) {
             Ok(out) => return out.unwrap_or(String::new()),
-            Err(_err) => return "null".to_string()
+            Err(_err) => return "null".to_string(),
         }
-    } else if function == "remove"
-    {
+    } else if function == "remove" {
         let _ = web_local_storage_api::remove_item(option);
         return String::new();
-    }
-    else if function == "save" {
+    } else if function == "save" {
         let _ = web_local_storage_api::set_item(option, value);
         return String::new();
-    }
-    else if function == "clear"
-    {
+    } else if function == "clear" {
         let _ = web_local_storage_api::clear();
-        return String::new()
+        return String::new();
     }
     return String::new();
 }
@@ -166,8 +162,12 @@ fn boardname(handle: tauri::AppHandle) -> String {
             "wmic",
             helper::to_vec_string(vec!["baseboard", "get", "Product"]),
             true,
-        ).trim().split("\n").map(|x| x.to_string()).collect::<Vec<String>>()[2].clone()
-        
+        )
+        .trim()
+        .split("\n")
+        .map(|x| x.to_string())
+        .collect::<Vec<String>>()[2]
+            .clone();
     }
     #[cfg(target_os = "linux")]
     {
@@ -176,7 +176,9 @@ fn boardname(handle: tauri::AppHandle) -> String {
             "cat",
             vec!["/sys/class/dmi/id/product_name".to_string()],
             true,
-        ).trim().to_string()
+        )
+        .trim()
+        .to_string();
     }
 
     #[cfg(target_os = "macos")]
@@ -210,16 +212,12 @@ fn autostart(app: AppHandle, value: bool) {
     }
 }
 #[tauri::command]
-async fn get_json() -> String
-{
+async fn get_json() -> String {
     let output = local_storage("get", "profiles", "");
     let default_array = String::from("[{\"id\":0,\"name\":\"Default\",\"array\":[0,10,25,40,60,80,95,100,100,100,100,100,100],\"selected\":true,\"disabled\":true,\"class\":\"transparent\",\"img_class\":\"btn-outline-info\",\"img\":\"\\uF4CB\"},{\"id\":1,\"name\":\"Aggressive\",\"array\":[0,10,40,50,60,90,100,100,100,100,100,100,100],\"selected\":false,\"disabled\":true,\"class\":\"transparent\",\"img_class\":\"btn-outline-info\",\"img\":\"\\uF4CB\"},{\"id\":2,\"name\":\"Quiet\",\"array\":[0,15,20,30,40,55,90,100,100,100,100,100,100],\"selected\":false,\"disabled\":true,\"class\":\"transparent\",\"img_class\":\"btn-outline-info\",\"img\":\"\\uF4CB\"}]");
-    if output.contains("id") == false
-    {
-        return default_array
-    }
-    else
-    {
+    if output.contains("id") == false {
+        return default_array;
+    } else {
         return output;
     }
 }
@@ -230,34 +228,34 @@ fn main() {
             tauri::WindowEvent::CloseRequested { api, .. } => {
                 let close_app_to_tray = local_storage("get", "app_tray", " ");
                 if close_app_to_tray == "true" {
-                    if window.label() == "main" 
-                    {
+                    if window.label() == "main" {
                         let windows = window.webview_windows();
                         for (_, window) in windows.iter() {
                             let window_name = window.label();
-                            if window_name == "main"
-                            {
+                            if window_name == "main" {
                                 window.hide().unwrap()
-                            }
-                            else
-                            {
-                                window.get_webview_window(window_name).expect("notfound").close().unwrap()
+                            } else {
+                                window
+                                    .get_webview_window(window_name)
+                                    .expect("notfound")
+                                    .close()
+                                    .unwrap()
                             }
                         }
                         api.prevent_close();
                     }
-                }
-                else {
-                    if window.label() == "main"
-                    {
+                } else {
+                    if window.label() == "main" {
                         let windows = window.webview_windows();
                         for (_, window) in windows.iter() {
                             let window_name = window.label();
-                            window.get_webview_window(window_name).expect("notfound").close().unwrap()
+                            window
+                                .get_webview_window(window_name)
+                                .expect("notfound")
+                                .close()
+                                .unwrap()
                         }
-                    }
-                    else
-                    {
+                    } else {
                         let _ = window.close();
                     }
                 }
@@ -265,21 +263,29 @@ fn main() {
             _ => {}
         })
         .setup(|app| {
-              //to hide app if user wants it hidden upon boot
-              let start_app_in_tray = local_storage("get", "start_app_tray", " ");
-              if start_app_in_tray == "true" {
-                  let window = app.get_webview_window("main").unwrap();
-                  window.hide().unwrap();
-              }
+            //to hide app if user wants it hidden upon boot
+            let start_app_in_tray = local_storage("get", "start_app_tray", " ");
+            if start_app_in_tray == "true" {
+                let window = app.get_webview_window("main").unwrap();
+                window.hide().unwrap();
+            }
 
-            let img = IconMenuItemBuilder::new("Chrultrabook Tools").id("app").enabled(false).icon(Image::from_bytes(include_bytes!("../icons/icon.png")).unwrap()).build(app).unwrap();
+            let img = IconMenuItemBuilder::new("Chrultrabook Tools")
+                .id("app")
+                .enabled(false)
+                .icon(Image::from_bytes(include_bytes!("../icons/icon.png")).unwrap())
+                .build(app)
+                .unwrap();
             let show = MenuItemBuilder::new("Show").id("show").build(app).unwrap();
             let hide = MenuItemBuilder::new("Hide").id("hide").build(app).unwrap();
             let quit = MenuItemBuilder::new("Quit").id("quit").build(app).unwrap();
-            let github = MenuItemBuilder::new("Check for Updates").id("github").build(app).unwrap();
+            let github = MenuItemBuilder::new("Check for Updates")
+                .id("github")
+                .build(app)
+                .unwrap();
             // we could opt handle an error case better than calling unwrap
             let menu = MenuBuilder::new(app)
-            .item(&img)
+                .item(&img)
                 .separator()
                 .items(&[&show, &hide, &quit])
                 .separator()
@@ -304,9 +310,9 @@ fn main() {
                             let _ = window.show();
                         }
                     }
-                    "github" =>
-                    {
-                        let _ = open::that("https://github.com/death7654/Chrultrabook-Tools/releases");
+                    "github" => {
+                        let _ =
+                            open::that("https://github.com/death7654/Chrultrabook-Tools/releases");
                     }
                     _ => {}
                 })

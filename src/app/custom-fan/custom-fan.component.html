@@ -1,12 +1,40 @@
 <div class="p-2" (window:resize)="refresh()">
-  <h4 class="fs-3 fw-heavy pt-2"><img src="../../assets/fan/custom_fan.svg" class="align-text-middle px-2">Custom Fan
-    Curves</h4>
+  <h4 class="fs-3 fw-heavy pt-2">
+    <img
+      src="../../assets/fan/custom_fan.svg"
+      class="align-text-middle px-2"
+    />Custom Fan Curves
+  </h4>
 </div>
 <div class="window h-100">
   <div class="button p-0 pt-0 ps-2">
-    <button class="btn btn-outline-secondary fs-4 btn-border-none w-100 h-100" [class]="curves" routerLink="fan_curves" (click)="fan_curves()" data-bs-toggle="button">Fan Curves</button>
-    <button class="btn btn-outline-secondary fs-4 btn-border-none w-100 h-100" [class]="profile" routerLink="fan_profiles" (click)="fan_profile()" data-bs-toggle="button">Profiles</button>
-    <button class="btn btn-outline-secondary fs-4 btn-border-none w-100 h-100" [class]="data" routerLink="fan_data" (click)="fan_data_fn()" data-bs-toggle="button">Data</button>
+    <button
+      class="btn btn-outline-secondary fs-4 btn-border-none w-100 h-100"
+      [class]="curves"
+      routerLink="fan_curves"
+      (click)="fan_curves()"
+      data-bs-toggle="button"
+    >
+      Fan Curves
+    </button>
+    <button
+      class="btn btn-outline-secondary fs-4 btn-border-none w-100 h-100"
+      [class]="profile"
+      routerLink="fan_profiles"
+      (click)="fan_profile()"
+      data-bs-toggle="button"
+    >
+      Profiles
+    </button>
+    <button
+      class="btn btn-outline-secondary fs-4 btn-border-none w-100 h-100"
+      [class]="data"
+      routerLink="fan_data"
+      (click)="fan_data_fn()"
+      data-bs-toggle="button"
+    >
+      Data
+    </button>
   </div>
   <div>
     <router-outlet></router-outlet>

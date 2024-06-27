@@ -1,24 +1,19 @@
-
-.table-wrapper
-{
-    max-height: 70vh;
-    top: 10px;
-    overflow-y: auto;
+.table-wrapper {
+  max-height: 70vh;
+  top: 10px;
+  overflow-y: auto;
 }
-.transparent{
-    border: none !important;
-    background-color: transparent !important;
+.transparent {
+  border: none !important;
+  background-color: transparent !important;
 }
-.transparent::placeholder
-{
-    color: #fff;
+.transparent::placeholder {
+  color: #fff;
 }
 
-.edit
-{
-    border: none !important;
+.edit {
+  border: none !important;
 }
-.edit::placeholder{
-    color: #A9A9AC !important;
+.edit::placeholder {
+  color: #a9a9ac !important;
 }
-

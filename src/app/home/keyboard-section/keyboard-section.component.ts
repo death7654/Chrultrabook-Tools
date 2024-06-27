@@ -1,48 +1,50 @@
-import { Component } from '@angular/core';
-import { invoke } from "@tauri-apps/api/core"
-
+import { Component } from "@angular/core";
+import { invoke } from "@tauri-apps/api/core";
 
 @Component({
-  selector: 'app-keyboard-section',
+  selector: "app-keyboard-section",
   standalone: true,
   imports: [],
-  templateUrl: './keyboard-section.component.html',
-  styleUrl: './keyboard-section.component.scss'
+  templateUrl: "./keyboard-section.component.html",
+  styleUrl: "./keyboard-section.component.scss",
 })
 export class KeyboardSectionComponent {
-  backlight_percentage: string = 'N/A'
-  percentage: number = 0
+  backlight_percentage: string = "N/A";
+  percentage: number = 0;
   backlight_exists: boolean = !true;
-  disabled_class: string = ''
-  extension: string = ''
+  disabled_class: string = "";
+  extension: string = "";
 
   async ngOnInit() {
     setTimeout(async () => {
-    let output: string = await invoke("execute", { program: "ectool", arguments: ['pwmgetkblight'], reply: true });
-    let split = output.split(" ");
-    if (split[0] !== "Current")
-      {
-        this.disabled_class = 'disabled'
-        this.backlight_exists = !false
+      let output: string = await invoke("execute", {
+        program: "ectool",
+        arguments: ["pwmgetkblight"],
+        reply: true,
+      });
+      let split = output.split(" ");
+      if (split[0] !== "Current") {
+        this.disabled_class = "disabled";
+        this.backlight_exists = !false;
+      } else {
+        this.backlight_percentage = split[4].trim();
+        this.percentage = Number(split[4]);
+        this.extension = "%";
       }
-      else
-      {
-        this.backlight_percentage = split[4].trim()
-        this.percentage = Number(split[4])
-        this.extension = '%'
-      }
-    },0);
+    }, 0);
   }
 
-  update_percentage(event: MouseEvent)
-  {
-    this.backlight_percentage = (event.target as HTMLInputElement).value
-    invoke("execute", { program: "ectool", arguments: ["pwmsetkblight", this.backlight_percentage], reply: false })
+  update_percentage(event: MouseEvent) {
+    this.backlight_percentage = (event.target as HTMLInputElement).value;
+    invoke("execute", {
+      program: "ectool",
+      arguments: ["pwmsetkblight", this.backlight_percentage],
+      reply: false,
+    });
   }
 
-
-  keyboard_more(){
-    console.log('more');
-    invoke('open_keyboard_extra');
+  keyboard_more() {
+    console.log("more");
+    invoke("open_keyboard_extra");
   }
 }

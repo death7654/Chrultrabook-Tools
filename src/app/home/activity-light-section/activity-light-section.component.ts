@@ -9,30 +9,26 @@ import { invoke } from "@tauri-apps/api/core";
   styleUrl: "./activity-light-section.component.scss",
 })
 export class ActivityLightSectionComponent {
-  class: string = 'disabled'
+  class: string = "disabled";
   disabled: boolean = true;
 
-  async ngOnInit()
-  {
-    let output: string = await invoke("boardname")
-    if (output == "Candy" || output == "Kefka")
-      {
-        this.disabled = false
-        this.class = ' '
-      }
+  async ngOnInit() {
+    let output: string = await invoke("boardname");
+    if (output == "Candy" || output == "Kefka") {
+      this.disabled = false;
+      this.class = " ";
+    }
   }
-
-
 
   activity_light_color: string = "N/A";
   update_color(event: MouseEvent) {
     let selected_color = (event.target as HTMLInputElement).value;
     if (selected_color === "Select A Color") {
       this.activity_light_color = "Off";
-      invoke("change_activity_light", {selected: "black"});
+      invoke("change_activity_light", { selected: "black" });
     } else {
       this.activity_light_color = selected_color;
-      invoke("change_activity_light", {selected: this.activity_light_color});
+      invoke("change_activity_light", { selected: this.activity_light_color });
     }
   }
 }

@@ -1,23 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { FanCurvesComponent } from './fan-curves.component';
+import { FanCurvesComponent } from "./fan-curves.component";
 
-describe('FanCurvesComponent', () => {
+describe("FanCurvesComponent", () => {
   let component: FanCurvesComponent;
   let fixture: ComponentFixture<FanCurvesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FanCurvesComponent]
-    })
-    .compileComponents();
-    
+      imports: [FanCurvesComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(FanCurvesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

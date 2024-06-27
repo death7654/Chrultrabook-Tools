@@ -1,12 +1,10 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-keyboard-extra',
+  selector: "app-keyboard-extra",
   standalone: true,
   imports: [],
-  templateUrl: './keyboard-extra.component.html',
-  styleUrl: './keyboard-extra.component.scss'
+  templateUrl: "./keyboard-extra.component.html",
+  styleUrl: "./keyboard-extra.component.scss",
 })
-export class KeyboardExtraComponent {
-
-}
+export class KeyboardExtraComponent {}

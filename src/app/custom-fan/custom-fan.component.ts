@@ -1,5 +1,5 @@
-import { Component } from "@angular/core"
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Component } from "@angular/core";
+import { RouterLink, RouterLinkActive, RouterOutlet } from "@angular/router";
 
 @Component({
   selector: "app-custom-fan",
@@ -9,31 +9,27 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   styleUrl: "./custom-fan.component.scss",
 })
 export class CustomFanComponent {
-  curves: string = 'active';
-  profile: string = '';
-  data: string = '';
+  curves: string = "active";
+  profile: string = "";
+  data: string = "";
 
-  refresh()
-  {
-    window.location.reload()
+  refresh() {
+    window.location.reload();
   }
 
-  fan_curves()
-  {
+  fan_curves() {
     this.curves = "active";
-    this.profile = ' ';
-    this.data = ' '
+    this.profile = " ";
+    this.data = " ";
   }
-  fan_profile()
-  {
+  fan_profile() {
     this.curves = " ";
-    this.profile = 'active';
-    this.data = ' '
+    this.profile = "active";
+    this.data = " ";
   }
-  fan_data_fn()
-  {
+  fan_data_fn() {
     this.curves = " ";
-    this.profile = ' ';
-    this.data = 'active'
+    this.profile = " ";
+    this.data = "active";
   }
 }

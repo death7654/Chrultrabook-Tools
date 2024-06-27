@@ -26,7 +26,7 @@ export class FanCurvesComponent {
       this.profiles = this.fan_service.getProfiles();
       console.log(this.profiles);
       setTimeout(() => {
-        this.fan_profiles()
+        this.fan_profiles();
       });
     }, 550);
   }
@@ -36,20 +36,21 @@ export class FanCurvesComponent {
   }
 
   save() {
-    let name = (document.getElementById('selector') as HTMLInputElement).value
-    let index = this.fan_service.getProfileIndexByName(name)
+    let name = (document.getElementById("selector") as HTMLInputElement).value;
+    let index = this.fan_service.getProfileIndexByName(name);
     console.log(index);
-    this.fan_service.editFanCurves(index, this.lineChartData.datasets[0].data)
+    this.fan_service.editFanCurves(index, this.lineChartData.datasets[0].data);
   }
   saveAndApply() {
     this.save();
-    let name = (document.getElementById('selector') as HTMLInputElement).value
-    let index = this.fan_service.getProfileIndexByName(name)
+    let name = (document.getElementById("selector") as HTMLInputElement).value;
+    let index = this.fan_service.getProfileIndexByName(name);
     this.fan_service.saveSelected(index);
   }
 
   fan_profiles() {
-    let profile = (document.getElementById('selector') as HTMLInputElement).value
+    let profile = (document.getElementById("selector") as HTMLInputElement)
+      .value;
     let array = this.fan_service.getProfileArrayByName(profile);
     this.lineChartData.datasets[0].data = array!.array;
     this.chart?.update();

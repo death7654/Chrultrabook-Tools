@@ -27,17 +27,16 @@ export class FanService {
     return this.profiles_list.find((profile) => profile.name === name);
   }
 
-  getProfileIndexByName(name: string)
-  {
+  getProfileIndexByName(name: string) {
     let objIndex = -1;
     for (let i = 0; i < this.profiles_list.length; i++) {
       if (this.profiles_list[i].name === name) {
-          objIndex = i;
-          return objIndex;
-          break;
+        objIndex = i;
+        return objIndex;
+        break;
       }
-  }
-  return -1
+    }
+    return -1;
   }
 
   addProfile(name: string) {
@@ -53,7 +52,7 @@ export class FanService {
       disabled: true,
       class: "transparent",
       img_class: "btn-outline-info",
-      img: "\uF4CB"
+      img: "\uF4CB",
     };
     this.profiles_list.push(newProfile);
     let jsonString = JSON.stringify(this.profiles_list);
@@ -64,55 +63,45 @@ export class FanService {
     });
   }
 
-  editProfileName(i: number, name: string)
-  {
+  editProfileName(i: number, name: string) {
     this.profiles_list[i].name = name;
     this.save_to_rust();
   }
 
-  editFanCurves(i: number, array: any)
-  {
-    this.profiles_list[i].array = array
+  editFanCurves(i: number, array: any) {
+    this.profiles_list[i].array = array;
     this.save_to_rust();
   }
 
-  saveSelected(index: number)
-  {
-    for(let i = 0; i < this.profiles_list.length; i++)
-      {
-        this.profiles_list[i].selected = false;
-      }
+  saveSelected(index: number) {
+    for (let i = 0; i < this.profiles_list.length; i++) {
+      this.profiles_list[i].selected = false;
+    }
     this.profiles_list[index].selected = true;
     this.save_to_rust();
   }
 
-  getSelected()
-  {
-    for(let i = 0; i < this.profiles_list.length; i++)
-      {
-        if (this.profiles_list[i].selected === true)
-          {
-            return [this.profiles_list[i].name, this.profiles_list[i].array]
-          }
+  getSelected() {
+    for (let i = 0; i < this.profiles_list.length; i++) {
+      if (this.profiles_list[i].selected === true) {
+        return [this.profiles_list[i].name, this.profiles_list[i].array];
       }
-      return 'Auto'
+    }
+    return "Auto";
   }
 
-  deleteProfile(i: number)
-  {
+  deleteProfile(i: number) {
     this.profiles_list.splice(i, 1);
     this.save_to_rust();
   }
 
-  save_to_rust()
-  {
+  save_to_rust() {
     invoke("local_storage", {
       function: "save",
       option: "profiles",
       value: JSON.stringify(this.profiles_list),
-    }); 
+    });
   }
-
 
   //functions below are WIP
   changeMode(mode: string) {
