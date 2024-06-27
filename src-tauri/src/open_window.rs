@@ -1,3 +1,5 @@
+use tauri::{Manager, WebviewWindow};
+
 pub async fn new_window(
     handle: &tauri::AppHandle,
     label: &str,
@@ -6,15 +8,22 @@ pub async fn new_window(
     height: f64,
     resizeable: bool,
 ) -> tauri::WebviewWindow<tauri::Wry> {
-    return tauri::WebviewWindowBuilder::new(
-        handle,
-        label, /* the unique window label */
-        tauri::WebviewUrl::App(angular_path.parse().unwrap()),
-    )
-    .inner_size(width, height)
-    .title(label)
-    .resizable(resizeable)
-    .maximizable(resizeable)
-    .build()
-    .unwrap();
+    let windows = Manager::webview_windows(handle);
+    let window_exists = windows.get(&label.to_string());
+    match window_exists {
+        None => {
+            return tauri::WebviewWindowBuilder::new(
+                handle,
+                label, /* the unique window label */
+                tauri::WebviewUrl::App(angular_path.parse().unwrap()),
+            )
+            .inner_size(width, height)
+            .title(label)
+            .resizable(resizeable)
+            .maximizable(resizeable)
+            .build()
+            .unwrap();
+        }
+        Some(x) => x.clone(),
+    }
 }
