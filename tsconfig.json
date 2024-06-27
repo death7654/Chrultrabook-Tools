@@ -14,7 +14,7 @@
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "declaration": false,
     "experimentalDecorators": true,
     "moduleResolution": "bundler",
