@@ -1,4 +1,4 @@
-import { Component, QueryList, ViewChild, inject } from "@angular/core";
+import { Component, ViewChild, inject } from "@angular/core";
 import { ChartConfiguration } from "chart.js";
 import { BaseChartDirective } from "ng2-charts";
 import { FanService } from "../../services/fan.service";
@@ -28,7 +28,7 @@ export class FanDataComponent {
   @ViewChild("myChart2") myChart2?: BaseChartDirective;
 
   collect() {
-    let time = (document.getElementById("time") as HTMLInputElement).value;
+    const time = (document.getElementById("time") as HTMLInputElement).value;
     if (this.button_label == "Collect Data") {
       this.button_label = "Stop Collect";
       this.interval = setInterval(async () => {
@@ -85,16 +85,16 @@ export class FanDataComponent {
   }
 
   async showData(time: number) {
-    let cpuDataArrayLength = this.lineChartData.datasets[0].data.length;
-    let tempOutput: any = await invoke("get_temps");
-    let output: string = await invoke("execute", {
+    const cpuDataArrayLength = this.lineChartData.datasets[0].data.length;
+    const tempOutput: any = await invoke("get_temps");
+    const output: string = await invoke("execute", {
       program: "ectool",
       arguments: ["pwmgetfanrpm", "all"],
       reply: true,
     });
-    let split = output.split(" ");
-    let temp = Number(tempOutput);
-    let rpm = Number(split[3]);
+    const split = output.split(" ");
+    const temp = Number(tempOutput);
+    const rpm = Number(split[3]);
 
     this.label = this.label + time / 1000;
 

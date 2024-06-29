@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Subject } from "rxjs";
+import { BehaviorSubject } from "rxjs";
 import { profile } from "./profiles";
 import { invoke } from "@tauri-apps/api/core";
 
@@ -54,10 +54,10 @@ export class FanService {
 
   addProfile(name: string) {
     let id = 0;
-    for (let key in this.profiles_list) {
+    for (const key in this.profiles_list) {
       this.profiles_list[key].id == id++;
     }
-    let newProfile = {
+    const newProfile = {
       id: id,
       name: name,
       array: [0, 10, 25, 40, 60, 80, 95, 100, 100, 100, 100, 100, 100],
@@ -68,7 +68,7 @@ export class FanService {
       img: "\uF4CB",
     };
     this.profiles_list.push(newProfile);
-    let jsonString = JSON.stringify(this.profiles_list);
+    const jsonString = JSON.stringify(this.profiles_list);
     invoke("local_storage", {
       function: "save",
       option: "profiles",

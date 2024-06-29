@@ -33,7 +33,7 @@ export class FanProfilesComponent {
   }
 
   addProfiles() {
-    let name = (document.getElementById("text") as HTMLInputElement).value;
+    const name = (document.getElementById("text") as HTMLInputElement).value;
     if (name !== "") {
       (document.getElementById("text") as HTMLInputElement).value = "";
       this.fan_service.addProfile(name);
@@ -56,7 +56,7 @@ export class FanProfilesComponent {
       this.profiles[i].img = "\uF4CB";
       this.profiles[i].img_class = "btn-outline-info";
       this.profiles[i].disabled = true;
-      let changed_name = (
+      const changed_name = (
         document.getElementById(
           this.profiles[i].id.toString()
         ) as HTMLInputElement

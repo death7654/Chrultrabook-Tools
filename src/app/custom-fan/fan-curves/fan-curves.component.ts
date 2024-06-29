@@ -1,12 +1,12 @@
-import { Component, ViewChild, inject } from "@angular/core";
+import { Component, ViewChild, inject, OnInit } from "@angular/core";
 import { FanSectionComponent } from "../../home/fan-section/fan-section.component";
 import { FanService } from "../../services/fan.service";
 import { profile } from "../../services/profiles";
-import { invoke } from "@tauri-apps/api/core";
 import { NgFor } from "@angular/common";
 
 import { BaseChartDirective } from "ng2-charts";
 import { ChartConfiguration, Chart } from "chart.js/auto";
+import type from "../../../types/chartjs-plugin-dragdata";
 import DragData from "chartjs-plugin-dragdata";
 
 @Component({
@@ -16,7 +16,7 @@ import DragData from "chartjs-plugin-dragdata";
   templateUrl: "./fan-curves.component.html",
   styleUrl: "./fan-curves.component.scss",
 })
-export class FanCurvesComponent {
+export class FanCurvesComponent implements OnInit {
   mode_value: string = " ";
   selected_mode: number = 10000;
   profiles: profile[] = [];
@@ -39,23 +39,23 @@ export class FanCurvesComponent {
   }
 
   save() {
-    let name = (document.getElementById("selector") as HTMLInputElement).value;
-    let index = this.fan_service.getProfileIndexByName(name);
+    const name = (document.getElementById("selector") as HTMLInputElement).value;
+    const index = this.fan_service.getProfileIndexByName(name);
     console.log(index);
     this.fan_service.editFanCurves(index, this.lineChartData.datasets[0].data);
   }
   saveAndApply() {
     this.save();
-    let name = (document.getElementById("selector") as HTMLInputElement).value;
-    let index = this.fan_service.getProfileIndexByName(name);
+    const name = (document.getElementById("selector") as HTMLInputElement).value;
+    const index = this.fan_service.getProfileIndexByName(name);
     this.fan_service.setMode(index);
     this.fan_service.saveSelected(index);
   }
 
   fan_profiles() {
-    let profile = (document.getElementById("selector") as HTMLInputElement)
+    const profile = (document.getElementById("selector") as HTMLInputElement)
       .value;
-    let array = this.fan_service.getProfileArrayByName(profile);
+      const array = this.fan_service.getProfileArrayByName(profile);
     this.lineChartData.datasets[0].data = array!.array;
     this.chart?.update();
     this.mode_value = profile;
@@ -119,7 +119,6 @@ export class FanCurvesComponent {
           e: MouseEvent,
           datasetIndex: number,
           index: number,
-          value: any
         ) => {
           //console.log('Drag start:', datasetIndex, index, value);
           if (datasetIndex === 0 && index === 0) {
@@ -130,23 +129,7 @@ export class FanCurvesComponent {
             return false;
           }
           return true;
-        },
-        onDrag: (
-          e: MouseEvent,
-          datasetIndex: number,
-          index: number,
-          value: any
-        ) => {
-          //console.log('Dragging:', datasetIndex, index, value);
-        },
-        onDragEnd: (
-          e: MouseEvent,
-          datasetIndex: number,
-          index: number,
-          value: any
-        ) => {
-          //console.log('Drag end:', datasetIndex, index, value);
-        },
+        }
       },
     },
   };

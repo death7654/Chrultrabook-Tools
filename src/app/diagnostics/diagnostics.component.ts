@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { invoke } from "@tauri-apps/api/core";
 
 @Component({
@@ -8,13 +8,13 @@ import { invoke } from "@tauri-apps/api/core";
   templateUrl: "./diagnostics.component.html",
   styleUrl: "./diagnostics.component.scss",
 })
-export class DiagnosticsComponent {
+export class DiagnosticsComponent implements OnInit {
   collected_info: string = "";
   selected_function: string = "";
   disabled: boolean = false;
 
   async ngOnInit() {
-    let os = await invoke("os");
+    const os = await invoke("os");
     if (os == "macOS") {
       this.disabled = true;
     }

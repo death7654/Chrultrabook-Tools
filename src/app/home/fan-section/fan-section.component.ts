@@ -1,7 +1,6 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, OnInit } from "@angular/core";
 import { FanService } from "../../services/fan.service";
 import { invoke } from "@tauri-apps/api/core";
-import { Subject, takeUntil } from "rxjs";
 import { profile } from "../../services/profiles";
 
 @Component({
@@ -12,7 +11,7 @@ import { profile } from "../../services/profiles";
   styleUrl: "./fan-section.component.scss",
   providers: [FanService],
 })
-export class FanSectionComponent {
+export class FanSectionComponent implements OnInit {
   selected_mode: string = "N/A";
   temp: number = 9;
   fan_exists: boolean = true;
@@ -37,18 +36,18 @@ export class FanSectionComponent {
       this.profiles = this.fanService.getProfiles();
     }, 1000);
 
-    let output_fan: string = await invoke("local_storage", {
+    const output_fan: string = await invoke("local_storage", {
       function: "get",
       option: "fan_boot",
       value: "",
     });
     this.fan_on_boot = JSON.parse(output_fan);
-    let output: string = await invoke("execute", {
+    const output: string = await invoke("execute", {
       program: "ectool",
       arguments: ["pwmgetfanrpm", "all"],
       reply: true,
     });
-    let split = output.split(" ");
+    const split = output.split(" ");
 
     if (split[0] == "Fan") {
       //fans are auto disabled, this reverses the disabling
@@ -88,18 +87,18 @@ export class FanSectionComponent {
   }
 
   async get_cpu_temp() {
-    let output: number = await invoke("get_temps");
-    let convertedOutput = output.toString().trim();
+    const output: number = await invoke("get_temps");
+    const convertedOutput = output.toString().trim();
     (document.getElementById("temp") as HTMLInputElement).innerText = convertedOutput
     this.temp = Number(convertedOutput)
   }
   async get_fan_rpm() {
-    let output: string = await invoke("execute", {
+    const output: string = await invoke("execute", {
       program: "ectool",
       arguments: ["pwmgetfanrpm", "all"],
       reply: true,
     });
-    let split = output.split(" ");
+    const split = output.split(" ");
     (document.getElementById("fanRPM") as HTMLInputElement).innerText =
       split[3].trim();
   }

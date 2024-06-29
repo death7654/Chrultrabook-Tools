@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { NgFor } from "@angular/common";
 import { invoke } from "@tauri-apps/api/core";
 import { version } from "../../../package.json";
@@ -10,27 +10,27 @@ import { version } from "../../../package.json";
   templateUrl: "./settings.component.html",
   styleUrl: "./settings.component.scss",
 })
-export class SettingsComponent {
+export class SettingsComponent implements OnInit {
   version_applied: string = "";
   async ngOnInit() {
     this.version_applied = version;
 
-    let fan_boot = await invoke("local_storage", {
+    const fan_boot = await invoke("local_storage", {
       function: "get",
       option: "fan_boot",
       value: "",
     });
-    let app_tray = await invoke("local_storage", {
+    const app_tray = await invoke("local_storage", {
       function: "get",
       option: "app_tray",
       value: "",
     });
-    let start_app_tray = await invoke("local_storage", {
+    const start_app_tray = await invoke("local_storage", {
       function: "get",
       option: "start_app_tray",
       value: "",
     });
-    let app_boot = await invoke("local_storage", {
+    const app_boot = await invoke("local_storage", {
       function: "get",
       option: "app_boot",
       value: "",

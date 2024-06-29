@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { invoke } from "@tauri-apps/api/core";
 
 @Component({
@@ -8,7 +8,7 @@ import { invoke } from "@tauri-apps/api/core";
   templateUrl: "./keyboard-section.component.html",
   styleUrl: "./keyboard-section.component.scss",
 })
-export class KeyboardSectionComponent {
+export class KeyboardSectionComponent implements OnInit {
   backlight_percentage: string = "N/A";
   percentage: number = 0;
   backlight_exists: boolean = !true;
@@ -17,12 +17,12 @@ export class KeyboardSectionComponent {
 
   async ngOnInit() {
     setTimeout(async () => {
-      let output: string = await invoke("execute", {
+      const output: string = await invoke("execute", {
         program: "ectool",
         arguments: ["pwmgetkblight"],
         reply: true,
       });
-      let split = output.split(" ");
+      const split = output.split(" ");
       if (split[0] !== "Current") {
         this.disabled_class = "disabled";
         this.backlight_exists = !false;

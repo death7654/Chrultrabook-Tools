@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { invoke } from "@tauri-apps/api/core";
 
 @Component({
@@ -8,12 +8,12 @@ import { invoke } from "@tauri-apps/api/core";
   templateUrl: "./activity-light-section.component.html",
   styleUrl: "./activity-light-section.component.scss",
 })
-export class ActivityLightSectionComponent {
+export class ActivityLightSectionComponent implements OnInit {
   class: string = "disabled";
   disabled: boolean = true;
 
   async ngOnInit() {
-    let output: string = await invoke("boardname");
+    const output: string = await invoke("boardname");
     if (output == "Candy" || output == "Kefka") {
       this.disabled = false;
       this.class = " ";
@@ -22,7 +22,7 @@ export class ActivityLightSectionComponent {
 
   activity_light_color: string = "N/A";
   update_color(event: MouseEvent) {
-    let selected_color = (event.target as HTMLInputElement).value;
+    const selected_color = (event.target as HTMLInputElement).value;
     if (selected_color === "Select A Color") {
       this.activity_light_color = "Off";
       invoke("change_activity_light", { selected: "black" });
