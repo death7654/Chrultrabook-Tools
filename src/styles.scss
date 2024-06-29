@@ -47,9 +47,17 @@ $border-color: #262525;
   --bs-btn-active-color: #fff;
   --bs-btn-active-bg: #4169e1;
 }
+.btn-outline-light
+{
+  --bs-btn-hover-bg: rgb(255, 255, 255, 0.2);
+}
 
 .btn {
   --bs-btn-bg: #262525;
+}
+.table-dark
+{
+  --bs-table-bg:#262525;
 }
 
 @import "../node_modules/bootstrap/scss/variables";
@@ -83,11 +91,11 @@ $table-variants: (
 // Optionals: Remove whats not required later
 @import "../node_modules/bootstrap/scss/utilities";
 @import "../node_modules/bootstrap/scss/reboot";
-@import "../node_modules/bootstrap/scss/type";
-@import "../node_modules/bootstrap/scss/images";
-@import "../node_modules/bootstrap/scss/containers";
+//@import "../node_modules/bootstrap/scss/type";
+//@import "../node_modules/bootstrap/scss/images";
+//@import "../node_modules/bootstrap/scss/containers";
 @import "../node_modules/bootstrap/scss/grid";
-@import "../node_modules/bootstrap/scss/helpers";
+//@import "../node_modules/bootstrap/scss/helpers";
 @import "../node_modules/bootstrap/scss/utilities/api";
 
 // All custom CSS below
