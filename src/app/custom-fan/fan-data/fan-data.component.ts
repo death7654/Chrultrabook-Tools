@@ -28,17 +28,32 @@ export class FanDataComponent {
   @ViewChild("myChart2") myChart2?: BaseChartDirective;
 
   collect() {
-    const time = (document.getElementById("time") as HTMLInputElement).value;
+    const time = Number((document.getElementById("time") as HTMLInputElement).value);
     if (this.button_label == "Collect Data") {
       this.button_label = "Stop Collect";
       this.interval = setInterval(async () => {
-        this.showData(Number(time));
-      }, Number(time));
+        this.showData(time);
+      }, time);
     } else {
       this.label = 0;
       this.button_label = "Collect Data";
       clearInterval(this.interval);
     }
+  }
+
+  smallData()
+  {
+    this.lineChartData.datasets[0].data = this.tiny_cpu;
+      this.lineChartData2.datasets[0].data = this.tiny_rpm;
+      this.lineChartData.labels = this.tiny_label;
+      this.lineChartData2.labels = this.tiny_label;
+  }
+  allData()
+  {
+      this.lineChartData.datasets[0].data = this.data_cpu;
+      this.lineChartData2.datasets[0].data = this.data_rpm;
+      this.lineChartData.labels = this.total_label;
+      this.lineChartData2.labels = this.total_label;
   }
 
   clear() {
@@ -49,15 +64,9 @@ export class FanDataComponent {
     this.data_rpm = [];
     this.total_label = [];
     if (this.data_label == "Show All Data") {
-      this.lineChartData.datasets[0].data = this.tiny_cpu;
-      this.lineChartData2.datasets[0].data = this.tiny_rpm;
-      this.lineChartData.labels = this.tiny_label;
-      this.lineChartData2.labels = this.tiny_label;
+      this.smallData();
     } else {
-      this.lineChartData.datasets[0].data = this.data_cpu;
-      this.lineChartData2.datasets[0].data = this.data_rpm;
-      this.lineChartData.labels = this.total_label;
-      this.lineChartData2.labels = this.total_label;
+      this.allData();
     }
     this.updateChart();
   }
@@ -65,16 +74,10 @@ export class FanDataComponent {
   retrieveCollectedData() {
     if (this.data_label == "Show All Data") {
       this.data_label = "Show Last 10";
-      this.lineChartData.datasets[0].data = this.data_cpu;
-      this.lineChartData2.datasets[0].data = this.data_rpm;
-      this.lineChartData.labels = this.total_label;
-      this.lineChartData2.labels = this.total_label;
+      this.allData()
     } else {
       this.data_label = "Show All Data";
-      this.lineChartData.datasets[0].data = this.tiny_cpu;
-      this.lineChartData2.datasets[0].data = this.tiny_rpm;
-      this.lineChartData.labels = this.tiny_label;
-      this.lineChartData2.labels = this.tiny_label;
+      this.smallData()
     }
     this.updateChart();
   }
@@ -109,12 +112,8 @@ export class FanDataComponent {
     this.data_cpu.push(temp);
     this.data_rpm.push(rpm);
     this.total_label.push(this.label.toString());
-    this.lineChartData.datasets[0].data = this.tiny_cpu;
-    this.lineChartData2.datasets[0].data = this.tiny_rpm;
-    this.lineChartData.labels = this.tiny_label;
-    this.lineChartData2.labels = this.tiny_label;
-    this.myChart?.update();
-    this.myChart2?.update();
+    this.smallData();
+    this.updateChart()
   }
 
   public lineChartData: ChartConfiguration["data"] = {

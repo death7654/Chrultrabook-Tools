@@ -73,59 +73,40 @@ export class SettingsComponent implements OnInit {
     },
   ];
   toggle(i: number) {
+    if (this.items[i].answer) {
+      this.items[i].answer = false;
+    } else {
+      this.items[i].answer = true;
+    }
     switch (i) {
       case 0:
-        if (this.items[0].answer) {
-          this.items[0].answer = false;
-        } else {
-          this.items[0].answer = true;
-        }
         invoke("local_storage", {
           function: "save",
           option: "fan_boot",
           value: this.items[0].answer.toString(),
         });
-        console.log("1");
         break;
       case 1:
-        if (this.items[1].answer) {
-          this.items[1].answer = false;
-        } else {
-          this.items[1].answer = true;
-        }
         invoke("local_storage", {
           function: "save",
           option: "app_tray",
           value: this.items[1].answer.toString(),
         });
-        console.log("2");
         break;
       case 2:
-        if (this.items[2].answer) {
-          this.items[2].answer = false;
-        } else {
-          this.items[2].answer = true;
-        }
         invoke("local_storage", {
           function: "save",
           option: "start_app_tray",
           value: this.items[2].answer.toString(),
         });
-        console.log("3");
         break;
       case 3:
-        if (this.items[3].answer) {
-          this.items[3].answer = false;
-        } else {
-          this.items[3].answer = true;
-        }
         invoke("local_storage", {
           function: "save",
           option: "app_boot",
           value: this.items[3].answer.toString(),
         });
         invoke("autostart", { value: this.items[3].answer });
-        console.log("4");
         break;
     }
   }

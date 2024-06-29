@@ -18,7 +18,6 @@ export class FanProfilesComponent {
   profiles: profile[] = [];
   fan_service: FanService = inject(FanService);
 
-  //TODO, transfer data from this component to fan section component in the home component using the fan service
   constructor() {
     setTimeout(() => {
       this.profiles = this.fan_service.getProfiles();
@@ -33,19 +32,16 @@ export class FanProfilesComponent {
   }
 
   addProfiles() {
-    const name = (document.getElementById("text") as HTMLInputElement).value;
+    const name = (
+      document.getElementById("text") as HTMLInputElement
+    ).value.trim();
     if (name !== "") {
       (document.getElementById("text") as HTMLInputElement).value = "";
       this.fan_service.addProfile(name);
     }
   }
 
-  changeGlobalID(i: number) {
-    this.editProfile(i);
-  }
-
   editProfile(i: number) {
-    console.log(i);
     if (this.profiles[i].class === "transparent") {
       this.profiles[i].class = "edit";
       this.profiles[i].img = "\uF7D8";
@@ -64,11 +60,6 @@ export class FanProfilesComponent {
       if (changed_name !== "") {
         this.profiles[i].name = changed_name;
         this.fan_service.editProfileName(i, changed_name);
-        (
-          document.getElementById(
-            this.profiles[i].id.toString()
-          ) as HTMLInputElement
-        ).value = "";
       }
     }
   }

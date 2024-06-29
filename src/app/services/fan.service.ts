@@ -36,7 +36,6 @@ export class FanService {
 
   getProfileByIndex(index: number)
   {
-    console.log(this.profiles_list[index])
     return this.profiles_list[index];
   }
 
@@ -100,7 +99,7 @@ export class FanService {
         return [this.profiles_list[i].name, this.profiles_list[i].array];
       }
     }
-    return "Auto";
+    return " ";
   }
 
   deleteProfile(i: number) {

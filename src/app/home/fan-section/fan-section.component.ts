@@ -1,7 +1,6 @@
 import { Component, inject, OnInit } from "@angular/core";
 import { FanService } from "../../services/fan.service";
 import { invoke } from "@tauri-apps/api/core";
-import { profile } from "../../services/profiles";
 
 @Component({
   selector: "app-fan-section",
@@ -13,17 +12,24 @@ import { profile } from "../../services/profiles";
 })
 export class FanSectionComponent implements OnInit {
   selected_mode: string = "N/A";
-  temp: number = 9;
+  temp: number = 0;
   fan_exists: boolean = true;
   fan_on_boot: boolean = false;
   disabled_class: string = "disable";
   button: string = "btn-outline-secondary";
+
   fan_auto_class: string = "";
   fan_off_class: string = "";
   fan_max_class: string = "";
   fan_custom_class: string = "";
+
+  auto_active: string = "";
+  off_active: string = "";
+  max_active: string = "";
+  custom_active: string = "";
+
+  active_class: string = "";
   extension: string = "N/A";
-  profiles: profile[] = [];
   interval: any;
   fan_array: any;
 
@@ -32,9 +38,6 @@ export class FanSectionComponent implements OnInit {
   constructor() {}
 
   async ngOnInit() {
-    setTimeout(() => {
-      this.profiles = this.fanService.getProfiles();
-    }, 1000);
 
     const output_fan: string = await invoke("local_storage", {
       function: "get",
@@ -55,34 +58,29 @@ export class FanSectionComponent implements OnInit {
       this.fan_off_class = "btn-outline-warning ";
       this.fan_max_class = "btn-outline-danger";
       this.fan_custom_class = "btn-outline-info btn-outline-info-custom";
+      this.extension = "RPM";
       this.disabled_class = "";
       this.fan_exists = false;
 
       //checks if user wants fan curves on boot and applies the respective classes
       if (this.fan_on_boot == true) {
-        this.fan_custom_class =
-          "btn-outline-info btn-outline-info-custom active";
-        this.fanService.getIndex.subscribe((index) => {
-          setTimeout(() => {
-            console.log(this.profiles);
-            this.selected_mode = this.profiles[Number(index)].name;
-            this.fan_array = this.profiles[Number(index)].array;
-            this.apply_interval();
-          }, 1500);
-        });
+        const selected_data = this.fanService.getSelected()
+        this.selected_mode = selected_data[0];
+        this.fan_array = selected_data[1];
+        this.custom_active = "active";
+        this.apply_interval();
       } else {
-        this.fan_auto_class = "btn-outline-success active";
+        this.auto_active = "active"
         this.selected_mode = "Auto";
         this.fan_auto();
       }
 
-      this.extension = "RPM";
       setInterval(this.get_fan_rpm, 1000);
       this.button = "btn-border-none";
     }
+
     setInterval(() => {
-      this.get_cpu_temp()
-      console.log(this.temp);
+      this.get_cpu_temp();
     }, 1000);
   }
 
@@ -103,6 +101,14 @@ export class FanSectionComponent implements OnInit {
       split[3].trim();
   }
 
+  switchSelected()
+  {
+    this.auto_active = "";
+    this.off_active = "";
+    this.max_active = "";
+    this.custom_active = "";
+  }
+
   fan_auto() {
     invoke("execute", {
       program: "ectool",
@@ -111,10 +117,8 @@ export class FanSectionComponent implements OnInit {
     });
     clearInterval(this.interval);
     this.selected_mode = "Auto";
-    this.fan_auto_class = "btn-outline-success active";
-    this.fan_off_class = "btn-outline-warning";
-    this.fan_max_class = "btn-outline-danger";
-    this.fan_custom_class = "btn-outline-info btn-outline-info-custom";
+    this.switchSelected();
+    this.auto_active = "active"
   }
   fan_off() {
     invoke("execute", {
@@ -124,10 +128,8 @@ export class FanSectionComponent implements OnInit {
     });
     clearInterval(this.interval);
     this.selected_mode = "Off";
-    this.fan_auto_class = "btn-outline-success";
-    this.fan_off_class = "btn-outline-warning active";
-    this.fan_max_class = "btn-outline-danger";
-    this.fan_custom_class = "btn-outline-info btn-outline-info-custom";
+    this.switchSelected();
+    this.off_active = "active"
   }
   fan_max() {
     invoke("execute", {
@@ -137,24 +139,19 @@ export class FanSectionComponent implements OnInit {
     });
     clearInterval(this.interval);
     this.selected_mode = "Max";
-    this.fan_auto_class = "btn-outline-success";
-    this.fan_off_class = "btn-outline-warning";
-    this.fan_max_class = "btn-outline-danger active";
-    this.fan_custom_class = "btn-outline-info btn-outline-info-custom";
+    this.switchSelected();
+    this.max_active = "active";
   }
 
   fan_custom() {
-    this.fan_auto_class = "btn-outline-success";
-    this.fan_off_class = "btn-outline-warning";
-    this.fan_max_class = "btn-outline-danger";
-    this.fan_custom_class = "btn-outline-info btn-outline-info-custom active";
+    this.switchSelected()
+    this.custom_active = "active"
     this.apply_interval();
   }
   apply_interval()
   {
     clearInterval(this.interval);
     this.interval = setInterval(async () => {
-      console.log(this.temp)
       invoke("set_custom_fan", {temp: this.temp, array: this.fan_array })
     }, 1000)
   }

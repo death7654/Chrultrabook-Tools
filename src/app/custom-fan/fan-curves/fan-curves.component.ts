@@ -6,7 +6,6 @@ import { NgFor } from "@angular/common";
 
 import { BaseChartDirective } from "ng2-charts";
 import { ChartConfiguration, Chart } from "chart.js/auto";
-import type from "../../../types/chartjs-plugin-dragdata";
 import DragData from "chartjs-plugin-dragdata";
 
 @Component({
@@ -31,34 +30,38 @@ export class FanCurvesComponent implements OnInit {
       });
     }, 550);
 
-    this.fan_service.getIndex.subscribe(index => this.selected_mode = index);
+    this.fan_service.getIndex.subscribe(
+      (index) => (this.selected_mode = index)
+    );
   }
 
   ngOnInit() {
     Chart.register(DragData);
   }
 
-  save() {
-    const name = (document.getElementById("selector") as HTMLInputElement).value;
-    const index = this.fan_service.getProfileIndexByName(name);
-    console.log(index);
-    this.fan_service.editFanCurves(index, this.lineChartData.datasets[0].data);
-  }
-  saveAndApply() {
-    this.save();
-    const name = (document.getElementById("selector") as HTMLInputElement).value;
-    const index = this.fan_service.getProfileIndexByName(name);
-    this.fan_service.setMode(index);
-    this.fan_service.saveSelected(index);
-  }
-
   fan_profiles() {
     const profile = (document.getElementById("selector") as HTMLInputElement)
       .value;
-      const array = this.fan_service.getProfileArrayByName(profile);
-    this.lineChartData.datasets[0].data = array!.array;
+    this.lineChartData.datasets[0].data =
+      this.fan_service.getProfileArrayByName(profile)!.array;
     this.chart?.update();
     this.mode_value = profile;
+  }
+
+  save() {
+    this.fan_service.editFanCurves(
+      this.fan_service.getProfileIndexByName(
+        (document.getElementById("selector") as HTMLInputElement).value
+      ),
+      this.lineChartData.datasets[0].data
+    );
+  }
+  saveAndApply() {
+    this.save();
+    const name = (document.getElementById("selector") as HTMLInputElement)
+      .value;
+    this.fan_service.setMode(this.fan_service.getProfileIndexByName(name));
+    this.fan_service.saveSelected(this.fan_service.getProfileIndexByName(name));
   }
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
@@ -115,21 +118,15 @@ export class FanCurvesComponent implements OnInit {
       legend: { display: false },
       dragData: {
         round: 0,
-        onDragStart: (
-          e: MouseEvent,
-          datasetIndex: number,
-          index: number,
-        ) => {
-          //console.log('Drag start:', datasetIndex, index, value);
+        onDragStart: (e: MouseEvent, datasetIndex: number, index: number) => {
           if (datasetIndex === 0 && index === 0) {
-            // this would prohibit dragging the first datapoint in the first
-            // dataset entirely
+            // this would prohibit dragging the first datapoint in the first dataset entirely
             return false;
           } else if (datasetIndex === 0 && index === 11) {
             return false;
           }
           return true;
-        }
+        },
       },
     },
   };
