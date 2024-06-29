@@ -3,8 +3,8 @@
     <h4 class="fs-3">Diagnostics</h4>
   </div>
   <div class="diagnostics w-100">
-    <div class="buttons h-100 w-100">
-      <select (click)="select()" class="form-select text-white border-0 fs-4 pt-1 bg-secondary w-100 rounded-3"
+    <div class="buttons h-100 w-100 ps-1">
+      <select (click)="select()" class="form-select text-white border-0 fs-4 pt-1 bg-secondary w-100 rounded-1"
         id="diagnostic_dropdown" #dropdown>
         <option selected>Select</option>
         <option value="Boot Timestraps" [disabled]="disabled">
@@ -26,12 +26,12 @@
           Power Delivery Information
         </option>
       </select>
-      <div class="button1">
+      <div class="button1 ps-1">
         <button class="btn btn-outline-secondary fs-4 btn-border-none w-100 h-100" (click)="select()">
           Generate Report
         </button>
       </div>
-      <div class="button2">
+      <div class="button2 ps-1">
         <button class="btn btn-outline-secondary fs-4 btn-border-none w-100 h-100" (click)="save()">
           Save to Files
         </button>
@@ -39,7 +39,7 @@
     </div>
     <div class="p-1 m-2 mt-0 mb-0 pb-1 rounded-3 overflow-auto bg-light">
       <button class="btn btn-outline-light btn-border-none position-absolute copy" (click)="copy_to_clipboard()">
-        <img class="p-0" src="../../assets/diagnostics/copy.svg" />
+        <img class="p-0" src="../../assets/diagnostics/copy.svg" alt="copy"/>
       </button>
       <div class="box fs-4 font-monospace m-2">
         <span>{{ collected_info }}</span>

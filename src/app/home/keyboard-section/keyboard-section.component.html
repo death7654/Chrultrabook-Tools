@@ -1,6 +1,6 @@
 <div class="grid keyboard_text pt-3" [class]="disabled_class">
   <h4 class="fs-4 fw-heavy">
-    <img src="../../../assets/keyboard/keyboard.svg" class="align-text-middle px-2" />Keyboard
+    <img src="../../../assets/keyboard/keyboard.svg" class="align-text-middle px-2" alt="keyboard"/>Keyboard
   </h4>
   <h4 class="fs-4 fw-heavy keyboard_info_alignment">
     Brightness: <span>{{ backlight_percentage + extension }}</span>
@@ -10,6 +10,6 @@
   <input (click)="update_percentage($event)" type="range" class="form-range pt-1" min="0" max="100" step="10"
     id="keyboard_backlight" [value]="percentage" [disabled]="backlight_exists" />
   <button class="btn btn-outline-secondary pb-0 pt-0" (click)="keyboard_more()" disabled>
-    <img class="p-0" src="../../../assets/keyboard/more.svg" />
+    <img class="p-0" src="../../../assets/keyboard/more.svg" alt="extra"/>
   </button>
 </div>
