@@ -222,6 +222,47 @@ async fn get_json() -> String {
     }
 }
 
+#[tauri::command]
+fn set_custom_fan(handle: tauri::AppHandle, temp: i16, array: Vec<i8>)
+{
+    let fan_speed;
+    if temp < 85 && temp > 35
+    {
+        let cpu_temp = temp as f64;
+        let base_value = cpu_temp - 30.0;
+        let avaliable_percentages = [1.0, 0.2, 0.4, 0.6, 0.8];
+        let percentages = avaliable_percentages[base_value as usize % 5];
+        let mut index = (base_value - (base_value % 5.0)) / 5.0;
+        let temp1 = array[index as usize];
+        index = index + 1.0;
+        let temp2 = array[index as usize];
+
+        if cpu_temp % 5.0 == 0.0 {
+            fan_speed = temp1;
+        } else {
+            let calculate_fan_speed_between =
+                (temp2 as f64 - temp1 as f64) * percentages + temp1 as f64;
+            fan_speed = calculate_fan_speed_between as i8;
+        }
+    }
+    else if temp > 85
+    {
+        fan_speed = 100;
+    }
+    else
+    {
+        fan_speed = 0;
+    }
+
+    execute::execute_relay(
+        handle,
+        "ectool",
+        helper::to_vec_string(vec!["fanduty", &fan_speed.to_string(), ]),
+        false,
+    );
+}
+
+
 fn main() {
     tauri::Builder::default()
         .on_window_event(|window, event| match event {
@@ -343,7 +384,8 @@ fn main() {
             os,
             change_activity_light,
             autostart,
-            get_json
+            get_json,
+            set_custom_fan
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

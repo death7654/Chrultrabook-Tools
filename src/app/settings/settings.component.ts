@@ -13,8 +13,7 @@ import { version } from "../../../package.json";
 export class SettingsComponent {
   version_applied: string = "";
   async ngOnInit() {
-    let version_imported = version;
-    this.version_applied = version_imported;
+    this.version_applied = version;
 
     let fan_boot = await invoke("local_storage", {
       function: "get",

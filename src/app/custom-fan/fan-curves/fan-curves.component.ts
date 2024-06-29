@@ -18,6 +18,7 @@ import DragData from "chartjs-plugin-dragdata";
 })
 export class FanCurvesComponent {
   mode_value: string = " ";
+  selected_mode: number = 10000;
   profiles: profile[] = [];
   fan_service: FanService = inject(FanService);
 
@@ -29,6 +30,8 @@ export class FanCurvesComponent {
         this.fan_profiles();
       });
     }, 550);
+
+    this.fan_service.getIndex.subscribe(index => this.selected_mode = index);
   }
 
   ngOnInit() {
@@ -45,6 +48,7 @@ export class FanCurvesComponent {
     this.save();
     let name = (document.getElementById("selector") as HTMLInputElement).value;
     let index = this.fan_service.getProfileIndexByName(name);
+    this.fan_service.setMode(index);
     this.fan_service.saveSelected(index);
   }
 

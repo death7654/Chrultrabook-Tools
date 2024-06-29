@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Subject } from "rxjs";
+import { BehaviorSubject, Subject } from "rxjs";
 import { profile } from "./profiles";
 import { invoke } from "@tauri-apps/api/core";
 
@@ -7,9 +7,17 @@ import { invoke } from "@tauri-apps/api/core";
   providedIn: "root",
 })
 export class FanService {
-  selected_mode = "custom";
-  modeChange: Subject<string> = new Subject<string>();
+  private mode_index = new BehaviorSubject(1)
+  getIndex = this.mode_index.asObservable();
 
+  setMode(index: number)
+  {
+    this.mode_index.next(index);
+  }
+
+
+
+  //fan profiles
   public profiles_list: profile[] = this.boot();
 
   boot(): profile[] {
@@ -18,13 +26,18 @@ export class FanService {
     });
     return this.profiles_list;
   }
-
   getProfiles(): profile[] {
     return this.profiles_list;
   }
 
   getProfileArrayByName(name: string) {
     return this.profiles_list.find((profile) => profile.name === name);
+  }
+
+  getProfileByIndex(index: number)
+  {
+    console.log(this.profiles_list[index])
+    return this.profiles_list[index];
   }
 
   getProfileIndexByName(name: string) {
@@ -101,16 +114,5 @@ export class FanService {
       option: "profiles",
       value: JSON.stringify(this.profiles_list),
     });
-  }
-
-  //functions below are WIP
-  changeMode(mode: string) {
-    console.log(mode);
-    this.selected_mode = mode;
-    this.modeChange.next(mode);
-  }
-
-  getMode() {
-    return this.selected_mode;
   }
 }
