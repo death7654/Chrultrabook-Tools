@@ -1,4 +1,4 @@
-name: 'linux build'
+name: 'Linux'
 on: 
   push:
     branches: [ "3.X.X" ]

@@ -1,4 +1,4 @@
-name: 'windows'
+name: 'Windows'
 on: 
   push:
     branches: [ "3.X.X" ]
@@ -14,16 +14,17 @@ jobs:
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v4
-      - name: setup node
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
-      - name: install Rust stable
+      - name: Install Rust Stable
         uses: dtolnay/rust-toolchain@stable
-      - name: install frontend dependencies
+      - name: Install Frontend Dependencies
         run: npm install # change this to npm or pnpm depending on which one you use
-      - uses: tauri-apps/tauri-action@v0
+      - name: Build Application
+        uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -32,10 +33,10 @@ jobs:
           releaseBody: 'See the assets to download this version and install. Replace AppImage with one uploaded in artifact'
           releaseDraft: true
           prerelease: false
-      - name: Upload build artifacts
+      - name: Upload Portable EXE
         uses: actions/upload-artifact@v4
         with:
-          name: Chrultrabook-Controller
+          name: Chrultrabook-Tools
           retention-days: 5
           path: src-tauri/target/release/chrultrabook*.exe
 

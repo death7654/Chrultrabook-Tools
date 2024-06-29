@@ -5,3 +5,4 @@ import { AppComponent } from "./app/app.component";
 bootstrapApplication(AppComponent, appConfig).catch((err) =>
   console.error(err)
 );
+
