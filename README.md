@@ -1,47 +1,42 @@
 # Chrultrabook Tools
 <img src="https://img.shields.io/github/downloads/Death7654/Chrultrabook-Controller/total" alt="shields">&nbsp;&nbsp;
-<img src="https://img.shields.io/github/contributors/Death7654/Chrultrabook-Controller?color=dark-green" alt="shields">&nbsp;&nbsp;
 <img src="https://img.shields.io/github/forks/Death7654/Chrultrabook-Controller?style=social" alt="shields">&nbsp;&nbsp;
 <img src="https://img.shields.io/github/stars/Death7654/Chrultrabook-Controller?style=social" alt="shields">
-[![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](https://github.com/death7654/Chrultrabook-Tools/wiki/Installing)
 
-Control your Chrultrabook's hardware your way
+### Your Chrultrabook, Your Way
+
+![image(2)](https://github.com/death7654/Chrultrabook-Tools/assets/72635727/1d5633e3-8b1e-4d0e-a3ba-096ed05675aa)
+
+
 
 ## Features
 - CPU Temperature
-- Fan RPMs
+- Fan Speed Monitoring
 - Custom Fan Curves
-- Start Custom Fan Curves On System Startup
-- Keyboard Brightness
-- Change the Activity Light color on supported chromebooks
+- Custom Fan Profiles
+- Fan Speed Graph
+- CPU Temperature Graph
+- Start Application In System Tray
+- Start Custom Fan Profiles On System Boot
+- Change Keyboard Brightness
+- Change the Activity Light Colors (Select Chromebooks)
 - System Diagnostics
-
-## Screenshots
-<img width="299" alt="image" src="https://github.com/death7654/Chrultrabook-Tools/assets/72635727/6ddf5053-8d2f-421f-8f32-42372dce4a6f">
-<img width="373" alt="image" src="https://github.com/death7654/Chrultrabook-Tools/assets/72635727/3c398863-257a-4187-b8d3-3731b0e831f6">
-<img width="450" alt="image" src="https://github.com/death7654/Chrultrabook-Tools/assets/72635727/bf5662e3-1f67-4964-bfb6-1077ae927922">
-<img width="450" alt="image" src="https://github.com/death7654/Chrultrabook-Tools/assets/72635727/90de8af1-ac26-4ff2-89bb-ad90207332a6">
-
-
-
-
-
-
 
 ## Prerequisites
 
 ### Windows
-- Install Coolstar's Latest CROSEC driver from [https://github.com/coolstar/driverinstallers/tree/master/crosec](https://github.com/coolstar/driverinstallers/tree/master/crosec)
+- Install Coolstar's Latest CROS-EC driver from [https://github.com/coolstar/driverinstallers/tree/master/crosec](https://github.com/coolstar/driverinstallers/tree/master/crosec)
 - Download the MSI or EXE from the latest [release](https://github.com/death7654/Chrultrabook-Tools/releases)
 - Run the Installer
+- Open the Application and Enjoy
 
 ### Linux
-- Download [ectool](https://tree123.org/files/utils/ectool) and [cbmem](https://tree123.org/files/utils/cbmem) binaries
-- Move the binaries to a safe location
-- ```cd``` to the directory in terminal
-- Mark the binaries as an executeable ```sudo chmod a + x ectool && sudo chmod a + x cbmem```
-- Download the AppImage from the latest [release](https://github.com/death7654/Chrultrabook-Tools/releases)
-- Mark the AppImage as an executeable ```chmod a+x chrultrabook-controller_3.0.1_amd64.AppImage```
+#### AppImage
+- Download the AppImage
+- ```cd``` to the directory
+- Mark the file as an executeable ```chmod a+x name.AppImage```
+- open the AppImage ```./name.AppImage```
+  
 
 ### macOS
 - Download the [ectool](https://ethanthesleepy.one/public/chrultrabook/utils/) binary
