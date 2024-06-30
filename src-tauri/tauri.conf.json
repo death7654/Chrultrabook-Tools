@@ -27,8 +27,8 @@
     "windows": [
       {
         "title": "Chrultrabook Tools",
-        "width": 400,
-        "height": 465,
+        "width": 390,
+        "height": 480,
         "maximizable": false,
         "resizable": false,
         "theme": "Dark"

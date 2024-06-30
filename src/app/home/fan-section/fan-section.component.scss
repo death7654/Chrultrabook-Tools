@@ -5,9 +5,13 @@
 
 .button_format {
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  column-gap: 8px;
+  column-gap: 10px;
 }
 .disable {
   filter: brightness(0.8);
   color: white !important;
+}
+.info
+{
+  padding-top: 3px;
 }

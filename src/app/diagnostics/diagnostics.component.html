@@ -3,7 +3,7 @@
     <h4 class="fs-3">Diagnostics</h4>
   </div>
   <div class="diagnostics w-100">
-    <div class="buttons h-100 w-100 ps-1">
+    <div class="buttons h-100 w-100 ps-1 pe-1">
       <select (click)="select()" class="form-select text-white border-0 fs-4 pt-1 bg-secondary w-100 rounded-1"
         id="diagnostic_dropdown" #dropdown>
         <option selected>Select</option>
@@ -26,12 +26,12 @@
           Power Delivery Information
         </option>
       </select>
-      <div class="button1 ps-1">
+      <div class="button1">
         <button class="btn btn-outline-secondary fs-4 btn-border-none w-100 h-100" (click)="select()">
           Generate Report
         </button>
       </div>
-      <div class="button2 ps-1">
+      <div class="button2">
         <button class="btn btn-outline-secondary fs-4 btn-border-none w-100 h-100" (click)="save()">
           Save to Files
         </button>
