@@ -1,12 +1,11 @@
 import { Component, OnInit } from "@angular/core";
-import { NgFor } from "@angular/common";
 import { invoke } from "@tauri-apps/api/core";
 import { version } from "../../../package.json";
 
 @Component({
   selector: "app-settings",
   standalone: true,
-  imports: [NgFor],
+  imports: [],
   templateUrl: "./settings.component.html",
   styleUrl: "./settings.component.scss",
 })
@@ -37,20 +36,20 @@ export class SettingsComponent implements OnInit {
     });
 
     if (fan_boot == "true") {
-      this.items[0].answer = true;
+      this.options[0].answer = true;
     }
     if (app_tray == "true") {
-      this.items[1].answer = true;
+      this.options[1].answer = true;
     }
     if (start_app_tray == "true") {
-      this.items[2].answer = true;
+      this.options[2].answer = true;
     }
     if (app_boot == "true") {
-      this.items[3].answer = true;
+      this.options[3].answer = true;
     }
   }
 
-  items = [
+  options = [
     {
       id: 1,
       function: "Start Custom Fan Curves On App Startup",
@@ -73,40 +72,40 @@ export class SettingsComponent implements OnInit {
     },
   ];
   toggle(i: number) {
-    if (this.items[i].answer) {
-      this.items[i].answer = false;
+    if (this.options[i].answer) {
+      this.options[i].answer = false;
     } else {
-      this.items[i].answer = true;
+      this.options[i].answer = true;
     }
     switch (i) {
       case 0:
         invoke("local_storage", {
           function: "save",
           option: "fan_boot",
-          value: this.items[0].answer.toString(),
+          value: this.options[0].answer.toString(),
         });
         break;
       case 1:
         invoke("local_storage", {
           function: "save",
           option: "app_tray",
-          value: this.items[1].answer.toString(),
+          value: this.options[1].answer.toString(),
         });
         break;
       case 2:
         invoke("local_storage", {
           function: "save",
           option: "start_app_tray",
-          value: this.items[2].answer.toString(),
+          value: this.options[2].answer.toString(),
         });
         break;
       case 3:
         invoke("local_storage", {
           function: "save",
           option: "app_boot",
-          value: this.items[3].answer.toString(),
+          value: this.options[3].answer.toString(),
         });
-        invoke("autostart", { value: this.items[3].answer });
+        invoke("autostart", { value: this.options[3].answer });
         break;
     }
   }

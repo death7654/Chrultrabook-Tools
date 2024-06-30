@@ -20,7 +20,8 @@
             <th scope="col"></th>
           </tr>
         </thead>
-        <tbody *ngFor="let item of profiles; let i = index">
+        <tbody>
+          @for (item of profiles; track $index) {
           <tr>
             <th scope="row"></th>
             <td class="w-100" colspan="4">
@@ -28,18 +29,19 @@
                 [class]="item.class" [placeholder]="item.name" [disabled]="item.disabled" />
             </td>
             <td>
-              <button type="button" class="btn" [class]="item.img_class" (click)="editProfile(i)">
+              <button type="button" class="btn" [class]="item.img_class" (click)="editProfile($index)">
                 {{ item.img }}
               </button>
             </td>
             <!--edit-->
             <td>
-              <button type="button" class="btn btn-outline-danger" (click)="deleteProfiles(i)">
+              <button type="button" class="btn btn-outline-danger" (click)="deleteProfiles($index)">
                 &#xF78B;
               </button>
             </td>
             <!--delete-->
           </tr>
+        }
         </tbody>
       </table>
     </div>

@@ -2,7 +2,6 @@ import { Component, ViewChild, inject, OnInit } from "@angular/core";
 import { FanSectionComponent } from "../../home/fan-section/fan-section.component";
 import { FanService } from "../../services/fan.service";
 import { profile } from "../../services/profiles";
-import { NgFor } from "@angular/common";
 
 import { BaseChartDirective } from "ng2-charts";
 import { ChartConfiguration, Chart } from "chart.js/auto";
@@ -11,7 +10,7 @@ import DragData from "chartjs-plugin-dragdata";
 @Component({
   selector: "app-fan-curves",
   standalone: true,
-  imports: [BaseChartDirective, FanSectionComponent, NgFor],
+  imports: [BaseChartDirective, FanSectionComponent],
   templateUrl: "./fan-curves.component.html",
   styleUrl: "./fan-curves.component.scss",
 })

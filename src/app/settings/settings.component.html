@@ -2,13 +2,15 @@
   <h4 class="text-center fs-3 p-2 pb-0">Settings</h4>
 </div>
 <div class="settings_format grid p-4 px-3 pt-4" style="--bs-rows: 4; --bs-columns: 0">
-  <div *ngFor="let item of items; let i = index">
+  <div>
+    @for (item of options; track $index) {
     <div class="form-check form-switch form-check-reverse text-start">
       <label class="form-check-label fs-4 fw-normal" for="flexSwitchCheckDefault">{{ item.function }}</label>
       <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" [checked]="item.answer"
-        (click)="toggle(i)" />
+        (click)="toggle($index)" />
     </div>
     <hr />
+  }
   </div>
 </div>
 <div class="position-absolute w-100 bottom-0 text-center">

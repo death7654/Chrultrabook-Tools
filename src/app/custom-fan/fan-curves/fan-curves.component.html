@@ -3,9 +3,11 @@
     <div>
       <select (click)="fan_profiles()"
         class="form-select fw-normal border-0 fs-4 text-white bg-secondary h-100 rounded-3" id="selector">
-        <option *ngFor="let item of profiles; let i = index" [selected]="item.selected" [value]="item.name">
+        @for (item of profiles; track $index) {
+        <option [selected]="item.selected" [value]="item.name">
           {{ item.name }}
         </option>
+        }
       </select>
     </div>
     <button class="btn btn-outline-secondary btn-outline-none fs-4" (click)="save()">

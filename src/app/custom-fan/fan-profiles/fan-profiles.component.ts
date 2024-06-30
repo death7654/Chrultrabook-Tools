@@ -1,12 +1,11 @@
 import { Component, HostListener, inject } from "@angular/core";
 import { FanService } from "../../services/fan.service";
 import { profile } from "../../services/profiles";
-import { NgFor } from "@angular/common";
 
 @Component({
   selector: "app-fan-profiles",
   standalone: true,
-  imports: [NgFor],
+  imports: [],
   templateUrl: "./fan-profiles.component.html",
   styleUrl: "./fan-profiles.component.scss",
 })
