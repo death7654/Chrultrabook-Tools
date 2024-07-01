@@ -39,12 +39,10 @@
   
 
 ### macOS
-- Download the [ectool](https://ethanthesleepy.one/public/chrultrabook/utils/) binary
-- ```cd``` to the directory in which the binary is located
-- Copy the file to the correct directory ```sudo cp ./ectool /usr/local/bin/ectool```
-- Mark the binary as an executeable ```sudo chmod +x /usr/local/bin/ectool```
-- Download the DMG from the latest [release](https://github.com/death7654/Chrultrabook-Tools/releases)
-- Run the installer
+- Download the [ectool](https://github.com/1Revenger1/ectool) binary
+- Move the Binary to ```/usr/bin``` or ```/usr/local/bin```
+- Run the Chrultrabook Tools Installer
+- Drag the Chrultrabook Tools app into the Applications Folder
 
 ## Built Using
 - Tauri
