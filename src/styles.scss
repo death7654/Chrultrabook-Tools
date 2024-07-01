@@ -1,6 +1,7 @@
 @import "../node_modules/bootstrap/scss/functions";
 
 // Include any default variable overrides here
+
 $primary: #363639;
 $secondary: #2e2e30;
 $light: #363639;
@@ -13,57 +14,10 @@ $h5-font-size: 12px;
 $h6-font-size: 10px;
 $border-color: #262525;
 
-.btn-border-none {
-  border: none;
-}
-
-.btn-outline-success {
-  --bs-btn-color: #fff;
-  --bs-btn-color-disabled: #fff;
-}
-.btn-outline-warning {
-  --bs-btn-color: #fff;
-  --bs-btn-hover-bg: #daa520;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #daa520;
-}
-.btn-outline-danger {
-  --bs-btn-color: #fff;
-}
-.btn-outline-info {
-  --bs-btn-color: #fff;
-}
-.btn-outline-secondary {
-  --bs-btn-color: #fff;
-  --bs-btn-hover-bg: #343434;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #71797e;
-}
-
-.btn-outline-info-custom {
-  --bs-btn-hover-bg: #4169e1;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #4169e1;
-}
-.btn-outline-light
-{
-  --bs-btn-hover-bg: rgb(255, 255, 255, 0.2);
-}
-
-.btn {
-  --bs-btn-bg: #262525;
-}
-.table-dark
-{
-  --bs-table-bg:#262525;
-}
+$enable-cssgrid: true;
 
 @import "../node_modules/bootstrap/scss/variables";
 @import "../node_modules/bootstrap/scss/variables-dark";
-
-$enable-cssgrid: true;
 
 // Include any default map overrides here
 
@@ -73,6 +27,7 @@ $position-values: (
   50: 50%,
   100: 100%,
 );
+
 $table-variants: (
   "primary": shift-color($primary, $table-bg-scale),
   "secondary": shift-color($secondary, $table-bg-scale),
@@ -123,4 +78,56 @@ body {
   -webkit-user-select: none;
   overflow: hidden;
   color-scheme: dark;
+}
+
+
+.btn-border-none {
+  border: none;
+}
+
+.btn-outline-success {
+  --bs-btn-color: #fff;
+  --bs-btn-color-disabled: #fff;
+}
+
+.btn-outline-warning {
+  --bs-btn-color: #fff;
+  --bs-btn-hover-bg: #daa520;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #daa520;
+}
+
+.btn-outline-danger {
+  --bs-btn-color: #fff;
+}
+
+.btn-outline-info {
+  --bs-btn-color: #fff;
+}
+
+.btn-outline-secondary {
+  --bs-btn-color: #fff;
+  --bs-btn-hover-bg: #343434;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #71797e;
+}
+
+.btn-outline-info-custom {
+  --bs-btn-hover-bg: #4169e1;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #4169e1;
+}
+
+.btn-outline-light {
+  --bs-btn-hover-bg: rgb(255, 255, 255, 0.2);
+}
+
+.btn {
+  --bs-btn-bg: #262525;
+}
+
+.table-dark {
+  --bs-table-bg: #262525;
 }
