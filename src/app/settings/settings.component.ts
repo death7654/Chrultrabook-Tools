@@ -57,7 +57,7 @@ export class SettingsComponent implements OnInit {
     },
     {
       id: 2,
-      function: "App Minimizes To Tray On Exit",
+      function: "Main Window Minimizes To Tray On Exit",
       answer: false,
     },
     {
@@ -70,6 +70,7 @@ export class SettingsComponent implements OnInit {
       function: "Start App On Boot",
       answer: false,
     },
+
   ];
   toggle(i: number) {
     if (this.options[i].answer) {

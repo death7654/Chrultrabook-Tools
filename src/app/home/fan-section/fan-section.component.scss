@@ -3,10 +3,6 @@
   column-gap: 0;
 }
 
-.button_format {
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  column-gap: 10px;
-}
 .disable {
   filter: brightness(0.8);
   color: white !important;

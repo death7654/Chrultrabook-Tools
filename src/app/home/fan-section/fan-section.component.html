@@ -8,7 +8,7 @@
     Fan: <span id="fanRPM"></span> {{ extension }}
   </h4>
 </div>
-<div class="button_format grid p-1 pt-2 px-2" [class]="disabled_class">
+<div class="grid p-1 pt-2 px-2" [class]="disabled_class" style="--bs-rows: 0; --bs-columns: 4; --bs-gap: 7px">
   <button type="button" class="btn fs-4" [class]="fan_auto_class + ' ' + button + ' ' + auto_active" [disabled]="fan_exists"
     (click)="fan_auto()" data-bs-toggle="button">
     <img class="p-2 pb-2" src="../../../assets/fan/leaf.svg" alt="leaf" /><br />Auto
