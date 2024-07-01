@@ -33,7 +33,7 @@ jobs:
           releaseBody: 'See the assets to download this version and install. Replace AppImage with one uploaded in artifact'
           releaseDraft: true
           prerelease: false
-      - name: Upload Portable EXE
+      - name: Upload Portable Executable
         uses: actions/upload-artifact@v4
         with:
           name: Chrultrabook-Tools
