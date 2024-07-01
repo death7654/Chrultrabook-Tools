@@ -1,37 +1,50 @@
 import { Component, OnInit } from "@angular/core";
 import { invoke } from "@tauri-apps/api/core";
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: "app-diagnostics",
   standalone: true,
-  imports: [],
+  imports: [FormsModule],
   templateUrl: "./diagnostics.component.html",
   styleUrl: "./diagnostics.component.scss",
 })
 export class DiagnosticsComponent implements OnInit {
   collected_info: string = "";
-  selected_function: string = "";
-  disabled: boolean = false;
+  selected_function: string | undefined;
+  isMacOS: boolean = false;
+  diagModes = new Map<string, string>([
+    ["Battery Information", "Battery Information"],
+    ["EC Console Log", "EC Console Log"],
+    ["EC Chip Information", "EC Chip Information"],
+    ["EC Protocol Information", "EC Protocol Information"],
+    ["SPI Information", "SPI Information"],
+    ["Temperature Sensor Information", "Temperature Sensor Information"],
+    ["Power Delivery Information", "Power Delivery Information"],
+  ]);
+  diagModesExt = new Map<string, string>([
+    ["Boot Timestraps", "Boot Timestraps"],
+    ["Coreboot Log", "Coreboot Log"],
+    ["Coreboot Extended Log", "Coreboot Extended Log"],
+  ]);
 
-  async ngOnInit() {
-    const os = await invoke("os");
-    if (os == "macOS") {
-      this.disabled = true;
-    }
+  ngOnInit() {
+    const os = invoke("os").then((os) => {
+      if (os === "macOS") {
+        this.isMacOS = true;
+      }
+    });
   }
 
-  async select() {
-    this.selected_function = (
-      document.getElementById("diagnostic_dropdown") as HTMLInputElement
-    ).value;
-    if (this.selected_function !== "Select") {
-      this.collected_info = await invoke("diagnostics", {
+  select() {
+    if (this.selected_function) {
+      invoke("diagnostics", {
         selected: this.selected_function,
-      });
+      }).then(((info) => { this.collected_info = info as string }));
     }
   }
 
-  async copy_to_clipboard() {
+  copy_to_clipboard() {
     invoke("copy", { text: this.collected_info });
   }
 
