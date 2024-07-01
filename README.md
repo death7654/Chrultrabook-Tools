@@ -22,7 +22,7 @@
 - Change the Activity Light Colors (Select Chromebooks)
 - System Diagnostics
 
-## Prerequisites
+## Install Instructions
 
 ### Windows
 - Install Coolstar's Latest CROS-EC driver from [https://github.com/coolstar/driverinstallers/tree/master/crosec](https://github.com/coolstar/driverinstallers/tree/master/crosec)
