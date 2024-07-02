@@ -61,6 +61,7 @@ html,
 body {
   box-sizing: border-box;
   height: 100vh;
+  height: -webkit-fill-avaliable;
   width: 100vw;
   padding: 0 !important;
   margin: 0 !important;
