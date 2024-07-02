@@ -76,7 +76,7 @@ export class FanSectionComponent implements OnInit {
       }
 
       setInterval(this.get_fan_rpm, 1000);
-      this.button = "btn-border-none";
+      this.button = "border-0";
     }
 
     setInterval(() => {
