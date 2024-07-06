@@ -261,7 +261,7 @@ fn set_custom_fan(handle: tauri::AppHandle, temp: i16, array: Vec<i8>) {
 fn main() {
     #[cfg(target_os = "linux")]
     {
-    sudo::escalate_if_needed()?;
+    sudo::escalate_if_needed();
     }
     tauri::Builder::default()
         .setup(|app| {
