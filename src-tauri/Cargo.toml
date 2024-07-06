@@ -22,6 +22,7 @@ tauri-plugin-fs = "2.0.0-beta.9"
 web-local-storage-api = "0.0.0"
 hidapi = "2.6.1"
 open = "5.1.4"
+sudo = "0.6"
 elevate = "0.6.1"
 
 [features]
