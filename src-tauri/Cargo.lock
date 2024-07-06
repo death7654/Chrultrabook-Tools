@@ -6,6 +6,7 @@ version = 3
 name = "Chrultrabook-Tools"
 version = "3.0.0"
 dependencies = [
+ "elevate",
  "hidapi",
  "open",
  "serde",
@@ -1363,6 +1364,16 @@ name = "either"
 version = "1.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3dca9240753cf90908d7e4aac30f630662b02aebaa1b58a3cadabdb23385b58b"
+
+[[package]]
+name = "elevate"
+version = "0.6.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e8b9e2c51eb43c3abc3a7408dc7274d0e09a778eb6c11053fed2841bcff547c4"
+dependencies = [
+ "libc",
+ "log",
+]
 
 [[package]]
 name = "embed-resource"

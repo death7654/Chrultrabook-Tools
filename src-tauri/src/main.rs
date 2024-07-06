@@ -19,6 +19,7 @@ use tauri::tray::TrayIconBuilder;
 use tauri::{AppHandle, Manager};
 use tauri_plugin_autostart::{MacosLauncher, ManagerExt};
 use tauri_plugin_clipboard_manager::ClipboardExt;
+use elevate;
 //open windows
 
 #[tauri::command]
@@ -257,6 +258,10 @@ fn set_custom_fan(handle: tauri::AppHandle, temp: i16, array: Vec<i8>) {
 }
 
 fn main() {
+    #[cfg(target_os = "linux")]
+    {
+    sudo::escalate_if_needed()?;
+    }
     tauri::Builder::default()
         .setup(|app| {
             //to hide app if user wants it hidden upon boot
