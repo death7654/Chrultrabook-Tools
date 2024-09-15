@@ -31,21 +31,18 @@ fn execute(app: &tauri::AppHandle, program: &str, arguments: Vec<String>, reply:
             .args(arguments)
             .output()
             .await
-            .unwrap()
     });
     if reply == true {
-        if output.status.success() {
-            return String::from_utf8(output.stdout)
-                .expect("execute_failure")
-                .to_string();
+        if let Ok(out) = output {
+            if out.status.success() {
+                return String::from_utf8(out.stdout)
+                    .unwrap_or(String::from("execute_failure"));
+            }
         } else {
-            println!("Exit with code: {}", output.status.code().unwrap());
-            let status_code = output.status.code().unwrap();
-            return "Exit with code: ".to_string() + &status_code.to_string();
+            return format!("Exit with message: {}", output.unwrap_err());
         }
-    } else {
-        return " ".to_string();
     }
+    String::new()
 }
 
 pub fn execute_relay(
