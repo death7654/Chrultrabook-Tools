@@ -44,6 +44,6 @@ export class KeyboardSectionComponent implements OnInit {
 
   keyboard_more() {
     console.log("more");
-    invoke("open_keyboard_extra");
+    invoke("open_window", {name: "Keyboard_extra", width: 660.0, height: 410.0});
   }
 }

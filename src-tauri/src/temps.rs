@@ -1,6 +1,6 @@
 use std::{env, fs};
 
-fn get_temp_sys() -> i16 {
+fn get_temp_sys() -> u16 {
     let paths = match fs::read_dir("/sys/class/hwmon/") {
         Ok(out) => out,
         Err(_err) => return 0,
@@ -16,7 +16,7 @@ fn get_temp_sys() -> i16 {
             .unwrap()
             .split('\n')
             .collect::<Vec<_>>()[0]
-                .parse::<i16>()
+                .parse::<u16>()
             {
                 Ok(i) => return i / 1000,
                 Err(_err) => return 0,
@@ -26,9 +26,9 @@ fn get_temp_sys() -> i16 {
     return 0;
 }
 
-pub fn get_temp(ec_temps: String) -> i16 {
-    let mut sensors: i16 = 0;
-    let temps: i16 = ec_temps
+pub fn get_temp(ec_temps: String) -> u16 {
+    let mut sensors: u16 = 0;
+    let temps: u16 = ec_temps
         .split("\n")
         .into_iter()
         .map(|l: &str| {
@@ -38,7 +38,7 @@ pub fn get_temp(ec_temps: String) -> i16 {
                 .collect::<Vec<_>>()
                 .last()
             {
-                Some(temp) => match temp.parse::<i16>() {
+                Some(temp) => match temp.parse::<u16>() {
                     Ok(num) => {
                         sensors += 1;
                         return num;

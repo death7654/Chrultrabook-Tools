@@ -11,7 +11,7 @@ import { SettingsComponent } from "./settings/settings.component";
 export const routes: Routes = [
   { path: "", component: HomeComponent },
   {
-    path: "custom_fan",
+    path: "Custom_Fans",
     component: CustomFanComponent,
     children: [
       {
@@ -32,7 +32,7 @@ export const routes: Routes = [
       },
     ],
   },
-  { path: "keyboard_extra", component: KeyboardExtraComponent },
-  { path: "diagnostics", component: DiagnosticsComponent },
-  { path: "settings", component: SettingsComponent },
+  { path: "Keyboard_extra", component: KeyboardExtraComponent },
+  { path: "Diagnostics", component: DiagnosticsComponent },
+  { path: "Settings", component: SettingsComponent },
 ];

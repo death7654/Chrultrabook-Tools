@@ -15,7 +15,7 @@ export class ActivityLightSectionComponent implements OnInit {
   ngOnInit() {
     invoke("boardname").then((event:any) => {
       let output = event.trim().toLowerCase()
-      if (output == "candy" || output == "kefka") {
+      if (output == "candy" || output == "kefka" || output == "vayne") {
         this.disabled = false;
         this.class = " ";
       }
@@ -27,7 +27,7 @@ export class ActivityLightSectionComponent implements OnInit {
     const selected_color = (event.target as HTMLInputElement).value;
     if (selected_color === "Select A Color") {
       this.activity_light_color = "Off";
-      invoke("change_activity_light", { selected: "black" });
+      invoke("change_activity_light", { selected: "Black" });
     } else {
       this.activity_light_color = selected_color;
       invoke("change_activity_light", { selected: this.activity_light_color });

@@ -21,61 +21,18 @@ use tauri_plugin_autostart::{MacosLauncher, ManagerExt};
 use tauri_plugin_clipboard_manager::ClipboardExt;
 
 //open windows
-
 #[tauri::command]
-async fn open_custom_fan(handle: tauri::AppHandle, window: tauri::Window) {
-    let label = "Fan";
-    let window_open = get_all_windows::window(&window, label);
+async fn open_window(handle: tauri::AppHandle, window: tauri::Window, name: &str, width: f64, height: f64) -> Result<(), ()> {
+    let window_open = get_all_windows::window(&window, name);
     if window_open == true
     {
-        window.get_webview_window(label).unwrap().show().unwrap();
+        window.get_webview_window(name).unwrap().show().unwrap();
     }
     else
     {
-    open_window::new_window(&handle, label, "custom_fan", 880.0, 440.0, true).await;
+    open_window::new_window(&handle, name, name, width, height, true).await;
     }
-}
-
-#[tauri::command]
-async fn open_keyboard_extra(handle: tauri::AppHandle, window: tauri::Window) {
-    let label = "keyboard";
-    let window_open = get_all_windows::window(&window, label);
-    if window_open == true
-    {
-        window.get_webview_window(label).unwrap().show().unwrap();
-    }
-    else
-    {
-    open_window::new_window(&handle, "keyboard", "keyboard_extra", 500.0, 300.0, false).await;
-    }
-}
-
-#[tauri::command]
-async fn open_diagnostics(handle: tauri::AppHandle, window: tauri::Window) {
-    let label = "Diagnostics";
-    let window_open = get_all_windows::window(&window, label);
-    if window_open == true
-    {
-        window.get_webview_window(label).unwrap().show().unwrap();
-    }
-    else
-    {
-    open_window::new_window(&handle, "Diagnostics", "diagnostics", 660.0, 410.0, true).await;
-    }
-}
-
-#[tauri::command]
-async fn open_settings(handle: tauri::AppHandle, window: tauri::Window) {
-    let label = "Settings";
-    let window_open = get_all_windows::window(&window, label);
-    if window_open == true
-    {
-        window.get_webview_window(label).unwrap().show().unwrap();
-    }
-    else
-    {
-    open_window::new_window(&handle, "Settings", "settings", 500.0, 350.0, true).await;
-    }
+    Ok(())
 }
 
 //commands
@@ -167,7 +124,7 @@ fn local_storage(function: &str, option: &str, value: &str) -> String {
 }
 
 #[tauri::command]
-fn get_temps(handle: tauri::AppHandle) -> i16 {
+fn get_temps(handle: tauri::AppHandle) -> u16 {
     let temps: String = execute(
         handle,
         "ectool",
@@ -380,10 +337,7 @@ fn main() {
         .plugin(tauri_plugin_clipboard_manager::init())
         .plugin(tauri_plugin_shell::init())
         .invoke_handler(tauri::generate_handler![
-            open_custom_fan,
-            open_keyboard_extra,
-            open_diagnostics,
-            open_settings,
+            open_window,
             execute,
             diagnostics,
             copy,
