@@ -13,9 +13,9 @@ export class ActivityLightSectionComponent implements OnInit {
   disabled: boolean = true;
 
   ngOnInit() {
-    invoke("boardname").then((event:any) => {
-      let output = event.trim().toLowerCase()
-      if (output == "candy" || output == "kefka" || output == "vayne") {
+    invoke("boardname").then((event: any) => {
+      let output = event.trim().toLowerCase();
+      if (output == "candy" || output == "kefka") {
         this.disabled = false;
         this.class = " ";
       }

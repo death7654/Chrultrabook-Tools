@@ -31,7 +31,7 @@ export class FanCurvesComponent implements OnInit {
     }, 550);
 
     this.fan_service.getIndex.subscribe(
-      (index) => (this.selected_mode = index)
+      (index) => (this.selected_mode = index),
     );
   }
 
@@ -51,9 +51,9 @@ export class FanCurvesComponent implements OnInit {
   save() {
     this.fan_service.editFanCurves(
       this.fan_service.getProfileIndexByName(
-        (document.getElementById("selector") as HTMLInputElement).value
+        (document.getElementById("selector") as HTMLInputElement).value,
       ),
-      this.lineChartData.datasets[0].data
+      this.lineChartData.datasets[0].data,
     );
   }
   saveAndApply() {
@@ -63,8 +63,8 @@ export class FanCurvesComponent implements OnInit {
     this.fan_service.setMode(this.fan_service.getProfileIndexByName(name));
     this.fan_service.saveSelected(this.fan_service.getProfileIndexByName(name));
     let curves = JSON.stringify(this.lineChartData.datasets[0].data);
-    let data = name + " "+curves;
-    invoke("transfer_fan_curves", {curves: data});
+    let data = name + " " + curves;
+    invoke("transfer_fan_curves", { curves: data });
   }
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;

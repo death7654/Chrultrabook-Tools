@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from "@angular/core";
 import { FanService } from "../../services/fan.service";
-import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
+import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow";
 import { invoke } from "@tauri-apps/api/core";
 
 @Component({
@@ -37,15 +37,14 @@ export class FanSectionComponent implements OnInit {
 
   constructor() {}
 
-   ngOnInit() {
-
+  ngOnInit() {
     invoke("execute", {
       program: "ectool",
       arguments: ["pwmgetfanrpm", "all"],
       reply: true,
-    }).then((event) =>{
-      let output:any = event;
-      let split = output.split(" ")
+    }).then((event) => {
+      let output: any = event;
+      let split = output.split(" ");
       if (split[0] == "Fan") {
         //fans are auto disabled, this reverses the disabling
         this.fan_auto_class = "btn-outline-success";
@@ -55,27 +54,27 @@ export class FanSectionComponent implements OnInit {
         this.extension = "RPM";
         this.disabled_class = "";
         this.fan_exists = false;
-  
+
         //checks if user wants fan curves on boot and applies the respective classes
         invoke("local_storage", {
           function: "get",
           option: "fan_boot",
           value: "",
-        }).then((event:any) => {
-          let output = JSON.parse(event)
+        }).then((event: any) => {
+          let output = JSON.parse(event);
           if (output == true) {
-            const selected_data = this.fanService.getSelected()
+            const selected_data = this.fanService.getSelected();
             this.selected_mode = selected_data[0];
             this.fan_array = selected_data[1];
             this.custom_active = "active";
             this.apply_interval();
           } else {
-            this.auto_active = "active"
+            this.auto_active = "active";
             this.selected_mode = "Auto";
             this.fan_auto();
           }
-        })
-  
+        });
+
         setInterval(this.get_fan_rpm, 1000);
         this.button = "border-0";
       }
@@ -88,13 +87,14 @@ export class FanSectionComponent implements OnInit {
 
     //listens to the data outputted by rust
     const appWebview = getCurrentWebviewWindow();
-    appWebview.listen<string>('fan_curve', (event) => {
-      let payload = event.payload
-      let payload_split = payload.split(" ")
+    appWebview.listen<string>("fan_curve", (event) => {
+      let payload = event.payload;
+      let payload_split = payload.split(" ");
       let profile = payload_split[0];
-      (document.getElementById("selected_mode") as HTMLInputElement).innerText = profile
+      (document.getElementById("selected_mode") as HTMLInputElement).innerText =
+        profile;
       this.fan_array = JSON.parse(payload_split[1]);
-      console.log(this.fan_array)
+      console.log(this.fan_array);
       this.fan_custom();
     });
   }
@@ -102,8 +102,9 @@ export class FanSectionComponent implements OnInit {
   async get_cpu_temp() {
     const output: number = await invoke("get_temps");
     const convertedOutput = output.toString().trim();
-    (document.getElementById("temp") as HTMLInputElement).innerText = convertedOutput
-    this.temp = Number(convertedOutput)
+    (document.getElementById("temp") as HTMLInputElement).innerText =
+      convertedOutput;
+    this.temp = Number(convertedOutput);
   }
   async get_fan_rpm() {
     const output: string = await invoke("execute", {
@@ -116,8 +117,7 @@ export class FanSectionComponent implements OnInit {
       split[3].trim();
   }
 
-  switchSelected()
-  {
+  switchSelected() {
     this.auto_active = "";
     this.off_active = "";
     this.max_active = "";
@@ -133,7 +133,7 @@ export class FanSectionComponent implements OnInit {
     clearInterval(this.interval);
     this.selected_mode = "Auto";
     this.switchSelected();
-    this.auto_active = "active"
+    this.auto_active = "active";
   }
   fan_off() {
     invoke("execute", {
@@ -144,7 +144,7 @@ export class FanSectionComponent implements OnInit {
     clearInterval(this.interval);
     this.selected_mode = "Off";
     this.switchSelected();
-    this.off_active = "active"
+    this.off_active = "active";
   }
   fan_max() {
     invoke("execute", {
@@ -159,19 +159,18 @@ export class FanSectionComponent implements OnInit {
   }
 
   fan_custom() {
-    this.switchSelected()
-    this.custom_active = "active"
+    this.switchSelected();
+    this.custom_active = "active";
     this.apply_interval();
   }
-  apply_interval()
-  {
+  apply_interval() {
     clearInterval(this.interval);
     this.interval = setInterval(async () => {
-      invoke("set_custom_fan", {temp: this.temp, array: this.fan_array })
-    }, 1000)
+      invoke("set_custom_fan", { temp: this.temp, array: this.fan_array });
+    }, 1000);
   }
 
   open_fan_custom_window() {
-    invoke("open_window", {name: "Custom_Fans", width: 880.0, height: 440.0});
+    invoke("open_window", { name: "Custom_Fans", width: 880.0, height: 440.0 });
   }
 }

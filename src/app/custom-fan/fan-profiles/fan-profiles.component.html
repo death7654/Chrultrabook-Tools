@@ -1,8 +1,13 @@
 <div class="input-group px-2" data-bs-theme="dark">
-  <input type="text" id="text" autocomplete="off" class="form-control bg-secondary text-bg-dark"
-    placeholder="Profile Name" />
+  <input
+    type="text"
+    id="text"
+    autocomplete="off"
+    class="form-control bg-secondary text-bg-dark"
+    placeholder="Profile Name"
+  />
   <button class="btn btn-outline-secondary" (click)="addProfiles()">
-    <img src="../../../assets/fan/add.svg" alt="plus"/>
+    <img src="../../../assets/fan/add.svg" alt="plus" />
   </button>
 </div>
 <div class="p-2 pb-0">
@@ -22,26 +27,42 @@
         </thead>
         <tbody>
           @for (item of profiles; track $index) {
-          <tr>
-            <th scope="row"></th>
-            <td class="w-100" colspan="4">
-              <input type="text" autocomplete="off" class="form-control text-bg-dark" [id]="item.id.toString()"
-                [class]="item.class" [placeholder]="item.name" [disabled]="item.disabled" />
-            </td>
-            <td>
-              <button type="button" class="btn" [class]="item.img_class" (click)="editProfile($index)">
-                {{ item.img }}
-              </button>
-            </td>
-            <!--edit-->
-            <td>
-              <button type="button" class="btn btn-outline-danger" (click)="deleteProfiles($index)">
-                &#xF78B;
-              </button>
-            </td>
-            <!--delete-->
-          </tr>
-        }
+            <tr>
+              <th scope="row"></th>
+              <td class="w-100" colspan="4">
+                <input
+                  type="text"
+                  autocomplete="off"
+                  class="form-control text-bg-dark"
+                  [id]="item.id.toString()"
+                  [class]="item.class"
+                  [placeholder]="item.name"
+                  [disabled]="item.disabled"
+                />
+              </td>
+              <td>
+                <button
+                  type="button"
+                  class="btn"
+                  [class]="item.img_class"
+                  (click)="editProfile($index)"
+                >
+                  {{ item.img }}
+                </button>
+              </td>
+              <!--edit-->
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-outline-danger"
+                  (click)="deleteProfiles($index)"
+                >
+                  &#xF78B;
+                </button>
+              </td>
+              <!--delete-->
+            </tr>
+          }
         </tbody>
       </table>
     </div>

@@ -76,7 +76,6 @@ export class SettingsComponent implements OnInit {
       function: "Start App On Boot",
       answer: false,
     },
-
   ];
   toggle(i: number) {
     if (this.options[i].answer) {

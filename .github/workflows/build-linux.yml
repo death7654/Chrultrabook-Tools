@@ -1,7 +1,7 @@
-name: 'Linux'
-on: 
+name: "Linux"
+on:
   push:
-    branches: [ "3.X.X" ]
+    branches: ["3.X.X"]
   workflow_dispatch:
 
 jobs:
@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          cache: "npm"
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
       - name: Install build dependencies
@@ -24,15 +24,15 @@ jobs:
           sudo apt update -y
           sudo apt install libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev desktop-file-utils libudev-dev
       - name: Install npm dependencies
-        run: npm install 
+        run: npm install
       - name: Build Application
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tagName: __VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
-          releaseName: 'v__VERSION__'
-          releaseBody: 'See the assets to download this version and install. Replace AppImage with one uploaded in artifact'
+          releaseName: "v__VERSION__"
+          releaseBody: "See the assets to download this version and install. Replace AppImage with one uploaded in artifact"
           releaseDraft: true
           prerelease: false
       - name: Linux AppImage Packaging
@@ -43,4 +43,3 @@ jobs:
           name: Chrultrabook-Controller
           retention-days: 5
           path: src-tauri/target/release/bundle/appimage/chrultrabook*.AppImage
-  

@@ -1,7 +1,7 @@
-name: 'macOS'
-on: 
+name: "macOS"
+on:
   push:
-    branches: [ "3.X.X" ]
+    branches: ["3.X.X"]
   workflow_dispatch:
 jobs:
   test-tauri:
@@ -9,8 +9,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - platform: 'macos-latest'
-            args: '--target x86_64-apple-darwin'
+          - platform: "macos-latest"
+            args: "--target x86_64-apple-darwin"
 
     runs-on: ${{ matrix.platform }}
     steps:
@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          cache: "npm"
       - name: Install Rust Stable
         uses: dtolnay/rust-toolchain@stable
       - name: Add Darwin Rust
@@ -32,8 +32,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tagName: __VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
-          releaseName: 'v__VERSION__'
-          releaseBody: 'See the assets to download this version and install. Replace AppImage with one uploaded in artifact'
+          releaseName: "v__VERSION__"
+          releaseBody: "See the assets to download this version and install. Replace AppImage with one uploaded in artifact"
           releaseDraft: true
           prerelease: false
           args: ${{ matrix.args }}

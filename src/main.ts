@@ -6,6 +6,5 @@ import { AppComponent } from "./app/app.component";
 document.addEventListener("contextmenu", (event) => event.preventDefault());
 
 bootstrapApplication(AppComponent, appConfig).catch((err) =>
-  console.error(err)
+  console.error(err),
 );
-

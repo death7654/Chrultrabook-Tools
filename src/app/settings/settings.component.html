@@ -4,13 +4,23 @@
 <div class="settings overflow-y-auto p-4 px-3 pt-4">
   <div>
     @for (item of options; track $index) {
-    <div class="form-check form-switch form-check-reverse text-start">
-      <label class="form-check-label fs-4 fw-normal" for="flexSwitchCheckDefault">{{ item.function }}</label>
-      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" [checked]="item.answer"
-        (click)="toggle($index)" />
-    </div>
-    <hr />
-  }
+      <div class="form-check form-switch form-check-reverse text-start">
+        <label
+          class="form-check-label fs-4 fw-normal"
+          for="flexSwitchCheckDefault"
+          >{{ item.function }}</label
+        >
+        <input
+          class="form-check-input"
+          type="checkbox"
+          role="switch"
+          id="flexSwitchCheckDefault"
+          [checked]="item.answer"
+          (click)="toggle($index)"
+        />
+      </div>
+      <hr />
+    }
   </div>
 </div>
 <div class="position-absolute w-100 bottom-0 text-center">

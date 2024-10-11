@@ -7,15 +7,12 @@ import { invoke } from "@tauri-apps/api/core";
   providedIn: "root",
 })
 export class FanService {
-  private mode_index = new BehaviorSubject(1)
+  private mode_index = new BehaviorSubject(1);
   getIndex = this.mode_index.asObservable();
 
-  setMode(index: number)
-  {
+  setMode(index: number) {
     this.mode_index.next(index);
   }
-
-
 
   //fan profiles
   public profiles_list: profile[] = this.boot();
@@ -34,8 +31,7 @@ export class FanService {
     return this.profiles_list.find((profile) => profile.name === name);
   }
 
-  getProfileByIndex(index: number)
-  {
+  getProfileByIndex(index: number) {
     return this.profiles_list[index];
   }
 

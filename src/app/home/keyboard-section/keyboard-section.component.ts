@@ -20,7 +20,7 @@ export class KeyboardSectionComponent implements OnInit {
       program: "ectool",
       arguments: ["pwmgetkblight"],
       reply: true,
-    }).then((event:any) =>{
+    }).then((event: any) => {
       const split = event.split(" ");
       if (split[0] !== "Current") {
         this.disabled_class = "disabled";
@@ -44,6 +44,10 @@ export class KeyboardSectionComponent implements OnInit {
 
   keyboard_more() {
     console.log("more");
-    invoke("open_window", {name: "Keyboard_extra", width: 660.0, height: 410.0});
+    invoke("open_window", {
+      name: "Keyboard_extra",
+      width: 660.0,
+      height: 410.0,
+    });
   }
 }

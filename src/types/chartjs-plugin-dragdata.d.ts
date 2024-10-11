@@ -7,19 +7,19 @@ declare module "chart.js" {
         e: MouseEvent,
         datasetIndex: number,
         index: number,
-        value: number
+        value: number,
       ) => void;
       onDrag?: (
         e: MouseEvent,
         datasetIndex: number,
         index: number,
-        value: number
+        value: number,
       ) => void;
       onDragEnd?: (
         e: MouseEvent,
         datasetIndex: number,
         index: number,
-        value: number
+        value: number,
       ) => void;
       round?: number;
       showTooltip?: boolean;

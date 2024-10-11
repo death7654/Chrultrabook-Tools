@@ -1,7 +1,7 @@
-name: 'Windows'
-on: 
+name: "Windows"
+on:
   push:
-    branches: [ "3.X.X" ]
+    branches: ["3.X.X"]
   workflow_dispatch:
 
 jobs:
@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          cache: "npm"
       - name: Install Rust Stable
         uses: dtolnay/rust-toolchain@stable
       - name: Install Frontend Dependencies
@@ -29,8 +29,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tagName: __VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
-          releaseName: 'v__VERSION__'
-          releaseBody: 'See the assets to download this version and install. Replace AppImage with one uploaded in artifact'
+          releaseName: "v__VERSION__"
+          releaseBody: "See the assets to download this version and install. Replace AppImage with one uploaded in artifact"
           releaseDraft: true
           prerelease: false
       - name: Upload Portable Executable
@@ -39,4 +39,3 @@ jobs:
           name: Chrultrabook-Tools
           retention-days: 5
           path: src-tauri/target/release/chrultrabook*.exe
-

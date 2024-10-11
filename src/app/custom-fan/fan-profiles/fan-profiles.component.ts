@@ -53,7 +53,7 @@ export class FanProfilesComponent {
       this.profiles[i].disabled = true;
       const changed_name = (
         document.getElementById(
-          this.profiles[i].id.toString()
+          this.profiles[i].id.toString(),
         ) as HTMLInputElement
       ).value;
       if (changed_name !== "") {

@@ -17,11 +17,10 @@ export class CustomFanComponent {
     window.location.reload();
   }
 
-  removeActive()
-  {
-    this.curves = " "
-    this.profile = " "
-    this.data = " "
+  removeActive() {
+    this.curves = " ";
+    this.profile = " ";
+    this.data = " ";
   }
 
   fan_curves() {
@@ -29,11 +28,11 @@ export class CustomFanComponent {
     this.curves = "active";
   }
   fan_profile() {
-    this.removeActive()
+    this.removeActive();
     this.profile = "active";
   }
   fan_data_fn() {
-    this.removeActive()
+    this.removeActive();
     this.data = "active";
   }
 }

@@ -11,10 +11,10 @@ import { invoke } from "@tauri-apps/api/core";
 export class ExtraSectionComponent {
   diagnostic() {
     console.log("diag");
-    invoke("open_window", {name: "Diagnostics", width: 660.0, height: 410.0});
+    invoke("open_window", { name: "Diagnostics", width: 660.0, height: 410.0 });
   }
   settings() {
     console.log("settings");
-    invoke("open_window", {name: "Settings", width: 500.0, height: 350.0});
+    invoke("open_window", { name: "Settings", width: 500.0, height: 350.0 });
   }
 }
