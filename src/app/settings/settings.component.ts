@@ -11,42 +11,48 @@ import { version } from "../../../package.json";
 })
 export class SettingsComponent implements OnInit {
   version_applied: string = "";
-  async ngOnInit() {
+  ngOnInit() {
     this.version_applied = version;
 
-    const fan_boot = await invoke("local_storage", {
+    invoke("local_storage", {
       function: "get",
       option: "fan_boot",
       value: "",
+    }).then((fan_boot) => {
+      if (fan_boot == "true") {
+        this.options[0].answer = true;
+      }
     });
-    const app_tray = await invoke("local_storage", {
+
+    invoke("local_storage", {
       function: "get",
       option: "app_tray",
       value: "",
+    }).then((app_tray) => {
+      if (app_tray == "true") {
+        this.options[1].answer = true;
+      }
     });
-    const start_app_tray = await invoke("local_storage", {
+
+    invoke("local_storage", {
       function: "get",
       option: "start_app_tray",
       value: "",
+    }).then((start_app_tray) => {
+      if (start_app_tray == "true") {
+        this.options[2].answer = true;
+      }
     });
-    const app_boot = await invoke("local_storage", {
+
+    invoke("local_storage", {
       function: "get",
       option: "app_boot",
       value: "",
+    }).then((app_boot) => {
+      if (app_boot == "true") {
+        this.options[3].answer = true;
+      }
     });
-
-    if (fan_boot == "true") {
-      this.options[0].answer = true;
-    }
-    if (app_tray == "true") {
-      this.options[1].answer = true;
-    }
-    if (start_app_tray == "true") {
-      this.options[2].answer = true;
-    }
-    if (app_boot == "true") {
-      this.options[3].answer = true;
-    }
   }
 
   options = [

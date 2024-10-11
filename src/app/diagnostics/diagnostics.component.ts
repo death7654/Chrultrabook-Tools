@@ -13,11 +13,12 @@ export class DiagnosticsComponent implements OnInit {
   selected_function: string = "";
   disabled: boolean = false;
 
-  async ngOnInit() {
-    const os = await invoke("os");
-    if (os == "macOS") {
-      this.disabled = true;
-    }
+  ngOnInit() {
+    invoke("os").then((os) => {
+      if (os == "macOS") {
+        this.disabled = true;
+      }
+    });
   }
 
   async select() {

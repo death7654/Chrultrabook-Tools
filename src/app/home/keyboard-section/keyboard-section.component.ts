@@ -15,14 +15,13 @@ export class KeyboardSectionComponent implements OnInit {
   disabled_class: string = "";
   extension: string = "";
 
-  async ngOnInit() {
-    setTimeout(async () => {
-      const output: string = await invoke("execute", {
-        program: "ectool",
-        arguments: ["pwmgetkblight"],
-        reply: true,
-      });
-      const split = output.split(" ");
+  ngOnInit() {
+    invoke("execute", {
+      program: "ectool",
+      arguments: ["pwmgetkblight"],
+      reply: true,
+    }).then((event:any) =>{
+      const split = event.split(" ");
       if (split[0] !== "Current") {
         this.disabled_class = "disabled";
         this.backlight_exists = !false;
@@ -31,7 +30,7 @@ export class KeyboardSectionComponent implements OnInit {
         this.percentage = Number(split[4]);
         this.extension = "%";
       }
-    }, 0);
+    });
   }
 
   update_percentage(event: MouseEvent) {

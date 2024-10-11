@@ -12,12 +12,14 @@ export class ActivityLightSectionComponent implements OnInit {
   class: string = "disabled";
   disabled: boolean = true;
 
-  async ngOnInit() {
-    const output: string = await invoke("boardname");
-    if (output == "Candy" || output == "Kefka") {
-      this.disabled = false;
-      this.class = " ";
-    }
+  ngOnInit() {
+    invoke("boardname").then((event:any) => {
+      let output = event.trim().toLowerCase()
+      if (output == "candy" || output == "kefka") {
+        this.disabled = false;
+        this.class = " ";
+      }
+    });
   }
 
   activity_light_color: string = "N/A";
