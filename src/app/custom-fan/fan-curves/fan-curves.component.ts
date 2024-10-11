@@ -6,6 +6,7 @@ import { profile } from "../../services/profiles";
 import { BaseChartDirective } from "ng2-charts";
 import { ChartConfiguration, Chart } from "chart.js/auto";
 import DragData from "chartjs-plugin-dragdata";
+import { invoke } from "@tauri-apps/api/core";
 
 @Component({
   selector: "app-fan-curves",
@@ -61,6 +62,9 @@ export class FanCurvesComponent implements OnInit {
       .value;
     this.fan_service.setMode(this.fan_service.getProfileIndexByName(name));
     this.fan_service.saveSelected(this.fan_service.getProfileIndexByName(name));
+    let curves = JSON.stringify(this.lineChartData.datasets[0].data);
+    let data = name + " "+curves;
+    invoke("transfer_fan_curves", {curves: data});
   }
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;

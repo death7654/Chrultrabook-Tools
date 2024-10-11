@@ -16,11 +16,10 @@ use open;
 use tauri::image::Image;
 use tauri::menu::{IconMenuItemBuilder, MenuBuilder, MenuItemBuilder};
 use tauri::tray::TrayIconBuilder;
-use tauri::{AppHandle, Manager};
+use tauri::{AppHandle, Manager, Emitter, EventTarget};
 use tauri_plugin_autostart::{MacosLauncher, ManagerExt};
 use tauri_plugin_clipboard_manager::ClipboardExt;
-use sudo;
-use elevate;
+
 //open windows
 
 #[tauri::command]
@@ -258,6 +257,13 @@ fn set_custom_fan(handle: tauri::AppHandle, temp: i16, array: Vec<i8>) {
     );
 }
 
+#[tauri::command]
+fn transfer_fan_curves(app: AppHandle, curves: String) 
+{
+    app.emit_to(EventTarget::webview_window("main"), "fan_curve", &curves).expect("failure to transmit data");
+    println!("curves: {curves}");
+}
+
 fn main() {
     #[cfg(target_os = "linux")]
     {
@@ -390,7 +396,8 @@ fn main() {
             change_activity_light,
             autostart,
             get_json,
-            set_custom_fan
+            set_custom_fan,
+            transfer_fan_curves
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

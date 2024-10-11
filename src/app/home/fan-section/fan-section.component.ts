@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from "@angular/core";
 import { FanService } from "../../services/fan.service";
+import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
 import { invoke } from "@tauri-apps/api/core";
 
 @Component({
@@ -82,6 +83,16 @@ export class FanSectionComponent implements OnInit {
     setInterval(() => {
       this.get_cpu_temp();
     }, 1000);
+
+    const appWebview = getCurrentWebviewWindow();
+    appWebview.listen<string>('fan_curve', (event) => {
+      let payload = event.payload
+      let payload_split = payload.split(" ")
+      let profile = payload_split[0];
+      (document.getElementById("selected_mode") as HTMLInputElement).innerText = profile
+      this.fan_array = JSON.parse(payload_split[1]);
+      console.log(this.fan_array)
+    });
   }
 
   async get_cpu_temp() {
