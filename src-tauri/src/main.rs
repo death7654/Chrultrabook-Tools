@@ -261,7 +261,6 @@ fn set_custom_fan(handle: tauri::AppHandle, temp: i16, array: Vec<i8>) {
 fn transfer_fan_curves(app: AppHandle, curves: String) 
 {
     app.emit_to(EventTarget::webview_window("main"), "fan_curve", &curves).expect("failure to transmit data");
-    println!("curves: {curves}");
 }
 
 fn main() {
