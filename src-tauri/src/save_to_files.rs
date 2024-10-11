@@ -9,7 +9,7 @@ pub fn select_path(app: tauri::AppHandle, file_name: String, content: String) {
         .save_file(|file_path| match file_path {
             Some(ref _out) => {
                 let file = file_path.unwrap();
-                fs::write(&file, content).expect("unable to write")
+                fs::write(file.to_string(), content).expect("unable to write")
             }
             None => {}
         });
