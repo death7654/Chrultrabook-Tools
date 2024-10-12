@@ -48,6 +48,7 @@
 
 - Download the [ectool](https://github.com/1Revenger1/ectool) binary
 - Move the Binary to `/usr/bin` or `/usr/local/bin`
+- Download the installer with  `x86_64` in its name
 - Run the Chrultrabook Tools Installer
 - Drag the Chrultrabook Tools app into the Applications Folder
 - Open the app
