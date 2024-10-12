@@ -7,12 +7,12 @@
   grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 10px;
 }
-.button3 {
-}
+
 .container3 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
-  width: 40vw;
+  width: 39vw;
   height: 75% !important;
+  max-height: 80vh;
 }

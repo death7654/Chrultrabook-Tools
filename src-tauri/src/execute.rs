@@ -22,21 +22,18 @@ const CBMEM: &str = "echo";
 const GETSYSINFO: &str = "cat";
 #[cfg(windows)]
 const GETSYSINFO: &str = "wmic";
+#[cfg(target_os = "macos")]
+const GETSYSINFO: &str = "sysctl";
 
 fn execute(app: &tauri::AppHandle, program: &str, arguments: Vec<String>, reply: bool) -> String {
     let shell = app.shell();
     let output = tauri::async_runtime::block_on(async move {
-        shell
-            .command(program)
-            .args(arguments)
-            .output()
-            .await
+        shell.command(program).args(arguments).output().await
     });
     if reply == true {
         if let Ok(out) = output {
             if out.status.success() {
-                return String::from_utf8(out.stdout)
-                    .unwrap_or(String::from("execute_failure"));
+                return String::from_utf8(out.stdout).unwrap_or(String::from("execute_failure"));
             }
         } else {
             return format!("Exit with message: {}", output.unwrap_err());
@@ -55,7 +52,7 @@ pub fn execute_relay(
     match wanted_program {
         "ectool" => program = ECTOOL,
         "cbmem" => program = CBMEM,
-        "wmic" | "cat" => program = GETSYSINFO,
+        "wmic" | "cat" | "sysctl" => program = GETSYSINFO,
         _ => program = "echo",
     }
     execute(&handle, program, arguments, reply).to_string()

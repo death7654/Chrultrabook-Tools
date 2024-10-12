@@ -16,21 +16,24 @@ use open;
 use tauri::image::Image;
 use tauri::menu::{IconMenuItemBuilder, MenuBuilder, MenuItemBuilder};
 use tauri::tray::TrayIconBuilder;
-use tauri::{AppHandle, Manager, Emitter, EventTarget};
+use tauri::{AppHandle, Emitter, EventTarget, Manager};
 use tauri_plugin_autostart::{MacosLauncher, ManagerExt};
 use tauri_plugin_clipboard_manager::ClipboardExt;
 
 //open windows
 #[tauri::command]
-async fn open_window(handle: tauri::AppHandle, window: tauri::Window, name: &str, width: f64, height: f64) -> Result<(), ()> {
+async fn open_window(
+    handle: tauri::AppHandle,
+    window: tauri::Window,
+    name: &str,
+    width: f64,
+    height: f64,
+) -> Result<(), ()> {
     let window_open = get_all_windows::window(&window, name);
-    if window_open == true
-    {
+    if window_open == true {
         window.get_webview_window(name).unwrap().show().unwrap();
-    }
-    else
-    {
-    open_window::new_window(&handle, name, name, width, height, true).await;
+    } else {
+        open_window::new_window(&handle, name, name, width, height, true).await;
     }
     Ok(())
 }
@@ -215,15 +218,15 @@ fn set_custom_fan(handle: tauri::AppHandle, temp: i16, array: Vec<i8>) {
 }
 
 #[tauri::command]
-fn transfer_fan_curves(app: AppHandle, curves: String) 
-{
-    app.emit_to(EventTarget::webview_window("main"), "fan_curve", &curves).expect("failure to transmit data");
+fn transfer_fan_curves(app: AppHandle, curves: String) {
+    app.emit_to(EventTarget::webview_window("main"), "fan_curve", &curves)
+        .expect("failure to transmit data");
 }
 
 fn main() {
     #[cfg(target_os = "linux")]
     {
-    sudo::escalate_if_needed();
+        sudo::escalate_if_needed();
     }
     tauri::Builder::default()
         .setup(|app| {
@@ -296,12 +299,11 @@ fn main() {
                             if window_name == "main" {
                                 window.hide().unwrap()
                             } else {
-                                    window
-                                        .get_webview_window(window_name)
-                                        .expect("notfound")
-                                        .close()
-                                        .unwrap()
-                                
+                                window
+                                    .get_webview_window(window_name)
+                                    .expect("notfound")
+                                    .close()
+                                    .unwrap()
                             }
                         }
                         api.prevent_close();
@@ -310,16 +312,15 @@ fn main() {
                     }
                 } else {
                     if window.label() == "main" {
-                            let windows = window.webview_windows();
-                            for (_, window) in windows.iter() {
-                                let window_name = window.label();
-                                window
-                                    .get_webview_window(window_name)
-                                    .expect("notfound")
-                                    .close()
-                                    .unwrap()
-                            }
-                        
+                        let windows = window.webview_windows();
+                        for (_, window) in windows.iter() {
+                            let window_name = window.label();
+                            window
+                                .get_webview_window(window_name)
+                                .expect("notfound")
+                                .close()
+                                .unwrap()
+                        }
                     } else {
                         let _ = window.close();
                     }

@@ -1,7 +1,6 @@
 use hidapi::{HidApi, HidDevice};
 
 pub fn set_color(color: String) {
-
     let hid_dev = &HidApi::new().unwrap();
     let device: HidDevice = match HidApi::open(hid_dev, 0x04d8, 0x0b28) {
         Ok(dev) => dev,
@@ -25,7 +24,7 @@ pub fn set_color(color: String) {
         let mut whole: [u8; 64] = [0; 64];
         let (one, two) = whole.split_at_mut(color_data.len());
         one.copy_from_slice(&color_data);
-        two.copy_from_slice(&[255;60]);
+        two.copy_from_slice(&[255; 60]);
         whole
     };
     device.write(&command).unwrap();

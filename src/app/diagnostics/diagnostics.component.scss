@@ -1,28 +1,12 @@
-.diagnostics {
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  height: 85%;
+.diagnostics
+{
+  min-height: 83vh;
+  max-height: 83vh;
 }
-.buttons {
-  display: grid;
-  grid-template-rows: 1fr 5fr 1fr 1fr;
-  row-gap: 10px;
-}
-.form-select {
-  grid-row-start: 1;
-  grid-row-end: 2;
-}
-.button1 {
-  grid-row-start: 3;
-  grid-row-end: 4;
-}
-.button2 {
-  grid-row-start: 4;
-  grid-row-end: 5;
-}
-.copy {
-  right: 17px;
-  top: 60px;
+.copy
+{
+  top: 65px;
+  right: 20px;
 }
 .box {
   white-space: pre;
