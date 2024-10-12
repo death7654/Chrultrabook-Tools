@@ -173,4 +173,9 @@ export class FanSectionComponent implements OnInit {
   open_fan_custom_window() {
     invoke("open_window", { name: "Custom_Fans", width: 880.0, height: 440.0 });
   }
+
+  ngOnDestroy()
+  {
+    clearInterval(this.interval);
+  }
 }
