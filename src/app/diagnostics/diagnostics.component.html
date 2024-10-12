@@ -16,25 +16,25 @@
           <option value="Coreboot Extended Log" [disabled]="disabled">
             Coreboot Extended Log
           </option>
-          <option value="Battery Information">Battery Information</option>
-          <option value="EC Console Log">EC Console Log</option>
-          <option value="EC Chip Information">EC Chip Information</option>
-          <option value="SPI Information">SPI Information</option>
-          <option value="EC Protocol Information">EC Protocol Information</option>
-          <option value="Temperature Sensor Information">
+          <option value="Battery Information" [disabled]="ectools">Battery Information</option>
+          <option value="EC Console Log" [disabled]="ectools">EC Console Log</option>
+          <option value="EC Chip Information" [disabled]="ectools">EC Chip Information</option>
+          <option value="SPI Information" [disabled]="ectools">SPI Information</option>
+          <option value="EC Protocol Information" [disabled]="ectools">EC Protocol Information</option>
+          <option value="Temperature Sensor Information" [disabled]="ectools">
             Temperature Sensor Information
           </option>
-          <option value="Power Delivery Information">
+          <option value="Power Delivery Information" [disabled]="ectools">
             Power Delivery Information
           </option>
         </select>
         <div class="pt-2">
-          <button class="btn btn-outline-secondary fs-4 btn-border-none w-100 h-100" (click)="select()">
+          <button class="btn btn-outline-secondary fs-4 border-0 w-100 h-100" (click)="select()">
             Generate Report
           </button>
         </div>
         <div class="pt-2">
-          <button class="btn btn-outline-secondary fs-4 btn-border-none w-100 h-100" (click)="save()">
+          <button class="btn btn-outline-secondary fs-4 border-0 w-100 h-100" (click)="save()">
             Save to Files
           </button>
         </div>
