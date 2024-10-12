@@ -10,7 +10,7 @@ jobs:
       matrix:
         include:
           - platform: "macos-latest"
-            args: "--target aarch64-apple-darwin"
+            args: "--target x86-apple-darwin"
 
     runs-on: ${{ matrix.platform }}
     steps:
