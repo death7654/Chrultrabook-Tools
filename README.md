@@ -15,12 +15,16 @@
 - Custom Fan Curves
 - Custom Fan Profiles
 - Fan Speed Graph
+- Custom Fan Profiles
 - CPU Temperature Graph
 - Start Application In System Tray
+- Start Application on System Boot
 - Start Custom Fan Profiles On System Boot
 - Change Keyboard Brightness
-- Change the Activity Light Colors (Select Chromebooks)
+- Change Activity Light Colors (On Select Chromebooks)
 - System Diagnostics
+- Keyboard Backlight
+  
 
 ## Install Instructions
 
@@ -29,7 +33,7 @@
 - Install Coolstar's Latest CROS-EC driver from [https://github.com/coolstar/driverinstallers/tree/master/crosec](https://github.com/coolstar/driverinstallers/tree/master/crosec)
 - Download the MSI or EXE from the latest [release](https://github.com/death7654/Chrultrabook-Tools/releases)
 - Run the Installer
-- Open the Application and Enjoy
+- Open the Application
 
 ### Linux
 
@@ -38,7 +42,7 @@
 - Download the AppImage
 - `cd` to the directory
 - Mark the file as an executeable `chmod a+x name.AppImage`
-- open the AppImage `./name.AppImage`
+- open the AppImage `./name.AppImage` 
 
 ### macOS
 
@@ -46,22 +50,22 @@
 - Move the Binary to `/usr/bin` or `/usr/local/bin`
 - Run the Chrultrabook Tools Installer
 - Drag the Chrultrabook Tools app into the Applications Folder
+- Open the app
 
 ## Built Using
 
-- Tauri
-- Angular
-- Rust
+- Tauri 2.0
+- Angular 18
+- Rust 1.81
 - HTML5
 - CSS
 - TS
 
 ## Authors
 
-👤 **Robinson Arysseril, Ingo Reitz**
+👤 **Robinson Arysseril**
 
 - GitHub: [@death7654](https://github.com/death7654)
-- Github: [@ninelore](https://github.com/ninelore)
 
 ## 🤝 Contributing
 
