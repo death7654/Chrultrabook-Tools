@@ -37,6 +37,6 @@ tauri-plugin-single-instance = "2.0.0-beta.9"
 [profile.release]
 codegen-units = 1 # Allows LLVM to perform better optimization.
 lto = true # Enables link-time-optimizations.
-opt-level = "s" # Prioritizes small binary size. Use `3` if you prefer speed.
+opt-level = "3" # Prioritizes small binary size. Use `3` if you prefer speed.
 panic = "abort" # Higher performance by disabling panic handlers.
 strip = true # Ensures debug symbols are removed.
