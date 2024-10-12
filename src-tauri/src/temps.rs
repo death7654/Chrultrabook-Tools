@@ -13,7 +13,7 @@ fn get_temp_sys() -> u16 {
                 "{}/temp1_input",
                 path.as_ref().unwrap().path().display()
             ))
-            .unwrap()
+            .unwrap_or("0".to_string())
             .split('\n')
             .collect::<Vec<_>>()[0]
                 .parse::<u16>()
