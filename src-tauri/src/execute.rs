@@ -22,8 +22,7 @@ const CBMEM: &str = "echo";
 const GETSYSINFO: &str = "cat";
 #[cfg(windows)]
 const GETSYSINFO: &str = "wmic";
-#[cfg(target_os = "macos")]
-const GETSYSINFO: &str = "sysctl";
+
 
 fn execute(app: &tauri::AppHandle, program: &str, arguments: Vec<String>, reply: bool) -> String {
     let shell = app.shell();
@@ -52,7 +51,7 @@ pub fn execute_relay(
     match wanted_program {
         "ectool" => program = ECTOOL,
         "cbmem" => program = CBMEM,
-        "wmic" | "cat" | "sysctl" => program = GETSYSINFO,
+        "wmic" | "cat" => program = GETSYSINFO,
         _ => program = "echo",
     }
     execute(&handle, program, arguments, reply).to_string()
