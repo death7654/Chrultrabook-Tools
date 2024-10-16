@@ -23,8 +23,8 @@ fi
 rm $APPIMAGE
 cd $APPIMAGEDIR
 cp $ROOT/Linux/AppRun $APPDIR
-curl -L https://tree123.org/chrultrabook/utils/ectool -o $APPDIR/usr/bin/ectool
-curl -L https://tree123.org/chrultrabook/utils/cbmem -o $APPDIR/usr/bin/cbmem
+curl -L https://files.tree123.org/utils/x86_64/gnu/ectool -o $APPDIR/usr/bin/ectool
+curl -L https://files.tree123.org/utils/x86_64/gnu/cbmem -o $APPDIR/usr/bin/cbmem
 chmod +x $APPDIR/usr/bin/*
 curl -L $APPIMAGETOOLURL -o AppImageTool.AppImage
 chmod +x AppImageTool.AppImage
