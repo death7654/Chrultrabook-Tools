@@ -6,16 +6,15 @@ import { ExtraSectionComponent } from "./extra-section/extra-section.component";
 import { invoke } from "@tauri-apps/api/core";
 
 @Component({
-  selector: "app-home",
-  standalone: true,
-  imports: [
-    FanSectionComponent,
-    KeyboardSectionComponent,
-    ActivityLightSectionComponent,
-    ExtraSectionComponent,
-  ],
-  templateUrl: "./home.component.html",
-  styleUrl: "./home.component.scss",
+    selector: "app-home",
+    imports: [
+        FanSectionComponent,
+        KeyboardSectionComponent,
+        ActivityLightSectionComponent,
+        ExtraSectionComponent,
+    ],
+    templateUrl: "./home.component.html",
+    styleUrl: "./home.component.scss"
 })
 export class HomeComponent {
 

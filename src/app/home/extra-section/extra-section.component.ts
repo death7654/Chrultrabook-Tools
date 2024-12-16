@@ -2,11 +2,10 @@ import { Component } from "@angular/core";
 import { invoke } from "@tauri-apps/api/core";
 
 @Component({
-  selector: "app-extra-section",
-  standalone: true,
-  imports: [],
-  templateUrl: "./extra-section.component.html",
-  styleUrl: "./extra-section.component.scss",
+    selector: "app-extra-section",
+    imports: [],
+    templateUrl: "./extra-section.component.html",
+    styleUrl: "./extra-section.component.scss"
 })
 export class ExtraSectionComponent {
   diagnostic() {

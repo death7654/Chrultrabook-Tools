@@ -2,11 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { invoke } from "@tauri-apps/api/core";
 
 @Component({
-  selector: "app-keyboard-section",
-  standalone: true,
-  imports: [],
-  templateUrl: "./keyboard-section.component.html",
-  styleUrl: "./keyboard-section.component.scss",
+    selector: "app-keyboard-section",
+    imports: [],
+    templateUrl: "./keyboard-section.component.html",
+    styleUrl: "./keyboard-section.component.scss"
 })
 export class KeyboardSectionComponent implements OnInit {
   backlight_percentage: string = "N/A";

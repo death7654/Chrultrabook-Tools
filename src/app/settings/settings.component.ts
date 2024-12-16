@@ -3,11 +3,10 @@ import { invoke } from "@tauri-apps/api/core";
 import { version } from "../../../package.json";
 
 @Component({
-  selector: "app-settings",
-  standalone: true,
-  imports: [],
-  templateUrl: "./settings.component.html",
-  styleUrl: "./settings.component.scss",
+    selector: "app-settings",
+    imports: [],
+    templateUrl: "./settings.component.html",
+    styleUrl: "./settings.component.scss"
 })
 export class SettingsComponent implements OnInit {
   version_applied: string = "";

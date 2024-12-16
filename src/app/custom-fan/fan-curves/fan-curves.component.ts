@@ -9,11 +9,10 @@ import DragData from "chartjs-plugin-dragdata";
 import { invoke } from "@tauri-apps/api/core";
 
 @Component({
-  selector: "app-fan-curves",
-  standalone: true,
-  imports: [BaseChartDirective, FanSectionComponent],
-  templateUrl: "./fan-curves.component.html",
-  styleUrl: "./fan-curves.component.scss",
+    selector: "app-fan-curves",
+    imports: [BaseChartDirective, FanSectionComponent],
+    templateUrl: "./fan-curves.component.html",
+    styleUrl: "./fan-curves.component.scss"
 })
 export class FanCurvesComponent implements OnInit {
   mode_value: string = " ";

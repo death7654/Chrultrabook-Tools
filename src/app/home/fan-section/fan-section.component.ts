@@ -4,12 +4,11 @@ import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow";
 import { invoke } from "@tauri-apps/api/core";
 
 @Component({
-  selector: "app-fan-section",
-  standalone: true,
-  imports: [],
-  templateUrl: "./fan-section.component.html",
-  styleUrl: "./fan-section.component.scss",
-  providers: [FanService],
+    selector: "app-fan-section",
+    imports: [],
+    templateUrl: "./fan-section.component.html",
+    styleUrl: "./fan-section.component.scss",
+    providers: [FanService]
 })
 export class FanSectionComponent implements OnInit {
   selected_mode: string = "N/A";

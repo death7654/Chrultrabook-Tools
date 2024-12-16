@@ -3,11 +3,10 @@ import { FanService } from "../../services/fan.service";
 import { profile } from "../../services/profiles";
 
 @Component({
-  selector: "app-fan-profiles",
-  standalone: true,
-  imports: [],
-  templateUrl: "./fan-profiles.component.html",
-  styleUrl: "./fan-profiles.component.scss",
+    selector: "app-fan-profiles",
+    imports: [],
+    templateUrl: "./fan-profiles.component.html",
+    styleUrl: "./fan-profiles.component.scss"
 })
 export class FanProfilesComponent {
   edit: boolean = false;

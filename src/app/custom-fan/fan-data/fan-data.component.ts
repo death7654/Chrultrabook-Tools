@@ -5,11 +5,10 @@ import { FanService } from "../../services/fan.service";
 import { invoke } from "@tauri-apps/api/core";
 
 @Component({
-  selector: "app-fan-data",
-  standalone: true,
-  imports: [BaseChartDirective],
-  templateUrl: "./fan-data.component.html",
-  styleUrl: "./fan-data.component.scss",
+    selector: "app-fan-data",
+    imports: [BaseChartDirective],
+    templateUrl: "./fan-data.component.html",
+    styleUrl: "./fan-data.component.scss"
 })
 export class FanDataComponent {
   fan_service: FanService = inject(FanService);
