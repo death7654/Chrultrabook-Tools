@@ -128,7 +128,7 @@ fn local_storage(function: &str, option: &str, value: &str) -> String {
 
 #[tauri::command]
 fn get_temps(handle: tauri::AppHandle) -> u16 {
-    let temps: String = execute(
+    let temps = execute(
         handle,
         "ectool",
         helper::to_vec_string(vec!["temps", "all"]),

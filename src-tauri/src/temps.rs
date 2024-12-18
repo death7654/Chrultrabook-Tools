@@ -1,4 +1,4 @@
-use std::{env, fs};
+use std::{fs};
 
 fn get_temp_sys() -> u16 {
     let paths = match fs::read_dir("/sys/class/hwmon/") {
@@ -27,8 +27,9 @@ fn get_temp_sys() -> u16 {
 }
 
 pub fn get_temp(ec_temps: String) -> u16 {
-    let mut sensors: u16 = 0;
-    let temps: u16 = ec_temps
+    let mut max_temp: u16 = 0;
+    let mut vector = Vec::new();
+    let temps = ec_temps
         .split("\n")
         .into_iter()
         .map(|l: &str| {
@@ -40,7 +41,10 @@ pub fn get_temp(ec_temps: String) -> u16 {
             {
                 Some(temp) => match temp.parse::<u16>() {
                     Ok(num) => {
-                        sensors += 1;
+                        if max_temp < num {
+                            max_temp = num;
+                            vector.push(max_temp);
+                        }
                         return num;
                     }
                     Err(_e) => return 0,
@@ -48,15 +52,16 @@ pub fn get_temp(ec_temps: String) -> u16 {
                 None => return 0,
             }
         })
-        .collect::<Vec<_>>()
-        .iter()
-        .sum();
+        .collect::<Vec<_>>();
 
-    if sensors == 0 || temps == 0 {
-        if env::consts::OS == "linux" {
-            return get_temp_sys();
-        } // */
-        return 0;
+    match vector.iter().max() {
+        Some(_) => *vector.iter().max().unwrap(),
+        None => {
+            #[cfg(target_os = "linux")]
+            {
+                return get_temp_sys();
+            }
+            return 0;
+        }
     }
-    return temps / sensors;
 }

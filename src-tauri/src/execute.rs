@@ -23,7 +23,6 @@ const GETSYSINFO: &str = "cat";
 #[cfg(windows)]
 const GETSYSINFO: &str = "wmic";
 
-
 fn execute(app: &tauri::AppHandle, program: &str, arguments: Vec<String>, reply: bool) -> String {
     let shell = app.shell();
     let output = tauri::async_runtime::block_on(async move {
