@@ -17,12 +17,14 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: lts/*
           cache: "npm"
       - name: Install Rust Stable
         uses: dtolnay/rust-toolchain@stable
       - name: Install Frontend Dependencies
         run: npm install # change this to npm or pnpm depending on which one you use
+      - name: Ensure MSVC toolchhain is used
+        run: rustup default stable-msvc
       - name: Build Application
         uses: tauri-apps/tauri-action@v0
         env:
