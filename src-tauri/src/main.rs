@@ -224,10 +224,6 @@ fn transfer_fan_curves(app: AppHandle, curves: String) {
 }
 
 fn main() {
-    #[cfg(target_os = "linux")]
-    {
-        sudo::escalate_if_needed();
-    }
     tauri::Builder::default()
         .setup(|app| {
             //to hide app if user wants it hidden upon boot
