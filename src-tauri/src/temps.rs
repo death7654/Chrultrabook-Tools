@@ -1,4 +1,4 @@
-use std::{fs};
+use std::fs;
 
 fn get_temp_sys() -> u16 {
     let paths = match fs::read_dir("/sys/class/hwmon/") {
@@ -29,7 +29,7 @@ fn get_temp_sys() -> u16 {
 pub fn get_temp(ec_temps: String) -> u16 {
     let mut max_temp: u16 = 0;
     let mut vector = Vec::new();
-    let temps = ec_temps
+    let _ = ec_temps
         .split("\n")
         .into_iter()
         .map(|l: &str| {
