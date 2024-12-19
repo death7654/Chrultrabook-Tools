@@ -56,7 +56,7 @@
 ## Built Using
 
 - Tauri 2.0
-- Angular 18
+- Angular 19
 - Rust 1.81
 - HTML5
 - CSS
