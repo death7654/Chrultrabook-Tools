@@ -42,7 +42,10 @@
 - Download the AppImage
 - `cd` to the directory
 - Mark the file as an executeable `chmod a+x name.AppImage`
-- open the AppImage `./name.AppImage` 
+- open the AppImage `sudo ./name.AppImage`
+
+### Non-AppImage
+- You must start the application as root as the ectool binary requires sudo privileges 
 
 ### macOS
 
