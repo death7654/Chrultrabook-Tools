@@ -35,6 +35,14 @@
 - Run the Installer
 - Open the Application
 
+#### Windows 11 24H2 and Newer
+- Enable WMIC
+   - Open Settings
+   - Navigate to `Optional Features`
+   - Click `View Features`
+   - Search and add `WMIC`
+   - Reopen the application
+
 ### Linux
 
 #### AppImage
@@ -44,7 +52,7 @@
 - Mark the file as an executeable `chmod a+x name.AppImage`
 - open the AppImage `sudo ./name.AppImage`
 
-### Non-AppImage
+#### Non-AppImage
 - You must start the application as root as the ectool binary requires sudo privileges 
 
 ### macOS
@@ -60,7 +68,7 @@
 
 - Tauri 2.0
 - Angular 19
-- Rust 1.81
+- Rust 1.83
 - HTML5
 - CSS
 - TS
