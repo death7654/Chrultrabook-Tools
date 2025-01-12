@@ -27,16 +27,16 @@ jobs:
             libjavascriptcoregtk-4.1-0=2.44.0-2 \
             libjavascriptcoregtk-4.1-dev=2.44.0-2 \
             gir1.2-javascriptcoregtk-4.1=2.44.0-2 \
-            gir1.2-webkit2-4.1=2.44.0-2 /
-            build-essential /
-            curl /
-            wget /
-            file /
-            libxdo-dev /
-            libssl-dev /
-            libayatana-appindicator3-dev /
-            librsvg2-dev /
-            desktop-file-utils /
+            gir1.2-webkit2-4.1=2.44.0-2 \
+            build-essential \
+            curl \
+            wget \
+            file \
+            libxdo-dev \
+            libssl-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev \
+            desktop-file-utils \
             libudev-dev;
       - name: Install npm dependencies
         run: npm install
