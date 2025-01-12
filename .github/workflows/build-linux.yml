@@ -57,4 +57,4 @@ jobs:
         with:
           name: Chrultrabook-tools
           retention-days: 5
-          path: src-tauri/target/release/bundle/appimage/chrultrabook*.App
+          path: src-tauri/target/release/bundle/appimage/chrultrabook*.AppImage
