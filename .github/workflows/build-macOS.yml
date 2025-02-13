@@ -3,6 +3,10 @@ on:
   push:
     branches: ["3.X.X"]
   workflow_dispatch:
+  pull_request:
+    branches: 
+    - main
+
 jobs:
   test-tauri:
     strategy:
