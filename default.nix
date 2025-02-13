@@ -9,11 +9,6 @@ rustPlatform.buildRustPackage rec {
   version = (builtins.fromJSON (builtins.readFile (src + "/package-lock.json"))).version;
   src = ./.;
 
-  #fontSrc = fetchurl {
-  #  url = "https://fonts.googleapis.com/css2?family=Open+Sans:wdth,wght@75..100,300..800&display=swap";
-  #  hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
-  #};
-
   cargoDeps = rustPlatform.importCargoLock {
     lockFile = ./src-tauri/Cargo.lock;
   };
@@ -24,20 +19,37 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [
     cargo-tauri.hook
-    nodejs
+    nodejs_22
     importNpmLock.npmConfigHook
     pkg-config
     wrapGAppsHook4
   ];
 
   buildInputs =
-    [ openssl_3 ]
+    [
+      at-spi2-atk
+      atkmm
+      cairo
+      gdk-pixbuf
+      glib
+      gtk3
+      harfbuzz
+      libayatana-appindicator
+      librsvg
+      libsoup_3
+      openssl
+      pango
+    ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
-      glib-networking # Most Tauri apps need networking
+      udev
       webkitgtk_4_1
     ];
 
   cargoRoot = "src-tauri";
   buildAndTestSubdir = cargoRoot;
+
+  postFixup = ''
+    patchelf $out/bin/Chrultrabook-Tools --add-needed libayatana-appindicator3.so.1
+  '';
 
 }

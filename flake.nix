@@ -1,12 +1,13 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     rust-overlay.url = "github:oxalica/rust-overlay";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs =
     {
+      self,
       nixpkgs,
       rust-overlay,
       flake-utils,
@@ -20,9 +21,9 @@
       in
       {
         devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [
+          packages = with pkgs; [
             (pkgs.rust-bin.fromRustupToolchain {
-              channel = "stable"; # feel free to change the channel
+              channel = "stable";
               components = [
                 "rustfmt"
                 "rust-src"
@@ -30,30 +31,16 @@
               targets = [ "wasm32-unknown-unknown" ];
               profile = "minimal";
             })
-
             cargo-deny
             cargo-edit
             cargo-watch
-            openssl_3
-            pkg-config
+            cargo-tauri
             rust-analyzer
-
-            # Tauri specific
-            cairo
-            curl
-            dbus
-            gdk-pixbuf
-            glib
-            gtk3
-            libappindicator
-            libayatana-appindicator
-            librsvg
-            libsoup_2_4
-            nodejs_22
-            systemdLibs
-            webkitgtk_4_1
-            wget
           ];
+
+          inputsFrom = [ self.packages.${system}.default ];
+
+          LD_LIBRARY_PATH = "${pkgs.libayatana-appindicator}/lib";
         };
 
         packages.default = pkgs.callPackage ./default.nix {
