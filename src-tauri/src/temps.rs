@@ -27,6 +27,7 @@ fn get_temp_sys() -> u16 {
 }
 
 pub fn get_temp(ec_temps: String) -> u16 {
+    // TODO: This could probably be done less ugly
     let mut max_temp: u16 = 0;
     let mut vector = Vec::new();
     let _ = ec_temps
@@ -54,6 +55,7 @@ pub fn get_temp(ec_temps: String) -> u16 {
         })
         .collect::<Vec<_>>();
 
+    #[allow(unreachable_code)]
     match vector.iter().max() {
         Some(_) => *vector.iter().max().unwrap(),
         None => {
