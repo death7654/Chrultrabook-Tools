@@ -2,8 +2,12 @@
   "identifier": "Windows",
   "description": "permissions that were migrated from v1",
   "local": true,
-  "windows": ["main"],
-  "platforms": ["windows"],
+  "windows": [
+    "main"
+  ],
+  "platforms": [
+    "windows"
+  ],
   "permissions": [
     "core:webview:default",
     "core:path:default",
