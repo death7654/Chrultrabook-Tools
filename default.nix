@@ -34,13 +34,13 @@ rustPlatform.buildRustPackage rec {
       glib
       gtk3
       harfbuzz
-      libayatana-appindicator
       librsvg
       libsoup_3
       openssl
       pango
     ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
+      libayatana-appindicator
       udev
       webkitgtk_4_1
     ];
