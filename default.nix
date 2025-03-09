@@ -52,4 +52,15 @@ rustPlatform.buildRustPackage rec {
     patchelf $out/bin/Chrultrabook-Tools --add-needed libayatana-appindicator3.so.1
   '';
 
+  meta = with lib; {
+    description = "User-friendly configuration utility for Chromebooks running an alternate OS ";
+    homepage = "https://github.com/death7654/Chrultrabook-Tools";
+    license = licenses.gpl3;
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
+  };
 }
