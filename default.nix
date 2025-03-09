@@ -23,6 +23,7 @@ rustPlatform.buildRustPackage rec {
     importNpmLock.npmConfigHook
     pkg-config
     wrapGAppsHook4
+    python311
   ];
 
   buildInputs =
