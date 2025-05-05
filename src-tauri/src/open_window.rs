@@ -14,7 +14,7 @@ pub async fn new_window(
         None => {
             return tauri::WebviewWindowBuilder::new(
                 handle,
-                label, /* the unique window label */
+                label, //the unique window label
                 tauri::WebviewUrl::App(angular_path.parse().unwrap()),
             )
             .inner_size(width, height)
