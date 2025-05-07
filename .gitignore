@@ -6,6 +6,7 @@
 /out-tsc
 /bazel-out
 /target
+/result
 
 # Node
 /node_modules
@@ -20,6 +21,7 @@ yarn-error.log
 *.launch
 .settings/
 *.sublime-workspace
+.direnv/
 
 # Visual Studio Code
 .vscode/*
