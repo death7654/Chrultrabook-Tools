@@ -1,1 +1,9 @@
-<p>keyboard-extra works!</p>
+<h4 class="fs-3 fw-heavy pt-2"><img class="align-text-middle px-2" src="../../assets/keyboard/keyboard.svg">Keyboard Remap</h4>
+<span class="px-2 w-100">
+    @for (item of function_keys; track $index;) {
+    <button class="btn btn-sm rounded-3 mx-1" [class]="item.state" (click)="change($index)"><span [class]="item.class">{{item.label}}</span></button>
+    }
+    <!--TODO complete keyboard-->
+</span>
+
+
