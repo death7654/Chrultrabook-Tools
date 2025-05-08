@@ -9,6 +9,7 @@
     "windows"
   ],
   "permissions": [
+    "core:window:allow-set-size",
     "core:webview:default",
     "core:path:default",
     "core:event:default",
