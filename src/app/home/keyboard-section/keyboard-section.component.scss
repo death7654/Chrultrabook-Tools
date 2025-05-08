@@ -1,13 +1,10 @@
 .keyboard_text {
   grid-template-columns: 2.1fr 1fr;
 }
-.info {
-  padding-top: 6px;
-}
 
 .keyboard_controls {
   grid-template-columns: 3fr 1fr;
-  column-gap: 8px;
+  grid-gap: 0;
 }
 .disabled {
   filter: brightness(0.8);

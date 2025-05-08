@@ -5,7 +5,7 @@
   <div class="row diagnostics">
 
     <div class="col-3 p-0 ps-2">
-      <div class="container-fluid diagnostics p-0">
+      <div class="container-fluid p-0">
         <select (click)="select()" class="form-select text-white border-0 fs-4 pt-1 bg-secondary rounded-1 w-100"
           id="diagnostic_dropdown" #dropdown>
           <option selected>Select</option>
@@ -29,12 +29,12 @@
           </option>
         </select>
         <div class="pt-2">
-          <button class="btn btn-outline-secondary fs-4 border-0 w-100 h-100" (click)="select()">
+          <button class="btn btn-outline-secondary fs-4 border-0 w-100 h-100 text-start" (click)="select()">
             Generate Report
           </button>
         </div>
         <div class="pt-2">
-          <button class="btn btn-outline-secondary fs-4 border-0 w-100 h-100" (click)="save()">
+          <button class="btn btn-outline-secondary fs-4 border-0 w-100 h-100 text-start" (click)="save()">
             Save to Files
           </button>
         </div>
@@ -43,7 +43,7 @@
 
     <div class="col-9">
       <div class="h-100 rounded-3 overflow-auto bg-light diagnostics">
-        <button class="btn btn-outline-light border-0 position-absolute copy p-1 ps-2 pe-2"
+        <button class="btn btn-outline-light border-0 float-end mt-1 me-1"
           (click)="copy_to_clipboard()">
           <img class="p-0" src="../../assets/diagnostics/copy.svg" alt="copy" />
         </button>

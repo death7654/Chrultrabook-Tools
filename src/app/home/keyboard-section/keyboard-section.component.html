@@ -6,7 +6,7 @@
       alt="keyboard"
     />Keyboard
   </h4>
-  <h4 class="fs-4 fw-heavy info">
+  <h4 class="fs-4 fw-heavy pt-1">
     Brightness: <span>{{ backlight_percentage + extension }}</span>
   </h4>
 </div>
@@ -22,10 +22,13 @@
     [value]="percentage"
     [disabled]="backlight_exists"
   />
-  <button
-    class="btn pb-0 pt-0 border-0 btn-outline-secondary border-0 fs-4"
+  <div class="ps-1">
+    <button
+    class="btn btn-outline-secondary fs-4 w-100 p-0"
     (click)="keyboard_more()"
+    disabled
     >
-    <img class="p-0" src="../../../assets/keyboard/more.svg" alt="extra" />
+    <img class="p-0" src="../../../assets/keyboard/more.svg" alt="extra"/>
   </button>
+  </div>
 </div>

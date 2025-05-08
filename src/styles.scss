@@ -6,7 +6,7 @@ $primary: #363639;
 $secondary: #2e2e30;
 $light: #363639;
 $dark: #262525;
-$line-height-sm: 0px;
+$line-height-sm: 0;
 
 $h3-font-size: 1rem;
 $h4-font-size: .8rem;
@@ -23,7 +23,7 @@ $enable-cssgrid: true;
 
 $position-values: (
   0: 0,
-  10px: 10px,
+  10px: .8rem,
   50: 50%,
   100: 100%,
 );

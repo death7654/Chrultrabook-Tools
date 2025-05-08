@@ -1,9 +1,9 @@
 <div class="container2 h-100 ps-2 pt-0">
-  <div class="options pe-2">
-    <div>
+  <div class="options pe-2 pb-1">
+    <div class="ps-0 mb-2">
       <select
         (click)="fan_profiles()"
-        class="form-select fw-normal border-0 fs-4 text-white bg-secondary h-100 rounded-3"
+        class="form-select fw-normal border-0 fs-4 text-white bg-secondary rounded-3 m-1 ms-0 h-100" 
         id="selector"
       >
         @for (item of profiles; track $index) {
@@ -14,13 +14,13 @@
       </select>
     </div>
     <button
-      class="btn btn-outline-secondary border-0 fs-4"
+      class="btn btn-outline-secondary border-0 fs-4 m-1 me-1 ms-2"
       (click)="save()"
     >
       Save
     </button>
     <button
-      class="btn btn-outline-secondary border-0 fs-4"
+      class="btn btn-outline-secondary border-0 fs-4 m-1 me-0"
       (click)="saveAndApply()"
     >
       Save and Apply
