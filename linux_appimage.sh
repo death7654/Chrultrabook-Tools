@@ -26,7 +26,8 @@ cd $APPIMAGEDIR
 cp $ROOT/Linux/AppRun $APPDIR
 curl -L https://files.tree123.org/utils/x86_64/gnu/ectool -o $APPDIR/usr/bin/ectool
 curl -L https://files.tree123.org/utils/x86_64/gnu/cbmem -o $APPDIR/usr/bin/cbmem
-chmod +x $APPDIR/usr/bin/*
+chmod +x $APPDIR/usr/bin/ectool
+chmod +x $APPDIR/usr/bin/cbmem
 curl -L $APPIMAGETOOLURL -o AppImageTool.AppImage
 chmod +x AppImageTool.AppImage
 ARCH=x86_64 ./AppImageTool.AppImage $APPDIR $APPIMAGE
