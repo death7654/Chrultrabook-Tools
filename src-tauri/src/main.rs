@@ -44,6 +44,28 @@ fn execute(handle: tauri::AppHandle, program: &str, arguments: Vec<String>, repl
     execute::execute_relay(handle, &program, arguments, reply)
 }
 #[tauri::command]
+fn get_sensors(handle: tauri::AppHandle) -> String
+{
+    let command: Vec<String> = vec!["temps".to_string(), "all".to_string()];
+    let output = execute(handle, "ectool", command, true);
+    let mut sensors = String::from("");
+    for line in output.lines() {
+        let line = line.trim();
+
+        // Skip the header and any empty lines
+        if line.is_empty() || line.starts_with("--") {
+            continue;
+        }
+
+        // Get the first word as the sensor name
+        if let Some(sensor_name) = line.split_whitespace().next() {
+            sensors.push_str(sensor_name);
+            sensors.push_str("\n");
+        }
+    }
+    sensors
+}
+#[tauri::command]
 fn diagnostics(handle: tauri::AppHandle, selected: &str) -> String {
     let output;
     match selected {

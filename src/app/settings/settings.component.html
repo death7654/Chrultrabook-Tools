@@ -1,7 +1,7 @@
 <div>
   <h4 class="text-center fs-3 p-2 pb-0">Settings</h4>
 </div>
-<div class="settings overflow-y-auto p-4 px-3 pt-4">
+<div class="settings overflow-y-auto p-4 px-3 pt-4 pb-0" data-bs-theme="dark">
   <div>
     @for (item of options; track $index) {
       <div class="form-check form-switch form-check-reverse text-start">
@@ -21,10 +21,27 @@
       </div>
       <hr />
     }
+    <div class="accordion accordion-flush" id="accordionExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button btn-outline-dark collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-controls="collapseOne">
+            Advanced
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <div>
+              <span class="fs-4">Choose Sensors for Temperature Monitoring</span>
+            </div>
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  
+  <div class="position-relative w-100 text-center version_background_color z-1">
+    <h4 class="version_info p-2 pb-0 fs-6">
+      Chrultrabook Tools {{ version_applied }}
+    </h4>
   </div>
-</div>
-<div class="position-absolute w-100 bottom-0 text-center">
-  <h4 class="version_info p-2 pb-0 fs-6">
-    Chrultrabook Tools {{ version_applied }}
-  </h4>
 </div>
