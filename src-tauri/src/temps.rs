@@ -1,5 +1,6 @@
 use std::fs;
 
+#[allow(dead_code)]
 fn get_temp_sys() -> u16 {
     let paths = match fs::read_dir("/sys/class/hwmon/") {
         Ok(out) => out,

@@ -109,7 +109,12 @@ fn diagnostics(handle: tauri::AppHandle, selected: &str) -> String {
         }
         _ => output = "Select An Option".to_string(),
     }
-    return output.trim().to_string();
+    let cleaned: String = output
+        .lines()
+        .filter(|line| !line.trim().is_empty()) // Keep non-empty lines
+        .collect::<Vec<_>>()
+        .join("\n");
+    cleaned
 }
 
 #[tauri::command]
@@ -286,6 +291,7 @@ fn main() {
         })
         .on_window_event(|window, event| match event {
             tauri::WindowEvent::CloseRequested { api, .. } => {
+
                 let close_app_to_tray = local_storage("get", "app_tray", " ");
                 if close_app_to_tray == "true" {
                     if window.label() == "main" {
@@ -336,6 +342,7 @@ fn main() {
         .invoke_handler(tauri::generate_handler![
             open_window,
             execute,
+            get_sensors,
             diagnostics,
             copy,
             save,
