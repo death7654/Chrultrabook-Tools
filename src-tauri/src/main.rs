@@ -161,7 +161,17 @@ fn get_temps(handle: tauri::AppHandle) -> u16 {
         helper::to_vec_string(vec!["temps", "all"]),
         true,
     );
-    return temps::get_temp(temps);
+    let mut sensors = local_storage("get", "sensor_selection", "");
+
+    let changes = sensors
+    .split(|c: char| !c.is_alphanumeric()).any(|word| word.eq_ignore_ascii_case("false"));
+
+    if !changes
+    {
+        sensors = "".to_string();
+
+    }
+    return temps::get_temp(temps, sensors, changes);
 }
 
 #[tauri::command]

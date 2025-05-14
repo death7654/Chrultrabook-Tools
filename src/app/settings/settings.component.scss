@@ -12,3 +12,14 @@
 {
   background-color: #181819;
 }
+
+.accordion
+{
+--bs-accordion-bg: #181819;
+--accordion-border-width: 0;
+}
+.accordion-button:not(.collapsed)
+{
+  background-color: #181819 !important;
+  color: #fff;
+}

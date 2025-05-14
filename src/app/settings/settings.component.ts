@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { invoke } from "@tauri-apps/api/core";
 import { version } from "../../../package.json";
+import { toInteger } from "lodash";
 
 @Component({
     selector: "app-settings",
@@ -10,6 +11,9 @@ import { version } from "../../../package.json";
 })
 export class SettingsComponent implements OnInit {
   version_applied: string = "";
+
+  sensors:any;
+
   ngOnInit() {
     this.version_applied = version;
 
@@ -51,6 +55,51 @@ export class SettingsComponent implements OnInit {
       if (app_boot == "true") {
         this.options[3].answer = true;
       }
+    });
+
+    invoke("get_sensors").then((sensor_data) => {
+      if (typeof sensor_data === "string") {
+        this.sensors = sensor_data.split("\n");
+      }
+      let sensors_html = "<div class=\"form-check\">";
+      let sensor;
+      for(let i = 0; i < this.sensors.length - 1; i++)
+      {
+        sensor =   "<label class=\"form-check-label fs-4\" for=\""+ this.sensors[i] + "\">" +this.sensors[i]+"</label><input class=\"form-check-input\" type=\"checkbox\" id=\"" + this.sensors[i] +"\" value=\"\" checked><br>"
+        sensors_html = sensors_html.concat(sensor);
+
+      }
+      sensors_html = sensors_html.concat("</div>");
+
+      (document.getElementById("sensor_area") as HTMLElement).innerHTML = sensors_html;
+
+      for(let i =0; i< this.sensors.length-1; i++)
+      {
+        (document.getElementById(this.sensors[i]) as HTMLInputElement).addEventListener("click", () => {
+          this.change_sensor()}
+        );
+      }
+    })
+
+    invoke("local_storage", {
+      function: "get",
+      option: "sensor_selection",
+      value: "",
+    }).then((value) => 
+    {
+      let states;
+      if (typeof value === "string") {
+        states = value.split(" ");
+      }
+      else
+      {
+        states = ["true", "true", "true"];
+      }
+
+      for(let i = 0; i< this.sensors.length - 1; i++)
+        {
+          (document.getElementById(this.sensors[i]) as HTMLInputElement).checked = /^true$/i.test(states[i]);
+        }
     });
   }
 
@@ -113,5 +162,23 @@ export class SettingsComponent implements OnInit {
         invoke("autostart", { value: this.options[3].answer });
         break;
     }
+  }
+
+  change_sensor()
+  {
+    let sensor_state = ""
+    for(let i =0; i < this.sensors.length-1; i++)
+    {
+      let checked = (document.getElementById(this.sensors[i]) as HTMLInputElement).checked;
+      sensor_state = sensor_state.concat(checked + " ")
+    }
+
+    invoke("local_storage", {
+      function: "save",
+      option: "sensor_selection",
+      value: sensor_state,
+    });
+
+    console.log(sensor_state); 
   }
 }
