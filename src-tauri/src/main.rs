@@ -265,7 +265,7 @@ fn transfer_fan_curves(app: AppHandle, curves: String) {
 fn main() -> Result<(), Box<dyn std::error::Error>>{
     #[cfg(target_os = "linux")]
     {
-        karen::escalate_if_needed()?;
+        karen::pkexec()?;
     }
     tauri::Builder::default()
         .setup(|app| {
