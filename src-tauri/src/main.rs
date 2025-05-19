@@ -19,6 +19,7 @@ use tauri::tray::TrayIconBuilder;
 use tauri::{AppHandle, Emitter, EventTarget, Manager};
 use tauri_plugin_autostart::{MacosLauncher, ManagerExt};
 use tauri_plugin_clipboard_manager::ClipboardExt;
+use karen;
 
 //open windows
 #[tauri::command]
@@ -261,6 +262,10 @@ fn transfer_fan_curves(app: AppHandle, curves: String) {
 }
 
 fn main() {
+    #[cfg(target_os = "linux")]
+    {
+        karen::escalate_if_needed()?;
+    }
     tauri::Builder::default()
         .setup(|app| {
             //to hide app if user wants it hidden upon boot

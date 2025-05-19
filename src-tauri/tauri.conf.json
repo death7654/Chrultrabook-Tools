@@ -14,10 +14,33 @@
       "icons/128x128@2x.png",
       "icons/icon.icns",
       "icons/icon.ico"
-    ]
+    ],
+    "linux": {
+      "appimage": {
+        "bundleMediaFramework": false,
+        "files": {
+          "user/bin/ectool": "/linux/ectool",
+          "user/bin/cbmem": "/linux/cbmem"
+        }
+      },
+      "deb": {
+        "files": {
+          "user/bin/ectool": "/linux/ectool",
+          "user/bin/cbmem": "/linux/cbmem"
+        }
+      },
+      "rpm": {
+        "epoch": 0,
+        "files": {
+          "user/bin/ectool": "/linux/ectool",
+          "user/bin/cbmem": "/linux/cbmem"
+        },
+        "release": "3.0.4"
+      }
+    }
   },
   "productName": "chrultrabook-tools",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "identifier": "com.chrultrabook.org",
   "plugins": {},
   "app": {
