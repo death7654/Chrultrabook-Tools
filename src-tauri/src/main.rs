@@ -19,6 +19,7 @@ use tauri::tray::TrayIconBuilder;
 use tauri::{AppHandle, Emitter, EventTarget, Manager};
 use tauri_plugin_autostart::{MacosLauncher, ManagerExt};
 use tauri_plugin_clipboard_manager::ClipboardExt;
+#[cfg(target_os = "linux")]
 use karen;
 
 //open windows
@@ -261,7 +262,7 @@ fn transfer_fan_curves(app: AppHandle, curves: String) {
         .expect("failure to transmit data");
 }
 
-fn main() {
+fn main() -> Result<(), Box<dyn std::error::Error>>{
     #[cfg(target_os = "linux")]
     {
         karen::escalate_if_needed()?;
@@ -395,4 +396,5 @@ fn main() {
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+    Ok(())
 }
