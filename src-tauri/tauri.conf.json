@@ -19,18 +19,18 @@
       "appimage": {
         "bundleMediaFramework": false,
         "files": {
-          "user/bin/*": "linux/*"
+          "user/bin/*": "linux/"
         }
       },
       "deb": {
         "files": {
-          "user/bin/*": "linux/*"
+          "user/bin/*": "linux/"
         }
       },
       "rpm": {
         "epoch": 0,
         "files": {
-          "user/bin/*": "linux/*"
+          "user/bin/*": "linux/"
         },
         "release": "3.0.5"
       }
