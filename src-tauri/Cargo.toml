@@ -23,7 +23,8 @@ web-local-storage-api = "0.0.0"
 hidapi = "2.6.3"
 open = "5.3.2"
 cargo-edit = "0.13.0"
-#[cfg(target_os = "linux")".dependencies]
+
+[target.'cfg(target_os = "linux")'.dependencies]
 karen = "0.1.2"
 
 [features]
