@@ -41,6 +41,13 @@ jobs:
             libudev-dev;
       - name: Install npm dependencies
         run: npm install
+      - name: Download assets
+        run: |
+          export ROOT=$(pwd)
+          curl -L https://files.tree123.org/utils/x86_64/gnu/ectool -o $ROOT/src-tauri/assets
+          curl -L https://files.tree123.org/utils/x86_64/gnu/cbmem -o $ROOT/src-tauri/assets
+          chmod a+x $ROOT/src-tauri/assets/ectool
+          chmod a+x $ROOT/src-tauri/assets/cbmem
       - name: Build Application
         uses: tauri-apps/tauri-action@v0
         env:
