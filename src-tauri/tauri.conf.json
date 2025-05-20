@@ -19,21 +19,21 @@
       "appimage": {
         "bundleMediaFramework": false,
         "files": {
-          "/user/bin/ectool": "assets/ectool",
-	        "/user/bin/cbmem": "assets/cbmem"
+          "/usr/bin/ectool": "assets/ectool",
+	        "/usr/bin/cbmem": "assets/cbmem"
         }
       },
       "deb": {
         "files": {
-	        "/user/bin/ectool": "assets/ectool",
-          "/user/bin/cbmem": "assets/cbmem"
+	        "/usr/bin/ectool": "assets/ectool",
+          "/usr/bin/cbmem": "assets/cbmem"
         }
       },
       "rpm": {
         "epoch": 0,
         "files": {
-          "/user/bin/ectool": "assets/ectool",
-          "/user/bin/cbmem": "assets/cbmem"
+          "/usr/bin/ectool": "assets/ectool",
+          "/usr/bin/cbmem": "assets/cbmem"
         },
         "release": "3.0.5"
       }
