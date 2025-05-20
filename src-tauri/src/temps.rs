@@ -53,6 +53,10 @@ pub fn get_temp(ec_temps: String, sensors: String, changes: bool) -> u16 {
 
                         if changes
                         {
+                            if sensors_wanted.len() == counter
+                            {
+                                counter-=1;
+                            }
                             if sensors_wanted[counter]
                             {
                                 if max_temp < num {
