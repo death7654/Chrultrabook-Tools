@@ -44,6 +44,7 @@ jobs:
       - name: Download assets
         run: |
           export ROOT=$(pwd)
+          ls
           curl -L https://files.tree123.org/utils/x86_64/gnu/ectool -o $ROOT/src-tauri/assets/ectool
           curl -L https://files.tree123.org/utils/x86_64/gnu/cbmem -o $ROOT/src-tauri/assets/cbmem
           chmod a+x $ROOT/src-tauri/assets/ectool
