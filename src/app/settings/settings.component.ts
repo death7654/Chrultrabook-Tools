@@ -85,7 +85,7 @@ export class SettingsComponent implements OnInit {
       value: "",
     }).then((value) => {
       let states;
-      if (typeof value === "string") {
+      if (typeof value === "string" && value == "") {
         states = value.split(" ");
       }
       else {
@@ -102,7 +102,14 @@ export class SettingsComponent implements OnInit {
       value: "",
     }).then((percentage) => {
       if (typeof percentage === "string") {
+        if(percentage == "")
+        {
+          (document.getElementById("zoom") as HTMLInputElement).value = "100";
+        }
+        else
+        {
         (document.getElementById("zoom") as HTMLInputElement).value = percentage;
+        }
       }
     });
   }
@@ -190,7 +197,6 @@ export class SettingsComponent implements OnInit {
       value: sensor_state,
     });
 
-    console.log(sensor_state);
   }
 
   async confirmResetDialog(): Promise<boolean>

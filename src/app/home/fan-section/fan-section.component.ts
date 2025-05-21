@@ -61,19 +61,32 @@ export class FanSectionComponent implements OnInit {
           function: "get",
           option: "fan_boot",
           value: "",
-        }).then((event: any) => {
-          let output = JSON.parse(event);
-          if (output == true) {
-            const selected_data = this.fanService.getSelected();
-            this.selected_mode = selected_data[0];
-            this.fan_array = selected_data[1];
-            this.custom_active = "active";
-            this.apply_interval();
-          } else {
-            this.auto_active = "active";
+        }).then((event) => {
+          if(typeof event === "string")
+          {
+            if (event == "")
+            {
+              this.auto_active = "active";
             this.selected_mode = "Auto";
             this.fan_auto();
-          }
+            }
+            else
+            {
+              let output = JSON.parse(event);
+              if (output) {
+                const selected_data = this.fanService.getSelected();
+                this.selected_mode = selected_data[0];
+                this.fan_array = selected_data[1];
+                this.custom_active = "active";
+                this.apply_interval();
+              } else {
+                this.auto_active = "active";
+                this.selected_mode = "Auto";
+                this.fan_auto();
+              }
+
+            }
+        }
         });
 
         setInterval(this.get_fan_rpm, 1000);
