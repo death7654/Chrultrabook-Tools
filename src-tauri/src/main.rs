@@ -270,7 +270,14 @@ fn setzoom(handle: tauri::AppHandle, scale: f64) {
 }
 #[tauri::command]
 fn reset(handle: tauri::AppHandle) {
-    let _ = local_storage("clear", "", "");
+    let _ = local_storage("remove", "fan_boot", "");
+    let _ = local_storage("remove", "start_app_tray", "");
+    let _ = local_storage("remove", "sensor_selection", "");
+    let _ = local_storage("remove", "app_tray", "");
+    let _ = local_storage("remove", "zoom", "");
+    let _ = local_storage("remove", "profiles", "");
+    let _ = local_storage("remove", "app_boot", "");
+
     handle.restart();
 }
 
