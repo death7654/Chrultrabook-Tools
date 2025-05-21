@@ -43,12 +43,10 @@ jobs:
         run: npm install
       - name: Download assets
         run: |
-          export ROOT=$(pwd)
-          ls
-          curl -L https://files.tree123.org/utils/x86_64/gnu/ectool -o $ROOT/src-tauri/assets/ectool
-          curl -L https://files.tree123.org/utils/x86_64/gnu/cbmem -o $ROOT/src-tauri/assets/cbmem
-          chmod a+x $ROOT/src-tauri/assets/ectool
-          chmod a+x $ROOT/src-tauri/assets/cbmem
+          curl -L https://files.tree123.org/utils/x86_64/gnu/ectool -o src-tauri/assets/ectool
+          curl -L https://files.tree123.org/utils/x86_64/gnu/cbmem -o src-tauri/assets/cbmem
+          chmod a+x src-tauri/assets/ectool
+          chmod a+x src-tauri/assets/cbmem
       - name: Build Application
         uses: tauri-apps/tauri-action@v0
         env:
