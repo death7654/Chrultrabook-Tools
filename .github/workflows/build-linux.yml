@@ -43,8 +43,8 @@ jobs:
         run: npm install
       - name: Download assets
         run: |
-          curl -L https://files.tree123.org/utils/x86_64/gnu/ectool -o src-tauri/assets
-          curl -L https://files.tree123.org/utils/x86_64/gnu/cbmem -o src-tauri/assets
+          curl -L https://files.tree123.org/utils/x86_64/gnu/ectool -o src-tauri/assets/ectool
+          curl -L https://files.tree123.org/utils/x86_64/gnu/cbmem -o src-tauri/assets/cbmem
           chmod a+x src-tauri/assets/ectool
           chmod a+x src-tauri/assets/cbmem
       - name: Build Application
