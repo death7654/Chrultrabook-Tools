@@ -277,6 +277,7 @@ fn reset(handle: tauri::AppHandle) {
     let _ = local_storage("remove", "zoom", "");
     let _ = local_storage("remove", "profiles", "");
     let _ = local_storage("remove", "app_boot", "");
+    autostart(handle.clone(), false);
 
     handle.restart();
 }
