@@ -3,12 +3,13 @@
   "description": "permissions that were migrated from v1",
   "local": true,
   "windows": [
-    "main"
+    "main", "Settings"
   ],
   "platforms": [
     "macOS"
   ],
   "permissions": [
+    "dialog:allow-confirm",
     "core:window:allow-set-size",
     "core:webview:default",
     "core:path:default",

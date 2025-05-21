@@ -32,6 +32,8 @@ export class FanSectionComponent implements OnInit {
   interval: any;
   fan_array: any;
 
+  zoom: number = 1;
+
   fanService: FanService = inject(FanService);
 
   constructor() {}
@@ -77,6 +79,17 @@ export class FanSectionComponent implements OnInit {
         setInterval(this.get_fan_rpm, 1000);
         this.button = "border-0";
       }
+      invoke("local_storage", {
+        function: "get",
+        option: "zoom",
+        value: "",
+      }).then((percentage) => {
+        if (typeof percentage === "string") {
+          const number = Number(percentage) / 100;
+          this.zoom = number;
+        }
+      });
+
     });
 
     //starts the interval of reading the cpu temps
@@ -96,6 +109,9 @@ export class FanSectionComponent implements OnInit {
       console.log(this.fan_array);
       this.fan_custom();
     });
+
+
+
   }
 
   async get_cpu_temp() {
@@ -170,7 +186,7 @@ export class FanSectionComponent implements OnInit {
   }
 
   open_fan_custom_window() {
-    invoke("open_window", { name: "Custom_Fans", width: 880.0, height: 440.0 });
+    invoke("open_window", { name: "Custom_Fans", width: 980.0, height: 540.0, zoom: this.zoom });
   }
 
   ngOnDestroy()

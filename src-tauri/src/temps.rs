@@ -29,14 +29,13 @@ fn get_temp_sys() -> u16 {
 
 pub fn get_temp(ec_temps: String, sensors: String, changes: bool) -> u16 {
     let mut sensors_wanted = vec![];
-    if changes
-    {
+    if changes {
         sensors_wanted = parse_bool_vec(&sensors);
     }
 
     let mut max_temp: u16 = 0;
     let mut counter: usize = 0;
-    
+
     let mut vector = Vec::new();
     let _ = ec_temps
         .split("\n")
@@ -50,28 +49,23 @@ pub fn get_temp(ec_temps: String, sensors: String, changes: bool) -> u16 {
             {
                 Some(temp) => match temp.parse::<u16>() {
                     Ok(num) => {
-
-                        if changes
-                        {
-                            if sensors_wanted.len() == counter
-                            {
-                                counter-=1;
+                        if changes {
+                            if sensors_wanted.len() == counter {
+                                counter -= 1;
                             }
-                            if sensors_wanted[counter]
-                            {
+                            if sensors_wanted[counter] {
                                 if max_temp < num {
                                     max_temp = num;
                                     vector.push(max_temp);
-                                } 
+                                }
                             }
-                        }
-                        else {
+                        } else {
                             if max_temp < num {
                                 max_temp = num;
                                 vector.push(max_temp);
                             }
                         }
-                        counter+=1;
+                        counter += 1;
                         return 0;
                     }
                     Err(_e) => return 0,

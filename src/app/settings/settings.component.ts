@@ -1,18 +1,17 @@
 import { Component, OnInit } from "@angular/core";
 import { invoke } from "@tauri-apps/api/core";
 import { version } from "../../../package.json";
-import { toInteger } from "lodash";
 
 @Component({
-    selector: "app-settings",
-    imports: [],
-    templateUrl: "./settings.component.html",
-    styleUrl: "./settings.component.scss"
+  selector: "app-settings",
+  imports: [],
+  templateUrl: "./settings.component.html",
+  styleUrl: "./settings.component.scss"
 })
 export class SettingsComponent implements OnInit {
   version_applied: string = "";
 
-  sensors:any;
+  sensors: any;
 
   ngOnInit() {
     this.version_applied = version;
@@ -63,9 +62,8 @@ export class SettingsComponent implements OnInit {
       }
       let sensors_html = "<div class=\"form-check\">";
       let sensor;
-      for(let i = 0; i < this.sensors.length - 1; i++)
-      {
-        sensor =   "<label class=\"form-check-label fs-4\" for=\""+ this.sensors[i] + "\">" +this.sensors[i]+"</label><input class=\"form-check-input\" type=\"checkbox\" id=\"" + this.sensors[i] +"\" value=\"\" checked><br>"
+      for (let i = 0; i < this.sensors.length - 1; i++) {
+        sensor = "<label class=\"form-check-label fs-4\" for=\"" + this.sensors[i] + "\">" + this.sensors[i] + "</label><input class=\"form-check-input\" type=\"checkbox\" id=\"" + this.sensors[i] + "\" value=\"\" checked><br>"
         sensors_html = sensors_html.concat(sensor);
 
       }
@@ -73,10 +71,10 @@ export class SettingsComponent implements OnInit {
 
       (document.getElementById("sensor_area") as HTMLElement).innerHTML = sensors_html;
 
-      for(let i =0; i< this.sensors.length-1; i++)
-      {
+      for (let i = 0; i < this.sensors.length - 1; i++) {
         (document.getElementById(this.sensors[i]) as HTMLInputElement).addEventListener("click", () => {
-          this.change_sensor()}
+          this.change_sensor()
+        }
         );
       }
     })
@@ -85,21 +83,27 @@ export class SettingsComponent implements OnInit {
       function: "get",
       option: "sensor_selection",
       value: "",
-    }).then((value) => 
-    {
+    }).then((value) => {
       let states;
       if (typeof value === "string") {
         states = value.split(" ");
       }
-      else
-      {
+      else {
         states = ["true", "true", "true"];
       }
 
-      for(let i = 0; i< this.sensors.length - 1; i++)
-        {
-          (document.getElementById(this.sensors[i]) as HTMLInputElement).checked = /^true$/i.test(states[i]);
-        }
+      for (let i = 0; i < this.sensors.length - 1; i++) {
+        (document.getElementById(this.sensors[i]) as HTMLInputElement).checked = /^true$/i.test(states[i]);
+      }
+    });
+    invoke("local_storage", {
+      function: "get",
+      option: "zoom",
+      value: "",
+    }).then((percentage) => {
+      if (typeof percentage === "string") {
+        (document.getElementById("zoom") as HTMLInputElement).value = percentage;
+      }
     });
   }
 
@@ -163,12 +167,19 @@ export class SettingsComponent implements OnInit {
         break;
     }
   }
+  update_zoom(value: string) {
+    const number = Number(value) / 100;
+    invoke("setzoom", { scale: number });
+    invoke("local_storage", {
+      function: "save",
+      option: "zoom",
+      value: value,
+    });
+  }
 
-  change_sensor()
-  {
+  change_sensor() {
     let sensor_state = ""
-    for(let i =0; i < this.sensors.length-1; i++)
-    {
+    for (let i = 0; i < this.sensors.length - 1; i++) {
       let checked = (document.getElementById(this.sensors[i]) as HTMLInputElement).checked;
       sensor_state = sensor_state.concat(checked + " ")
     }
@@ -179,6 +190,22 @@ export class SettingsComponent implements OnInit {
       value: sensor_state,
     });
 
-    console.log(sensor_state); 
+    console.log(sensor_state);
+  }
+
+  async confirmResetDialog(): Promise<boolean>
+  {
+    return confirm("Are you sure you want to reset the app? This will delete all app data and close the app.");
+  }
+  confirmReset() {
+    let confirmed = this.confirmResetDialog().then((confirm) =>
+    {
+      if (confirm) {
+        // Trigger your reset logic here
+        // window.__TAURI__.invoke('reset_app');
+        invoke("reset")
+      }
+
+    });
   }
 }

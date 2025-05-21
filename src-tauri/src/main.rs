@@ -12,6 +12,8 @@ mod save_to_local;
 mod temps;
 
 //external crates
+#[cfg(target_os = "linux")]
+use karen;
 use open;
 use tauri::image::Image;
 use tauri::menu::{IconMenuItemBuilder, MenuBuilder, MenuItemBuilder};
@@ -19,8 +21,6 @@ use tauri::tray::TrayIconBuilder;
 use tauri::{AppHandle, Emitter, EventTarget, Manager};
 use tauri_plugin_autostart::{MacosLauncher, ManagerExt};
 use tauri_plugin_clipboard_manager::ClipboardExt;
-#[cfg(target_os = "linux")]
-use karen;
 
 //open windows
 #[tauri::command]
@@ -30,12 +30,14 @@ async fn open_window(
     name: &str,
     width: f64,
     height: f64,
+    zoom: f64,
 ) -> Result<(), ()> {
     let window_open = get_all_windows::window(&window, name);
     if window_open == true {
         window.get_webview_window(name).unwrap().show().unwrap();
     } else {
         open_window::new_window(&handle, name, name, width, height, true).await;
+        setzoom(handle, zoom);
     }
     Ok(())
 }
@@ -46,8 +48,7 @@ fn execute(handle: tauri::AppHandle, program: &str, arguments: Vec<String>, repl
     execute::execute_relay(handle, &program, arguments, reply)
 }
 #[tauri::command]
-fn get_sensors(handle: tauri::AppHandle) -> String
-{
+fn get_sensors(handle: tauri::AppHandle) -> String {
     let command: Vec<String> = vec!["temps".to_string(), "all".to_string()];
     let output = execute(handle, "ectool", command, true);
     let mut sensors = String::from("");
@@ -166,12 +167,11 @@ fn get_temps(handle: tauri::AppHandle) -> u16 {
     let mut sensors = local_storage("get", "sensor_selection", "");
 
     let changes = sensors
-    .split(|c: char| !c.is_alphanumeric()).any(|word| word.eq_ignore_ascii_case("false"));
+        .split(|c: char| !c.is_alphanumeric())
+        .any(|word| word.eq_ignore_ascii_case("false"));
 
-    if !changes
-    {
+    if !changes {
         sensors = "".to_string();
-
     }
     return temps::get_temp(temps, sensors, changes);
 }
@@ -246,7 +246,7 @@ async fn get_json() -> String {
 }
 
 #[tauri::command]
-fn set_custom_fan(handle: tauri::AppHandle, temp: i16, array: Vec<i8>) {
+fn set_custom_fan(handle: tauri::AppHandle, temp: u16, array: Vec<u8>) {
     let fan_speed = custom_fan::calculate_fan_percentage(temp, array).to_string();
     execute::execute_relay(
         handle,
@@ -261,13 +261,26 @@ fn transfer_fan_curves(app: AppHandle, curves: String) {
     app.emit_to(EventTarget::webview_window("main"), "fan_curve", &curves)
         .expect("failure to transmit data");
 }
+#[tauri::command]
+fn setzoom(handle: tauri::AppHandle, scale: f64) {
+    let windows = handle.webview_windows();
+    for (_, window) in windows.iter() {
+        let _ = window.set_zoom(scale);
+    }
+}
+#[tauri::command]
+fn reset(handle: tauri::AppHandle) {
+    let _ = local_storage("clear", "", "");
+    handle.restart();
+}
 
-fn main() -> Result<(), Box<dyn std::error::Error>>{
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     #[cfg(target_os = "linux")]
     {
         karen::pkexec()?;
     }
     tauri::Builder::default()
+        .plugin(tauri_plugin_process::init())
         .setup(|app| {
             //to hide app if user wants it hidden upon boot
             let start_app_in_tray = local_storage("get", "start_app_tray", " ");
@@ -329,7 +342,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>>{
         })
         .on_window_event(|window, event| match event {
             tauri::WindowEvent::CloseRequested { api, .. } => {
-
                 let close_app_to_tray = local_storage("get", "app_tray", " ");
                 if close_app_to_tray == "true" {
                     if window.label() == "main" {
@@ -392,7 +404,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>>{
             autostart,
             get_json,
             set_custom_fan,
-            transfer_fan_curves
+            transfer_fan_curves,
+            setzoom,
+            reset,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

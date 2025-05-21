@@ -13,3 +13,14 @@
     display: none;
 }
 
+.height
+{
+    height: 100dvh;
+    -ms-overflow-style: none;
+}
+.height::-webkit-scrollbar
+{
+    width: 0;
+}
+
+

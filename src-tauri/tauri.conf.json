@@ -52,8 +52,8 @@
         "title": "Chrultrabook Tools",
         "width": 390,
         "height": 480,
-        "maximizable": false,
-        "resizable": false,
+        "maximizable": true,
+        "resizable": true,
         "theme": "Dark"
       }
     ]

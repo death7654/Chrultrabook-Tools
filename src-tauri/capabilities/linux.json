@@ -3,12 +3,14 @@
   "description": "permissions that were migrated from v1",
   "local": true,
   "windows": [
-    "main"
+    "main",
+    "Settings"
   ],
   "platforms": [
     "linux"
   ],
   "permissions": [
+    "dialog:allow-confirm",
     "core:window:allow-set-size",
     "core:webview:default",
     "core:path:default",
@@ -51,6 +53,7 @@
     "shell:deny-execute",
     "shell:deny-kill",
     "shell:deny-open",
-    "shell:deny-stdin-write"
+    "shell:deny-stdin-write",
+    "process:default"
   ]
 }
