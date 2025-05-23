@@ -10,11 +10,22 @@ import { version } from "../../../package.json";
 })
 export class SettingsComponent implements OnInit {
   version_applied: string = "";
+  linux: boolean = true;
 
   sensors: any;
 
   ngOnInit() {
     this.version_applied = version;
+    invoke("local_storage").then((os) =>
+  {
+    if(typeof os == "string")
+    {
+      if(os != "linux")
+      {
+        this.linux = false;
+      }
+    }
+  })
 
     invoke("local_storage", {
       function: "get",

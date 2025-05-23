@@ -60,16 +60,25 @@ export class HomeComponent {
       console.log('resize')
     },1000)
 
-    invoke("local_storage", {
-      function: "get",
-      option: "zoom",
-      value: "",
-    }).then((percentage) => {
-      if (typeof percentage === "string") {
-        const number = Number(percentage) / 100;
-        invoke("setzoom", { scale: number });
+    invoke("os").then((os) => 
+    {
+      if(typeof os === "string")
+      {
+        if(os != "linux")
+        {
+          invoke("local_storage", {
+            function: "get",
+            option: "zoom",
+            value: "",
+          }).then((percentage) => {
+            if (typeof percentage === "string") {
+              const number = Number(percentage) / 100;
+              invoke("setzoom", { scale: number });
+            }
+          });
+        }
       }
-    });
+    })
 
   }
 

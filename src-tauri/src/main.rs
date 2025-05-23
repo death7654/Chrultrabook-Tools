@@ -30,14 +30,17 @@ async fn open_window(
     name: &str,
     width: f64,
     height: f64,
-    zoom: f64,
+    _zoom: f64,
 ) -> Result<(), ()> {
     let window_open = get_all_windows::window(&window, name);
     if window_open == true {
         window.get_webview_window(name).unwrap().show().unwrap();
     } else {
         open_window::new_window(&handle, name, name, width, height, true).await;
-        setzoom(handle, zoom);
+        #[cfg(windows)]
+        {
+            setzoom(handle, _zoom);
+        }
     }
     Ok(())
 }
@@ -215,6 +218,11 @@ fn os() -> String {
     {
         return String::from("macOS");
     }
+    #[cfg(target_os = "linux")]
+    {
+        return String::from("linux");
+    }
+
     return String::from("not macOS");
 }
 
