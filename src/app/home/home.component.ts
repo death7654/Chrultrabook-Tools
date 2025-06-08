@@ -58,7 +58,7 @@ export class HomeComponent {
     setTimeout(()=>{
       this.resizeWindowToContent();
       console.log('resize')
-    },1000)
+    },1500)
 
     invoke("os").then((os) => 
     {
