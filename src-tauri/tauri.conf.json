@@ -8,7 +8,6 @@
   "bundle": {
     "active": true,
     "targets": [
-      "appimage",
       "deb",
       "rpm",
       "msi",
@@ -38,7 +37,7 @@
     "windows": [
       {
         "title": "Chrultrabook Tools",
-        "width": 390,
+        "width": 430,
         "height": 480,
         "maximizable": true,
         "resizable": true,

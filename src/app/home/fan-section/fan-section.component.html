@@ -1,74 +1,42 @@
-<div class="grid fan_text text-left pt-3">
-  <h4 class="fs-4 fw-heavy" [class]="disabled_class">
-    <img
-      src="../../../assets/fan/fan.svg"
-      class="align-text-middle px-2"
-      alt="fan"
-    />Mode - <span id="selected_mode">{{ selected_mode }}</span>
-  </h4>
-  <h4 class="fs-4 fw-heavy pt-1">CPU: <span id="temp"></span> °C</h4>
-  <h4 class="fs-4 fw-heavy pt-1" [class]="disabled_class">
-    Fan: <span id="fanRPM"></span> {{ extension }}
-  </h4>
+<div class="container-fluid align-items-center px-auto m-0">
+  <div class="fan_text text-left mt-3 container-fluid w-100 text-start p-0">
+  <div class="row w-100 align-items-center">
+    <div class="col-5 p-0 m-0">
+      <h4 class="fs-4 fw-heavy" [class]="disabled_class">
+        <img src="../../../assets/fan/fan.svg" class="align-text-middle mx-2" alt="fan" />Mode - <span
+          id="selected_mode">{{ selected_mode }}</span>
+      </h4>
+    </div>
+    <div class="col-3 align-middle">
+      <h4 class="fs-4 fw-heavy">CPU: <span id="temp"></span> °C</h4>
+
+    </div>
+    <div class="col-4">
+      <h4 class="fs-4 fw-heavy" [class]="disabled_class">
+        Fan: <span id="fanRPM"></span> {{ extension }}
+      </h4>
+    </div>
+
+  </div>
 </div>
-<div
-  class="grid p-1 pt-2 px-2"
-  [class]="disabled_class"
-  style="--bs-rows: 0; --bs-columns: 4; --bs-gap: 7px"
->
-  <button
-    type="button"
-    class="btn fs-4"
-    [class]="fan_auto_class + ' ' + button + ' ' + auto_active"
-    [disabled]="fan_exists"
-    (click)="fan_auto()"
-    data-bs-toggle="button"
-  >
-    <img
-      class="p-2 pb-2"
-      src="../../../assets/fan/leaf.svg"
-      alt="leaf"
-    /><br />Auto
+
+</div>
+
+<div class="grid p-1 pt-2 px-2" [class]="disabled_class" style="--bs-rows: 0; --bs-columns: 4; --bs-gap: 7px">
+  <button type="button" class="btn fs-4" [class]="fan_auto_class + ' ' + button + ' ' + auto_active"
+    [disabled]="fan_exists" (click)="fan_auto()" data-bs-toggle="button">
+    <img class="p-2 pb-2" src="../../../assets/fan/leaf.svg" alt="leaf" /><br />Auto
   </button>
-  <button
-    type="button"
-    class="btn fs-4"
-    [class]="fan_off_class + ' ' + button + ' ' + off_active"
-    [disabled]="fan_exists"
-    (click)="fan_off()"
-    data-bs-toggle="button"
-  >
-    <img
-      class="p-2 pb-2"
-      src="../../../assets/fan/bicycle.svg"
-      alt="bicycle"
-    /><br />Off
+  <button type="button" class="btn fs-4" [class]="fan_off_class + ' ' + button + ' ' + off_active"
+    [disabled]="fan_exists" (click)="fan_off()" data-bs-toggle="button">
+    <img class="p-2 pb-2" src="../../../assets/fan/bicycle.svg" alt="bicycle" /><br />Off
   </button>
-  <button
-    type="button"
-    class="btn fs-4"
-    [class]="fan_max_class + ' ' + button + ' ' + max_active"
-    [disabled]="fan_exists"
-    (click)="fan_max()"
-    data-bs-toggle="button"
-  >
-    <img
-      class="p-2 pb-2"
-      src="../../../assets/fan/rocket.svg"
-      alt="rocket"
-    /><br />Max
+  <button type="button" class="btn fs-4" [class]="fan_max_class + ' ' + button + ' ' + max_active"
+    [disabled]="fan_exists" (click)="fan_max()" data-bs-toggle="button">
+    <img class="p-2 pb-2" src="../../../assets/fan/rocket.svg" alt="rocket" /><br />Max
   </button>
-  <button
-    type="button"
-    class="btn fs-4"
-    [class]="fan_custom_class + ' ' + button + ' ' + custom_active"
-    [disabled]="fan_exists"
-    (click)="open_fan_custom_window()"
-  >
-    <img
-      class="p-2 pb-2"
-      src="../../../assets/fan/wrench.svg"
-      alt="bicycle"
-    /><br />Custom
+  <button type="button" class="btn fs-4" [class]="fan_custom_class + ' ' + button + ' ' + custom_active"
+    [disabled]="fan_exists" (click)="open_fan_custom_window()">
+    <img class="p-2 pb-2" src="../../../assets/fan/wrench.svg" alt="bicycle" /><br />Custom
   </button>
 </div>

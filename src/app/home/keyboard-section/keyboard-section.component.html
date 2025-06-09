@@ -1,14 +1,22 @@
-<div class="grid keyboard_text pt-4" [class]="disabled_class">
-  <h4 class="fs-4 fw-heavy">
+<div class="keyboard_text mt-4 container-fluid p-0 align-items-center" [class]="disabled_class">
+  <div class="row p-0 m-0">
+    <div class="col-7 p-0">
+      <h4 class="fs-4 fw-heavy">
     <img
       src="../../../assets/keyboard/keyboard.svg"
       class="align-text-middle px-2"
       alt="keyboard"
     />Keyboard
   </h4>
-  <h4 class="fs-4 fw-heavy pt-1">
+    </div>
+    <div class="col-5">
+      <h4 class="fs-4 fw-heavy pt-1 ms-4">
     Brightness: <span>{{ backlight_percentage + extension }}</span>
   </h4>
+    </div>
+  </div>
+  
+  
 </div>
 <div class="grid keyboard_controls px-2 pt-1">
   <input
