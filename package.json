@@ -46,7 +46,7 @@
     "@tauri-apps/api": "^2.2.0",
     "@tauri-apps/cli": "^2.2.4",
     "@types/jasmine": "~5.1.5",
-    "@types/lodash": "^4.17.13",
+    "@types/lodash": "^4.17.17",
     "jasmine-core": "~5.5.0",
     "karma": "~6.4.4",
     "karma-chrome-launcher": "~3.2.0",
