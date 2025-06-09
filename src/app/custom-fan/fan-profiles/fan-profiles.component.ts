@@ -23,16 +23,17 @@ export class FanProfilesComponent {
   }
 
   @HostListener("window:keydown", ["$event"])
-  enter(event: KeyboardEvent) {
+  keyboard(event: KeyboardEvent) {
     if (event.code == "Enter") {
       this.addProfiles();
     }
+
   }
 
   addProfiles() {
     const name = (
       document.getElementById("text") as HTMLInputElement
-    ).value.trim();
+    ).value.trim().replace(/ /g, '');
     if (name !== "") {
       (document.getElementById("text") as HTMLInputElement).value = "";
       this.fan_service.addProfile(name);

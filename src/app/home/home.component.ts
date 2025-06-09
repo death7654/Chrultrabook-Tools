@@ -35,7 +35,7 @@ export class HomeComponent {
     let rect = el.getBoundingClientRect();
 
     let width = Math.ceil(rect.width);
-    let height = Math.ceil(rect.height + 10); // Add padding for window decorations
+    let height = Math.ceil(rect.height); // Add padding for window decorations
 
     let appWindow = getCurrentWindow();
     let size = new LogicalSize(width, height);
