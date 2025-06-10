@@ -88,55 +88,46 @@ export class KeyboardExtraComponent {
         },
     ]
 
-    change(i: number)
-    {
-        if (this.function_keys[i].state == this.default_button_state)
-        {
+    change(i: number) {
+        if (this.function_keys[i].state == this.default_button_state) {
             this.function_keys[i].state = this.changed_button_state
         }
-        else
-        {
+        else {
             this.function_keys[i].state = this.default_button_state
         }
-        switch(i){
-            case 0:{
-                if(this.function_keys[i].label == this.key1)
-                {
+        switch (i) {
+            case 0: {
+                if (this.function_keys[i].label == this.key1) {
                     this.function_keys[i].label = "F1"
                     this.function_keys[i].class = this.text_active_class
                 }
-                else
-                {
+                else {
                     this.function_keys[i].label = this.key1;
                     this.function_keys[i].class = this.default_active_class
                 }
                 break;
             }
             case 1: {
-                if(this.function_keys[i].label == this.key2)
-                    {
-                        this.function_keys[i].label = "F2"
-                        this.function_keys[i].class = this.text_active_class
-                    }
-                    else
-                    {
-                        this.function_keys[i].label = this.key2;
-                        this.function_keys[i].class = this.default_active_class
-                    }
-                    break;
+                if (this.function_keys[i].label == this.key2) {
+                    this.function_keys[i].label = "F2"
+                    this.function_keys[i].class = this.text_active_class
+                }
+                else {
+                    this.function_keys[i].label = this.key2;
+                    this.function_keys[i].class = this.default_active_class
+                }
+                break;
             }
             case 2: {
-                if(this.function_keys[i].label == this.key3)
-                    {
-                        this.function_keys[i].label = "F3"
-                        this.function_keys[i].class = this.text_active_class
-                    }
-                    else
-                    {
-                        this.function_keys[i].label = this.key1;
-                        this.function_keys[i].class = this.default_active_class
-                    }
-                    break;
+                if (this.function_keys[i].label == this.key3) {
+                    this.function_keys[i].label = "F3"
+                    this.function_keys[i].class = this.text_active_class
+                }
+                else {
+                    this.function_keys[i].label = this.key1;
+                    this.function_keys[i].class = this.default_active_class
+                }
+                break;
             }
 
 

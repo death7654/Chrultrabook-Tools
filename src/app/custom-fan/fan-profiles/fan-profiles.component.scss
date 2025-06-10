@@ -3,10 +3,12 @@
   top: .5rem;
   overflow-y: auto;
 }
+
 .transparent {
   border: none !important;
   background-color: transparent !important;
 }
+
 .transparent::placeholder {
   color: #fff;
 }
@@ -14,6 +16,7 @@
 .edit {
   border: none !important;
 }
+
 .edit::placeholder {
   color: #a9a9ac !important;
 }

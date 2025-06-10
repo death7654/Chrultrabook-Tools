@@ -1,5 +1,4 @@
 import { Component, ViewChild, inject, OnInit } from "@angular/core";
-import { FanSectionComponent } from "../../home/fan-section/fan-section.component";
 import { FanService } from "../../services/fan.service";
 import { profile } from "../../services/profiles";
 
@@ -10,7 +9,7 @@ import { invoke } from "@tauri-apps/api/core";
 
 @Component({
     selector: "app-fan-curves",
-    imports: [BaseChartDirective, FanSectionComponent],
+    imports: [BaseChartDirective],
     templateUrl: "./fan-curves.component.html",
     styleUrl: "./fan-curves.component.scss"
 })
@@ -120,6 +119,7 @@ export class FanCurvesComponent implements OnInit {
       legend: { display: false },
       dragData: {
         round: 0,
+        //if this errors out and the charjs graph still works, ignore, as the type is declared in an extrnal file
         onDragStart: (e: MouseEvent, datasetIndex: number, index: number) => {
           if (datasetIndex === 0 && index === 0) {
             // this would prohibit dragging the first datapoint in the first dataset entirely

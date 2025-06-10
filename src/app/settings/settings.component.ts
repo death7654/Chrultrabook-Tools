@@ -16,16 +16,13 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
     this.version_applied = version;
-    invoke("local_storage").then((os) =>
-  {
-    if(typeof os == "string")
-    {
-      if(os != "linux")
-      {
-        this.linux = false;
+    invoke("local_storage").then((os) => {
+      if (typeof os == "string") {
+        if (os != "linux") {
+          this.linux = false;
+        }
       }
-    }
-  })
+    })
 
     invoke("local_storage", {
       function: "get",
@@ -113,13 +110,11 @@ export class SettingsComponent implements OnInit {
       value: "",
     }).then((percentage) => {
       if (typeof percentage === "string") {
-        if(percentage == "")
-        {
+        if (percentage == "") {
           (document.getElementById("zoom") as HTMLInputElement).value = "100";
         }
-        else
-        {
-        (document.getElementById("zoom") as HTMLInputElement).value = percentage;
+        else {
+          (document.getElementById("zoom") as HTMLInputElement).value = percentage;
         }
       }
     });
@@ -210,13 +205,11 @@ export class SettingsComponent implements OnInit {
 
   }
 
-  async confirmResetDialog(): Promise<boolean>
-  {
+  async confirmResetDialog(): Promise<boolean> {
     return confirm("Are you sure you want to reset the app? This will delete all app data and close the app.");
   }
   confirmReset() {
-    let confirmed = this.confirmResetDialog().then((confirm) =>
-    {
+    let confirmed = this.confirmResetDialog().then((confirm) => {
       if (confirm) {
         // Trigger your reset logic here
         // window.__TAURI__.invoke('reset_app');

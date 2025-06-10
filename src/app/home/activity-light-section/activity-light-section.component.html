@@ -3,27 +3,21 @@
     <div class="row align-items-center">
       <div class="col-7 p-0 m-0">
         <h4 class="fs-4 fw-heavy">
-      <img
-        src="../../../assets/activity_light/activity.svg"
-        class="align-text-middle px-2"
-        alt="light-blub"
-      />Dell Activity Light
-      </h4>
+          <img src="../../../assets/activity_light/activity.svg" class="align-text-middle px-2" alt="light-blub" />Dell
+          Activity Light
+        </h4>
       </div>
       <div class="col-5">
         <h4 class="fs-4 fw-heavy ms-4">
-      Color: <span>{{ activity_light_color }}</span>
-    </h4>
+          Color: <span>{{ activity_light_color }}</span>
+        </h4>
       </div>
     </div>
   </div>
 
   <div class="pt-2 px-2">
-    <select
-      (click)="update_color($event)"
-      class="form-select position-relative fw-normal border-0 fs-4 text-white bg-secondary pt-2"
-      [disabled]="disabled"
-    >
+    <select (click)="update_color($event)"
+      class="form-select position-relative fw-normal border-0 fs-4 text-white bg-secondary pt-2" [disabled]="disabled">
       <option selected>Select A Color</option>
       <option value="Off">Off</option>
       <option value="Red">Red</option>

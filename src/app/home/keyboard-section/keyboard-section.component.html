@@ -2,41 +2,24 @@
   <div class="row p-0 m-0">
     <div class="col-7 p-0">
       <h4 class="fs-4 fw-heavy">
-    <img
-      src="../../../assets/keyboard/keyboard.svg"
-      class="align-text-middle px-2"
-      alt="keyboard"
-    />Keyboard
-  </h4>
+        <img src="../../../assets/keyboard/keyboard.svg" class="align-text-middle px-2" alt="keyboard" />Keyboard
+      </h4>
     </div>
     <div class="col-5">
       <h4 class="fs-4 fw-heavy pt-1 ms-4">
-    Brightness: <span>{{ backlight_percentage + extension }}</span>
-  </h4>
+        Brightness: <span>{{ backlight_percentage + extension }}</span>
+      </h4>
     </div>
   </div>
-  
-  
+
+
 </div>
 <div class="grid keyboard_controls px-2 pt-1">
-  <input
-    (click)="update_percentage($event)"
-    type="range"
-    class="form-range pt-1 px-1"
-    min="0"
-    max="100"
-    step="10"
-    id="keyboard_backlight"
-    [value]="percentage"
-    [disabled]="backlight_exists"
-  />
+  <input (click)="update_percentage($event)" type="range" class="form-range pt-1 px-1" min="0" max="100" step="10"
+    id="keyboard_backlight" [value]="percentage" [disabled]="backlight_exists" />
   <div class="ps-1">
-    <button
-    class="btn btn-outline-secondary fs-4 w-100 p-0"
-    (click)="keyboard_more()"
-    disabled
-    >
-    <img class="p-0" src="../../../assets/keyboard/more.svg" alt="extra"/>
-  </button>
+    <button class="btn btn-outline-secondary fs-4 w-100 p-0" (click)="keyboard_more()" disabled>
+      <img class="p-0" src="../../../assets/keyboard/more.svg" alt="extra" />
+    </button>
   </div>
 </div>

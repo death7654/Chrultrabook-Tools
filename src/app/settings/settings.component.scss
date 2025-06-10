@@ -5,22 +5,22 @@
 .version_info {
   color: #c0c0c0;
 }
+
 .form-check-input {
   width: 2.5rem;
   height: 1.2rem;
 }
-.version_background_color
-{
+
+.version_background_color {
   background-color: #181819;
 }
 
-.accordion
-{
---bs-accordion-bg: #181819;
---accordion-border-width: 0;
+.accordion {
+  --bs-accordion-bg: #181819;
+  --accordion-border-width: 0;
 }
-.accordion-button:not(.collapsed)
-{
+
+.accordion-button:not(.collapsed) {
   background-color: #181819 !important;
   color: #fff;
 }

@@ -1,4 +1,4 @@
-.noectools{
+.noectools {
     z-index: 10;
     background-color: #837685;
     height: 2rem;
@@ -8,19 +8,15 @@
     left: 20px;
 }
 
-.displaynone
-{
+.displaynone {
     display: none;
 }
 
-.height
-{
+.height {
     height: 100dvh;
     -ms-overflow-style: none;
 }
-.height::-webkit-scrollbar
-{
+
+.height::-webkit-scrollbar {
     width: 0;
 }
-
-

@@ -2,10 +2,12 @@
   display: grid;
   grid-template-rows: 1fr 10fr;
 }
+
 .options {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
 }
+
 .chart {
   height: 80% !important;
 }

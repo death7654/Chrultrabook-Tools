@@ -5,7 +5,8 @@
   <div>
     <div class="d-flex justify-content-between align-items-center">
       <label class="form-check-label fs-4 fw-normal mb-0" for="zoom">Zoom</label>
-      <select class="form-select fs-4 w-auto" id="zoom" style="min-width: 200px;" #Zoom (change)="update_zoom(Zoom.value)" [disabled]="linux">
+      <select class="form-select fs-4 w-auto" id="zoom" style="min-width: 200px;" #Zoom
+        (change)="update_zoom(Zoom.value)" [disabled]="linux">
         <option value="50">50%</option>
         <option value="75">75%</option>
         <option value="80">80%</option>
@@ -19,30 +20,21 @@
         <option value="200">200%</option>
       </select>
     </div>
-      <hr>
+    <hr>
     @for (item of options; track $index) {
-      <div class="form-check form-switch form-check-reverse text-start">
-        <label
-          class="form-check-label fs-4 fw-normal"
-          for="flexSwitchCheckDefault"
-          >{{ item.function }}</label
-        >
-        <input
-          class="form-check-input"
-          type="checkbox"
-          role="switch"
-          id="flexSwitchCheckDefault"
-          [checked]="item.answer"
-          (click)="toggle($index)"
-        />
-      </div>
-      <hr />
+    <div class="form-check form-switch form-check-reverse text-start">
+      <label class="form-check-label fs-4 fw-normal" for="flexSwitchCheckDefault">{{ item.function }}</label>
+      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" [checked]="item.answer"
+        (click)="toggle($index)" />
+    </div>
+    <hr />
     }
-    
+
     <div class="accordion accordion-flush" id="accordionExample">
       <div class="accordion-item">
         <h2 class="accordion-header">
-          <button class="accordion-button btn-outline-dark collapsed fs-4 ps-0 ms-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-controls="collapseOne">
+          <button class="accordion-button btn-outline-dark collapsed fs-4 ps-0 ms-0" type="button"
+            data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-controls="collapseOne">
             Advanced
           </button>
         </h2>
@@ -56,11 +48,7 @@
             </div>
             <hr>
             <div class="w-100 d-flex flex-column align-items-center text-center">
-              <button
-                type="button"
-                class="btn btn-danger mb-2 w-50 px-5"
-                (click)="confirmReset()"
-              >
+              <button type="button" class="btn btn-danger mb-2 w-50 px-5" (click)="confirmReset()">
                 Reset App
               </button>
               <h6 class="mt-0 text-muted small">
@@ -72,7 +60,7 @@
         </div>
       </div>
     </div>
-  </div>  
+  </div>
   <div class="position-relative w-100 text-center version_background_color z-1">
     <h4 class="version_info p-2 pb-0 fs-6">
       Chrultrabook Tools {{ version_applied }}

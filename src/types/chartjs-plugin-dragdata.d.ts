@@ -33,4 +33,4 @@ declare module "chart.js" {
   }
 }
 
-declare module "chartjs-plugin-dragdata" {}
+declare module "chartjs-plugin-dragdata" { }

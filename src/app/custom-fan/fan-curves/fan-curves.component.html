@@ -1,38 +1,24 @@
 <div class="container2 h-100 ps-2 pt-0">
   <div class="options pe-2 pb-1">
     <div class="ps-0 mb-2">
-      <select
-        (click)="fan_profiles()"
-        class="form-select fw-normal border-0 fs-4 text-white bg-secondary rounded-3 m-1 ms-0 h-100" 
-        id="selector"
-      >
+      <select (click)="fan_profiles()"
+        class="form-select fw-normal border-0 fs-4 text-white bg-secondary rounded-3 m-1 ms-0 h-100" id="selector">
         @for (item of profiles; track $index) {
-          <option [selected]="item.selected" [value]="item.name">
-            {{ item.name }}
-          </option>
+        <option [selected]="item.selected" [value]="item.name">
+          {{ item.name }}
+        </option>
         }
       </select>
     </div>
-    <button
-      class="btn btn-outline-secondary border-0 fs-4 m-1 me-1 ms-2"
-      (click)="save()"
-    >
+    <button class="btn btn-outline-secondary border-0 fs-4 m-1 me-1 ms-2" (click)="save()">
       Save
     </button>
-    <button
-      class="btn btn-outline-secondary border-0 fs-4 m-1 me-0"
-      (click)="saveAndApply()"
-    >
+    <button class="btn btn-outline-secondary border-0 fs-4 m-1 me-0" (click)="saveAndApply()">
       Save and Apply
     </button>
   </div>
   <div class="pt-0 pb-0 pe-2 chart">
-    <canvas
-      class="bg-dark p-2 rounded-3"
-      baseChart
-      [data]="lineChartData"
-      [options]="lineChartOptions"
-      [type]="'line'"
-    ></canvas>
+    <canvas class="bg-dark p-2 rounded-3" baseChart [data]="lineChartData" [options]="lineChartOptions"
+      [type]="'line'"></canvas>
   </div>
 </div>

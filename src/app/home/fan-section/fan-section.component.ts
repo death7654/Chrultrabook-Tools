@@ -4,11 +4,11 @@ import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow";
 import { invoke } from "@tauri-apps/api/core";
 
 @Component({
-    selector: "app-fan-section",
-    imports: [],
-    templateUrl: "./fan-section.component.html",
-    styleUrl: "./fan-section.component.scss",
-    providers: [FanService]
+  selector: "app-fan-section",
+  imports: [],
+  templateUrl: "./fan-section.component.html",
+  styleUrl: "./fan-section.component.scss",
+  providers: [FanService]
 })
 export class FanSectionComponent implements OnInit {
   selected_mode: string = "N/A";
@@ -36,7 +36,7 @@ export class FanSectionComponent implements OnInit {
 
   fanService: FanService = inject(FanService);
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
     invoke("execute", {
@@ -62,16 +62,13 @@ export class FanSectionComponent implements OnInit {
           option: "fan_boot",
           value: "",
         }).then((event) => {
-          if(typeof event === "string")
-          {
-            if (event == "")
-            {
+          if (typeof event === "string") {
+            if (event == "") {
               this.auto_active = "active";
-            this.selected_mode = "Auto";
-            this.fan_auto();
+              this.selected_mode = "Auto";
+              this.fan_auto();
             }
-            else
-            {
+            else {
               let output = JSON.parse(event);
               if (output) {
                 const selected_data = this.fanService.getSelected();
@@ -86,7 +83,7 @@ export class FanSectionComponent implements OnInit {
               }
 
             }
-        }
+          }
         });
 
         setInterval(this.get_fan_rpm, 1000);
@@ -134,7 +131,7 @@ export class FanSectionComponent implements OnInit {
       convertedOutput;
     this.temp = Number(convertedOutput);
   }
-  
+
   async get_fan_rpm() {
     const output: string = await invoke("execute", {
       program: "ectool",
@@ -203,8 +200,7 @@ export class FanSectionComponent implements OnInit {
     invoke("open_window", { name: "Custom_Fans", width: 980.0, height: 540.0, zoom: this.zoom });
   }
 
-  ngOnDestroy()
-  {
+  ngOnDestroy() {
     clearInterval(this.interval);
   }
 }

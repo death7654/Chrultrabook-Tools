@@ -4,10 +4,10 @@ import { getCurrentWindow } from '@tauri-apps/api/window';
 import { LogicalSize } from '@tauri-apps/api/dpi';
 
 @Component({
-    selector: "app-custom-fan",
-    imports: [RouterLink, RouterOutlet],
-    templateUrl: "./custom-fan.component.html",
-    styleUrl: "./custom-fan.component.scss"
+  selector: "app-custom-fan",
+  imports: [RouterLink, RouterOutlet],
+  templateUrl: "./custom-fan.component.html",
+  styleUrl: "./custom-fan.component.scss"
 })
 export class CustomFanComponent {
   curves: string = "active";
@@ -15,7 +15,7 @@ export class CustomFanComponent {
   data: string = "";
 
   @ViewChild('container') containerRef!: ElementRef;
-  
+
   refresh() {
     window.location.reload();
   }
@@ -30,8 +30,7 @@ export class CustomFanComponent {
     const size = new LogicalSize(width, height);
     await appWindow.setSize(size);
   }
-  ngOnInit()
-  {
+  ngOnInit() {
     this.resizeWindowToContent();
   }
 

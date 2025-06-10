@@ -2,10 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { invoke } from "@tauri-apps/api/core";
 
 @Component({
-    selector: "app-diagnostics",
-    imports: [],
-    templateUrl: "./diagnostics.component.html",
-    styleUrl: "./diagnostics.component.scss"
+  selector: "app-diagnostics",
+  imports: [],
+  templateUrl: "./diagnostics.component.html",
+  styleUrl: "./diagnostics.component.scss"
 })
 export class DiagnosticsComponent implements OnInit {
   collected_info: string = "";

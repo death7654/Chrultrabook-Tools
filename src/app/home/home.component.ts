@@ -29,7 +29,7 @@ export class HomeComponent {
 
   @ViewChild('container') containerRef!: ElementRef;
 
-   
+
   private resizeWindowToContent() {
     let el = this.containerRef.nativeElement as HTMLElement;
     let rect = el.getBoundingClientRect();
@@ -55,16 +55,13 @@ export class HomeComponent {
         }
       });
     })
-    setTimeout(()=>{
+    setTimeout(() => {
       this.resizeWindowToContent();
-    },1500)
+    }, 1500)
 
-    invoke("os").then((os) => 
-    {
-      if(typeof os === "string")
-      {
-        if(os != "linux")
-        {
+    invoke("os").then((os) => {
+      if (typeof os === "string") {
+        if (os != "linux") {
           invoke("local_storage", {
             function: "get",
             option: "zoom",
@@ -82,6 +79,6 @@ export class HomeComponent {
 
   }
 
-  
+
 
 }
