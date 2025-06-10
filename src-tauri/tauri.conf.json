@@ -23,7 +23,11 @@
     ],
     "linux": {
       "deb": {},
-      "rpm": {}
+      "rpm": {
+        "depends": [
+          "chromium-ectool"
+        ]
+      }
     }
   },
   "productName": "chrultrabook-tools",

@@ -134,6 +134,7 @@ export class FanSectionComponent implements OnInit {
       convertedOutput;
     this.temp = Number(convertedOutput);
   }
+  
   async get_fan_rpm() {
     const output: string = await invoke("execute", {
       program: "ectool",
