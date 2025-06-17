@@ -294,7 +294,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     #[cfg(target_os = "linux")]
     {
         if std::env::var("DISABLE_ESCALATION").is_err() {
-            karen::pkexec()?
+            karen::pkexec()?;
         }
     }
     tauri::Builder::default()
