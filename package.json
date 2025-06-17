@@ -16,7 +16,7 @@
     "@angular/common": "^20.0.2",
     "@angular/compiler": "^20.0.2",
     "@angular/core": "^20.0.2",
-    "@angular/platform-browser": "^20.0.2",
+    "@angular/platform-browser": "^20.0.3",
     "@angular/platform-browser-dynamic": "^20.0.2",
     "@angular/router": "^20.0.2",
     "@fontsource/open-sans": "^5.2.6",
