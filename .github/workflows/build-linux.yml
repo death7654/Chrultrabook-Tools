@@ -1,4 +1,5 @@
 name: "Linux"
+
 on:
   push:
     branches: ["3.X.X"]
@@ -11,15 +12,19 @@ jobs:
       fail-fast: false
 
     runs-on: ubuntu-24.04
+
     steps:
       - uses: actions/checkout@v4
-      - name: setup node
+
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
           cache: "npm"
+
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
+
       - name: Install build dependencies
         run: |
           sudo apt update -y
@@ -38,9 +43,12 @@ jobs:
             libayatana-appindicator3-dev \
             librsvg2-dev \
             desktop-file-utils \
-            libudev-dev;
+            libudev-dev \
+            base-devel
+
       - name: Install npm dependencies
         run: npm install
+
       - name: Download assets
         run: |
           mkdir -p src-tauri/assets
@@ -48,13 +56,31 @@ jobs:
           curl -L https://files.tree123.org/utils/x86_64/gnu/cbmem -o src-tauri/assets/cbmem
           chmod a+x src-tauri/assets/ectool
           chmod a+x src-tauri/assets/cbmem
-      - name: Build Application
+
+      - name: Build Tauri App
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
+          tagName: v__VERSION__
           releaseName: "v__VERSION__"
           releaseBody: "See the assets to download this version and install. Replace AppImage with one uploaded in artifact"
           releaseDraft: true
           prerelease: false
+
+      - name: Extract AUR (PKGBUILD)
+        run: |
+          cd src-tauri
+          cargo tauri dev extract --bundler deb --target arch
+
+      - name: Build AUR package (.pkg.tar.zst)
+        run: |
+          cd src-tauri/target/release/bundle/arch
+          makepkg -f
+
+      - name: Upload AUR Package to Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: src-tauri/target/release/bundle/arch/*.pkg.tar.zst
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
