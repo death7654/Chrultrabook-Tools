@@ -48,14 +48,6 @@ jobs:
       - name: Install npm dependencies
         run: npm install
 
-      - name: Download embedded tools
-        run: |
-          mkdir -p src-tauri/assets
-          curl -L https://files.tree123.org/utils/x86_64/gnu/ectool -o src-tauri/assets/ectool
-          curl -L https://files.tree123.org/utils/x86_64/gnu/cbmem -o src-tauri/assets/cbmem
-          chmod +x src-tauri/assets/ectool
-          chmod +x src-tauri/assets/cbmem
-
       - name: Build Tauri App
         uses: tauri-apps/tauri-action@v0
         env:
