@@ -58,6 +58,7 @@ jobs:
           releaseBody: ""
           draft: true
           prerelease: false
+          release: false
 
       - name: Extract Arch Package Files (PKGBUILD)
         run: |
@@ -92,7 +93,8 @@ jobs:
                 fakeroot \
                 file \
                 bash \
-                polkit
+                polkit \
+                policykit-1
                 
               useradd -m builder
               echo 'builder ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
