@@ -70,6 +70,7 @@ jobs:
       - name: Extract Arch Package Files (PKGBUILD)
         run: |
           cd src-tauri
+          cargo install tauri-cli --version "^2.0.0" --locked
           cargo tauri dev extract --bundler deb --target arch
 
       - name: Build Tauri AUR package in Arch Linux container
