@@ -70,7 +70,25 @@ jobs:
           docker run --rm -v "$PWD:/work" -w /work/src-tauri/target/release/bundle/arch \
             archlinux:base-devel bash -c "
               pacman -Sy --noconfirm
-              pacman -S --noconfirm git sudo fakeroot curl
+              pacman -S --noconfirm \
+                    base-devel \
+                    curl \
+                    wget \
+                    git \
+                    nodejs \
+                    npm \
+                    rustup \
+                    libxdo \
+                    openssl \
+                    webkit2gtk \
+                    gtk3 \
+                    javascriptcoregtk \
+                    desktop-file-utils \
+                    librsvg \
+                    libayatana-appindicator \
+                    libudev0-shim \
+                    sudo \
+                    fakeroot              
               useradd -m builder
               echo 'builder ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
               chown -R builder /work
