@@ -64,38 +64,44 @@ jobs:
           cd src-tauri
           cargo install tauri-cli --version "^2.0.0" --locked
           cargo tauri dev extract --bundler deb --target arch
-
       - name: Build Tauri AUR package in Arch Linux container
         run: |
           docker run --rm -v "$PWD:/work" -w /work/src-tauri/target/release/bundle/arch \
             archlinux:base-devel bash -c "
+              set -e
               pacman -Sy --noconfirm
               pacman -S --noconfirm \
-                    base-devel \
-                    curl \
-                    wget \
-                    git \
-                    nodejs \
-                    npm \
-                    rustup \
-                    libxdo \
-                    openssl \
-                    webkit2gtk \
-                    gtk3 \
-                    javascriptcoregtk \
-                    desktop-file-utils \
-                    librsvg \
-                    libayatana-appindicator \
-                    libudev0-shim \
-                    sudo \
-                    fakeroot              
+                git \
+                curl \
+                wget \
+                sudo \
+                base-devel \
+                nodejs \
+                npm \
+                rustup \
+                desktop-file-utils \
+                librsvg \
+                webkit2gtk \
+                libxdo \
+                openssl \
+                gtk3 \
+                libayatana-appindicator \
+                libudev0-shim \
+                tar gzip xz \
+                binutils \
+                fakeroot \
+                file \
+                bash
+                
               useradd -m builder
               echo 'builder ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
               chown -R builder /work
+
               su builder -c '
+                set -e
                 cd /work/src-tauri/target/release/bundle/arch
                 makepkg -sf --noconfirm
-                mv *.pkg.tar.zst /work/chrultrabook-tools-__VERSION__.pkg.tar.zst
+                cp *.pkg.tar.zst /work/chrultrabook-tools-__VERSION__.pkg.tar.zst
               '
             "
 
