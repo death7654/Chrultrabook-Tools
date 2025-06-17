@@ -3,29 +3,6 @@
 version = 4
 
 [[package]]
-name = "Chrultrabook-Tools"
-version = "3.0.7"
-dependencies = [
- "cargo-edit",
- "hidapi",
- "karen",
- "open",
- "serde",
- "serde_json",
- "tauri",
- "tauri-build",
- "tauri-cli",
- "tauri-plugin-autostart",
- "tauri-plugin-clipboard-manager",
- "tauri-plugin-dialog",
- "tauri-plugin-fs",
- "tauri-plugin-process",
- "tauri-plugin-shell",
- "tauri-plugin-single-instance",
- "web-local-storage-api",
-]
-
-[[package]]
 name = "addr2line"
 version = "0.24.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1344,6 +1321,29 @@ dependencies = [
  "serde",
  "wasm-bindgen",
  "windows-link",
+]
+
+[[package]]
+name = "chrultrabook-tools"
+version = "3.0.7"
+dependencies = [
+ "cargo-edit",
+ "hidapi",
+ "karen",
+ "open",
+ "serde",
+ "serde_json",
+ "tauri",
+ "tauri-build",
+ "tauri-cli",
+ "tauri-plugin-autostart",
+ "tauri-plugin-clipboard-manager",
+ "tauri-plugin-dialog",
+ "tauri-plugin-fs",
+ "tauri-plugin-process",
+ "tauri-plugin-shell",
+ "tauri-plugin-single-instance",
+ "web-local-storage-api",
 ]
 
 [[package]]
