@@ -91,7 +91,8 @@ jobs:
                 binutils \
                 fakeroot \
                 file \
-                bash
+                bash \
+                polkit
                 
               useradd -m builder
               echo 'builder ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
