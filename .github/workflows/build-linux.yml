@@ -2,8 +2,9 @@ name: "Linux"
 
 on:
   push:
-    branches: ["main"]
+    branches: ["3.X.X"]
   workflow_dispatch:
+  pull_request:
 
 permissions:
   contents: write
