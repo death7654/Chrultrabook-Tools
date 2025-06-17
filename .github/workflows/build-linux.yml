@@ -43,12 +43,13 @@ jobs:
             curl wget file \
             libxdo-dev libssl-dev \
             libayatana-appindicator3-dev \
-            librsvg2-dev desktop-file-utils libudev-dev
+            librsvg2-dev desktop-file-utils libudev-dev \
+            rpm
 
       - name: Install npm dependencies
         run: npm install
 
-      - name: Build Tauri App
+      - name: Build Tauri App with Linux Bundles
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -56,7 +57,7 @@ jobs:
           tagName: v__VERSION__
           releaseName: "v__VERSION__"
           releaseBody: ""
-          draft: true
+          draft: false
           prerelease: false
           release: false
 
@@ -64,7 +65,9 @@ jobs:
         run: |
           cd src-tauri
           cargo install tauri-cli --version "^2.0.0" --locked
-          RUST_BACKTRACE=full cargo tauri dev extract --bundler deb --target arch --verbose
+          export DISABLE_ESCALATION=1
+          cargo tauri dev extract --bundler deb --target arch --verbose
+
       - name: Build Tauri AUR package in Arch Linux container
         run: |
           docker run --rm -v "$PWD:/work" -w /work/src-tauri/target/release/bundle/arch \
@@ -95,7 +98,7 @@ jobs:
                 bash \
                 polkit \
                 policykit-1
-                
+              
               useradd -m builder
               echo 'builder ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
               chown -R builder /work
@@ -108,12 +111,24 @@ jobs:
               '
             "
 
-      - name: Upload to GitHub Release
+      - name: Create GitHub Draft Release if not exists
+        run: |
+          gh release view v__VERSION__ || gh release create v__VERSION__ --draft --title "v__VERSION__" --notes ""
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Linux packages to GitHub Draft Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v__VERSION__
           name: "v__VERSION__"
           files: |
+            src-tauri/target/release/bundle/deb/*.deb
+            src-tauri/target/release/bundle/rpm/*.rpm
+            src-tauri/target/release/bundle/appimage/*.tar.gz
             chrultrabook-tools-__VERSION__.pkg.tar.zst
+          draft: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+          

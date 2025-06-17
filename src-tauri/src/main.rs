@@ -293,7 +293,9 @@ fn reset(handle: tauri::AppHandle) {
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     #[cfg(target_os = "linux")]
     {
-        karen::pkexec()?;
+        if std::env::var("DISABLE_ESCALATION").is_err() {
+            karen::pkexec()?
+        }
     }
     tauri::Builder::default()
         .plugin(tauri_plugin_process::init())

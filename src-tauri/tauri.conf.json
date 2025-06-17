@@ -10,6 +10,7 @@
     "targets": [
       "deb",
       "rpm",
+      "appimage",
       "msi",
       "nsis",
       "dmg"
