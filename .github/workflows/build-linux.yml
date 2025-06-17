@@ -63,7 +63,7 @@ jobs:
         run: |
           cd src-tauri
           cargo install tauri-cli --version "^2.0.0" --locked
-          cargo tauri dev extract --bundler deb --target arch
+          RUST_BACKTRACE=1 cargo tauri dev extract --bundler deb --target arch --verbose
       - name: Build Tauri AUR package in Arch Linux container
         run: |
           docker run --rm -v "$PWD:/work" -w /work/src-tauri/target/release/bundle/arch \
