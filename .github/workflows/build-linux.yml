@@ -64,52 +64,10 @@ jobs:
       - name: Extract Arch Package Files (PKGBUILD)
         run: |
           cd src-tauri
-          cargo install tauri-cli --version "^2.0.0" --locked
-          export DISABLE_ESCALATION=1
-          cargo tauri dev extract --bundler deb --target arch --verbose
-
-      - name: Build Tauri AUR package in Arch Linux container
-        run: |
-          docker run --rm -v "$PWD:/work" -w /work/src-tauri/target/release/bundle/arch \
-            archlinux:base-devel bash -c "
-              set -e
-              pacman -Sy --noconfirm
-              pacman -S --noconfirm \
-                git \
-                curl \
-                wget \
-                sudo \
-                base-devel \
-                nodejs \
-                npm \
-                rustup \
-                desktop-file-utils \
-                librsvg \
-                webkit2gtk \
-                libxdo \
-                openssl \
-                gtk3 \
-                libayatana-appindicator \
-                libudev0-shim \
-                tar gzip xz \
-                binutils \
-                fakeroot \
-                file \
-                bash \
-                polkit \
-                policykit-1
-              
-              useradd -m builder
-              echo 'builder ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
-              chown -R builder /work
-
-              su builder -c '
-                set -e
-                cd /work/src-tauri/target/release/bundle/arch
-                makepkg -sf --noconfirm
-                cp *.pkg.tar.zst /work/chrultrabook-tools-__VERSION__.pkg.tar.zst
-              '
-            "
+          sudo pacman -S --noconfirm base-devel || echo "Skipping pacman install (not Arch)"
+          cargo tauri export --target arch
+          cd target/release/bundle/arch
+          makepkg -sf --noconfirm
 
       - name: Create GitHub Draft Release if not exists
         run: |
@@ -126,9 +84,6 @@ jobs:
             src-tauri/target/release/bundle/deb/*.deb
             src-tauri/target/release/bundle/rpm/*.rpm
             src-tauri/target/release/bundle/appimage/*.tar.gz
-            chrultrabook-tools-__VERSION__.pkg.tar.zst
-          draft: true
+            src-tauri/target/release/bundle/arch/*.pkg.tar.zst
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-          
