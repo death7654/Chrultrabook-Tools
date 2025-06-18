@@ -55,6 +55,9 @@ jobs:
       - name: build tauri app
         run: |
           npm run tauri build
+          mkdir -p src-tauri/target/release/bundle/arch
+          cp src-tauri/target/release/deb/*.deb src-tauri/target/release/arch
+          cp src-tauri/tauri.conf.json src-tauri/target/release/arch
       - name: Make Arch Package Files (PKGBUILD)
         run: |
           docker run --rm -v ${{ github.workspace }}:/work -w /work archlinux:base-devel bash -c "
@@ -67,7 +70,6 @@ jobs:
               source \$HOME/.cargo/env &&
               cd /work/src-tauri &&
               cargo install tauri-cli &&
-              mkdir -p target/release/bundle/arch &&
               cp -r arch/* target/release/bundle/arch/ &&
               cd target/release/bundle/arch &&
               makepkg -sf --noconfirm
