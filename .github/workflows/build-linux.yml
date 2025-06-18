@@ -70,9 +70,10 @@ jobs:
             pacman -Sy --noconfirm curl git base-devel &&
             curl https://sh.rustup.rs -sSf | bash -s -- -y &&
             source \$HOME/.cargo/env &&
-            mv src-tauri/arch src-tauri/target/release/ &&
-            cargo install tauri-cli &&
             cd src-tauri &&
+            cargo install tauri-cli &&
+            mkdir -p target/release/bundle/arch &&
+            cp -r arch/* target/release/bundle/arch/ &&
             cd target/release/bundle/arch &&
             makepkg -sf --noconfirm
           "
@@ -81,8 +82,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v__VERSION__
-          name: "v__VERSION__"
           draft: true
+          update_draft: true
           files: |
             src-tauri/target/release/bundle/deb/*.deb
             src-tauri/target/release/bundle/rpm/*.rpm
@@ -90,3 +91,5 @@ jobs:
             src-tauri/target/release/bundle/arch/*.pkg.tar.zst
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
