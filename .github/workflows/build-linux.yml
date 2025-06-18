@@ -28,6 +28,9 @@ jobs:
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
 
+      - name: Install Tauri CLI
+        run: cargo install tauri-cli
+
       - name: Install dependencies
         run: |
           sudo apt-get update
@@ -63,11 +66,16 @@ jobs:
 
       - name: Extract Arch Package Files (PKGBUILD)
         run: |
-          cd src-tauri
-          sudo pacman -S --noconfirm base-devel || echo "Skipping pacman install (not Arch)"
-          cargo tauri export --target arch
-          cd target/release/bundle/arch
-          makepkg -sf --noconfirm
+          docker run --rm -v ${{ github.workspace }}:/work -w /work archlinux:base-devel bash -c "
+            pacman -Sy --noconfirm curl git base-devel &&
+            curl https://sh.rustup.rs -sSf | bash -s -- -y &&
+            source \$HOME/.cargo/env &&
+            cargo install tauri-cli &&
+            cd src-tauri &&
+            cargo tauri export --target arch &&
+            cd target/release/bundle/arch &&
+            makepkg -sf --noconfirm
+          "
 
       - name: Create GitHub Draft Release if not exists
         run: |
@@ -80,6 +88,8 @@ jobs:
         with:
           tag_name: v__VERSION__
           name: "v__VERSION__"
+          draft: true
+          make_latest: false
           files: |
             src-tauri/target/release/bundle/deb/*.deb
             src-tauri/target/release/bundle/rpm/*.rpm
