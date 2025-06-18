@@ -1,4 +1,5 @@
 pre_install() {
+  echo ">> Mandatory tools available:"
   echo " - chromium-ectool: Chromebook EC firmware tool"
   echo " - chromium-cbmem: Coreboot memory dump tool"
   echo
@@ -34,7 +35,7 @@ pre_install() {
       echo ">> All tools installed successfully."
       ;;
     *)
-      echo ">> Skipping optional tool installation."
+      echo ">> Skipping mandatory tool installation."
       ;;
   esac
 }
