@@ -52,17 +52,9 @@ jobs:
       - name: Install npm dependencies
         run: npm install
 
-      - name: Build Tauri App with Linux Bundles
-        uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tagName: v__VERSION__
-          releaseName: "v__VERSION__"
-          releaseBody: ""
-          draft: false
-          prerelease: false
-          release: false
+      - name: build tauri app
+        run: |
+          npm run tauri build
       - name: Make Arch Package Files (PKGBUILD)
         run: |
           docker run --rm -v ${{ github.workspace }}:/work -w /work archlinux:base-devel bash -c "
