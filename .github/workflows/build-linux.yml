@@ -64,24 +64,18 @@ jobs:
           prerelease: false
           release: false
 
-      - name: Extract Arch Package Files (PKGBUILD)
+      - name: Make Arch Package Files (PKGBUILD)
         run: |
           docker run --rm -v ${{ github.workspace }}:/work -w /work archlinux:base-devel bash -c "
             pacman -Sy --noconfirm curl git base-devel &&
             curl https://sh.rustup.rs -sSf | bash -s -- -y &&
             source \$HOME/.cargo/env &&
+            mv src-tauri/arch src-tauri/target/release/ &&
             cargo install tauri-cli &&
             cd src-tauri &&
-            cargo tauri export --target arch &&
             cd target/release/bundle/arch &&
             makepkg -sf --noconfirm
           "
-
-      - name: Create GitHub Draft Release if not exists
-        run: |
-          gh release view v__VERSION__ || gh release create v__VERSION__ --draft --title "v__VERSION__" --notes ""
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Linux packages to GitHub Draft Release
         uses: softprops/action-gh-release@v2
@@ -89,7 +83,6 @@ jobs:
           tag_name: v__VERSION__
           name: "v__VERSION__"
           draft: true
-          make_latest: false
           files: |
             src-tauri/target/release/bundle/deb/*.deb
             src-tauri/target/release/bundle/rpm/*.rpm
