@@ -63,20 +63,25 @@ jobs:
           draft: false
           prerelease: false
           release: false
-
       - name: Make Arch Package Files (PKGBUILD)
         run: |
           docker run --rm -v ${{ github.workspace }}:/work -w /work archlinux:base-devel bash -c "
             pacman -Sy --noconfirm curl git base-devel &&
-            curl https://sh.rustup.rs -sSf | bash -s -- -y &&
-            source \$HOME/.cargo/env &&
-            cd src-tauri &&
-            cargo install tauri-cli &&
-            mkdir -p target/release/bundle/arch &&
-            cp -r arch/* target/release/bundle/arch/ &&
-            cd target/release/bundle/arch &&
-            makepkg -sf --noconfirm
+            useradd -m builduser &&
+            echo 'builduser ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers &&
+            chown -R builduser:builduser /work &&
+            su - builduser -c '
+              curl https://sh.rustup.rs -sSf | bash -s -- -y &&
+              source \$HOME/.cargo/env &&
+              cd /work/src-tauri &&
+              cargo install tauri-cli &&
+              mkdir -p target/release/bundle/arch &&
+              cp -r arch/* target/release/bundle/arch/ &&
+              cd target/release/bundle/arch &&
+              makepkg -sf --noconfirm
+            '
           "
+
 
       - name: Upload Linux packages to GitHub Draft Release
         uses: softprops/action-gh-release@v2
