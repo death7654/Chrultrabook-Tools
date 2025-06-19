@@ -68,7 +68,6 @@ jobs:
               curl https://sh.rustup.rs -sSf | bash -s -- -y &&
               source \$HOME/.cargo/env &&
               cd /work/src-tauri &&
-              cargo install tauri-cli &&
               cp -r arch/* target/release/bundle/arch/ &&
               cd target/release/bundle/arch &&
               makepkg -sf --noconfirm
@@ -79,6 +78,7 @@ jobs:
       - name: Upload Linux packages to GitHub Draft Release
         uses: softprops/action-gh-release@v2
         with:
+          name: "v__VERSION__"
           tag_name: v__VERSION__
           draft: true
           update_draft: true
