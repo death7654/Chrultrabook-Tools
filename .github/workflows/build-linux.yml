@@ -28,9 +28,6 @@ jobs:
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Install Tauri CLI
-        run: cargo install tauri-cli
-
       - name: Install dependencies
         run: |
           sudo apt-get update
@@ -57,9 +54,10 @@ jobs:
           pwd
           npm run tauri build
           mkdir -p src-tauri/target/release/bundle/arch
-          cp src-tauri/target/release/deb/*.deb src-tauri/target/release/bundle/arch
+          ls -R src-tauri/target/release
+          cp src-tauri/target/release/bundle/deb/*.deb src-tauri/target/release/bundle/arch
           cp src-tauri/tauri.conf.json src-tauri/target/release/bundle/arch
-      - name: Make Arch Package Files (PKGBUILD)
+      - name: Make Arch Package Files
         run: |
           docker run --rm -v ${{ github.workspace }}:/work -w /work archlinux:base-devel bash -c "
             pacman -Sy --noconfirm curl git base-devel &&
