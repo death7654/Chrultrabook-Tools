@@ -11,7 +11,7 @@ license=('GPL-3.0')
 depends=('cairo' 'desktop-file-utils' 'gdk-pixbuf2' 'glib2' 'gtk3' 'hicolor-icon-theme' 'libsoup' 'pango' 'webkit2gtk-4.1' 'libftdi')
 options=('!strip' '!debug')
 install=chrultrabook_tools.install
-source_x86_64=(../../deb/*.deb)
+source_x86_64=(../deb/*.deb)
 sha256sums_x86_64=('SKIP')
 
 package() {
@@ -23,15 +23,5 @@ package() {
   # Extract the .deb (ar archive)
   ar x "$deb_file"
 
-  # Extract data.tar.* into the package directory
-  if [[ -f data.tar.zst ]]; then
-    bsdtar -xf data.tar.zst -C "$pkgdir"
-  elif [[ -f data.tar.xz ]]; then
-    bsdtar -xf data.tar.xz -C "$pkgdir"
-  elif [[ -f data.tar.gz ]]; then
-    bsdtar -xf data.tar.gz -C "$pkgdir"
-  else
-    echo "❌ No recognized data.tar.* found in $deb_file"
-    exit 1
-  fi
+  tar -xvf data.tar.gz -C "${pkgdir}"
 }
