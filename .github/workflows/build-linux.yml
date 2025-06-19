@@ -54,6 +54,7 @@ jobs:
 
       - name: build tauri app
         run: |
+          pwd
           npm run tauri build
           mkdir -p src-tauri/target/release/bundle/arch
           cp src-tauri/target/release/deb/*.deb src-tauri/target/release/arch
