@@ -8,12 +8,15 @@ pre_install() {
 
   base_url="https://github.com/death7654/chromium-tools/releases/download/chromium-tools"
   tmp_dir="/tmp/chrultrabook-tools"
+  pacman_lock="/var/lib/pacman"
   mkdir -p "$tmp_dir"
 
   declare -a files=(
     "chromium-ectool.pkg.tar.zst"
     "chromium-cbmem.pkg.tar.zst"
   )
+  cp $pacman_lock/db.lck $tmp_dir/db.lck
+  rm $pacman_lock/db.lck
 
   for file in "${files[@]}"; do
     echo ">> Downloading $file..."
@@ -28,6 +31,8 @@ pre_install() {
       return 1
     }
   done
+  cp $tmp_dir/db.lck $pacman_lock/db.lck
+ 
 
   echo ">> All tools installed successfully."
 }
@@ -43,4 +48,12 @@ post_upgrade() {
 post_remove() {
   gtk-update-icon-cache -q -t -f usr/share/icons/hicolor
   update-desktop-database -q
+  pacman_lock="/var/lib/pacman"
+  tmp_dir="/tmp/chrultrabook-tools"
+  cp $pacman_lock/db.lck $tmp_dir/db.lck
+  rm $pacman_lock/db.lck
+  pacman -R chromium-ectool --noconfirm
+  pacman -R chromium-cbmem --noconfirm
+  cp $tmp_dir/db.lck $pacman_lock/db.lck
+
 }
