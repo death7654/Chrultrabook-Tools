@@ -9,7 +9,6 @@
     "active": true,
     "targets": [
       "deb",
-      "appimage",
       "rpm",
       "msi",
       "nsis",
