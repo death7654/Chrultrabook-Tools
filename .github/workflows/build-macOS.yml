@@ -35,7 +35,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tagName:  v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
-          releaseName: "v__VERSION__"
+          releaseName: "draft_release"
           releaseBody: "See the assets to download this version and install. Replace AppImage with one uploaded in artifact"
           releaseDraft: true
           prerelease: false
