@@ -78,7 +78,7 @@ jobs:
       - name: Upload Linux packages to GitHub Draft Release
         uses: softprops/action-gh-release@v2
         with:
-          name: "v__VERSION__"
+          name: "draft_release"
           tag_name: v__VERSION__
           draft: true
           update_draft: true
