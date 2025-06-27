@@ -7,9 +7,10 @@ echo "Removing chromium-ectool and chromium-cbmem..."
 # Wait for dpkg/apt locks to be released
 echo "Checking if package manager is busy..."
 while fuser /var/lib/dpkg/lock >/dev/null 2>&1 || \
+      fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1 || \
       fuser /var/lib/apt/lists/lock >/dev/null 2>&1 || \
       fuser /var/cache/apt/archives/lock >/dev/null 2>&1; do
-    echo "Waiting for other package operations to complete..."
+    echo "Waiting for package manager to finish (dpkg/apt)..."
     sleep 3
 done
 

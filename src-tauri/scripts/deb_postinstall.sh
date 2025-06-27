@@ -29,7 +29,7 @@ for file in $files; do
     echo "Downloading $file..."
     curl -L -o "$tmp_dir/$file" "$base_url/$file"
     echo "Installing $file..."
-    dpkg -i "$tmp_dir/$file"
+    sudo apt install "$tmp_dir/$file"
 done
 
 echo "Cleaning up..."
