@@ -23,14 +23,14 @@
     ],
     "linux": {
       "deb": {
-        "preInstallScript": "src-tauri/scripts/deb_preinstall.sh",
+        "preInstallScript": "/home/runner/work/Chrultrabook-Tools/Chrultrabook-Tools/src-tauri/scripts/deb_preinstall.sh",
         "provides": ["chromium-ectool", "chromium-cbmem"],
-        "postRemoveScript": "src-tauri/scripts/deb_postremove.sh"
+        "postRemoveScript": "/home/runner/work/Chrultrabook-Tools/Chrultrabook-Tools/src-tauri/scripts/deb_postremove.sh"
       },
       "rpm": {
-        "postInstallScript": "src-tauri/scripts/rpm_preinstall.sh",
+        "postInstallScript": "/home/runner/work/Chrultrabook-Tools/Chrultrabook-Tools/src-tauri/scripts/rpm_preinstall.sh",
         "provides": ["cbmem", "chromium-ectool"],
-        "postRemoveScript": "src-tauri/scripts/rpm_postremove.sh"
+        "postRemoveScript": "/home/runner/work/Chrultrabook-Tools/Chrultrabook-Tools/src-tauri/scripts/rpm_postremove.sh"
       }
     }
   },
