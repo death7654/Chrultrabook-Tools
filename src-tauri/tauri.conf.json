@@ -22,8 +22,16 @@
       "icons/icon.ico"
     ],
     "linux": {
-      "deb": {},
-      "rpm": {}
+      "deb": {
+        "preInstallScript": "/src-tauri/scripts/deb_preinstall.sh",
+        "provides": ["chromium-ectool", "chromium-cbmem"],
+        "postRemoveScript": "/src-tauri/scripts/deb_postremove.sh"
+      },
+      "rpm": {
+        "postInstallScript": "/src-tauri/scripts/rpm_preinstall.sh",
+        "provides": ["cbmem", "chromium-ectool"],
+        "postRemoveScript": "/src-tauri/scripts/rpm_postremove.sh"
+      }
     }
   },
   "productName": "chrultrabook-tools",
