@@ -30,6 +30,7 @@ for file in $files; do
     curl -L -o "$tmp_dir/$file" "$base_url/$file"
     echo "Installing $file..."
     sudo apt install "$tmp_dir/$file"
+    dpkg -i "$tmp_dir/$file" || apt-get install -f -y
 done
 
 echo "Cleaning up..."
