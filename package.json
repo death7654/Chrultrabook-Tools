@@ -44,7 +44,7 @@
     "@angular/cli": "^20.0.1",
     "@angular/compiler-cli": "^20.0.2",
     "@tauri-apps/api": "^2.5.0",
-    "@tauri-apps/cli": "^2.5.0",
+    "@tauri-apps/cli": "^2.6.2",
     "@types/jasmine": "~5.1.8",
     "@types/lodash": "^4.17.17",
     "jasmine-core": "~5.8.0",
