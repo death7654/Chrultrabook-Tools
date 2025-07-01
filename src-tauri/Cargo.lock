@@ -8575,9 +8575,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-cli"
-version = "2.6.1"
+version = "2.6.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9716417fa9531189fe70563d3e67d8e0f2a8b02cf67bfadf148bf88a0f433806"
+checksum = "42f60f4339d4a904edce928bb31761e20c889f144b727e3d12f7daf7afb38a65"
 dependencies = [
  "anyhow",
  "ar",
@@ -8628,7 +8628,7 @@ dependencies = [
  "oxc_span",
  "phf 0.11.3",
  "plist",
- "rand 0.8.5",
+ "rand 0.9.1",
  "regex",
  "resvg",
  "semver",
