@@ -1,41 +1,5 @@
 pre_install() {
-  echo ">> Installing mandatory tools:"
-  echo " - chromium-ectool: Chromebook EC firmware tool"
-  echo " - chromium-cbmem: Coreboot memory dump tool"
-  echo
-
-  echo ">> Waiting for pacman lock to be released..."
-  while [ -f /var/lib/pacman/db.lck ]; do
-    echo "   - Another pacman operation is in progress, waiting..."
-    sleep 3
-  done
-
-  echo ">> Downloading and installing helper packages..."
-
-  base_url="https://github.com/death7654/chromium-tools/releases/download/chromium-tools"
-  tmp_dir="/tmp/chrultrabook-tools"
-  mkdir -p "$tmp_dir"
-
-  declare -a files=(
-    "chromium-ectool.pkg.tar.zst"
-    "chromium-cbmem.pkg.tar.zst"
-  )
-
-  for file in "${files[@]}"; do
-    echo ">> Downloading $file..."
-    curl -L "${base_url}/${file}" -o "${tmp_dir}/${file}" || {
-      echo "!! Failed to download $file"
-      return 1
-    }
-
-    echo ">> Installing $file..."
-    pacman -U --noconfirm "${tmp_dir}/${file}" || {
-      echo "!! Failed to install $file"
-      return 1
-    }
-  done
-
-  echo ">> All tools installed successfully."
+  
 }
 
 
@@ -51,14 +15,4 @@ post_upgrade() {
 post_remove() {
   gtk-update-icon-cache -q -t -f usr/share/icons/hicolor
   update-desktop-database -q
-
-  echo ">> Waiting for pacman lock to be released before uninstalling..."
-  while [ -f /var/lib/pacman/db.lck ]; do
-    echo "   - Another pacman operation is in progress, waiting..."
-    sleep 3
-  done
-
-  echo ">> Removing tools..."
-  pacman -R --noconfirm chromium-ectool || echo " - chromium-ectool not installed"
-  pacman -R --noconfirm chromium-cbmem || echo " - chromium-cbmem not installed"
 }

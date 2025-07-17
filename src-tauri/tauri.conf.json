@@ -24,7 +24,7 @@
     "linux": {
       "deb": {
         "postInstallScript": "/home/runner/work/Chrultrabook-Tools/Chrultrabook-Tools/src-tauri/scripts/deb_postinstall.sh",
-        "provides": ["chromium-ectool", "chromium-cbmem"],
+        "depends": ["chromium-ectool", "chromium-cbmem"],
         "postRemoveScript": "/home/runner/work/Chrultrabook-Tools/Chrultrabook-Tools/src-tauri/scripts/deb_postremove.sh"
       },
       "rpm": {
