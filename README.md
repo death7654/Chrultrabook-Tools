@@ -45,12 +45,55 @@
 
 ### Linux
 
-#### AppImage
+#### Fedora/RHEL and derivatives
 
-- Download the AppImage
-- `cd` to the directory
+Add the Terra repository (if using Ultramarine Linux, terra is pre-installed). Instructions can be found [here](https://github.com/terrapkg/packages/blob/frawhide/README.md)
+
+Install Chrultrabook-Tools:
+
+```
+dnf install chrultrabook-tools
+```
+
+#### Debian and derivatives
+
+Add the Chrultrabook-Tools repository
+
+xxx
+
+Install Chrultrabook-Tools:
+
+```
+apt install chultrabook-tools
+```
+
+#### Arch and derivatives
+
+Download the arch package from the Releases page, then install:
+
+pacman -U ~/Downloads/Chrultrabook-Tools-VERSION-pkg.tar.zst
+
+#### Flatpak
+
+Install from flathub (may need to [install flathub](https://flathub.org/setup))
+
+```
+flatpak install chrultrabook-tools
+```
+
+#### AppImage (not recommended)
+
+- Download the AppImage from the Releases page
+
+cli:
+- `cd` to the directory you downloaded it to (~/Downloads)
 - Mark the file as an executeable `chmod a+x name.AppImage`
-- open the AppImage `sudo ./name.AppImage`
+- Open the AppImage `sudo ./name.AppImage`
+
+gui:
+- Right click on the appimage, 
+- Navigate into properties
+- Change all permissions to Read and Write
 
 #### Non-AppImage
 - You must start the application as root as the ectool binary requires sudo privileges 
