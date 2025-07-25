@@ -73,29 +73,7 @@ Download the arch package from the Releases page, then install:
 
 pacman -U ~/Downloads/Chrultrabook-Tools-VERSION-pkg.tar.zst
 
-#### Flatpak
-
-Install from flathub (may need to [install flathub](https://flathub.org/setup))
-
-```
-flatpak install chrultrabook-tools
-```
-
-#### AppImage (not recommended)
-
-- Download the AppImage from the Releases page
-
-cli:
-- `cd` to the directory you downloaded it to (~/Downloads)
-- Mark the file as an executeable `chmod a+x name.AppImage`
-- Open the AppImage `sudo ./name.AppImage`
-
-gui:
-- Right click on the appimage, 
-- Navigate into properties
-- Change all permissions to Read and Write
-
-#### Non-AppImage
+#### Compiled Binary
 - You must start the application as root as the ectool binary requires sudo privileges 
 
 ### macOS
