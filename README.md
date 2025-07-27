@@ -28,21 +28,6 @@
 
 ## Install Instructions
 
-### Windows
-
-- Install Coolstar's latest CROS-EC driver from [https://github.com/coolstar/driverinstallers/tree/master/crosec](https://github.com/coolstar/driverinstallers/tree/master/crosec)
-- Download the MSI or EXE from the latest [release](https://github.com/death7654/Chrultrabook-Tools/releases)
-- Run the installer
-- Open the application
-
-#### Windows 11 24H2 and newer
-- Enable WMIC
-   - Open Settings
-   - Navigate to `Optional Features`
-   - Click `View Features`
-   - Search and add `WMIC`
-   - Reopen the application
-
 ### Linux
 
 #### Fedora/RHEL and derivatives
@@ -69,12 +54,31 @@ apt install chultrabook-tools
 
 #### Arch and derivatives
 
+install AUR dependencies (for this example we are using [paru](https://github.com/Morganamilo/paru):
+
+paru -S chromium-ectool cbmem
+
 Download the Arch package from the Releases page, then install:
 
-pacman -U ~/Downloads/Chrultrabook-Tools-VERSION-pkg.tar.zst
+pacman -U ~/Downloads/chrultrabook-tools-VERSION-pkg.tar.zst
 
 #### Compiled binary
 - You must start the application as root as the ectool binary requires sudo privileges 
+
+### Windows
+
+- Install Coolstar's latest CROS-EC driver from [https://github.com/coolstar/driverinstallers/tree/master/crosec](https://github.com/coolstar/driverinstallers/tree/master/crosec)
+- Download the MSI or EXE from the latest [release](https://github.com/death7654/Chrultrabook-Tools/releases)
+- Run the installer
+- Open the application
+
+#### Windows 11 24H2 and newer
+- Enable WMIC
+   - Open Settings
+   - Navigate to `Optional Features`
+   - Click `View Features`
+   - Search and add `WMIC`
+   - Reopen the application
 
 ### macOS
 
