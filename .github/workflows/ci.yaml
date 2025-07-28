@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+env:
+  ubuntu-deps: "dpkg-dev fakeroot libwebkit2gtk-4.1-0 libwebkit2gtk-4.1-dev libjavascriptcoregtk-4.1-0 libjavascriptcoregtk-4.1-dev gir1.2-javascriptcoregtk-4.1 gir1.2-webkit2-4.1 build-essential curl wget file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev desktop-file-utils libudev-dev rpm"
+
+jobs:
+  cargo-tests:
+    name: Cargo Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: stable
+          components: clippy,rustfmt
+      - name: Install OS dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ${{ env.ubuntu-deps }}
+      - name: Set up Github Cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-cargo-
+      - name: Install Tarpaulin
+        continue-on-error: true
+        run: cargo install cargo-tarpaulin tauri-cli
+      - name: Run Cargo:fmt
+        run: cargo fmt --manifest-path src-tauri/Cargo.toml --all -- --check
+      - name: Run Cargo:clippy
+        run: cargo clippy --manifest-path src-tauri/Cargo.toml --all-features -- -D warnings
+      - name: Run Cargo:test
+        run: cargo test --manifest-path src-tauri/Cargo.toml --verbose --all-features
+      - name: Run Cargo:tarpaulin
+        run: cargo tarpaulin --manifest-path src-tauri/Cargo.toml --verbose --all-features --out Xml --output-dir ./coverage
+      - name: Upload Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage/cobertura.xml
+  build:
+    name: Build 
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: 
+          - ubuntu-latest
+          - windows-2022
+          - macos-13
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: "npm"
+      - name: Install Rust Stable
+        uses: dtolnay/rust-toolchain@stable
+      - name: Install OS dependencies
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ${{ env.ubuntu-deps }}
+      - name: Install npm Dependencies
+        run: npm install
+      - name: Build
+        run: npm run tauri build
