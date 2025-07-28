@@ -12,9 +12,6 @@ mod save_to_local;
 mod temps;
 
 //external crates
-#[cfg(target_os = "linux")]
-use karen;
-use open;
 use tauri::image::Image;
 use tauri::menu::{IconMenuItemBuilder, MenuBuilder, MenuItemBuilder};
 use tauri::tray::TrayIconBuilder;
@@ -33,7 +30,7 @@ async fn open_window(
     _zoom: f64,
 ) -> Result<(), ()> {
     let window_open = get_all_windows::window(&window, name);
-    if window_open == true {
+    if window_open {
         window.get_webview_window(name).unwrap().show().unwrap();
     } else {
         open_window::new_window(&handle, name, name, width, height, true).await;
@@ -48,8 +45,9 @@ async fn open_window(
 //commands
 #[tauri::command]
 fn execute(handle: tauri::AppHandle, program: &str, arguments: Vec<String>, reply: bool) -> String {
-    execute::execute_relay(handle, &program, arguments, reply)
+    execute::execute_relay(handle, program, arguments, reply)
 }
+
 #[tauri::command]
 fn get_sensors(handle: tauri::AppHandle) -> String {
     let command: Vec<String> = vec!["temps".to_string(), "all".to_string()];
@@ -66,77 +64,61 @@ fn get_sensors(handle: tauri::AppHandle) -> String {
         // Get the first word as the sensor name
         if let Some(sensor_name) = line.split_whitespace().next() {
             sensors.push_str(sensor_name);
-            sensors.push_str("\n");
+            sensors.push('\n');
         }
     }
     sensors
 }
+
 #[tauri::command]
 fn diagnostics(handle: tauri::AppHandle, selected: &str) -> String {
-    let output;
-    match selected {
-        "Boot Timestraps" => {
-            output = execute(handle, "cbmem", helper::to_vec_string(vec!["-t"]), true)
-        }
-        "Coreboot Log" => {
-            output = execute(handle, "cbmem", helper::to_vec_string(vec!["-c1"]), true)
-        }
+    let output = match selected {
+        "Boot Timestraps" => execute(handle, "cbmem", helper::to_vec_string(vec!["-t"]), true),
+        "Coreboot Log" => execute(handle, "cbmem", helper::to_vec_string(vec!["-c1"]), true),
         "Coreboot Extended Log" => {
-            output = execute(handle, "cbmem", helper::to_vec_string(vec!["-c"]), true)
+            execute(handle, "cbmem", helper::to_vec_string(vec!["-c"]), true)
         }
-        "EC Console Log" => {
-            output = execute(
-                handle,
-                "ectool",
-                helper::to_vec_string(vec!["console"]),
-                true,
-            )
-        }
-        "Battery Information" => {
-            output = execute(
-                handle,
-                "ectool",
-                helper::to_vec_string(vec!["battery"]),
-                true,
-            )
-        }
-        "EC Chip Information" => {
-            output = execute(
-                handle,
-                "ectool",
-                helper::to_vec_string(vec!["chipinfo"]),
-                true,
-            )
-        }
-        "SPI Information" => {
-            output = execute(
-                handle,
-                "ectool",
-                helper::to_vec_string(vec!["flashspiinfo"]),
-                true,
-            )
-        }
-        "EC Protocol Information" => {
-            output = execute(
-                handle,
-                "ectool",
-                helper::to_vec_string(vec!["protoinfo"]),
-                true,
-            )
-        }
-        "Temperature Sensor Information" => {
-            output = execute(
-                handle,
-                "ectool",
-                helper::to_vec_string(vec!["tempsinfo", "all"]),
-                true,
-            )
-        }
+        "EC Console Log" => execute(
+            handle,
+            "ectool",
+            helper::to_vec_string(vec!["console"]),
+            true,
+        ),
+        "Battery Information" => execute(
+            handle,
+            "ectool",
+            helper::to_vec_string(vec!["battery"]),
+            true,
+        ),
+        "EC Chip Information" => execute(
+            handle,
+            "ectool",
+            helper::to_vec_string(vec!["chipinfo"]),
+            true,
+        ),
+        "SPI Information" => execute(
+            handle,
+            "ectool",
+            helper::to_vec_string(vec!["flashspiinfo"]),
+            true,
+        ),
+        "EC Protocol Information" => execute(
+            handle,
+            "ectool",
+            helper::to_vec_string(vec!["protoinfo"]),
+            true,
+        ),
+        "Temperature Sensor Information" => execute(
+            handle,
+            "ectool",
+            helper::to_vec_string(vec!["tempsinfo", "all"]),
+            true,
+        ),
         "Power Delivery Information" => {
-            output = execute(handle, "ectool", helper::to_vec_string(vec!["pdlog"]), true)
+            execute(handle, "ectool", helper::to_vec_string(vec!["pdlog"]), true)
         }
-        _ => output = "Select An Option".to_string(),
-    }
+        _ => "Select An Option".to_string(),
+    };
     let cleaned: String = output
         .lines()
         .filter(|line| !line.trim().is_empty()) // Keep non-empty lines
@@ -149,6 +131,7 @@ fn diagnostics(handle: tauri::AppHandle, selected: &str) -> String {
 fn copy(handle: tauri::AppHandle, text: String) {
     handle.clipboard().write_text(text).unwrap();
 }
+
 #[tauri::command]
 fn save(app: tauri::AppHandle, filename: String, content: String) {
     save_to_files::select_path(app, filename, content);
@@ -156,7 +139,7 @@ fn save(app: tauri::AppHandle, filename: String, content: String) {
 
 #[tauri::command]
 fn local_storage(function: &str, option: &str, value: &str) -> String {
-    return save_to_local::local_storage(function, option, value);
+    save_to_local::local_storage(function, option, value)
 }
 
 #[tauri::command]
@@ -176,14 +159,14 @@ fn get_temps(handle: tauri::AppHandle) -> u16 {
     if !changes {
         sensors = "".to_string();
     }
-    return temps::get_temp(temps, sensors, changes);
+    temps::get_temp(temps, sensors, changes)
 }
 
 #[tauri::command]
 fn boardname(handle: tauri::AppHandle) -> String {
     #[cfg(windows)]
     {
-        return execute::execute_relay(
+        execute::execute_relay(
             handle,
             "wmic",
             helper::to_vec_string(vec!["baseboard", "get", "Product"]),
@@ -193,26 +176,28 @@ fn boardname(handle: tauri::AppHandle) -> String {
         .split("\n")
         .map(|x| x.to_string())
         .collect::<Vec<String>>()[2]
-            .clone();
+            .clone()
     }
     #[cfg(target_os = "linux")]
     {
-        return execute::execute_relay(
+        execute::execute_relay(
             handle,
             "cat",
             vec!["/sys/class/dmi/id/product_name".to_string()],
             true,
         )
         .trim()
-        .to_string();
+        .to_string()
     }
 
     #[cfg(target_os = "macos")]
     {
-        return String::from("unknown");
+        String::from("unknown")
     }
 }
+
 #[tauri::command]
+#[allow(unreachable_code)]
 fn os() -> String {
     #[cfg(target_os = "macos")]
     {
@@ -223,7 +208,7 @@ fn os() -> String {
         return String::from("linux");
     }
 
-    return String::from("not macOS");
+    String::from("not macOS")
 }
 
 #[tauri::command]
@@ -242,14 +227,15 @@ fn autostart(app: AppHandle, value: bool) {
         let _ = autolaunch.disable();
     }
 }
+
 #[tauri::command]
 async fn get_json() -> String {
     let output = local_storage("get", "profiles", "");
     let default_array = String::from("[{\"id\":0,\"name\":\"Default\",\"array\":[0,10,25,40,60,80,95,100,100,100,100,100,100],\"selected\":true,\"disabled\":true,\"class\":\"transparent\",\"img_class\":\"btn-outline-info\",\"img\":\"\\uF4CB\"},{\"id\":1,\"name\":\"Aggressive\",\"array\":[0,10,40,50,60,90,100,100,100,100,100,100,100],\"selected\":false,\"disabled\":true,\"class\":\"transparent\",\"img_class\":\"btn-outline-info\",\"img\":\"\\uF4CB\"},{\"id\":2,\"name\":\"Quiet\",\"array\":[0,15,20,30,40,55,90,100,100,100,100,100,100],\"selected\":false,\"disabled\":true,\"class\":\"transparent\",\"img_class\":\"btn-outline-info\",\"img\":\"\\uF4CB\"}]");
-    if output.contains("[") == false {
-        return default_array;
+    if !output.contains("[") {
+        default_array
     } else {
-        return output;
+        output
     }
 }
 
@@ -269,6 +255,7 @@ fn transfer_fan_curves(app: AppHandle, curves: String) {
     app.emit_to(EventTarget::webview_window("main"), "fan_curve", &curves)
         .expect("failure to transmit data");
 }
+
 #[tauri::command]
 fn setzoom(handle: tauri::AppHandle, scale: f64) {
     let windows = handle.webview_windows();
@@ -276,6 +263,7 @@ fn setzoom(handle: tauri::AppHandle, scale: f64) {
         let _ = window.set_zoom(scale);
     }
 }
+
 #[tauri::command]
 fn reset(handle: tauri::AppHandle) {
     let _ = local_storage("remove", "fan_boot", "");
@@ -358,8 +346,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 .build(app);
             Ok(())
         })
-        .on_window_event(|window, event| match event {
-            tauri::WindowEvent::CloseRequested { api, .. } => {
+        .on_window_event(|window, event| {
+            if let tauri::WindowEvent::CloseRequested { api, .. } = event {
                 let close_app_to_tray = local_storage("get", "app_tray", " ");
                 if close_app_to_tray == "true" {
                     if window.label() == "main" {
@@ -378,25 +366,22 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                         }
                         api.prevent_close();
                     } else {
-                        let _ = window.close().unwrap();
+                        window.close().unwrap();
+                    }
+                } else if window.label() == "main" {
+                    let windows = window.webview_windows();
+                    for (_, window) in windows.iter() {
+                        let window_name = window.label();
+                        window
+                            .get_webview_window(window_name)
+                            .expect("notfound")
+                            .close()
+                            .unwrap()
                     }
                 } else {
-                    if window.label() == "main" {
-                        let windows = window.webview_windows();
-                        for (_, window) in windows.iter() {
-                            let window_name = window.label();
-                            window
-                                .get_webview_window(window_name)
-                                .expect("notfound")
-                                .close()
-                                .unwrap()
-                        }
-                    } else {
-                        let _ = window.close();
-                    }
+                    let _ = window.close();
                 }
             }
-            _ => {}
         })
         .plugin(tauri_plugin_autostart::init(
             MacosLauncher::LaunchAgent,

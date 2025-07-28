@@ -8,5 +8,5 @@ pub fn window(window: &tauri::Window, label: &str) -> bool {
             return true;
         }
     }
-    return false;
+    false
 }

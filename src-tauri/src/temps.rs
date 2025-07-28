@@ -24,7 +24,7 @@ fn get_temp_sys() -> u16 {
             };
         };
     }
-    return 0;
+    0
 }
 
 pub fn get_temp(ec_temps: String, sensors: String, changes: bool) -> u16 {
@@ -39,7 +39,6 @@ pub fn get_temp(ec_temps: String, sensors: String, changes: bool) -> u16 {
     let mut vector = Vec::new();
     let _ = ec_temps
         .split("\n")
-        .into_iter()
         .map(|l: &str| {
             match l.split("C)").collect::<Vec<_>>()[0]
                 .trim()
@@ -53,24 +52,20 @@ pub fn get_temp(ec_temps: String, sensors: String, changes: bool) -> u16 {
                             if sensors_wanted.len() == counter {
                                 counter -= 1;
                             }
-                            if sensors_wanted[counter] {
-                                if max_temp < num {
-                                    max_temp = num;
-                                    vector.push(max_temp);
-                                }
-                            }
-                        } else {
-                            if max_temp < num {
+                            if sensors_wanted[counter] && max_temp < num {
                                 max_temp = num;
                                 vector.push(max_temp);
                             }
+                        } else if max_temp < num {
+                            max_temp = num;
+                            vector.push(max_temp);
                         }
                         counter += 1;
-                        return 0;
+                        0
                     }
-                    Err(_e) => return 0,
+                    Err(_e) => 0,
                 },
-                None => return 0,
+                None => 0,
             }
         })
         .collect::<Vec<_>>();
@@ -83,7 +78,7 @@ pub fn get_temp(ec_temps: String, sensors: String, changes: bool) -> u16 {
             {
                 return get_temp_sys();
             }
-            return 0;
+            0
         }
     }
 }
