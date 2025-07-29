@@ -56,7 +56,7 @@ jobs:
       - name: Build Arch Linux Package
         if: matrix.platform == 'ubuntu-latest'
         run: |
-          docker run --rm -v "${{ github.workspace }}:/work" -w /work archlinux:base-devel bash -c "
+          docker run --rm -v "${{ github.workspace }}:/work" -w /work archlinux:latest bash -c "
           pacman -Sy --noconfirm curl git base-devel &&
           useradd -m builduser &&
           echo 'builduser ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers &&
