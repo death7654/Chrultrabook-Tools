@@ -37,8 +37,7 @@ jobs:
             target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: ${{ runner.os }}-cargo-
-      - name: Install Tarpaulin
-        continue-on-error: true
+      - name: Install Cargo dependencies
         run: cargo install tauri-cli
       - name: Run Cargo:fmt
         run: cargo fmt --manifest-path src-tauri/Cargo.toml --all -- --check
