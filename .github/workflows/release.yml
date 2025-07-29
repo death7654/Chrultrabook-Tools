@@ -68,7 +68,7 @@ jobs:
             cd yay &&
             makepkg -si --noconfirm &&
             
-            yay -S --noconfirm chromium-ectool cbmem &&
+            yay -S --noconfirm chromium-ectool cbmem || true &&
 
             curl https://sh.rustup.rs -sSf | bash -s -- -y &&
             source \$HOME/.cargo/env &&
