@@ -27,6 +27,7 @@
               components = [
                 "rustfmt"
                 "rust-src"
+                "clippy"
               ];
               targets = [ "wasm32-unknown-unknown" ];
               profile = "minimal";

@@ -1,7 +1,6 @@
 pre_install() {
-  
+  return 0
 }
-
 
 post_install() {
   gtk-update-icon-cache -q -t -f usr/share/icons/hicolor

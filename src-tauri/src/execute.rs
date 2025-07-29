@@ -28,7 +28,7 @@ fn execute(app: &tauri::AppHandle, program: &str, arguments: Vec<String>, reply:
     let output = tauri::async_runtime::block_on(async move {
         shell.command(program).args(arguments).output().await
     });
-    if reply == true {
+    if reply {
         if let Ok(out) = output {
             if out.status.success() {
                 return String::from_utf8(out.stdout).unwrap_or(String::from("execute_failure"));
@@ -46,12 +46,11 @@ pub fn execute_relay(
     arguments: Vec<String>,
     reply: bool,
 ) -> String {
-    let program;
-    match wanted_program {
-        "ectool" => program = ECTOOL,
-        "cbmem" => program = CBMEM,
-        "wmic" | "cat" => program = GETSYSINFO,
-        _ => program = "echo",
-    }
+    let program = match wanted_program {
+        "ectool" => ECTOOL,
+        "cbmem" => CBMEM,
+        "wmic" | "cat" => GETSYSINFO,
+        _ => "echo",
+    };
     execute(&handle, program, arguments, reply).to_string()
 }

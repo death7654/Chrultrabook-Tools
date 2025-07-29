@@ -7,7 +7,7 @@ pub fn calculate_fan_percentage(temp: u16, array: Vec<u8>) -> u8 {
         let percentages = avaliable_percentages[base_value as usize % 5];
         let mut index = ((base_value - (base_value % 5)) as f32) / 5.0;
         let temp1: u8 = array[index as usize];
-        index = index + 1.0;
+        index += 1.0;
         let temp2: u8 = array[index as usize];
 
         if cpu_temp % 5 == 0 {
@@ -21,5 +21,5 @@ pub fn calculate_fan_percentage(temp: u16, array: Vec<u8>) -> u8 {
     } else {
         fan_speed = 0;
     }
-    return fan_speed;
+    fan_speed
 }
