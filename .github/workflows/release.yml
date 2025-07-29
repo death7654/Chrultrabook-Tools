@@ -57,7 +57,7 @@ jobs:
         if: matrix.platform == 'ubuntu-latest'
         run: |
           docker run --rm -v "${{ github.workspace }}:/work" -w /work archlinux:latest bash -c "
-          pacman -Syu  --noconfirm curl git base-devel &&
+          pacman -Syu  --noconfirm curl git base-devel acpica dmidecode python &&
           useradd -m builduser &&
           echo 'builduser ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers &&
           chown -R builduser:builduser /work &&
@@ -68,7 +68,7 @@ jobs:
             cd yay &&
             makepkg -si --noconfirm &&
             
-            yay -S --noconfirm chromium-ectool cbmem || true &&
+            yay -S --noconfirm coreboot-utils chromium-ectool cbmem || true &&
 
             curl https://sh.rustup.rs -sSf | bash -s -- -y &&
             source \$HOME/.cargo/env &&
