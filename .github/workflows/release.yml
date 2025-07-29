@@ -54,6 +54,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Build Arch Linux Package
+        if: matrix.platform == 'ubuntu-latest'
         run: |
           docker run --rm -v ${{ github.workspace }}:/work -w /work archlinux:base-devel bash -c "
             pacman -Sy --noconfirm curl git base-devel &&
