@@ -60,6 +60,12 @@ jobs:
             useradd -m builduser &&
             echo 'builduser ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers &&
             chown -R builduser:builduser /work &&
+            git clone https://aur.archlinux.org/yay.git &&
+            cd yay && 
+            makepkg -si && 
+            cd ../ &&
+            yay -S chromium-ectool &&
+            yay -S cbmem &&
             su - builduser -c '
               curl https://sh.rustup.rs -sSf | bash -s -- -y &&
               source \$HOME/.cargo/env &&
