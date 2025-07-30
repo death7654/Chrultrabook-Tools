@@ -73,8 +73,7 @@ jobs:
             curl https://sh.rustup.rs -sSf | bash -s -- -y &&
             source \$HOME/.cargo/env &&
 
-            cd ~/work/src-tauri &&
-            pwd &&
+            cd "$(find /path/to/start/search -type d -name "src-tauri" -print -quit)" &&
             mkdir -p target/release/bundle/arch/ &&
             cp target/release/bundle/deb/*.deb target/release/bundle/arch &&
             cp tauri.conf.json target/release/bundle/arch &&
