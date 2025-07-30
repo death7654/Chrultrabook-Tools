@@ -56,35 +56,25 @@ jobs:
       - name: Build Arch Linux Package
         if: matrix.platform == 'ubuntu-latest'
         run: |
-          docker run --rm -v "${{ github.workspace }}:/work" -w /work archlinux:latest bash -c "
-          pacman -Syu --noconfirm curl git base-devel acpica dmidecode python &&
+          docker run --rm -v "${{ github.workspace }}:/work" -w /work archlinux:base-devel bash -c "
+          pacman -Syu --noconfirm  &&
           useradd -m builduser &&
           echo 'builduser ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers &&
           chown -R builduser:builduser /work &&
-
           su - builduser -c '
             set -e
-            cd /work &&
-            git clone https://aur.archlinux.org/yay.git &&
-            cd yay &&
-            makepkg -si --noconfirm &&
-
-            yay -S --noconfirm coreboot-utils chromium-ectool cbmem || true &&
+            cd /work/src-tauri &&
 
             curl https://sh.rustup.rs -sSf | bash -s -- -y &&
             source \$HOME/.cargo/env &&
 
-            tauri_path=\$(find /work -type d -name \"src-tauri\" -print -quit) &&
-            cd \"\$tauri_path\" || { echo \"src-tauri not found\"; exit 1; } &&
-
             mkdir -p target/release/bundle/arch/ &&
-            cp target/release/bundle/deb/*.deb target/release/bundle/arch/ || true &&
-            cp tauri.conf.json target/release/bundle/arch/ || true &&
-            cp -r arch/* target/release/bundle/arch/ || true &&
+            cp target/release/bundle/deb/*.deb target/release/bundle/arch/ &&
+            cp tauri.conf.json target/release/bundle/arch/ &&
+            cp -r arch/* target/release/bundle/arch/ &&
 
             cd target/release/bundle/arch &&
-            makepkg -sf --noconfirm
-            cd ../../../../../
+            makepkg -df --noconfirm
           ' "
 
 
