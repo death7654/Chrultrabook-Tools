@@ -80,7 +80,7 @@ jobs:
             mkdir -p target/release/bundle/arch/ &&
             cp target/release/bundle/deb/*.deb target/release/bundle/arch/ || true &&
             cp tauri.conf.json target/release/bundle/arch/ || true &&
-            cp -r /work/arch/* target/release/bundle/arch/ || true &&
+            cp -r arch/* target/release/bundle/arch/ || true &&
 
             cd target/release/bundle/arch &&
             makepkg -sf --noconfirm
