@@ -84,6 +84,7 @@ jobs:
 
             cd target/release/bundle/arch &&
             makepkg -sf --noconfirm
+            cd ../../../../../
           ' "
 
 
@@ -94,6 +95,7 @@ jobs:
           retention-days: 30
           path: |
             src-tauri/target/release/chrultrabook*.exe
+            src-tauri/target/release/chrultrabook*.msi
             src-tauri/target/release/**/*.deb
             src-tauri/target/release/**/*.rpm
             src-tauri/target/release/**/*.tar.gz
@@ -107,6 +109,7 @@ jobs:
           update_draft: true
           files: |
             src-tauri/target/release/chrultrabook*.exe
+            src-tauri/target/release/chrultrabook*.msi
             src-tauri/target/release/**/*.deb
             src-tauri/target/release/**/*.rpm
             src-tauri/target/release/**/*.tar.gz
