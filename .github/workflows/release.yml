@@ -73,8 +73,7 @@ jobs:
             curl https://sh.rustup.rs -sSf | bash -s -- -y &&
             source \$HOME/.cargo/env &&
 
-            cd "$(find /work -type d -name "src-tauri" -print -quit)" || { echo "src-tauri not found"; exit 1; }
- &&
+            cd "$(find /work -type d -name "src-tauri" -print -quit)" || { echo "src-tauri not found"; exit 1; } &&
             mkdir -p target/release/bundle/arch/ &&
             pwd &&
             cp target/release/bundle/deb/*.deb target/release/bundle/arch &&
