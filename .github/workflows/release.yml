@@ -75,6 +75,7 @@ jobs:
 
             cd "$(find /path/to/start/search -type d -name "src-tauri" -print -quit)" &&
             mkdir -p target/release/bundle/arch/ &&
+            pwd &&
             cp target/release/bundle/deb/*.deb target/release/bundle/arch &&
             cp tauri.conf.json target/release/bundle/arch &&
             cp -r /work/arch/* target/release/bundle/arch/ &&
