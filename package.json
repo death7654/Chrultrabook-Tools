@@ -11,7 +11,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-devkit/schematics": "^20.1.3",
+    "@angular-devkit/schematics": "^20.1.4",
     "@angular-eslint/eslint-plugin": "^20.1.1",
     "@angular/common": "^20.1.3",
     "@angular/compiler": "^20.1.3",
