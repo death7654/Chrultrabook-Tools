@@ -15,7 +15,7 @@
     "@angular-eslint/eslint-plugin": "^20.1.1",
     "@angular/common": "^20.1.3",
     "@angular/compiler": "^20.1.3",
-    "@angular/core": "^20.1.3",
+    "@angular/core": "^20.1.6",
     "@angular/platform-browser": "^20.1.3",
     "@angular/platform-browser-dynamic": "^20.1.3",
     "@angular/router": "^20.1.3",
