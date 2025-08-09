@@ -32,7 +32,7 @@ jobs:
       - name: Build frontend
         run: npm install && npm run build
       - name: Set up Github Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/bin/
