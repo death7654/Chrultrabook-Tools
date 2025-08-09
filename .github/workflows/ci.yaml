@@ -2,6 +2,8 @@ name: CI
 
 on:
   push:
+    branches:
+      - 3.X.X
   pull_request:
   workflow_dispatch:
 
