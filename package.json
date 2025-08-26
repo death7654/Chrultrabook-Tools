@@ -31,7 +31,7 @@
     "bootstrap-icons": "^1.13.1",
     "chart.js": "^4.5.0",
     "chartjs-plugin-dragdata": "^2.3.1",
-    "eslint": "^9.32.0",
+    "eslint": "^9.34.0",
     "lint": "^0.8.19",
     "ng2-charts": "^8.0.0",
     "rxjs": "~7.8.2",
