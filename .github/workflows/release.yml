@@ -84,12 +84,18 @@ jobs:
           name: Chrultrabook-Tools-${{ matrix.platform }}
           retention-days: 30
           path: |
-            src-tauri/target/release/chrultrabook*.exe
-            src-tauri/target/release/chrultrabook*.msi
-            src-tauri/target/release/**/*.deb
-            src-tauri/target/release/**/*.rpm
-            src-tauri/target/release/**/*.tar.gz
-            src-tauri/target/release/**/*.pkg.tar.zst
+            # Windows
+            src-tauri/target/release/bundle/msi/*.msi
+            src-tauri/target/release/bundle/nsis/*.exe
+
+            # Linux
+            src-tauri/target/release/bundle/deb/*.deb
+            src-tauri/target/release/bundle/rpm/*.rpm
+            src-tauri/target/release/bundle/arch/*.pkg.tar.zst
+
+            # macOS
+            src-tauri/target/release/bundle/dmg/*.dmg
+
       - name: Upload Artifacts to GitHub Draft Release
         uses: softprops/action-gh-release@v2
         with:
@@ -98,15 +104,17 @@ jobs:
           draft: true
           update_draft: true
           files: |
-            src-tauri/target/release/chrultrabook*.exe
-            src-tauri/target/release/chrultrabook*.msi
-            src-tauri/target/release/bundle/deb/*.deb
-            src-tauri/target/release/bundle/rpm/*.rpm
+            # Windows
             src-tauri/target/release/bundle/msi/*.msi
             src-tauri/target/release/bundle/nsis/*.exe
-            src-tauri/target/release/bundle/macos/*.tar.gz
-            src-tauri/target/release/bundle/macos/*.pkg
+
+            # Linux
+            src-tauri/target/release/bundle/deb/*.deb
+            src-tauri/target/release/bundle/rpm/*.rpm
             src-tauri/target/release/bundle/arch/*.pkg.tar.zst
+
+            # macOS
+            src-tauri/target/release/bundle/dmg/*.dmg
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
