@@ -9,7 +9,7 @@ jobs:
     name: "Update lockfile"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v19
       - name: Update flake.lock
