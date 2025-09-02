@@ -81,7 +81,7 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Chrultrabook-Tools
+          name: Chrultrabook-Tools-${{ matrix.platform }}
           retention-days: 30
           path: |
             src-tauri/target/release/chrultrabook*.exe
@@ -100,10 +100,13 @@ jobs:
           files: |
             src-tauri/target/release/chrultrabook*.exe
             src-tauri/target/release/chrultrabook*.msi
-            src-tauri/target/release/**/*.deb
-            src-tauri/target/release/**/*.rpm
-            src-tauri/target/release/**/*.tar.gz
-            src-tauri/target/release/**/*.pkg.tar.zst
+            src-tauri/target/release/bundle/deb/*.deb
+            src-tauri/target/release/bundle/rpm/*.rpm
+            src-tauri/target/release/bundle/msi/*.msi
+            src-tauri/target/release/bundle/nsis/*.exe
+            src-tauri/target/release/bundle/macos/*.tar.gz
+            src-tauri/target/release/bundle/macos/*.pkg
+            src-tauri/target/release/bundle/arch/*.pkg.tar.zst
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
