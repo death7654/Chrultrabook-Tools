@@ -44,7 +44,7 @@
     "@angular/compiler-cli": "^20.1.6",
     "@tauri-apps/api": "^2.7.0",
     "@tauri-apps/cli": "^2.7.1",
-    "@types/jasmine": "~5.1.8",
+    "@types/jasmine": "~5.1.9",
     "@types/lodash": "^4.17.20",
     "jasmine-core": "~5.9.0",
     "karma": "~6.4.4",
