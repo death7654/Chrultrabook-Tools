@@ -30,7 +30,7 @@
       },
       "rpm": {
         "depends": [
-          "cbmem",
+          "coreboot-utils-cbmem",
           "chromium-ectool"
         ]
       }
