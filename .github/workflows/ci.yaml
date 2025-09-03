@@ -101,14 +101,14 @@ jobs:
             runner: ubuntu-24.04-arm
           - nix: x86_64-linux
             runner: ubuntu-24.04
-          # - nix: x86_64-darwin
-          #   runner: macos-13
+          - nix: x86_64-darwin
+            runner: macos-13
     runs-on: ${{ matrix.runner }}
     steps:
       - uses: actions/checkout@v5
       - uses: DeterminateSystems/nix-installer-action@v19
-      # - uses: cachix/cachix-action@v16
-      #   with:
-      #     name: 9lore
-      #     authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+      - uses: cachix/cachix-action@v16
+        with:
+          name: death7654
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
       - run: nix build -L .
