@@ -51,11 +51,11 @@ jobs:
       - name: Run Cargo:test
         run: cargo test --manifest-path src-tauri/Cargo.toml --verbose --all-features
   build:
-    name: Build 
+    name: Build
     strategy:
       fail-fast: false
       matrix:
-        platform: 
+        platform:
           - ubuntu-latest
           - windows-2022
           - macos-13
@@ -78,3 +78,37 @@ jobs:
         run: npm install
       - name: Build
         run: npm run tauri build
+  nix-check:
+    name: Nix Flake Checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: docker/setup-qemu-action@v3
+      - uses: DeterminateSystems/nix-installer-action@v19
+        with:
+          extra-conf: |
+            extra-platforms = aarch64-linux x86_64-darwin
+      - uses: actions/checkout@v5
+      - name: Run nix flake check
+        run: nix flake check --all-systems
+  nix-build:
+    name: Nix Build
+    needs: nix-check
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - nix: aarch64-linux
+            runner: ubuntu-24.04-arm
+          - nix: x86_64-linux
+            runner: ubuntu-24.04
+          # - nix: x86_64-darwin
+          #   runner: macos-13
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: DeterminateSystems/nix-installer-action@v19
+      # - uses: cachix/cachix-action@v16
+      #   with:
+      #     name: 9lore
+      #     authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+      - run: nix build -L .

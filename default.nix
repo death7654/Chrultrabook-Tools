@@ -1,9 +1,30 @@
 {
   lib,
-  pkgs,
+  system,
+  stdenv,
+  rustPlatform,
+  importNpmLock,
+  cargo-tauri,
+  nodejs_22,
+  pkg-config,
+  wrapGAppsHook4,
+  python311,
+  at-spi2-atk,
+  atkmm,
+  cairo,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  harfbuzz,
+  librsvg,
+  libsoup_3,
+  openssl,
+  pango,
+  libayatana-appindicator,
+  udev,
+  webkitgtk_4_1,
   ...
 }:
-with pkgs;
 rustPlatform.buildRustPackage rec {
   pname = "chrultrabook-tools";
   version = (builtins.fromJSON (builtins.readFile (src + "/package-lock.json"))).version;
@@ -48,7 +69,7 @@ rustPlatform.buildRustPackage rec {
   cargoRoot = "src-tauri";
   buildAndTestSubdir = cargoRoot;
 
-  postFixup = ''
+  postFixup = lib.optional stdenv.hostPlatform.isLinux ''
     patchelf $out/bin/chrultrabook-tools --add-needed libayatana-appindicator3.so.1
   '';
 
@@ -59,9 +80,7 @@ rustPlatform.buildRustPackage rec {
     platforms = [
       "x86_64-linux"
       "aarch64-linux"
-      # Broken
-      # "x86_64-darwin"
-      # "aarch64-darwin"
+      "x86_64-darwin"
     ];
   };
 }
