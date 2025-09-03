@@ -26,31 +26,30 @@ rustPlatform.buildRustPackage rec {
     python311
   ];
 
-  buildInputs =
-    [
-      at-spi2-atk
-      atkmm
-      cairo
-      gdk-pixbuf
-      glib
-      gtk3
-      harfbuzz
-      librsvg
-      libsoup_3
-      openssl
-      pango
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [
-      libayatana-appindicator
-      udev
-      webkitgtk_4_1
-    ];
+  buildInputs = [
+    at-spi2-atk
+    atkmm
+    cairo
+    gdk-pixbuf
+    glib
+    gtk3
+    harfbuzz
+    librsvg
+    libsoup_3
+    openssl
+    pango
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    libayatana-appindicator
+    udev
+    webkitgtk_4_1
+  ];
 
   cargoRoot = "src-tauri";
   buildAndTestSubdir = cargoRoot;
 
   postFixup = ''
-    patchelf $out/bin/Chrultrabook-Tools --add-needed libayatana-appindicator3.so.1
+    patchelf $out/bin/chrultrabook-tools --add-needed libayatana-appindicator3.so.1
   '';
 
   meta = with lib; {

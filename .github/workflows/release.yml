@@ -1,0 +1,120 @@
+name: Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  ubuntu-deps: "dpkg-dev fakeroot libwebkit2gtk-4.1-0 libwebkit2gtk-4.1-dev libjavascriptcoregtk-4.1-0 libjavascriptcoregtk-4.1-dev gir1.2-javascriptcoregtk-4.1 gir1.2-webkit2-4.1 build-essential curl wget file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev desktop-file-utils libudev-dev rpm"
+
+jobs:
+  release:
+    name: Build and Release
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: 
+          - ubuntu-latest
+          - windows-2022
+          - macos-13
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: "npm"
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+      - name: Set up Github Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-cargo-
+      - name: Install OS dependencies
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ${{ env.ubuntu-deps }}
+      - name: Install npm dependencies
+        run: npm install
+      - name: Build Application
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build Arch Linux Package
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          docker run --rm -v "${{ github.workspace }}:/work" -w /work archlinux:base-devel bash -c "
+          pacman -Syu --noconfirm  &&
+          useradd -m builduser &&
+          echo 'builduser ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers &&
+          chown -R builduser:builduser /work &&
+          su - builduser -c '
+            set -e
+            cd /work/src-tauri &&
+
+            curl https://sh.rustup.rs -sSf | bash -s -- -y &&
+            source \$HOME/.cargo/env &&
+
+            mkdir -p target/release/bundle/arch/ &&
+            cp target/release/bundle/deb/*.deb target/release/bundle/arch/ &&
+            cp tauri.conf.json target/release/bundle/arch/ &&
+            cp -r arch/* target/release/bundle/arch/ &&
+
+            cd target/release/bundle/arch &&
+            makepkg -df --noconfirm
+          ' "
+
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Chrultrabook-Tools-${{ matrix.platform }}
+          retention-days: 30
+          path: |
+            # Windows
+            src-tauri/target/release/bundle/msi/*.msi
+            src-tauri/target/release/bundle/nsis/*.exe
+
+            # Linux
+            src-tauri/target/release/bundle/deb/*.deb
+            src-tauri/target/release/bundle/rpm/*.rpm
+            src-tauri/target/release/bundle/arch/*.pkg.tar.zst
+
+            # macOS
+            src-tauri/target/release/bundle/dmg/*.dmg
+
+      - name: Upload Artifacts to GitHub Draft Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "draft_release"
+          tag_name: v__VERSION__
+          draft: true
+          update_draft: true
+          files: |
+            # Windows
+            src-tauri/target/release/bundle/msi/*.msi
+            src-tauri/target/release/bundle/nsis/*.exe
+
+            # Linux
+            src-tauri/target/release/bundle/deb/*.deb
+            src-tauri/target/release/bundle/rpm/*.rpm
+            src-tauri/target/release/bundle/arch/*.pkg.tar.zst
+
+            # macOS
+            src-tauri/target/release/bundle/dmg/*.dmg
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

@@ -1,5 +1,3 @@
-use web_local_storage_api;
-
 pub fn local_storage(function: &str, option: &str, value: &str) -> String {
     if function == "get" {
         match web_local_storage_api::get_item(option) {
@@ -16,5 +14,5 @@ pub fn local_storage(function: &str, option: &str, value: &str) -> String {
         let _ = web_local_storage_api::clear();
         return String::new();
     }
-    return String::new();
+    String::new()
 }
