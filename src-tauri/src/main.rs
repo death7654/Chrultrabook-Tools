@@ -282,6 +282,7 @@ fn elevate() -> Result<(), Box<dyn std::error::Error>> {
     if std::env::var("DISABLE_ESCALATION").is_err() {
         karen::pkexec()?;
     }
+    Ok(())
 }
 fn main() {
     tauri::Builder::default()
