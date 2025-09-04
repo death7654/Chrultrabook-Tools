@@ -278,16 +278,21 @@ fn reset(handle: tauri::AppHandle) {
     handle.restart();
 }
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
-    #[cfg(target_os = "linux")]
-    {
-        if std::env::var("DISABLE_ESCALATION").is_err() {
-            karen::pkexec()?;
-        }
+fn elevate()
+{
+    if std::env::var("DISABLE_ESCALATION").is_err() {
+        karen::pkexec()?;
     }
+}
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     tauri::Builder::default()
         .plugin(tauri_plugin_process::init())
         .setup(|app| {
+            #[cfg(target_os = "linux")]
+            {
+                elevate();
+            }
+            
             //to hide app if user wants it hidden upon boot
             let start_app_in_tray = local_storage("get", "start_app_tray", " ");
             if start_app_in_tray == "true" {
