@@ -62,6 +62,8 @@ Download the Arch package from the Releases page, then install:
 
 pacman -U ~/Downloads/chrultrabook-tools-VERSION-pkg.tar.zst
 
+(replace the VERSION with the latest version, and the file location, if needed)
+
 #### Compiled binary
 - You must start the application as root as the ectool binary requires sudo privileges 
 
