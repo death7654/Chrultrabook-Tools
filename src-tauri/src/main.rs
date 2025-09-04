@@ -290,7 +290,7 @@ fn main() {
         .setup(|app| {
             #[cfg(target_os = "linux")]
             {
-                elevate();
+                let _ = elevate();
             }
 
             //to hide app if user wants it hidden upon boot
