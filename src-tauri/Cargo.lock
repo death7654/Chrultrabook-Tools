@@ -1372,7 +1372,7 @@ version = "3.0.7"
 dependencies = [
  "cargo-edit",
  "hidapi",
- "karen",
+ "libc",
  "open",
  "serde",
  "serde_json",
@@ -4480,16 +4480,6 @@ dependencies = [
  "once_cell",
  "sha2",
  "signature",
-]
-
-[[package]]
-name = "karen"
-version = "0.1.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "92794784d4ce2ae40650b824650f005aa7fd6dbdeb636f6260c9153f927d1e72"
-dependencies = [
- "libc",
- "log",
 ]
 
 [[package]]

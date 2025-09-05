@@ -19,6 +19,9 @@ use tauri::{AppHandle, Emitter, EventTarget, Manager};
 use tauri_plugin_autostart::{MacosLauncher, ManagerExt};
 use tauri_plugin_clipboard_manager::ClipboardExt;
 
+#[cfg(target_os = "linux")]
+use std::process::Command;
+
 //open windows
 #[tauri::command]
 async fn open_window(
