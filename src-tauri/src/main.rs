@@ -22,6 +22,9 @@ use tauri_plugin_clipboard_manager::ClipboardExt;
 #[cfg(target_os = "linux")]
 use std::process::Command;
 
+#[cfg(target_os = "linux")]
+use std::os::unix::process::CommandExt;
+
 //open windows
 #[tauri::command]
 async fn open_window(
