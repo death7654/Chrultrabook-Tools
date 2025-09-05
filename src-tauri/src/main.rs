@@ -281,21 +281,26 @@ fn reset(handle: tauri::AppHandle) {
 fn elevate() -> Result<(), Box<dyn std::error::Error>> {
     #[cfg(target_os = "linux")]
     {
-        if std::env::var("DISABLE_ESCALATION").is_err() {
-            karen::pkexec()?;
+        if unsafe { libc::geteuid() } != 0 {
+            let err = Command::new("pkexec")
+                .arg(std::env::current_exe().unwrap())
+                .args(std::env::args().skip(1))
+                .exec();
+            eprintln!("Failed to elevate: {}", err);
+            std::process::exit(1);
         }
     }
     Ok(())
 }
 fn main() {
+    #[cfg(target_os = "linux")]
+    {
+        let _ = elevate();
+    }
+
     tauri::Builder::default()
         .plugin(tauri_plugin_process::init())
         .setup(|app| {
-            #[cfg(target_os = "linux")]
-            {
-                let _ = elevate();
-            }
-
             //to hide app if user wants it hidden upon boot
             let start_app_in_tray = local_storage("get", "start_app_tray", " ");
             if start_app_in_tray == "true" {
