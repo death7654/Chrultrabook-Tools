@@ -26,7 +26,7 @@ cargo-edit = "0.13.7"
 tauri-plugin-process = "2"
 
 [target.'cfg(target_os = "linux")'.dependencies]
-karen = "0.1.2"
+libc = "0.2"
 
 [features]
 # This feature is used for production builds or when a dev server is not specified, DO NOT REMOVE!!
