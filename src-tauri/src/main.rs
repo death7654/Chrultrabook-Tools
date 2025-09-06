@@ -18,6 +18,7 @@ use tauri::tray::TrayIconBuilder;
 use tauri::{AppHandle, Emitter, EventTarget, Manager};
 use tauri_plugin_autostart::{MacosLauncher, ManagerExt};
 use tauri_plugin_clipboard_manager::ClipboardExt;
+use std::error::Error;
 
 #[cfg(target_os = "linux")]
 use std::process::Command;
