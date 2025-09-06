@@ -292,13 +292,13 @@ fn elevate() -> Result<(), Box<dyn Error>> {
             let err = Command::new("pkexec")
                 .arg(exe)
                 .args(std::env::args().skip(1))
-                .exec(); 
+                .exec();
             return Err(Box::new(err));
         }
     }
     Ok(())
 }
-fn main() -> Result<(), Box<dyn Error>>{
+fn main() -> Result<(), Box<dyn Error>> {
     #[cfg(target_os = "linux")]
     let _ = elevate()?;
 
