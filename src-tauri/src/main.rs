@@ -301,7 +301,7 @@ fn elevate() -> Result<(), Box<dyn Error>> {
 }
 fn main() -> Result<(), Box<dyn Error>> {
     #[cfg(target_os = "linux")]
-    let _ = elevate()?;
+    elevate()?;
 
     tauri::Builder::default()
         .plugin(tauri_plugin_process::init())
