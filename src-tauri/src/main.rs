@@ -12,13 +12,13 @@ mod save_to_local;
 mod temps;
 
 //external crates
+use std::error::Error;
 use tauri::image::Image;
 use tauri::menu::{IconMenuItemBuilder, MenuBuilder, MenuItemBuilder};
 use tauri::tray::TrayIconBuilder;
 use tauri::{AppHandle, Emitter, EventTarget, Manager};
 use tauri_plugin_autostart::{MacosLauncher, ManagerExt};
 use tauri_plugin_clipboard_manager::ClipboardExt;
-use std::error::Error;
 
 #[cfg(target_os = "linux")]
 use std::process::Command;
