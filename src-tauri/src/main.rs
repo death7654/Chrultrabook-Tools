@@ -284,25 +284,23 @@ fn reset(handle: tauri::AppHandle) {
     handle.restart();
 }
 
-fn elevate() -> Result<(), Box<dyn std::error::Error>> {
+fn elevate() -> Result<(), Box<dyn Error>> {
     #[cfg(target_os = "linux")]
     {
         if unsafe { libc::geteuid() } != 0 {
+            let exe = std::env::current_exe()?;
             let err = Command::new("pkexec")
-                .arg(std::env::current_exe().unwrap())
+                .arg(exe)
                 .args(std::env::args().skip(1))
-                .exec();
-            eprintln!("Failed to elevate: {}", err);
-            std::process::exit(1);
+                .exec(); 
+            return Err(Box::new(err));
         }
     }
     Ok(())
 }
-fn main() {
+fn main() -> Result<(), Box<dyn Error>>{
     #[cfg(target_os = "linux")]
-    {
-        let _ = elevate();
-    }
+    let _ = elevate()?;
 
     tauri::Builder::default()
         .plugin(tauri_plugin_process::init())
@@ -432,4 +430,5 @@ fn main() {
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+    Ok(())
 }
