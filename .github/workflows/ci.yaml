@@ -83,7 +83,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: docker/setup-qemu-action@v3
-      - uses: DeterminateSystems/nix-installer-action@v19
+      - uses: DeterminateSystems/nix-installer-action@v20
         with:
           extra-conf: |
             extra-platforms = aarch64-linux x86_64-darwin
@@ -106,7 +106,7 @@ jobs:
     runs-on: ${{ matrix.runner }}
     steps:
       - uses: actions/checkout@v5
-      - uses: DeterminateSystems/nix-installer-action@v19
+      - uses: DeterminateSystems/nix-installer-action@v20
       - uses: cachix/cachix-action@v16
         with:
           name: death7654

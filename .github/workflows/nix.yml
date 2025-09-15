@@ -15,6 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v19
+        uses: DeterminateSystems/nix-installer-action@v20
       - name: Update flake.lock
         uses: DeterminateSystems/update-flake-lock@v27
