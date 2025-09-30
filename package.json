@@ -18,7 +18,7 @@
     "@angular/core": "^20.2.3",
     "@angular/platform-browser": "^20.2.3",
     "@angular/platform-browser-dynamic": "^20.2.3",
-    "@angular/router": "^20.2.3",
+    "@angular/router": "^20.3.2",
     "@fontsource/open-sans": "^5.2.6",
     "@tauri-apps/plugin-autostart": "^2.5.0",
     "@tauri-apps/plugin-clipboard-manager": "^2.3.0",
