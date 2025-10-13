@@ -41,7 +41,7 @@
   "devDependencies": {
     "@angular/build": "^20.2.1",
     "@angular/cli": "^20.2.1",
-    "@angular/compiler-cli": "^20.2.3",
+    "@angular/compiler-cli": "^20.3.4",
     "@tauri-apps/api": "^2.8.0",
     "@tauri-apps/cli": "^2.8.4",
     "@types/jasmine": "~5.1.9",
