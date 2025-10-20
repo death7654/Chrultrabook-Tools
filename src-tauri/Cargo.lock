@@ -1156,9 +1156,9 @@ dependencies = [
 
 [[package]]
 name = "cargo-mobile2"
-version = "0.20.7"
+version = "0.21.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3ca76a1e55f3b1e020d8f069e46926334ba7d9cad71a59098602c59b69cbc29d"
+checksum = "f976a197d95b0371e06a8b930e4926a4273329d37f88d5a9ee323d77552116ed"
 dependencies = [
  "colored",
  "core-foundation 0.10.1",
@@ -8734,9 +8734,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-bundler"
-version = "2.6.1"
+version = "2.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3ba236b27aba19136af3b2ab02878c60b2d079d30d68d77cee6326c93df3c13c"
+checksum = "c5ba4e0cb144131401be7abe12bc12e19ccf74eb9ba4ea18de0c5f0098b9f199"
 dependencies = [
  "anyhow",
  "ar",
@@ -8781,11 +8781,10 @@ dependencies = [
 
 [[package]]
 name = "tauri-cli"
-version = "2.8.4"
+version = "2.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f2e0121494c68a816b44cfd8d52bec9df11fec47699baa7540299a46bc9ec5fd"
+checksum = "6b00d9cee38eda7f89741bdb12154af3e5aa1ed3c2bfbc1b948dfc4be1f41612"
 dependencies = [
- "anyhow",
  "ar",
  "axum",
  "base64 0.22.1",
@@ -8797,6 +8796,7 @@ dependencies = [
  "css-color",
  "ctrlc",
  "dialoguer",
+ "dirs 6.0.0",
  "duct",
  "dunce",
  "elf",
@@ -8848,6 +8848,7 @@ dependencies = [
  "tauri-macos-sign",
  "tauri-utils",
  "tempfile",
+ "thiserror 2.0.16",
  "tokio",
  "toml 0.9.5",
  "toml_edit 0.23.4",
@@ -8855,7 +8856,9 @@ dependencies = [
  "url",
  "uuid",
  "walkdir",
+ "which",
  "windows-sys 0.60.2",
+ "zip 4.6.0",
 ]
 
 [[package]]
@@ -9117,9 +9120,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-utils"
-version = "2.7.0"
+version = "2.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "41a3852fdf9a4f8fbeaa63dc3e9a85284dd6ef7200751f0bd66ceee30c93f212"
+checksum = "f6b8bbe426abdbf52d050e52ed693130dbd68375b9ad82a3fb17efb4c8d85673"
 dependencies = [
  "aes-gcm",
  "anyhow",
