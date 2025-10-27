@@ -79,7 +79,7 @@ jobs:
 
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: Chrultrabook-Tools-${{ matrix.platform }}
           retention-days: 30
