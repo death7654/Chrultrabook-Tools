@@ -8745,9 +8745,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-bundler"
-version = "2.7.0"
+version = "2.7.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c5ba4e0cb144131401be7abe12bc12e19ccf74eb9ba4ea18de0c5f0098b9f199"
+checksum = "6a9a314a87cac522a46c2104cd6eeb3fa503a8f7f9ea82c9d3aeaffe773ba276"
 dependencies = [
  "anyhow",
  "ar",
@@ -8792,9 +8792,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-cli"
-version = "2.9.0"
+version = "2.9.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6b00d9cee38eda7f89741bdb12154af3e5aa1ed3c2bfbc1b948dfc4be1f41612"
+checksum = "54aac730e05fbcd42879b4a3ece5e5e095cea3508d834b87a441b02c39bc4189"
 dependencies = [
  "ar",
  "axum",
@@ -8911,11 +8911,10 @@ dependencies = [
 
 [[package]]
 name = "tauri-macos-sign"
-version = "2.2.0"
+version = "2.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a6e9edbc522842252c79713cfa3e1b0cf3f694f1428c749e939f8dcbdf62864a"
+checksum = "dc9cdd2dc4075cf5d95434c3a3e3cea3d12eb3c133538ad1208848f13aba66eb"
 dependencies = [
- "anyhow",
  "apple-codesign",
  "chrono",
  "dirs 6.0.0",
@@ -8928,6 +8927,7 @@ dependencies = [
  "serde",
  "serde_json",
  "tempfile",
+ "thiserror 2.0.16",
  "x509-certificate 0.23.1",
 ]
 
