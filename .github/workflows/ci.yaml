@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: setup node
         uses: actions/setup-node@v4
         with:
@@ -61,7 +61,7 @@ jobs:
           - macos-13
     runs-on: ${{ matrix.platform }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: setup node
         uses: actions/setup-node@v4
         with:
@@ -87,7 +87,7 @@ jobs:
         with:
           extra-conf: |
             extra-platforms = aarch64-linux x86_64-darwin
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Run nix flake check
         run: nix flake check --all-systems
   nix-build:
@@ -105,7 +105,7 @@ jobs:
             runner: macos-13
     runs-on: ${{ matrix.runner }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: DeterminateSystems/nix-installer-action@v19
       - uses: cachix/cachix-action@v16
         with:
