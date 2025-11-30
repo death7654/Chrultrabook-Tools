@@ -17,25 +17,64 @@
 - Fan Speed Graph
 - Custom Fan Profiles
 - CPU Temperature Graph
-- Start Application In System Tray
+- Start Application in System Tray
 - Start Application on System Boot
-- Start Custom Fan Profiles On System Boot
+- Start Custom Fan Profiles on System Boot
 - Change Keyboard Brightness
-- Change Activity Light Colors (On Select Chromebooks)
+- Change Activity Light Colors (on select Chromebooks)
 - System Diagnostics
 - Keyboard Backlight
   
 
 ## Install Instructions
 
+### Linux
+
+#### Fedora/RHEL and derivatives
+
+Add the Terra repository (if using Ultramarine Linux, Terra is pre-installed). Instructions can be found [here](https://github.com/terrapkg/packages/blob/frawhide/README.md).
+
+Install Chrultrabook-Tools:
+
+```
+dnf install chrultrabook-tools
+```
+
+#### Debian and derivatives
+
+Add the Chrultrabook-Tools repository:
+
+xxx
+
+Install Chrultrabook-Tools:
+
+```
+apt install chultrabook-tools
+```
+
+#### Arch and derivatives
+
+install AUR dependencies (for this example we are using [paru](https://github.com/Morganamilo/paru):
+
+paru -S chromium-ectool cbmem
+
+Download the Arch package from the Releases page, then install:
+
+pacman -U ~/Downloads/chrultrabook-tools-VERSION-pkg.tar.zst
+
+(replace the VERSION with the latest version, and the file location, if needed)
+
+#### Compiled binary
+- You must start the application as root as the ectool binary requires sudo privileges 
+
 ### Windows
 
-- Install Coolstar's Latest CROS-EC driver from [https://github.com/coolstar/driverinstallers/tree/master/crosec](https://github.com/coolstar/driverinstallers/tree/master/crosec)
+- Install Coolstar's latest CROS-EC driver from [https://github.com/coolstar/driverinstallers/tree/master/crosec](https://github.com/coolstar/driverinstallers/tree/master/crosec)
 - Download the MSI or EXE from the latest [release](https://github.com/death7654/Chrultrabook-Tools/releases)
-- Run the Installer
-- Open the Application
+- Run the installer
+- Open the application
 
-#### Windows 11 24H2 and Newer
+#### Windows 11 24H2 and newer
 - Enable WMIC
    - Open Settings
    - Navigate to `Optional Features`
@@ -43,22 +82,10 @@
    - Search and add `WMIC`
    - Reopen the application
 
-### Linux
-
-#### AppImage
-
-- Download the AppImage
-- `cd` to the directory
-- Mark the file as an executeable `chmod a+x name.AppImage`
-- open the AppImage `sudo ./name.AppImage`
-
-#### Non-AppImage
-- You must start the application as root as the ectool binary requires sudo privileges 
-
 ### macOS
 
 - Download the [ectool](https://github.com/1Revenger1/ectool) binary
-- Move the Binary to `/usr/bin` or `/usr/local/bin`
+- Move the binary to `/usr/bin` or `/usr/local/bin`
 - Download the installer with  `x86_64` in its name
 - Run the Chrultrabook Tools Installer
 - Drag the Chrultrabook Tools app into the Applications Folder
