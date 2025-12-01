@@ -6,6 +6,7 @@ mod custom_fan;
 mod execute;
 mod get_all_windows;
 mod helper;
+mod keyboard_remap;
 mod open_window;
 mod save_to_files;
 mod save_to_local;
@@ -312,6 +313,11 @@ fn main() -> Result<(), Box<dyn Error>> {
                 let window = app.get_webview_window("main").unwrap();
                 window.hide().unwrap();
             }
+
+            let json = keyboard_remap::read_config();
+            println!("{}\njsonprint", json);
+            let output = keyboard_remap::generate_config_from_json(&json).unwrap();
+
 
             let img = IconMenuItemBuilder::new("Chrultrabook Tools")
                 .id("app")
