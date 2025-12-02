@@ -211,51 +211,7 @@ struct ConfigFileJson {
     configs: Vec<ConfigEntryJson>,
 }
 
-// helper functions
 
-fn bytes_to_u32(bytes: &[u8]) -> Option<u32> {
-    if bytes.len() < 4 {
-        return None;
-    }
-    Some(u32::from_le_bytes([bytes[0], bytes[1], bytes[2], bytes[3]]))
-}
-
-fn bytes_to_i32(bytes: &[u8]) -> Option<i32> {
-    if bytes.len() < 4 {
-        return None;
-    }
-    Some(i32::from_le_bytes([bytes[0], bytes[1], bytes[2], bytes[3]]))
-}
-
-fn bytes_to_u16(bytes: &[u8]) -> Option<u16> {
-    if bytes.len() < 2 {
-        return None;
-    }
-    Some(u16::from_le_bytes([bytes[0], bytes[1]]))
-}
-
-fn format_key_state(state: i32) -> &'static str {
-    match state {
-        0 => "NoDetect",
-        1 => "Enforce",
-        2 => "EnforceNot",
-        _ => "Unknown",
-    }
-}
-
-fn format_flags(flags: u16) -> String {
-    let mut flag_strs = Vec::new();
-    
-    if flags & 0x0001 != 0 { flag_strs.push("BREAK"); }
-    if flags & 0x0002 != 0 { flag_strs.push("E0"); }
-    if flags & 0x0004 != 0 { flag_strs.push("E1"); }
-    
-    if flag_strs.is_empty() {
-        "NONE".to_string()
-    } else {
-        flag_strs.join("|")
-    }
-}
 
 // config generators
 
@@ -589,5 +545,50 @@ fn restore_backup() -> io::Result<bool> {
         Ok(true)
     } else {
         Ok(false)
+    }
+}
+
+//helper 
+fn bytes_to_u32(bytes: &[u8]) -> Option<u32> {
+    if bytes.len() < 4 {
+        return None;
+    }
+    Some(u32::from_le_bytes([bytes[0], bytes[1], bytes[2], bytes[3]]))
+}
+
+fn bytes_to_i32(bytes: &[u8]) -> Option<i32> {
+    if bytes.len() < 4 {
+        return None;
+    }
+    Some(i32::from_le_bytes([bytes[0], bytes[1], bytes[2], bytes[3]]))
+}
+
+fn bytes_to_u16(bytes: &[u8]) -> Option<u16> {
+    if bytes.len() < 2 {
+        return None;
+    }
+    Some(u16::from_le_bytes([bytes[0], bytes[1]]))
+}
+
+fn format_key_state(state: i32) -> &'static str {
+    match state {
+        0 => "NoDetect",
+        1 => "Enforce",
+        2 => "EnforceNot",
+        _ => "Unknown",
+    }
+}
+
+fn format_flags(flags: u16) -> String {
+    let mut flag_strs = Vec::new();
+    
+    if flags & 0x0001 != 0 { flag_strs.push("BREAK"); }
+    if flags & 0x0002 != 0 { flag_strs.push("E0"); }
+    if flags & 0x0004 != 0 { flag_strs.push("E1"); }
+    
+    if flag_strs.is_empty() {
+        "NONE".to_string()
+    } else {
+        flag_strs.join("|")
     }
 }

@@ -1,9 +1,132 @@
-<h4 class="fs-3 fw-heavy mt-4"><img class="align-text-middle px-2" src="../../assets/keyboard/keyboard.svg">Keyboard
-    Remap</h4>
-<span class="px-2 w-100">
-    @for (item of function_keys; track $index;) {
-    <button class="btn btn-sm rounded-3 mx-1" [class]="item.state" (click)="change($index)"><span
-            [class]="item.class">{{item.label}}</span></button>
-    }
-    <!--TODO complete keyboard-->
-</span>
+<div class="keyboard-page-wrapper">
+    <!-- Header -->
+    <div class="header">
+        <h4 class="title">
+            <img class="keyboard-icon" src="../../assets/keyboard/keyboard.svg" alt="Keyboard">
+            Keyboard Configuration
+        </h4>
+    </div>
+
+    <!-- RGB Lighting Control Panel -->
+    <div class="control-panel">
+        <h5 class="panel-title">RGB Lighting Control</h5>
+        <div class="rgb-controls">
+            <div class="control-row">
+                <div class="control-group">
+                    <label class="control-label">
+                        <input type="checkbox" [(ngModel)]="rgbEnabled" class="form-check-input">
+                        Enable RGB
+                    </label>
+                </div>
+                <div class="control-group flex-grow">
+                    <label class="control-label">Mode</label>
+                    <select [(ngModel)]="rgbMode" class="form-select form-select-sm" [disabled]="!rgbEnabled">
+                        <option value="static">Static</option>
+                        <option value="breathing">Breathing</option>
+                        <option value="wave">Wave</option>
+                        <option value="rainbow">Rainbow</option>
+                        <option value="reactive">Reactive</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="control-row">
+                <div class="control-group flex-grow">
+                    <label class="control-label">Brightness: {{brightness}}%</label>
+                    <input type="range" [(ngModel)]="brightness" min="0" max="100" 
+                           class="form-range" [disabled]="!rgbEnabled">
+                </div>
+            </div>
+
+            <div class="control-row">
+                <div class="control-group">
+                    <label class="control-label">Red: {{rgbRed}}</label>
+                    <input type="range" [(ngModel)]="rgbRed" min="0" max="255" 
+                           class="form-range range-red" [disabled]="!rgbEnabled || rgbMode === 'rainbow'">
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Green: {{rgbGreen}}</label>
+                    <input type="range" [(ngModel)]="rgbGreen" min="0" max="255" 
+                           class="form-range range-green" [disabled]="!rgbEnabled || rgbMode === 'rainbow'">
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Blue: {{rgbBlue}}</label>
+                    <input type="range" [(ngModel)]="rgbBlue" min="0" max="255" 
+                           class="form-range range-blue" [disabled]="!rgbEnabled || rgbMode === 'rainbow'">
+                </div>
+            </div>
+
+            <div class="color-preview" [style.background-color]="rgbColor" 
+                 [style.opacity]="rgbEnabled ? rgbOpacity : 0.3">
+            </div>
+        </div>
+    </div>
+
+    <!-- Key Remapping Control Panel -->
+    <div class="control-panel">
+        <h5 class="panel-title">Key Remapping</h5>
+        <div class="remap-controls">
+            <div class="button-group">
+                <button class="btn btn-primary btn-sm" (click)="toggleRemapMode()">
+                    {{remapMode ? 'Exit Remap Mode' : 'Enter Remap Mode'}}
+                </button>
+                <button class="btn btn-warning btn-sm" (click)="resetAllKeys()" 
+                        [disabled]="remapMode">
+                    Reset All Keys
+                </button>
+                <button class="btn btn-info btn-sm" (click)="exportRemaps()">
+                    Export Remaps
+                </button>
+            </div>
+
+            @if (remapMode) {
+                <div class="remap-info">
+                    <p class="info-text">Click on a key to select it for remapping</p>
+                    @if (selectedKeyIndex !== null) {
+                        <div class="remap-input-group">
+                            <input type="text" [(ngModel)]="remapInput" 
+                                   class="form-control form-control-sm" 
+                                   placeholder="Enter new key value"
+                                   maxlength="10">
+                            <button class="btn btn-success btn-sm" (click)="applyRemap()" 
+                                    [disabled]="!remapInput">
+                                Apply
+                            </button>
+                            <button class="btn btn-secondary btn-sm" (click)="resetKey()">
+                                Reset
+                            </button>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Keyboard Display -->
+    <div class="keyboard-wrapper">
+        <div class="keyboard" 
+             [class.rgb-enabled]="rgbEnabled"
+             [style.--rgb-color]="rgbColor"
+             [style.--rgb-opacity]="rgbOpacity">
+            
+            @for (row of keyboardLayout; track rowIndex; let rowIndex = $index) {
+                <div class="keyboard-row">
+                    @for (key of row; track colIndex; let colIndex = $index) {
+                        <button class="key" 
+                                [ngClass]="{
+                                    'btn-outline-warning': key.state === 'btn-outline-warning',
+                                    'btn-outline-secondary': key.state === 'btn-outline-secondary',
+                                    'key-selected': isKeySelected(rowIndex, colIndex),
+                                    'key-remapped': key.isRemapped,
+                                    'remap-mode': remapMode
+                                }"
+                                [style.flex]="key.width"
+                                (click)="selectKey(rowIndex, colIndex)">
+                            <span class="key-text">{{key.label}}</span>
+                        </button>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

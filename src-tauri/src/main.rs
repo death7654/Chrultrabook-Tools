@@ -314,11 +314,6 @@ fn main() -> Result<(), Box<dyn Error>> {
                 window.hide().unwrap();
             }
 
-            let json = keyboard_remap::read_config();
-            println!("{}\njsonprint", json);
-            let output = keyboard_remap::generate_config_from_json(&json).unwrap();
-
-
             let img = IconMenuItemBuilder::new("Chrultrabook Tools")
                 .id("app")
                 .enabled(false)
