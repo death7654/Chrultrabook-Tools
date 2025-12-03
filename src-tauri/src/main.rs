@@ -285,6 +285,41 @@ fn reset(handle: tauri::AppHandle) {
 
     handle.restart();
 }
+#[tauri::command]
+fn get_remap_json() -> String
+{
+    keyboard_remap::read_config()
+}
+
+#[tauri::command]
+fn set_remap(json: &str) -> bool
+{
+    let created_backup = local_storage("get", "keyboard_backup", " ");
+    if created_backup.len() == 0
+    {
+        let output = keyboard_remap::create_backup();
+        match output
+        {
+            Err(_) => {
+                return false;
+            }
+            _ => {}
+        }
+    }
+
+    let output = keyboard_remap::generate_config_from_json(json);
+    match output
+    {
+        Ok(_) => return true,
+        Err(_) => return false,
+    };
+}
+#[tauri::command]
+fn reset_remap() -> bool
+{
+    return true;
+}
+
 
 fn elevate() -> Result<(), Box<dyn Error>> {
     #[cfg(target_os = "linux")]
@@ -301,8 +336,7 @@ fn elevate() -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 fn main() -> Result<(), Box<dyn Error>> {
-    #[cfg(target_os = "linux")]
-    elevate()?;
+    let _ = elevate()?;
 
     tauri::Builder::default()
         .plugin(tauri_plugin_process::init())
@@ -429,6 +463,9 @@ fn main() -> Result<(), Box<dyn Error>> {
             transfer_fan_curves,
             setzoom,
             reset,
+            get_remap_json,
+            set_remap,
+            reset_remap,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

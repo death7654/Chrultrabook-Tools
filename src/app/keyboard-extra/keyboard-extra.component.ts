@@ -1,6 +1,9 @@
 import { Component } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from '@angular/forms';
+import { invoke } from "@tauri-apps/api/core";
+import { ChangeDetectorRef } from '@angular/core';
+
 
 interface Key {
     label: string;
@@ -19,7 +22,7 @@ interface Key {
     styleUrl: "./keyboard-extra.component.scss"
 })
 export class KeyboardExtraComponent {
-    constructor()
+    constructor(private cdr: ChangeDetectorRef)
     {
         this.updateHexFromRgb();
     }
@@ -42,6 +45,7 @@ export class KeyboardExtraComponent {
     remapMode: boolean = false;
     selectedKeyIndex: { row: number, col: number } | null = null;
     remapInput: string = "";
+    current_remap: any[] = [];
 
     keyboardLayout: Key[][] = [
         // Row 1 - Function keys
@@ -198,8 +202,26 @@ export class KeyboardExtraComponent {
         }
     }
 
+    getRemappedKeys() {
+    if (this.current_remap.length === 0) {
+        // Only fetch if not already loaded
+        invoke("get_remap_json").then((event) => {
+            if (typeof event === 'string') {
+                let output = JSON.parse(event);
+                this.current_remap = output.configs;
+                console.log(this.current_remap);
+                this.cdr.detectChanges();
+            }
+        });
+    }
+    return this.current_remap;
+}
+
+
+
     toggleRemapMode(): void {
         this.remapMode = !this.remapMode;
+        this.getRemappedKeys();
         if (!this.remapMode) {
             this.selectedKeyIndex = null;
             this.remapInput = "";

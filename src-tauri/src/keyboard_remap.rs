@@ -525,7 +525,7 @@ pub fn read_config() -> String {
 }
 
 
-fn create_backup() -> io::Result<()> {
+pub fn create_backup() -> io::Result<()> {
     let backup_dir = Path::new("C:\\Backups");
 
     if !backup_dir.is_dir() {

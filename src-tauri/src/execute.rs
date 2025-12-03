@@ -23,6 +23,11 @@ const GETSYSINFO: &str = "cat";
 #[cfg(windows)]
 const GETSYSINFO: &str = "wmic";
 
+
+// croskbreload
+#[cfg(windows)]
+const KEYBOARD: &str = "C:\\Program Files\\crosec\\croskbreload";
+
 fn execute(app: &tauri::AppHandle, program: &str, arguments: Vec<String>, reply: bool) -> String {
     let shell = app.shell();
     let output = tauri::async_runtime::block_on(async move {
@@ -50,6 +55,7 @@ pub fn execute_relay(
         "ectool" => ECTOOL,
         "cbmem" => CBMEM,
         "wmic" | "cat" => GETSYSINFO,
+        "keyboard" => KEYBOARD,
         _ => "echo",
     };
     execute(&handle, program, arguments, reply).to_string()

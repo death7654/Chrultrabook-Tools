@@ -1,201 +1,285 @@
-<div class="position-relative overflow-y-auto" style="height: 100vh;">
-<div class="container-fluid p-3 keyboard_container">
+<div class="position-relative overflow-y-auto" style="height: 100vh">
+  <div class="container-fluid p-3 keyboard_container">
     <!-- Header -->
     <div class="row align-items-center mb-3">
-        <div class="col">
-            <h4 class="fs-4 fw-heavy mb-0">
-                <img src="../../assets/keyboard/keyboard.svg" class="align-text-middle px-2" alt="Keyboard">
-                Keyboard Configuration
-            </h4>
-        </div>
+      <div class="col">
+        <h4 class="fs-4 fw-heavy mb-0">
+          <img
+            src="../../assets/keyboard/keyboard.svg"
+            class="align-text-middle px-2"
+            alt="Keyboard"
+          />
+          Keyboard Configuration
+        </h4>
+      </div>
     </div>
 
     <!-- Keyboard Display -->
     <div class="row mb-3">
-        <div class="col">
-            <div class="p-3 bg-secondary rounded-3 overflow-auto">
-                <div class="keyboard-display" 
-                     [class.rgb-enabled]="rgbEnabled"
-                     [style.--rgb-color]="rgbColor"
-                     [style.--rgb-opacity]="rgbOpacity">
-                    
-                    @for (row of keyboardLayout; track rowIndex; let rowIndex = $index) {
-                        <div class="d-flex gap-1 mb-1 justify-content-center fw-bolder">
-                            @for (key of row; track colIndex; let colIndex = $index) {
-                                <button class="btn btn-sm key-btn" 
-                                        [ngClass]="{
-                                            'btn-outline-warning': key.state === 'btn-outline-warning',
-                                            'btn-outline-secondary': key.state === 'btn-outline-secondary',
-                                            'key-selected': isKeySelected(rowIndex, colIndex),
-                                            'key-remapped': key.isRemapped,
-                                            'remap-mode': remapMode
-                                        }"
-                                        [style.flex]="key.width"
-                                        (click)="selectKey(rowIndex, colIndex)">
-                                    <span>{{key.label}}</span>
-                                </button>
-                            }
-                        </div>
-                    }
-                </div>
+      <div class="col">
+        <div class="p-3 bg-secondary rounded-3 overflow-auto">
+          <div
+            class="keyboard-display"
+            [class.rgb-enabled]="rgbEnabled"
+            [style.--rgb-color]="rgbColor"
+            [style.--rgb-opacity]="rgbOpacity"
+          >
+            @for (row of keyboardLayout; track rowIndex; let rowIndex = $index)
+            {
+            <div class="d-flex gap-1 mb-1 justify-content-center fw-bolder">
+              @for (key of row; track colIndex; let colIndex = $index) {
+              <button
+                class="btn btn-sm key-btn"
+                [ngClass]="{
+                  'btn-outline-warning': key.state === 'btn-outline-warning',
+                  'btn-outline-secondary':
+                    key.state === 'btn-outline-secondary',
+                  'key-selected': isKeySelected(rowIndex, colIndex),
+                  'key-remapped': key.isRemapped,
+                  'remap-mode': remapMode
+                }"
+                [style.flex]="key.width"
+                (click)="selectKey(rowIndex, colIndex)"
+              >
+                <span>{{ key.label }}</span>
+              </button>
+              }
             </div>
+            }
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- RGB Controls -->
     <div class="row mb-3">
-        <div class="col">
-            <h5 class="fs-3 mb-2">
-                <img src="../../assets/activity_light/activity.svg" class="align-text-middle px-2" alt="RGB">
-                RGB Lighting Control
-            </h5>
-            <div class="p-3 bg-secondary rounded-3">
-                <div class="row g-2 mb-2">
-                    <div class="col-auto">
-                        <div class="form-check">
-                            <input type="checkbox" [(ngModel)]="rgbEnabled" class="form-check-input" id="rgbEnable">
-                            <label class="form-check-label fs-5" for="rgbEnable">Enable RGB</label>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <select [(ngModel)]="rgbMode" class="form-select form-select-sm" [disabled]="!rgbEnabled">
-                            <option value="static">Static</option>
-                            <option value="breathing">Breathing</option>
-                            <option value="wave">Wave</option>
-                            <option value="rainbow">Rainbow</option>
-                            <option value="reactive">Reactive</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="row g-2 mb-2">
-                    <div class="col-12">
-                        <label class="form-label mb-1 fs-4">Brightness: {{brightness}}%</label>
-                        <input type="range" [(ngModel)]="brightness" min="0" max="100" 
-                               class="form-range" [disabled]="!rgbEnabled">
-                    </div>
-                </div>
-                
-                <div class="row g-2 mb-2">
-    <div class="col-12 col-md-4">
-        <label class="form-label mb-1 fs-4">Red: {{rgbRed}}</label>
-        <input type="range" [(ngModel)]="rgbRed" min="0" max="255" 
-               class="form-range" [disabled]="!rgbEnabled || rgbMode === 'rainbow'">
-    </div>
-    <div class="col-12 col-md-4">
-        <label class="form-label mb-1 fs-4">Green: {{rgbGreen}}</label>
-        <input type="range" [(ngModel)]="rgbGreen" min="0" max="255" 
-               class="form-range" [disabled]="!rgbEnabled || rgbMode === 'rainbow'">
-    </div>
-    <div class="col-12 col-md-4">
-        <label class="form-label mb-1 fs-4">Blue: {{rgbBlue}}</label>
-        <input type="range" [(ngModel)]="rgbBlue" min="0" max="255" 
-               class="form-range" [disabled]="!rgbEnabled || rgbMode === 'rainbow'">
-    </div>
-</div>
-<div class="row mb-3">
-    <div class="col-12">
-        <label for="hexInput" class="form-label fs-4">Hex Code:</label>
-        <input type="text" 
-               id="hexInput" 
-               [(ngModel)]="hexCodeInput" 
-               class="form-control" 
-               placeholder="Enter Hex Code"
-               [disabled]="!rgbEnabled || rgbMode === 'rainbow'">
-    </div>
-</div>
-<div class="row">
-    <div class="col">
-        <div class="color-preview rounded-3" 
-             [style.background-color]="rgbColor" 
-             [style.opacity]="rgbEnabled ? rgbOpacity : 0.3">
+      <div class="col">
+        <h5 class="fs-3 mb-2">
+          <img
+            src="../../assets/activity_light/activity.svg"
+            class="align-text-middle px-2"
+            alt="RGB"
+          />
+          RGB Lighting Control
+        </h5>
+        <div class="p-3 bg-secondary rounded-3">
+          <div class="row g-2 mb-2">
+            <div class="col-auto">
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  [(ngModel)]="rgbEnabled"
+                  class="form-check-input"
+                  id="rgbEnable"
+                />
+                <label class="form-check-label fs-5" for="rgbEnable"
+                  >Enable RGB</label
+                >
+              </div>
+            </div>
+            <div class="col">
+              <select
+                [(ngModel)]="rgbMode"
+                class="form-select form-select-sm"
+                [disabled]="!rgbEnabled"
+              >
+                <option value="static">Static</option>
+                <option value="breathing">Breathing</option>
+                <option value="wave">Wave</option>
+                <option value="rainbow">Rainbow</option>
+                <option value="reactive">Reactive</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row g-2 mb-2">
+            <div class="col-12">
+              <label class="form-label mb-1 fs-4"
+                >Brightness: {{ brightness }}%</label
+              >
+              <input
+                type="range"
+                [(ngModel)]="brightness"
+                min="0"
+                max="100"
+                class="form-range"
+                [disabled]="!rgbEnabled"
+              />
+            </div>
+          </div>
+
+          <div class="row g-2 mb-2">
+            <div class="col-12 col-md-4">
+              <label class="form-label mb-1 fs-4">Red: {{ rgbRed }}</label>
+              <input
+                type="range"
+                [(ngModel)]="rgbRed"
+                min="0"
+                max="255"
+                class="form-range"
+                [disabled]="!rgbEnabled || rgbMode === 'rainbow'"
+              />
+            </div>
+            <div class="col-12 col-md-4">
+              <label class="form-label mb-1 fs-4">Green: {{ rgbGreen }}</label>
+              <input
+                type="range"
+                [(ngModel)]="rgbGreen"
+                min="0"
+                max="255"
+                class="form-range"
+                [disabled]="!rgbEnabled || rgbMode === 'rainbow'"
+              />
+            </div>
+            <div class="col-12 col-md-4">
+              <label class="form-label mb-1 fs-4">Blue: {{ rgbBlue }}</label>
+              <input
+                type="range"
+                [(ngModel)]="rgbBlue"
+                min="0"
+                max="255"
+                class="form-range"
+                [disabled]="!rgbEnabled || rgbMode === 'rainbow'"
+              />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-12">
+              <label for="hexInput" class="form-label fs-4">Hex Code:</label>
+              <input
+                type="text"
+                id="hexInput"
+                [(ngModel)]="hexCodeInput"
+                class="form-control"
+                placeholder="Enter Hex Code"
+                [disabled]="!rgbEnabled || rgbMode === 'rainbow'"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div
+                class="color-preview rounded-3"
+                [style.background-color]="rgbColor"
+                [style.opacity]="rgbEnabled ? rgbOpacity : 0.3"
+              ></div>
+            </div>
+          </div>
         </div>
-    </div>
-</div>            </div>
-        </div>
+      </div>
     </div>
 
     <!-- Key Remapping -->
     <div class="row">
-        <div class="col">
-            <h5 class="fs-3 fw-heavy mb-2">
-                <img src="../../assets/keyboard/more.svg" class="align-text-middle px-2" alt="Remap">
-                Key Remapping
-            </h5>
-            <div class="row g-2">
-                <!-- Remap Table -->
-                <div class="col-12 col-lg-6">
-                    <div class="p-3 bg-secondary rounded-3">
-                        <h6 class="fs-5 mb-2">Remapped Keys</h6>
-                        <div class="table-responsive">
-                            <table class="table table-dark table-sm mb-0">
-                                <thead>
-                                    <tr>
-                                        <td>Original</td>
-                                        <td>Combination</td>
-                                        <td>Remapped</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- @for (remap of getRemappedKeys(); track $index) {
-                                        <tr>
-                                            <td>{{remap.original}}</td>
-                                            <td>{{remap.combination || '-'}}</td>
-                                            <td>{{remap.remapped}}</td>
-                                        </tr>
-                                    }
-                                    @if (getRemappedKeys().length === 0) {
-                                        <tr>
-                                            <td colspan="3" class="text-center text-muted">No remapped keys</td>
-                                        </tr>
-                                    } -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Remap Controls -->
-                <div class="col-12 col-lg-6">
-                    <div class="p-3 bg-secondary rounded-3">
-                        <div class="d-flex gap-2 flex-wrap mb-2">
-                            <button class="btn btn-primary btn-sm" (click)="toggleRemapMode()">
-                                {{remapMode ? 'Exit Remap Mode' : 'Enter Remap Mode'}}
-                            </button>
-                            <button class="btn btn-warning btn-sm" (click)="resetAllKeys()" [disabled]="remapMode">
-                                Reset All Keys
-                            </button>
-                            <button class="btn btn-info btn-sm" (click)="exportRemaps()">
-                                Export Remaps
-                            </button>
-                        </div>
-                        
-                        @if (remapMode) {
-                            <div class="alert alert-warning py-2 mb-2">
-                                Click on a key to select it for remapping
-                            </div>
-                            @if (selectedKeyIndex !== null) {
-                                <div class="d-flex gap-2">
-                                    <input type="text" 
-                                           [(ngModel)]="remapInput" 
-                                           class="form-control form-control-sm" 
-                                           placeholder="Enter new key value"
-                                           maxlength="10">
-                                    <button class="btn btn-success btn-sm" 
-                                            (click)="applyRemap()" 
-                                            [disabled]="!remapInput">
-                                        Apply
-                                    </button>
-                                    <button class="btn btn-secondary btn-sm" (click)="resetKey()">
-                                        Reset
-                                    </button>
-                                </div>
-                            }
-                        }
-                    </div>
-                </div>
+      <div class="col">
+        <h5 class="fs-3 fw-heavy mb-2">
+          <img
+            src="../../assets/keyboard/more.svg"
+            class="align-text-middle px-2"
+            alt="Remap"
+          />
+          Key Remapping
+        </h5>
+        <div class="row g-2">
+          <!-- Remap Table -->
+          <div class="col-12 col-lg-6">
+            <div class="p-3 bg-secondary rounded-3">
+              <h6 class="fs-5 mb-2">Remapped Keys</h6>
+              <div class="table-responsive">
+                <table class="table table-dark table-sm mb-0">
+                  <thead>
+                    <tr>
+                      <td>Original</td>
+                      <td>Combination</td>
+                      <td>Remapped</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (config of getRemappedKeys(); track $index) {
+                    <tr>
+                      <td>{{ config.original_key?.make_code_hex || "-" }}</td>
+                      <td>
+                        @if (config.left_ctrl === 'Enforce') { Ctrl + } @if
+                        (config.left_shift === 'Enforce') { Shift + } @if
+                        (config.left_alt === 'Enforce') { Alt + } @if
+                        (config.search === 'Enforce') { Search + } @if
+                        (config.assistant === 'Enforce') { Assistant + } @if
+                        (config.left_ctrl === 'NoDetect' && config.left_shift
+                        === 'NoDetect' && config.left_alt === 'NoDetect' &&
+                        config.search === 'NoDetect' && config.assistant ===
+                        'NoDetect') { - }
+                      </td>
+                      <td>
+                        {{
+                          config.remapped_key?.make_code_hex ||
+                            (config.remap_vivaldi_to_fn ? "Fn" : "-")
+                        }}
+                      </td>
+                    </tr>
+                    } @if (getRemappedKeys().length === 0) {
+                    <tr>
+                      <td colspan="3" class="text-center text-muted">
+                        No remapped keys
+                      </td>
+                    </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
             </div>
+          </div>
+
+          <!-- Remap Controls -->
+          <div class="col-12 col-lg-6">
+            <div class="p-3 bg-secondary rounded-3">
+              <div class="d-flex gap-2 flex-wrap mb-2">
+                <button
+                  class="btn btn-primary btn-sm"
+                  (click)="toggleRemapMode()"
+                >
+                  {{ remapMode ? "Exit Remap Mode" : "Enter Remap Mode" }}
+                </button>
+                <button
+                  class="btn btn-warning btn-sm"
+                  (click)="resetAllKeys()"
+                  [disabled]="remapMode"
+                >
+                  Reset All Keys
+                </button>
+                <button class="btn btn-info btn-sm" (click)="exportRemaps()">
+                  Export Remaps
+                </button>
+              </div>
+
+              @if (remapMode) {
+              <div class="alert alert-warning py-2 mb-2">
+                Click on a key to select it for remapping
+              </div>
+              @if (selectedKeyIndex !== null) {
+              <div class="d-flex gap-2">
+                <input
+                  type="text"
+                  [(ngModel)]="remapInput"
+                  class="form-control form-control-sm"
+                  placeholder="Enter new key value"
+                  maxlength="10"
+                />
+                <button
+                  class="btn btn-success btn-sm"
+                  (click)="applyRemap()"
+                  [disabled]="!remapInput"
+                >
+                  Apply
+                </button>
+                <button class="btn btn-secondary btn-sm" (click)="resetKey()">
+                  Reset
+                </button>
+              </div>
+              } }
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 </div>
