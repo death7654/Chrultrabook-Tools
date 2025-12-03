@@ -19,12 +19,19 @@ interface Key {
     styleUrl: "./keyboard-extra.component.scss"
 })
 export class KeyboardExtraComponent {
+    constructor()
+    {
+        this.updateHexFromRgb();
+    }
+
+
     // RGB Controls
     rgbEnabled: boolean = true;
     brightness: number = 80;
-    rgbRed: number = 255;
-    rgbGreen: number = 100;
-    rgbBlue: number = 255;
+    private _rgbRed: number = 255;
+    private _rgbGreen: number = 100;
+    private _rgbBlue: number = 255;
+    private _hexCodeInput: string = 'FF64FF';
     rgbMode: string = "static";
     
     // Button states
@@ -122,15 +129,10 @@ export class KeyboardExtraComponent {
         // Row 6 - Bottom row
         [
             { label: "Ctrl", originalLabel: "Ctrl", class: "key-text", state: this.default_button_state, width: 1.25, isRemapped: false },
-            { label: "Fn", originalLabel: "Fn", class: "key-text", state: this.default_button_state, width: 1.25, isRemapped: false },
-            { label: "Win", originalLabel: "Win", class: "key-text", state: this.default_button_state, width: 1.25, isRemapped: false },
             { label: "Alt", originalLabel: "Alt", class: "key-text", state: this.default_button_state, width: 1.25, isRemapped: false },
             { label: "Space", originalLabel: "Space", class: "key-text", state: this.default_button_state, width: 6.25, isRemapped: false },
             { label: "Alt", originalLabel: "Alt", class: "key-text", state: this.default_button_state, width: 1.25, isRemapped: false },
             { label: "Ctrl", originalLabel: "Ctrl", class: "key-text", state: this.default_button_state, width: 1.25, isRemapped: false },
-            { label: "◀", originalLabel: "◀", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "▼", originalLabel: "▼", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "▶", originalLabel: "▶", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false }
         ]
     ];
 
@@ -140,6 +142,60 @@ export class KeyboardExtraComponent {
 
     get rgbOpacity(): number {
         return this.brightness / 100;
+    }
+
+    get rgbRed(): number { return this._rgbRed; }
+    set rgbRed(value: number) {
+        this._rgbRed = value;
+        this.updateHexFromRgb();
+    }
+
+    get rgbGreen(): number { return this._rgbGreen; }
+    set rgbGreen(value: number) {
+        this._rgbGreen = value;
+        this.updateHexFromRgb();
+    }
+
+    get rgbBlue(): number { return this._rgbBlue; }
+    set rgbBlue(value: number) {
+        this._rgbBlue = value;
+        this.updateHexFromRgb();
+    }
+
+    get hexCodeInput(): String {return this._hexCodeInput; }
+    set hexCodeInput(value: string)
+    {
+        this._hexCodeInput = value;
+        this.updateRgbFromHex();
+    }
+
+    private updateHexFromRgb(): void {
+        const r = this.rgbRed.toString(16).padStart(2, '0');
+        const g = this.rgbGreen.toString(16).padStart(2, '0');
+        const b = this.rgbBlue.toString(16).padStart(2, '0');
+        // Update the backing field to prevent infinite loop from the setter
+        this._hexCodeInput = `#${r}${g}${b}`.toUpperCase();
+    }
+
+    private updateRgbFromHex(): void {
+        let hex = this._hexCodeInput.startsWith('#') ? this._hexCodeInput.slice(1) : this._hexCodeInput;
+
+        // Ensure the hex code is a valid 6 characters
+        if (hex.length === 6) {
+            try {
+                // Parse the hex string into separate R, G, B components
+                const r = parseInt(hex.substring(0, 2), 16);
+                const g = parseInt(hex.substring(2, 4), 16);
+                const b = parseInt(hex.substring(4, 6), 16);
+
+                // Update the backing fields (not the setters) to avoid infinite loop
+                this._rgbRed = r;
+                this._rgbGreen = g;
+                this._rgbBlue = b;
+            } catch (e) {
+                // Optionally log an error if parsing fails, but generally parseInt handles this gracefully by returning NaN
+            }
+        }
     }
 
     toggleRemapMode(): void {

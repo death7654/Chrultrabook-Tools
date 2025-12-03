@@ -77,32 +77,41 @@
                 </div>
                 
                 <div class="row g-2 mb-2">
-                    <div class="col-12 col-md-4">
-                        <label class="form-label mb-1  fs-4">Red: {{rgbRed}}</label>
-                        <input type="range" [(ngModel)]="rgbRed" min="0" max="255" 
-                               class="form-range" [disabled]="!rgbEnabled || rgbMode === 'rainbow'">
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <label class="form-label mb-1  fs-4">Green: {{rgbGreen}}</label>
-                        <input type="range" [(ngModel)]="rgbGreen" min="0" max="255" 
-                               class="form-range" [disabled]="!rgbEnabled || rgbMode === 'rainbow'">
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <label class="form-label mb-1  fs-4">Blue: {{rgbBlue}}</label>
-                        <input type="range" [(ngModel)]="rgbBlue" min="0" max="255" 
-                               class="form-range" [disabled]="!rgbEnabled || rgbMode === 'rainbow'">
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col">
-                        <div class="color-preview rounded-3" 
-                             [style.background-color]="rgbColor" 
-                             [style.opacity]="rgbEnabled ? rgbOpacity : 0.3">
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="col-12 col-md-4">
+        <label class="form-label mb-1 fs-4">Red: {{rgbRed}}</label>
+        <input type="range" [(ngModel)]="rgbRed" min="0" max="255" 
+               class="form-range" [disabled]="!rgbEnabled || rgbMode === 'rainbow'">
+    </div>
+    <div class="col-12 col-md-4">
+        <label class="form-label mb-1 fs-4">Green: {{rgbGreen}}</label>
+        <input type="range" [(ngModel)]="rgbGreen" min="0" max="255" 
+               class="form-range" [disabled]="!rgbEnabled || rgbMode === 'rainbow'">
+    </div>
+    <div class="col-12 col-md-4">
+        <label class="form-label mb-1 fs-4">Blue: {{rgbBlue}}</label>
+        <input type="range" [(ngModel)]="rgbBlue" min="0" max="255" 
+               class="form-range" [disabled]="!rgbEnabled || rgbMode === 'rainbow'">
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col-12">
+        <label for="hexInput" class="form-label fs-4">Hex Code:</label>
+        <input type="text" 
+               id="hexInput" 
+               [(ngModel)]="hexCodeInput" 
+               class="form-control" 
+               placeholder="Enter Hex Code"
+               [disabled]="!rgbEnabled || rgbMode === 'rainbow'">
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="color-preview rounded-3" 
+             [style.background-color]="rgbColor" 
+             [style.opacity]="rgbEnabled ? rgbOpacity : 0.3">
+        </div>
+    </div>
+</div>            </div>
         </div>
     </div>
 
