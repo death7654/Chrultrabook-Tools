@@ -7,11 +7,8 @@ import { ChangeDetectorRef } from '@angular/core';
 
 interface Key {
     label: string;
-    originalLabel: string;
-    class: string;
     state: string;
     width?: number;
-    isRemapped?: boolean;
 }
 
 interface RemapConfigKey {
@@ -96,101 +93,99 @@ export class KeyboardExtraComponent {
 
     ngOnInit()
     {
-        this.getRemappedKeys();
+        this.getRemappedKeys(false);
     }
 
     keyboardLayout: Key[][] = [
-        // Row 1 - Function keys
-        [
-            { label: "Esc", originalLabel: "Esc", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "F1", originalLabel: "F1", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "F2", originalLabel: "F2", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "F3", originalLabel: "F3", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "F4", originalLabel: "F4", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "F5", originalLabel: "F5", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "F6", originalLabel: "F6", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "F7", originalLabel: "F7", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "F8", originalLabel: "F8", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "F9", originalLabel: "F9", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "F10", originalLabel: "F10", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "F11", originalLabel: "F11", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "F12", originalLabel: "F12", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "Del", originalLabel: "Del", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false }
-        ],
-        // Row 2 - Number row
-        [
-            { label: "`", originalLabel: "`", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "1", originalLabel: "1", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "2", originalLabel: "2", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "3", originalLabel: "3", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "4", originalLabel: "4", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "5", originalLabel: "5", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "6", originalLabel: "6", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "7", originalLabel: "7", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "8", originalLabel: "8", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "9", originalLabel: "9", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "0", originalLabel: "0", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "-", originalLabel: "-", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "=", originalLabel: "=", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "Backspace", originalLabel: "Backspace", class: "key-text", state: this.default_button_state, width: 2, isRemapped: false }
-        ],
-        // Row 3 - QWERTY
-        [
-            { label: "Tab", originalLabel: "Tab", class: "key-text", state: this.default_button_state, width: 1.5, isRemapped: false },
-            { label: "Q", originalLabel: "Q", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "W", originalLabel: "W", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "E", originalLabel: "E", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "R", originalLabel: "R", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "T", originalLabel: "T", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "Y", originalLabel: "Y", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "U", originalLabel: "U", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "I", originalLabel: "I", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "O", originalLabel: "O", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "P", originalLabel: "P", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "[", originalLabel: "[", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "]", originalLabel: "]", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "\\", originalLabel: "\\", class: "key-text", state: this.default_button_state, width: 1.5, isRemapped: false }
-        ],
-        // Row 4 - ASDF
-        [
-            { label: "Caps", originalLabel: "Caps", class: "key-text", state: this.default_button_state, width: 1.75, isRemapped: false },
-            { label: "A", originalLabel: "A", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "S", originalLabel: "S", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "D", originalLabel: "D", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "F", originalLabel: "F", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "G", originalLabel: "G", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "H", originalLabel: "H", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "J", originalLabel: "J", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "K", originalLabel: "K", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "L", originalLabel: "L", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: ";", originalLabel: ";", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "'", originalLabel: "'", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "Enter", originalLabel: "Enter", class: "key-text", state: this.default_button_state, width: 2.25, isRemapped: false }
-        ],
-        // Row 5 - ZXCV
-        [
-            { label: "Shift", originalLabel: "Shift", class: "key-text", state: this.default_button_state, width: 2.25, isRemapped: false },
-            { label: "Z", originalLabel: "Z", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "X", originalLabel: "X", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "C", originalLabel: "C", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "V", originalLabel: "V", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "B", originalLabel: "B", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "N", originalLabel: "N", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "M", originalLabel: "M", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: ",", originalLabel: ",", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: ".", originalLabel: ".", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "/", originalLabel: "/", class: "key-text", state: this.default_button_state, width: 1, isRemapped: false },
-            { label: "Shift", originalLabel: "Shift", class: "key-text", state: this.default_button_state, width: 2.75, isRemapped: false }
-        ],
-        // Row 6 - Bottom row
-        [
-            { label: "Ctrl", originalLabel: "Ctrl", class: "key-text", state: this.default_button_state, width: 1.25, isRemapped: false },
-            { label: "Alt", originalLabel: "Alt", class: "key-text", state: this.default_button_state, width: 1.25, isRemapped: false },
-            { label: "Space", originalLabel: "Space", class: "key-text", state: this.default_button_state, width: 6.25, isRemapped: false },
-            { label: "Alt", originalLabel: "Alt", class: "key-text", state: this.default_button_state, width: 1.25, isRemapped: false },
-            { label: "Ctrl", originalLabel: "Ctrl", class: "key-text", state: this.default_button_state, width: 1.25, isRemapped: false },
-        ]
-    ];
+    // Row 1 - Function keys
+    [
+        { label: "esc", state: this.default_button_state, width: 1 },
+        { label: "\uF12F", state: this.default_button_state, width: 1 },
+        { label: "\uF138", state: this.default_button_state, width: 1 },
+        { label: "\uF116", state: this.default_button_state, width: 1 },
+        { label: "\uF14D", state: this.default_button_state, width: 1 },
+        { label: "\uF6CF", state: this.default_button_state, width: 1 },
+        { label: "\uF1D4", state: this.default_button_state, width: 1 },
+        { label: "\uF1D2", state: this.default_button_state, width: 1 },
+        { label: "\uF60D", state: this.default_button_state, width: 1 },
+        { label: "\uF60B", state: this.default_button_state, width: 1 },
+        { label: "\uF611", state: this.default_button_state, width: 1 },
+        { label: "\uF47B", state: this.default_button_state, width: 1 },
+    ],
+    // Row 2 - Number row
+    [
+        { label: "`", state: this.default_button_state, width: 1 },
+        { label: "1", state: this.default_button_state, width: 1 },
+        { label: "2", state: this.default_button_state, width: 1 },
+        { label: "3", state: this.default_button_state, width: 1 },
+        { label: "4", state: this.default_button_state, width: 1 },
+        { label: "5", state: this.default_button_state, width: 1 },
+        { label: "6", state: this.default_button_state, width: 1 },
+        { label: "7", state: this.default_button_state, width: 1 },
+        { label: "8", state: this.default_button_state, width: 1 },
+        { label: "9", state: this.default_button_state, width: 1 },
+        { label: "0", state: this.default_button_state, width: 1 },
+        { label: "-", state: this.default_button_state, width: 1 },
+        { label: "=", state: this.default_button_state, width: 1 },
+        { label: "backspace", state: this.default_button_state, width: 2 }
+    ],
+    // Row 3 - QWERTY
+    [
+        { label: "tab", state: this.default_button_state, width: 1.5 },
+        { label: "Q", state: this.default_button_state, width: 1 },
+        { label: "W", state: this.default_button_state, width: 1 },
+        { label: "E", state: this.default_button_state, width: 1 },
+        { label: "R", state: this.default_button_state, width: 1 },
+        { label: "T", state: this.default_button_state, width: 1 },
+        { label: "Y", state: this.default_button_state, width: 1 },
+        { label: "U", state: this.default_button_state, width: 1 },
+        { label: "I", state: this.default_button_state, width: 1 },
+        { label: "O", state: this.default_button_state, width: 1 },
+        { label: "P", state: this.default_button_state, width: 1 },
+        { label: "[", state: this.default_button_state, width: 1 },
+        { label: "]", state: this.default_button_state, width: 1 },
+        { label: "\\", state: this.default_button_state, width: 1.5 }
+    ],
+    // Row 4 - ASDF
+    [
+        { label: "\uF52A", state: this.default_button_state, width: 1.75 },
+        { label: "A", state: this.default_button_state, width: 1 },
+        { label: "S", state: this.default_button_state, width: 1 },
+        { label: "D", state: this.default_button_state, width: 1 },
+        { label: "F", state: this.default_button_state, width: 1 },
+        { label: "G", state: this.default_button_state, width: 1 },
+        { label: "H", state: this.default_button_state, width: 1 },
+        { label: "J", state: this.default_button_state, width: 1 },
+        { label: "K", state: this.default_button_state, width: 1 },
+        { label: "L", state: this.default_button_state, width: 1 },
+        { label: ";", state: this.default_button_state, width: 1 },
+        { label: "'", state: this.default_button_state, width: 1 },
+        { label: "Enter", state: this.default_button_state, width: 2.25 }
+    ],
+    // Row 5 - ZXCV
+    [
+        { label: "Shift", state: this.default_button_state, width: 2.25 },
+        { label: "Z", state: this.default_button_state, width: 1 },
+        { label: "X", state: this.default_button_state, width: 1 },
+        { label: "C", state: this.default_button_state, width: 1 },
+        { label: "V", state: this.default_button_state, width: 1 },
+        { label: "B", state: this.default_button_state, width: 1 },
+        { label: "N", state: this.default_button_state, width: 1 },
+        { label: "M", state: this.default_button_state, width: 1 },
+        { label: ",", state: this.default_button_state, width: 1 },
+        { label: ".", state: this.default_button_state, width: 1 },
+        { label: "/", state: this.default_button_state, width: 1 },
+        { label: "Shift", state: this.default_button_state, width: 2.75 }
+    ],
+    // Row 6 - Bottom row
+    [
+        { label: "Ctrl", state: this.default_button_state, width: 1.25 },
+        { label: "Alt", state: this.default_button_state, width: 1.25 },
+        { label: "Space", state: this.default_button_state, width: 6.25 },
+        { label: "Alt", state: this.default_button_state, width: 1.25 },
+        { label: "Ctrl", state: this.default_button_state, width: 1.25 },
+    ]
+];
 
     get rgbColor(): string {
         return `rgb(${this.rgbRed}, ${this.rgbGreen}, ${this.rgbBlue})`;
@@ -254,10 +249,10 @@ export class KeyboardExtraComponent {
         }
     }
 
-    getRemappedKeys() {
+    getRemappedKeys(type: boolean) {
         if (this.current_remap.length === 0) {
             // Only fetch if not already loaded
-            invoke<string>("get_remap_json").then((event) => {
+            invoke<string>("get_remap_json", {hardReset: type}).then((event) => {
                 if (typeof event === 'string') {
                     const parsedConfig: ConfigFileJson = JSON.parse(event);
                     this.fullConfig = parsedConfig;
@@ -270,22 +265,6 @@ export class KeyboardExtraComponent {
             });
         }
         return this.current_remap;
-    }
-
-    toggleTableView(): void {
-        this.showTableView = !this.showTableView;
-        if (this.showTableView) {
-            this.getRemappedKeys();
-        }
-    }
-
-    toggleRemapMode(): void {
-        this.remapMode = !this.remapMode;
-        this.getRemappedKeys();
-        if (!this.remapMode) {
-            this.selectedKeyIndex = null;
-            this.remapInput = "";
-        }
     }
 
     selectKey(rowIndex: number, colIndex: number): void {
@@ -304,33 +283,9 @@ export class KeyboardExtraComponent {
             const key = this.keyboardLayout[this.selectedKeyIndex.row][this.selectedKeyIndex.col];
             key.label = this.remapInput;
             key.state = this.changed_button_state;
-            key.isRemapped = true;
             this.remapInput = "";
             this.selectedKeyIndex = null;
         }
-    }
-
-    resetKey(): void {
-        if (this.selectedKeyIndex) {
-            const key = this.keyboardLayout[this.selectedKeyIndex.row][this.selectedKeyIndex.col];
-            key.label = key.originalLabel;
-            key.state = this.default_button_state;
-            key.isRemapped = false;
-            this.remapInput = "";
-            this.selectedKeyIndex = null;
-        }
-    }
-
-    resetAllKeys(): void {
-        this.keyboardLayout.forEach(row => {
-            row.forEach(key => {
-                key.label = key.originalLabel;
-                key.state = this.default_button_state;
-                key.isRemapped = false;
-            });
-        });
-        this.selectedKeyIndex = null;
-        this.remapInput = "";
     }
 
     // Table editing methods
@@ -358,11 +313,20 @@ export class KeyboardExtraComponent {
         }
     }
 
-    resetAllConfigs(): void {
-        if (confirm('Reset all keys to default?')) {
+    resetToCurrentConfig(): void {
+        if (confirm('Reset all keys to previous save state?')) {
             this.fullConfig = null;
             this.current_remap = [];
-            this.getRemappedKeys();
+            this.getRemappedKeys(false);
+            this.cdr.detectChanges();
+        }
+    }
+
+    resetToOriginalConfig(): void {
+        if (confirm('Reset all keys to original remap state?')) {
+            this.fullConfig = null;
+            this.current_remap = [];
+            this.getRemappedKeys(true);
             this.cdr.detectChanges();
         }
     }

@@ -29,13 +29,11 @@
             <div class="d-flex gap-1 mb-1 justify-content-center fw-bolder">
               @for (key of row; track colIndex; let colIndex = $index) {
               <button
-                class="btn btn-sm key-btn"
+                class="btn btn-sm key-btn key-text"
                 [ngClass]="{
-                  'btn-outline-warning': key.state === 'btn-outline-warning',
                   'btn-outline-secondary':
                     key.state === 'btn-outline-secondary',
                   'key-selected': isKeySelected(rowIndex, colIndex),
-                  'key-remapped': key.isRemapped,
                   'remap-mode': remapMode
                 }"
                 [style.flex]="key.width"
@@ -189,16 +187,22 @@
                 <h3 class="mb-0 text-white fw-normal">Keyboard Remapping</h3>
                 <div class="d-flex gap-2">
                   <button
-                    class="btn btn-outline-warning btn-sm"
-                    (click)="resetAllConfigs()"
+                    class="btn btn-outline-danger btn-sm"
+                    (click)="resetToOriginalConfig()"
                   >
-                    Reset All
+                    Hard Reset
+                  </button>
+                  <button
+                    class="btn btn-outline-warning btn-sm"
+                    (click)="resetToCurrentConfig()"
+                  >
+                    Soft Reset
                   </button>
                   <button
                     class="btn btn-outline-success btn-sm"
                     (click)="exportConfigJSON()"
                   >
-                    Export JSON
+                    Apply Remap
                   </button>
                 </div>
               </div>

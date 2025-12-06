@@ -6,9 +6,11 @@ use std::io;
 
 use serde::{Serialize, Deserialize};
 use serde_json;
+use tauri_plugin_dialog::DialogExt;
 
 // config file location
 const CONFIG_PATH: &str = "C:\\Windows\\System32\\drivers\\croskbsettings.bin";
+const BACKUP_PATH: &str = "C:\\kbremapbackups\\croskbsettings.bin";
 
 // Keycodes and constants
 const K_LCTRL: u16 = 0x1D;
@@ -215,7 +217,7 @@ struct ConfigFileJson {
 
 // config generators
 
-pub fn generate_config_from_json(json_data: &str) -> Result<(), Box<dyn std::error::Error>> {
+pub fn generate_config_from_json(app: tauri::AppHandle, json_data: &str) -> Result<(), Box<dyn std::error::Error>> {
     
     let config_json: ConfigFileJson = serde_json::from_str(&json_data)?;
     
@@ -231,11 +233,11 @@ pub fn generate_config_from_json(json_data: &str) -> Result<(), Box<dyn std::err
     let cfg_size = mem::size_of::<RemapCfg>();
     let total_size = header_size + cfg_size * num_configs;
     
-    println!("Generating binary config:");
-    println!("  Header size: {} bytes", header_size);
-    println!("  Config entry size: {} bytes", cfg_size);
-    println!("  Number of configs: {}", num_configs);
-    println!("  Total size: {} bytes\n", total_size);
+    // println!("Generating binary config:");
+    // println!("  Header size: {} bytes", header_size);
+    // println!("  Config entry size: {} bytes", cfg_size);
+    // println!("  Number of configs: {}", num_configs);
+    // println!("  Total size: {} bytes\n", total_size);
     
     let mut buffer = vec![0u8; total_size];
     
@@ -306,10 +308,17 @@ pub fn generate_config_from_json(json_data: &str) -> Result<(), Box<dyn std::err
         
         cfg_array[i] = cfg;
     }
-    
-    // write to file
-    let mut file = File::create("croskbconfig.bin")?;
-    file.write_all(&buffer)?;
+
+    app.dialog()
+    .file()
+    .set_file_name("croskbsettings.bin")
+    .add_filter("Binary File", &["bin"]) 
+    .save_file(move |file_path| {
+        if let Some(ref _out) = file_path {
+            let file = file_path.unwrap();
+            fs::write(file.to_string(), &buffer).expect("unable to write")        
+        } 
+    });
         
     Ok(())
 }
@@ -322,9 +331,19 @@ fn parse_key_state(state_str: &str) -> i32 {
     }
 }
 
-pub fn read_config() -> String {
+pub fn read_config(hard_reset: bool) -> String {
+
     // read file
-    let data = match fs::read(CONFIG_PATH) {
+    let path: &str;
+    if !hard_reset
+    {
+        path = CONFIG_PATH;
+    }
+    else
+    {
+        path = BACKUP_PATH;
+    }
+    let data = match fs::read(path) {
         Ok(d) => d,
         Err(e) => {
             println!("Error reading file: {}", e);
@@ -351,16 +370,16 @@ pub fn read_config() -> String {
         return String::new();
     }
 
-    println!("Valid CrosKB settings file");
-    println!("  Magic: '{}' (0x{:08X})", magic_str, magic_u32);
+    // println!("Valid CrosKB settings file");
+    // println!("  Magic: '{}' (0x{:08X})", magic_str, magic_u32);
 
     // Read remappings (0x0004-0x0007)
     let remappings = bytes_to_u32(&data[4..8]).unwrap();
-    println!("  Number of remappings: {}", remappings);
+    // println!("  Number of remappings: {}", remappings);
 
     // Read flip_search_assistant (0x0008)
     let flip_search_assistant = data[8] != 0;
-    println!("  Flip search and assistant: {}", flip_search_assistant);
+    // println!("  Flip search and assistant: {}", flip_search_assistant);
 
     // Read has_assistant_key (0x0009-0x000C)
     let has_assistant_key = bytes_to_i32(&data[0x0009..0x000D]).unwrap();
@@ -370,7 +389,7 @@ pub fn read_config() -> String {
         2 => "Disable",
         _ => "Unknown",
     };
-    println!("  Has assistant key: {} ({})", has_assistant_key, has_assistant_str);
+    // println!("  Has assistant key: {} ({})", has_assistant_key, has_assistant_str);
 
     // Read is_non_chrome_ec (0x000D-0x0010)
     let is_non_chrome_ec = bytes_to_i32(&data[0x000D..0x0011]).unwrap();
@@ -380,9 +399,9 @@ pub fn read_config() -> String {
         2 => "Disable",
         _ => "Unknown",
     };
-    println!("  Is non-Chrome EC: {} ({})", is_non_chrome_ec, is_non_chrome_ec_str);
+    // println!("  Is non-Chrome EC: {} ({})", is_non_chrome_ec, is_non_chrome_ec_str);
 
-    println!("\nConfiguration Entries\n");
+    // println!("\nConfiguration Entries\n");
 
     let expected_size = 17 + (remappings as usize * 73);
     if data.len() < expected_size {
@@ -458,8 +477,8 @@ pub fn read_config() -> String {
         };
 
         // Print config entry
-        println!("Config Entry {}:", i);
-        println!("  File offset: 0x{:04X}", offset);
+        // println!("Config Entry {}:", i);
+        // println!("  File offset: 0x{:04X}", offset);
         
         // Print modifiers if not NoDetect (0)
         let mut modifiers = Vec::new();
@@ -476,23 +495,23 @@ pub fn read_config() -> String {
             println!("  Modifiers: {}", modifiers.join(", "));
         }
 
-        println!("  Original key: 0x{:02X} (flags: {})", orig_make_code, format_flags(orig_flags));
+        // println!("  Original key: 0x{:02X} (flags: {})", orig_make_code, format_flags(orig_flags));
         
-        if remap_vivaldi {
-            println!("  Remap to: Vivaldi -> Function key");
-        } else if remap_make_code != 0 || remap_flags != 0 {
-            println!("  Remap to: 0x{:02X} (flags: {})", remap_make_code, format_flags(remap_flags));
-        }
+        // if remap_vivaldi {
+        //     println!("  Remap to: Vivaldi -> Function key");
+        // } else if remap_make_code != 0 || remap_flags != 0 {
+        //     println!("  Remap to: 0x{:02X} (flags: {})", remap_make_code, format_flags(remap_flags));
+        // }
 
-        if !additional_keys_vec.is_empty() {
-            println!("  Additional keys:");
-            for (idx, key) in additional_keys_vec.iter().enumerate() {
-                println!("    [{}] 0x{:02X} (flags: {})", idx, key.make_code, 
-                         if key.flags_decoded.is_empty() { "NONE".to_string() } else { key.flags_decoded.join("|") });
-            }
-        }
+        // if !additional_keys_vec.is_empty() {
+        //     println!("  Additional keys:");
+        //     for (idx, key) in additional_keys_vec.iter().enumerate() {
+        //         println!("    [{}] 0x{:02X} (flags: {})", idx, key.make_code, 
+        //                  if key.flags_decoded.is_empty() { "NONE".to_string() } else { key.flags_decoded.join("|") });
+        //     }
+        // }
 
-        println!();
+        // println!();
         
         configs.push(config_entry);
     }
@@ -526,27 +545,17 @@ pub fn read_config() -> String {
 
 
 pub fn create_backup() -> io::Result<()> {
-    let backup_dir = Path::new("C:\\Backups");
+    let backup_dir = Path::new("C:\\kbremapbackups");
 
     if !backup_dir.is_dir() {
         fs::create_dir_all(backup_dir)?;
     }
 
-    fs::copy(CONFIG_PATH, backup_dir.join("croskbconfig.bin"))?;
+    fs::copy(CONFIG_PATH, backup_dir.join("croskbsettings.bin"))?;
 
     Ok(())
 }
 
-fn restore_backup() -> io::Result<bool> {
-    let backup_dir = Path::new("C:\\Backups");
-
-    if backup_dir.is_dir() {
-        fs::copy(backup_dir.join("croskbconfig.bin"), CONFIG_PATH)?;
-        Ok(true)
-    } else {
-        Ok(false)
-    }
-}
 
 //helper 
 fn bytes_to_u32(bytes: &[u8]) -> Option<u32> {

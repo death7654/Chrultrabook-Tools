@@ -20,7 +20,6 @@ use tauri::tray::TrayIconBuilder;
 use tauri::{AppHandle, Emitter, EventTarget, Manager};
 use tauri_plugin_autostart::{MacosLauncher, ManagerExt};
 use tauri_plugin_clipboard_manager::ClipboardExt;
-use serde::Deserialize;
 
 
 #[cfg(target_os = "linux")]
@@ -288,14 +287,14 @@ fn reset(handle: tauri::AppHandle) {
     handle.restart();
 }
 #[tauri::command]
-fn get_remap_json() -> String
+fn get_remap_json(hard_reset: bool) -> String
 {
-    keyboard_remap::read_config()
+    keyboard_remap::read_config(hard_reset)
 }
 
 
 #[tauri::command]
-fn set_remap(params: String) -> bool
+fn set_remap(handle: tauri::AppHandle, params: String) -> bool
 {
     let created_backup = local_storage("get", "keyboard_backup", " ");
     if created_backup.len() == 0
@@ -311,14 +310,23 @@ fn set_remap(params: String) -> bool
         }
     }
 
-    println!("Generating Config");
 
-    let output = keyboard_remap::generate_config_from_json(&params);
+    let output = keyboard_remap::generate_config_from_json(handle, &params);
     match output
     {
         Ok(_) => return true,
-        Err(e) => println!("Error {}", e),
+        Err(e) => {
+            println!("Error {}", e);
+            return false;
+        },
     };
+
+    execute::execute_relay(
+        handle,
+        "keyboard",
+        Vec::new(),
+        false,
+    );
 
     return false;
 }
