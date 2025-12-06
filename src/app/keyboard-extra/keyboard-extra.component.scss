@@ -9,12 +9,6 @@
     font-size: 0.8rem;
 }
 
-.key-btn.key-selected {
-    background: #daa520;
-    border-color: #daa520;
-    color: #fff;
-}
-
 .key-btn.key-remapped::after {
     content: '';
     position: absolute;

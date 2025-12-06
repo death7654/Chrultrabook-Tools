@@ -20,6 +20,8 @@ use tauri::tray::TrayIconBuilder;
 use tauri::{AppHandle, Emitter, EventTarget, Manager};
 use tauri_plugin_autostart::{MacosLauncher, ManagerExt};
 use tauri_plugin_clipboard_manager::ClipboardExt;
+use serde::Deserialize;
+
 
 #[cfg(target_os = "linux")]
 use std::process::Command;
@@ -291,8 +293,9 @@ fn get_remap_json() -> String
     keyboard_remap::read_config()
 }
 
+
 #[tauri::command]
-fn set_remap(json: &str) -> bool
+fn set_remap(params: String) -> bool
 {
     let created_backup = local_storage("get", "keyboard_backup", " ");
     if created_backup.len() == 0
@@ -300,19 +303,24 @@ fn set_remap(json: &str) -> bool
         let output = keyboard_remap::create_backup();
         match output
         {
-            Err(_) => {
+            Err(e) => {
+                println!("Error: {}",e);
                 return false;
             }
             _ => {}
         }
     }
 
-    let output = keyboard_remap::generate_config_from_json(json);
+    println!("Generating Config");
+
+    let output = keyboard_remap::generate_config_from_json(&params);
     match output
     {
         Ok(_) => return true,
-        Err(_) => return false,
+        Err(e) => println!("Error {}", e),
     };
+
+    return false;
 }
 #[tauri::command]
 fn reset_remap() -> bool

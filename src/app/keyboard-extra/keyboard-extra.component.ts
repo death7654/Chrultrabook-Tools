@@ -14,6 +14,42 @@ interface Key {
     isRemapped?: boolean;
 }
 
+interface RemapConfigKey {
+    make_code: number;
+    make_code_hex: string;
+    flags: number;
+    flags_decoded?: string[];
+}
+
+interface RemapConfig {
+    index: number;
+    left_ctrl: string;
+    left_alt: string;
+    search: string;
+    assistant: string;
+    left_shift: string;
+    right_ctrl: string;
+    right_alt: string;
+    right_shift: string;
+    original_key: RemapConfigKey;
+    remap_vivaldi_to_fn: boolean;
+    remapped_key?: RemapConfigKey | null;
+    additional_keys?: RemapConfigKey[];
+}
+
+interface ConfigFileJson {
+    magic: string;
+    magic_hex: string;
+    valid: boolean;
+    remappings: number;
+    flip_search_and_assistant_on_pixelbook: boolean;
+    has_assistant_key: string;
+    is_non_chrome_ec: string;
+    file_size_bytes: number;
+    expected_size_bytes: number;
+    configs: RemapConfig[];
+}
+
 @Component({
     selector: "app-keyboard-extra",
     standalone: true,
@@ -26,7 +62,6 @@ export class KeyboardExtraComponent {
     {
         this.updateHexFromRgb();
     }
-
 
     // RGB Controls
     rgbEnabled: boolean = true;
@@ -45,7 +80,24 @@ export class KeyboardExtraComponent {
     remapMode: boolean = false;
     selectedKeyIndex: { row: number, col: number } | null = null;
     remapInput: string = "";
-    current_remap: any[] = [];
+    current_remap: RemapConfig[] = [];
+    fullConfig: ConfigFileJson | null = null;
+
+    // Table view state
+    showTableView: boolean = true;
+    editingCell: { rowIndex: number, field: string } | null = null;
+
+    // Valid options from Rust code
+    keyStateOptions = ["NoDetect", "Enforce", "EnforceNot"];
+    modifierFields = [
+        'left_ctrl', 'left_alt', 'search', 'assistant',
+        'left_shift', 'right_ctrl', 'right_alt', 'right_shift'
+    ];
+
+    ngOnInit()
+    {
+        this.getRemappedKeys();
+    }
 
     keyboardLayout: Key[][] = [
         // Row 1 - Function keys
@@ -166,7 +218,7 @@ export class KeyboardExtraComponent {
         this.updateHexFromRgb();
     }
 
-    get hexCodeInput(): String {return this._hexCodeInput; }
+    get hexCodeInput(): string {return this._hexCodeInput; }
     set hexCodeInput(value: string)
     {
         this._hexCodeInput = value;
@@ -203,21 +255,29 @@ export class KeyboardExtraComponent {
     }
 
     getRemappedKeys() {
-    if (this.current_remap.length === 0) {
-        // Only fetch if not already loaded
-        invoke("get_remap_json").then((event) => {
-            if (typeof event === 'string') {
-                let output = JSON.parse(event);
-                this.current_remap = output.configs;
-                console.log(this.current_remap);
-                this.cdr.detectChanges();
-            }
-        });
+        if (this.current_remap.length === 0) {
+            // Only fetch if not already loaded
+            invoke<string>("get_remap_json").then((event) => {
+                if (typeof event === 'string') {
+                    const parsedConfig: ConfigFileJson = JSON.parse(event);
+                    this.fullConfig = parsedConfig;
+                    this.current_remap = parsedConfig.configs;
+                    console.log('Loaded config:', this.current_remap);
+                    this.cdr.detectChanges();
+                }
+            }).catch(error => {
+                console.error('Failed to load config:', error);
+            });
+        }
+        return this.current_remap;
     }
-    return this.current_remap;
-}
 
-
+    toggleTableView(): void {
+        this.showTableView = !this.showTableView;
+        if (this.showTableView) {
+            this.getRemappedKeys();
+        }
+    }
 
     toggleRemapMode(): void {
         this.remapMode = !this.remapMode;
@@ -273,19 +333,63 @@ export class KeyboardExtraComponent {
         this.remapInput = "";
     }
 
-    exportRemaps(): void {
-        const remaps = this.keyboardLayout
-            .flatMap((row, rowIndex) => 
-                row.map((key, colIndex) => ({
-                    position: `${rowIndex}-${colIndex}`,
-                    original: key.originalLabel,
-                    remapped: key.label,
-                    isRemapped: key.isRemapped
-                }))
-            )
-            .filter(k => k.isRemapped);
+    // Table editing methods
+    startEditCell(rowIndex: number, field: string): void {
+        this.editingCell = { rowIndex, field };
+    }
+
+    cancelEditCell(): void {
+        this.editingCell = null;
+    }
+
+    isEditingCell(rowIndex: number, field: string): boolean {
+        return this.editingCell?.rowIndex === rowIndex && this.editingCell?.field === field;
+    }
+
+    updateConfigField(rowIndex: number, field: string, value: string): void {
+        if (rowIndex < this.current_remap.length) {
+            if (field === 'remap_vivaldi_to_fn') {
+                this.current_remap[rowIndex][field] = value === 'true';
+            } else {
+                (this.current_remap[rowIndex] as any)[field] = value;
+            }
+            this.editingCell = null;
+            this.cdr.detectChanges();
+        }
+    }
+
+    resetAllConfigs(): void {
+        if (confirm('Reset all keys to default?')) {
+            this.fullConfig = null;
+            this.current_remap = [];
+            this.getRemappedKeys();
+            this.cdr.detectChanges();
+        }
+    }
+
+    exportConfigJSON(): void {
+        if (!this.fullConfig) {
+            console.error('No config loaded');
+            return;
+        }
+
+        const updatedConfig: ConfigFileJson = {
+            ...this.fullConfig,
+            remappings: this.current_remap.length,
+            configs: this.current_remap
+        };
+
+        const jsonString = JSON.stringify(updatedConfig);
         
-        console.log('Keyboard Remaps:', remaps);
-        alert(`Exported ${remaps.length} remapped keys to console`);
+        console.log('Exporting config with', this.current_remap.length, 'entries');
+
+        invoke<boolean>('set_remap', { params: jsonString })
+    }
+
+    getCellClass(value: any): any {
+        if (value === 'NoDetect') return 'text-white';
+        if (value === 'Enforce') return 'text-success fw-semibold';
+        if (value === 'EnforceNot') return 'text-danger fw-semibold';
+        return 'text-white fw-bold';
     }
 }

@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="row align-items-center mb-3">
       <div class="col">
-        <h4 class="fs-4 fw-heavy mb-0">
+        <h4 class="fs-4 mb-0">
           <img
             src="../../assets/keyboard/keyboard.svg"
             class="align-text-middle px-2"
@@ -172,7 +172,7 @@
     <!-- Key Remapping -->
     <div class="row">
       <div class="col">
-        <h5 class="fs-3 fw-heavy mb-2">
+        <h5 class="fs-3 mb-2">
           <img
             src="../../assets/keyboard/more.svg"
             class="align-text-middle px-2"
@@ -180,46 +180,184 @@
           />
           Key Remapping
         </h5>
-        <div class="row g-2">
-          <!-- Remap Table -->
-          <div class="col-12 col-lg-6">
-            <div class="p-3 bg-secondary rounded-3">
-              <h6 class="fs-5 mb-2">Remapped Keys</h6>
+        <!-- Configuration Table View -->
+        @if (showTableView) {
+        <div class="col-12" data-bs-theme="dark">
+          <div class="card border-0 shadow-sm">
+            <div class="card-header bg-transparent border-0 pt-3">
+              <div class="d-flex justify-content-between align-items-center">
+                <h3 class="mb-0 text-white fw-normal">Keyboard Remapping</h3>
+                <div class="d-flex gap-2">
+                  <button
+                    class="btn btn-outline-warning btn-sm"
+                    (click)="resetAllConfigs()"
+                  >
+                    Reset All
+                  </button>
+                  <button
+                    class="btn btn-outline-success btn-sm"
+                    (click)="exportConfigJSON()"
+                  >
+                    Export JSON
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-0">
               <div class="table-responsive">
-                <table class="table table-dark table-sm mb-0">
-                  <thead>
+                <!-- Legend -->
+              <div class="card-footer bg-transparent border-0 pb-3" data-bs-theme="dark">
+                <div class="row align-items-center">
+                  <div class="col-12 text-center">
+                    <span class="me-4 text-white">
+                      <span class="fw-normal">NoDetect</span> <small class="text-white"> - No detection</small>
+                    </span>
+
+                    <span class="me-4 text-white">
+                      <span class="fw-normal">Enforce</span> <small class="text-white"> - Must be pressed</small>
+                    </span>
+
+                    <span class="me-4 text-white">
+                      <span class="fw-normal">EnforceNot</span> <small class="text-white"> - Must not be pressed</small>
+                    </span>
+                    <br>
+                    <br>
+                    <span class="text-white fst-italic opacity-75">
+                      Click any cell to edit
+                    </span>
+                  </div>
+                </div>
+              </div>
+                <table class="table table-hover text-white table-sm mb-0" data-bs-theme="dark">
+                  <thead class="sticky-top" style="background: rgba(33, 37, 41, 0.95);">
                     <tr>
-                      <td>Original</td>
-                      <td>Combination</td>
-                      <td>Remapped</td>
+                      <th class="text-center fw-normal py-3">Index</th>
+                      <th class="text-center fw-normal py-3">Original Key</th>
+                      <th class="text-center fw-normal py-3">Left Ctrl</th>
+                      <th class="text-center fw-normal py-3">Left Alt</th>
+                      <th class="text-center fw-normal py-3">Search</th>
+                      <th class="text-center fw-normal py-3">Assistant</th>
+                      <th class="text-center fw-normal py-3">Left Shift</th>
+                      <th class="text-center fw-normal py-3">Right Ctrl</th>
+                      <th class="text-center fw-normal py-3">Right Alt</th>
+                      <th class="text-center fw-normal py-3">Right Shift</th>
+                      <th class="text-center fw-normal py-3">Vivaldi→Fn</th>
                     </tr>
                   </thead>
                   <tbody>
-                    @for (config of getRemappedKeys(); track $index) {
-                    <tr>
-                      <td>{{ config.original_key?.make_code_hex || "-" }}</td>
-                      <td>
-                        @if (config.left_ctrl === 'Enforce') { Ctrl + } @if
-                        (config.left_shift === 'Enforce') { Shift + } @if
-                        (config.left_alt === 'Enforce') { Alt + } @if
-                        (config.search === 'Enforce') { Search + } @if
-                        (config.assistant === 'Enforce') { Assistant + } @if
-                        (config.left_ctrl === 'NoDetect' && config.left_shift
-                        === 'NoDetect' && config.left_alt === 'NoDetect' &&
-                        config.search === 'NoDetect' && config.assistant ===
-                        'NoDetect') { - }
+                    @for (config of current_remap; track config.index) {
+                    <tr class="border-bottom border-secondary">
+                      <!-- Index -->
+                      <td class="text-center align-middle py-3" data-bs-theme="dark">
+                        <span class="fw-normal">{{
+                          config.index
+                        }}</span>
                       </td>
-                      <td>
-                        {{
-                          config.remapped_key?.make_code_hex ||
-                            (config.remap_vivaldi_to_fn ? "Fn" : "-")
-                        }}
+
+                      <!-- Original Key -->
+                      <td class="text-center align-middle py-3" data-bs-theme="dark">
+                        <span class="text-white fw-normal">{{
+                          config.original_key.make_code_hex
+                        }}</span>
                       </td>
-                    </tr>
-                    } @if (getRemappedKeys().length === 0) {
-                    <tr>
-                      <td colspan="3" class="text-center text-muted">
-                        No remapped keys
+
+                      <!-- Modifier Fields -->
+                      @for (field of modifierFields; track field) {
+                      <td class="text-center align-middle p-2" data-bs-theme="dark">
+                        @if (isEditingCell(config.index, field)) {
+                        <div class="d-flex gap-1 align-items-center justify-content-center">
+                          <select
+                            class="form-select form-select-sm border-secondary"
+                            [value]="$any(config)[field]"
+                            (change)="
+                              updateConfigField(
+                                config.index,
+                                field,
+                                $any($event.target).value
+                              )
+                            "
+                            style="min-width: 120px"
+                          >
+                            @for (option of keyStateOptions; track option) {
+                            <option [value]="option">{{ option }}</option>
+                            }
+                          </select>
+                          <button
+                            class="btn btn-sm btn-outline-secondary"
+                            (click)="cancelEditCell()"
+                            type="button"
+                          >
+                            ✕
+                          </button>
+                        </div>
+                        } @else {
+                        <div
+                          class="d-flex justify-content-between align-items-center px-2 py-1 rounded"
+                          (click)="startEditCell(config.index, field)"
+                          style="cursor: pointer; transition: all 0.2s;"
+                          onmouseover="this.style.backgroundColor='rgba(255,255,255,0.05)'"
+                          onmouseout="this.style.backgroundColor='transparent'"
+                        >
+                          <span [class]="getCellClass($any(config)[field])" class="fw-normal">
+                            {{ $any(config)[field] }}
+                          </span>
+                          <small class="text-white opacity-75">✎</small>
+                        </div>
+                        }
+                      </td>
+                      }
+
+                      <!-- Remap Vivaldi to Fn -->
+                      <td class="text-center align-middle p-2" data-bs-theme="dark">
+                        @if (isEditingCell(config.index,
+                        'remap_vivaldi_to_fn')) {
+                        <div class="d-flex gap-1 align-items-center justify-content-center">
+                          <select
+                            class="form-select form-select-sm border-secondary"
+                            [value]="config.remap_vivaldi_to_fn"
+                            (change)="
+                              updateConfigField(
+                                config.index,
+                                'remap_vivaldi_to_fn',
+                                $any($event.target).value
+                              )
+                            "
+                            style="min-width: 80px"
+                          >
+                            <option value="true">True</option>
+                            <option value="false">False</option>
+                          </select>
+                          <button
+                            class="btn btn-sm btn-outline-secondary"
+                            (click)="cancelEditCell()"
+                            type="button"
+                          >
+                            ✕
+                          </button>
+                        </div>
+                        } @else {
+                        <div
+                          class="d-flex justify-content-between align-items-center px-2 py-1 rounded"
+                          (click)="
+                            startEditCell(config.index, 'remap_vivaldi_to_fn')
+                          "
+                          style="cursor: pointer; transition: all 0.2s;"
+                          onmouseover="this.style.backgroundColor='rgba(255,255,255,0.05)'"
+                          onmouseout="this.style.backgroundColor='transparent'"
+                        >
+                          <span
+                            [class]="
+                              config.remap_vivaldi_to_fn
+                                ? 'text-success fw-semibold'
+                                : 'text-danger fw-semibold'
+                            "
+                            class="fw-normal"
+                          >
+                            {{ config.remap_vivaldi_to_fn }}
+                          </span>
+                          <small class="text-white">✎</small>
+                        </div>
+                        }
                       </td>
                     </tr>
                     }
@@ -228,57 +366,8 @@
               </div>
             </div>
           </div>
-
-          <!-- Remap Controls -->
-          <div class="col-12 col-lg-6">
-            <div class="p-3 bg-secondary rounded-3">
-              <div class="d-flex gap-2 flex-wrap mb-2">
-                <button
-                  class="btn btn-primary btn-sm"
-                  (click)="toggleRemapMode()"
-                >
-                  {{ remapMode ? "Exit Remap Mode" : "Enter Remap Mode" }}
-                </button>
-                <button
-                  class="btn btn-warning btn-sm"
-                  (click)="resetAllKeys()"
-                  [disabled]="remapMode"
-                >
-                  Reset All Keys
-                </button>
-                <button class="btn btn-info btn-sm" (click)="exportRemaps()">
-                  Export Remaps
-                </button>
-              </div>
-
-              @if (remapMode) {
-              <div class="alert alert-warning py-2 mb-2">
-                Click on a key to select it for remapping
-              </div>
-              @if (selectedKeyIndex !== null) {
-              <div class="d-flex gap-2">
-                <input
-                  type="text"
-                  [(ngModel)]="remapInput"
-                  class="form-control form-control-sm"
-                  placeholder="Enter new key value"
-                  maxlength="10"
-                />
-                <button
-                  class="btn btn-success btn-sm"
-                  (click)="applyRemap()"
-                  [disabled]="!remapInput"
-                >
-                  Apply
-                </button>
-                <button class="btn btn-secondary btn-sm" (click)="resetKey()">
-                  Reset
-                </button>
-              </div>
-              } }
-            </div>
-          </div>
         </div>
+        }
       </div>
     </div>
   </div>
