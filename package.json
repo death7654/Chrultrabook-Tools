@@ -13,7 +13,7 @@
   "dependencies": {
     "@angular-devkit/schematics": "^21.1.0",
     "@angular-eslint/eslint-plugin": "^21.1.0",
-    "@angular/common": "^21.1.0",
+    "@angular/common": "^21.1.1",
     "@angular/compiler": "^21.1.0",
     "@angular/core": "^21.1.0",
     "@angular/forms": "^21.1.0",
