@@ -1868,12 +1868,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "ct-codecs"
-version = "1.1.6"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9b10589d1a5e400d61f9f38f12f884cfd080ff345de8f17efda36fe0e4a02aa8"
-
-[[package]]
 name = "ctor"
 version = "0.2.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4934,12 +4928,11 @@ checksum = "68354c5c6bd36d73ff3feceb05efa59b6acb7626617f4962be322a825e61f79a"
 
 [[package]]
 name = "minisign"
-version = "0.8.0"
+version = "0.7.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e6bf96cef396a17a96f7600281aa4da9229860b7a082601b1f6db6eaa5f99ee5"
+checksum = "b23ef13ff1d745b1e52397daaa247e333c607f3cff96d4df2b798dc252db974b"
 dependencies = [
- "ct-codecs",
- "getrandom 0.3.4",
+ "getrandom 0.2.17",
  "rpassword",
  "scrypt",
 ]
@@ -8906,9 +8899,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-bundler"
-version = "2.8.0"
+version = "2.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d41776289930803eacbad1479245dc118a7f32a3f2e877bfa00e0b7c1c3b4c05"
+checksum = "f0406e4f78c2caa61e312c2f98d4f9e97f11d0e3de55ced8f10cb3e34517c249"
 dependencies = [
  "anyhow",
  "ar",
@@ -8953,9 +8946,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-cli"
-version = "2.10.0"
+version = "2.10.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "23de4baf24f87e1e98a9c157516ea4e8965371f36880396b58ed97ffd75b4300"
+checksum = "d37e54bc0222f624a258525edcd047a716e0c9b19ac12ff2371c05d382d92c47"
 dependencies = [
  "ar",
  "axum",
@@ -9294,9 +9287,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-utils"
-version = "2.8.2"
+version = "2.8.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fcd169fccdff05eff2c1033210b9b94acd07a47e6fa9a3431cf09cfd4f01c87e"
+checksum = "219a1f983a2af3653f75b5747f76733b0da7ff03069c7a41901a5eb3ace4557d"
 dependencies = [
  "aes-gcm",
  "anyhow",
