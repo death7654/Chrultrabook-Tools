@@ -23,7 +23,7 @@ tauri-plugin-fs = "2.4.4"
 web-local-storage-api = "0.0.0"
 hidapi = "2.6.4"
 open = "5.3.3"
-cargo-edit = "0.13.8"
+cargo-edit = "0.13.9"
 tauri-plugin-process = "2"
 
 [target.'cfg(target_os = "linux")'.dependencies]
