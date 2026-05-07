@@ -41,7 +41,7 @@
 
 ### Fedora and Derivatives
 
-Add the Terra repository (if using Ultramarine Linux, Terra is pre-installed).  
+Add the Terra repository (if using Ultramarine Linux or Nobara, Terra is pre-installed).  
 Instructions can be found [here](https://github.com/terrapkg/packages/blob/frawhide/README.md)
 
 Install Chrultrabook-Tools:
