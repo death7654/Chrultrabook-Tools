@@ -111,7 +111,7 @@ jobs:
             src-tauri/target/release/bundle/dmg/*.dmg
 
       - name: Upload Artifacts to GitHub Draft Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           name: "draft_release"
           tag_name: v__VERSION__
