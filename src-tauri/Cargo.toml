@@ -22,7 +22,7 @@ tauri-plugin-dialog = "2.7.1"
 tauri-plugin-fs = "2.5.1"
 web-local-storage-api = "0.0.0"
 hidapi = "2.6.5"
-open = "5.3.4"
+open = "5.3.5"
 cargo-edit = "0.13.10"
 tauri-plugin-process = "2"
 
