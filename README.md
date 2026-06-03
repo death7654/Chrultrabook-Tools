@@ -99,6 +99,8 @@ After install reboot your chromebook
 
 
 ### Build from Source
+1. Install tauri [prerequisites](https://v2.tauri.app/start/prerequisites/)
+2. Run the following commands
 ```
 git clone https://github.com/death7654/Chrultrabook-Tools.git
 cd Chrultrabook-Tools
