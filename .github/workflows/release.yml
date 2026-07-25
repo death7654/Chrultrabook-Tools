@@ -23,16 +23,16 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: lts/*
           cache: "npm"
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
       - name: Set up Github Cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             ~/.cargo/bin/
@@ -64,7 +64,7 @@ jobs:
             cp README.md $GITHUB_WORKSPACE/src-tauri/build
             
       - name: Build Application
-        uses: tauri-apps/tauri-action@v0
+        uses: tauri-apps/tauri-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Build Arch Linux Package
