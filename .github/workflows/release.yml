@@ -64,7 +64,7 @@ jobs:
             cp README.md $GITHUB_WORKSPACE/src-tauri/build
             
       - name: Build Application
-        uses: tauri-apps/tauri-action@v0
+        uses: tauri-apps/tauri-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Build Arch Linux Package
