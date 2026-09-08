@@ -241,10 +241,10 @@ fn boardname(handle: tauri::AppHandle) -> String {
     #[cfg(windows)]
     {
         let hklm = RegKey::predef(HKEY_LOCAL_MACHINE);
-    
-    hklm.open_subkey("HARDWARE\\DESCRIPTION\\System\\BIOS")
-        .and_then(|bios_key| bios_key.get_value::<String, _>("BaseBoardProduct"))
-        .unwrap_or_else(|_| String::from("Unknown"))
+
+        hklm.open_subkey("HARDWARE\\DESCRIPTION\\System\\BIOS")
+            .and_then(|bios_key| bios_key.get_value::<String, _>("BaseBoardProduct"))
+            .unwrap_or_else(|_| String::from("Unknown"))
     }
     #[cfg(target_os = "linux")]
     {
