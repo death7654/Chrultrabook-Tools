@@ -21,7 +21,7 @@ const CBMEM: &str = "echo";
 #[cfg(any(target_os = "linux", target_os = "macos"))]
 const GETSYSINFO: &str = "cat";
 #[cfg(windows)]
-const GETSYSINFO: &str = "wmic";
+const GETSYSINFO: &str = "echo";
 
 // croskbreload
 const KEYBOARD: &str = "C:\\Program Files\\crosec\\croskbreload";
@@ -64,7 +64,7 @@ pub fn execute_relay(
     let program = match wanted_program {
         "ectool" => ECTOOL,
         "cbmem" => CBMEM,
-        "wmic" | "cat" => GETSYSINFO,
+        "cat" => GETSYSINFO,
         "keyboard" => KEYBOARD,
         _ => "echo",
     };

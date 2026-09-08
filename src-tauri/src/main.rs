@@ -22,6 +22,11 @@ use tauri_plugin_autostart::{MacosLauncher, ManagerExt};
 use tauri_plugin_clipboard_manager::ClipboardExt;
 use tauri_plugin_dialog::DialogExt;
 
+#[cfg(target_os = "windows")]
+use winreg::enums::*;
+#[cfg(target_os = "windows")]
+use winreg::RegKey;
+
 //open windows
 #[tauri::command]
 async fn open_window(
@@ -235,17 +240,11 @@ fn get_temps(handle: tauri::AppHandle) -> u16 {
 fn boardname(handle: tauri::AppHandle) -> String {
     #[cfg(windows)]
     {
-        execute::execute_relay(
-            handle,
-            "wmic",
-            helper::to_vec_string(vec!["baseboard", "get", "Product"]),
-            true,
-        )
-        .trim()
-        .split("\n")
-        .map(|x| x.to_string())
-        .collect::<Vec<String>>()[2]
-            .clone()
+        let hklm = RegKey::predef(HKEY_LOCAL_MACHINE);
+    
+    hklm.open_subkey("HARDWARE\\DESCRIPTION\\System\\BIOS")
+        .and_then(|bios_key| bios_key.get_value::<String, _>("BaseBoardProduct"))
+        .unwrap_or_else(|_| String::from("Unknown"))
     }
     #[cfg(target_os = "linux")]
     {

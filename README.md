@@ -116,16 +116,6 @@ npm run tauri build
 - Run the installer
 - Open the application
 
-### Windows 11 24H2 and Newer
-
-Enable WMIC:
-
-1. Open Settings
-2. Navigate to Optional Features
-3. Click View Features
-4. Search for and add WMIC
-5. Reopen the application
-
 ---
 
 ## macOS
