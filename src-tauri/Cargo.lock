@@ -9013,9 +9013,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-cli"
-version = "2.11.4"
+version = "2.11.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fedac57c0291926f6c46e17a4ddd84711d026725e4becbd73573cb8cd924ba75"
+checksum = "3e9ea822400b12077d874d85c5666c703f0e0c310bd704bf257c95fb2e31d2fa"
 dependencies = [
  "ar",
  "axum",
