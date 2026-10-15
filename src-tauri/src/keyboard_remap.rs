@@ -566,7 +566,9 @@ pub fn read_config(hard_reset: bool) -> String {
 
 pub fn create_backup() -> io::Result<()> {
     // Keep the first known-good driver configuration across repeated exports.
-    if Path::new(BACKUP_PATH).is_file() { return Ok(()); }
+    if Path::new(BACKUP_PATH).is_file() {
+        return Ok(());
+    }
     let backup_dir = Path::new("C:\\kbremapbackups");
 
     if !backup_dir.is_dir() {

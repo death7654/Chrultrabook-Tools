@@ -71,7 +71,12 @@ fn load_settings() -> Result<Map<String, Value>, String> {
         match fs::read_to_string(&path) {
             Ok(text) => match serde_json::from_str::<Value>(&text) {
                 Ok(Value::Object(map)) => return Ok(map),
-                _ => return Err(format!("Invalid settings JSON at {}. File preserved.", path.display())),
+                _ => {
+                    return Err(format!(
+                        "Invalid settings JSON at {}. File preserved.",
+                        path.display()
+                    ))
+                }
             },
             Err(error) => return Err(error.to_string()),
         }
@@ -96,7 +101,8 @@ where
 
 fn persist(map: &Map<String, Value>) -> Result<(), String> {
     let path = settings_path();
-    let text = serde_json::to_vec_pretty(&Value::Object(map.clone())).map_err(|error| error.to_string())?;
+    let text = serde_json::to_vec_pretty(&Value::Object(map.clone()))
+        .map_err(|error| error.to_string())?;
     crate::settings_file::atomic_write(&path, &text).map_err(|error| error.to_string())
 }
 
@@ -112,11 +118,7 @@ fn value_to_string(v: &Value) -> String {
 /// Signature unchanged: function is "get" | "save" | "remove" | "clear".
 pub fn local_storage(function: &str, option: &str, value: &str) -> Result<String, String> {
     match function {
-        "get" => with_settings(|map| {
-            Ok(map.get(option)
-                .map(value_to_string)
-                .unwrap_or_default())
-        }),
+        "get" => with_settings(|map| Ok(map.get(option).map(value_to_string).unwrap_or_default())),
         "save" => with_settings(|map| {
             let mut next = map.clone();
             next.insert(option.to_string(), Value::String(value.to_string()));

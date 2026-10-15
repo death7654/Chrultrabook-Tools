@@ -21,16 +21,8 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt
-      - name: Prepare upstream Rust formatting
-        shell: pwsh
-        run: |
-          cargo fmt --manifest-path src-tauri/Cargo.toml --all
-          git diff --binary --output rustfmt.patch
-      - name: Upload formatting patch
-        uses: actions/upload-artifact@v4
-        with:
-          name: upstream-rustfmt-patch
-          path: rustfmt.patch
+      - name: Check Rust formatting
+        run: cargo fmt --manifest-path src-tauri/Cargo.toml --all -- --check
       - run: npm ci
       - run: npm run test:fan
       - run: npm run build
