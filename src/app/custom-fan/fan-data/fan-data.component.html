@@ -1,7 +1,8 @@
 <div class="container2 p-2 pt-0 h-100">
+  @if (error()) { <div role="alert" class="text-warning">{{ error() }}</div> }
   <div class="options pb-3 h-100 m-1">
     <div class="p-0 m-0">
-      <select id="time" class="form-select text-white bg-secondary fs-4 h-100">
+      <select id="time" #time [disabled]="collecting()" class="form-select text-white bg-secondary fs-4 h-100">
         <option selected value="1000">1 Second</option>
         <option value="5000">5 Seconds</option>
         <option value="10000">10 Seconds</option>
@@ -14,9 +15,9 @@
     </div>
     <button
       class="btn border-0 btn-outline-secondary fs-4 m-1 mb-0 mt-0 h-100"
-      (click)="collect()"
+      (click)="collect(time.value)"
     >
-      {{ button_label }}
+      {{ collecting() ? "Stop Collect" : "Collect Data" }}
     </button>
     <button
       class="btn border-0 btn-outline-secondary fs-4 m-1 mb-0 mt-0 h-100"

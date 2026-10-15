@@ -1,27 +1,33 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
 import { profile } from "./profiles";
 import { invoke } from "@tauri-apps/api/core";
+import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow";
+import { FanCurveResult } from "./fan-control";
 
 @Injectable({
   providedIn: "root",
 })
 export class FanService {
-  private mode_index = new BehaviorSubject(1);
-  getIndex = this.mode_index.asObservable();
+  public profiles_list: profile[] = [];
+  readonly ready = this.boot();
+  constructor() { void this.ready.catch(() => {}); }
 
-  setMode(index: number) {
-    this.mode_index.next(index);
-  }
-
-  //fan profiles
-  public profiles_list: profile[] = this.boot();
-
-  boot(): profile[] {
-    invoke("get_fan_json").then((res) => {
-      this.profiles_list = JSON.parse(res as string);
+  private async boot(): Promise<void> {
+    const res = await invoke<string>("get_fan_json");
+    const profiles: profile[] = JSON.parse(res);
+    if (!Array.isArray(profiles) || profiles.some((item) =>
+      !item || typeof item.name !== "string" || !item.name.trim() ||
+      !Number.isInteger(item.id) || !Array.isArray(item.array) || !item.array.length ||
+      item.array.some((value) => !Number.isInteger(value) || value < 0 || value > 100))) {
+      throw new Error("Invalid fan profiles");
+    }
+    let selected = false;
+    this.profiles_list = profiles.map((item) => {
+      const active = item.selected === true && !selected;
+      selected ||= active;
+      return { ...item, selected: active, disabled: true, class: "transparent", img_class: "btn-outline-info", img: "\uF4CB" };
     });
-    return this.profiles_list;
+    if (!selected && this.profiles_list.length) this.profiles_list[0].selected = true;
   }
   getProfiles(): profile[] {
     return this.profiles_list;
@@ -47,48 +53,38 @@ export class FanService {
     return -1;
   }
 
-  addProfile(name: string) {
-    let id = 0;
-    for (const key in this.profiles_list) {
-      this.profiles_list[key].id == id++;
+  private pending: Promise<void> = Promise.resolve();
+  private commit(change: (profiles: profile[]) => void): Promise<void> {
+    const operation = this.pending.catch(() => {}).then(async () => {
+      await this.ready;
+      const next = this.profiles_list.map((item) => ({ ...item, array: [...item.array] }));
+      change(next);
+      await invoke("local_storage", { function: "save", option: "profiles", value: JSON.stringify(next) });
+      this.profiles_list.splice(0, this.profiles_list.length, ...next);
+    });
+    this.pending = operation;
+    return operation;
+  }
+  private checkName(profiles: profile[], name: string, except = -1) {
+    if (!name.trim() || profiles.some((item, i) => i !== except && item.name.toLowerCase() === name.trim().toLowerCase())) {
+      throw new Error("Use a nonempty, unique profile name.");
     }
-    const newProfile = {
-      id: id,
-      name: name,
-      array: [0, 10, 25, 40, 60, 80, 95, 100, 100, 100, 100, 100, 100],
-      selected: false,
-      disabled: true,
-      class: "transparent",
-      img_class: "btn-outline-info",
-      img: "\uF4CB",
-    };
-    this.profiles_list.push(newProfile);
-    const jsonString = JSON.stringify(this.profiles_list);
-    invoke("local_storage", {
-      function: "save",
-      option: "profiles",
-      value: jsonString,
+  }
+  addProfile(name: string) {
+    return this.commit((profiles) => {
+      this.checkName(profiles, name);
+      profiles.push({ id: Math.max(-1, ...profiles.map((item) => item.id)) + 1,
+        name: name.trim(), array: [0, 10, 25, 40, 60, 80, 95, 100, 100, 100, 100, 100, 100],
+        selected: profiles.length === 0, disabled: true, class: "transparent",
+        img_class: "btn-outline-info", img: "\uF4CB" });
     });
   }
-
-  editProfileName(i: number, name: string) {
-    this.profiles_list[i].name = name;
-    this.save_to_rust();
+  editProfileName(index: number, name: string) {
+    return this.commit((profiles) => {
+      if (!profiles[index]) throw new Error("Profile no longer exists.");
+      this.checkName(profiles, name, index); profiles[index].name = name.trim();
+    });
   }
-
-  editFanCurves(i: number, array: any) {
-    this.profiles_list[i].array = array;
-    this.save_to_rust();
-  }
-
-  saveSelected(index: number) {
-    for (let i = 0; i < this.profiles_list.length; i++) {
-      this.profiles_list[i].selected = false;
-    }
-    this.profiles_list[index].selected = true;
-    this.save_to_rust();
-  }
-
   getSelected() {
     for (let i = 0; i < this.profiles_list.length; i++) {
       if (this.profiles_list[i].selected === true) {
@@ -98,16 +94,44 @@ export class FanService {
     return " ";
   }
 
-  deleteProfile(i: number) {
-    this.profiles_list.splice(i, 1);
-    this.save_to_rust();
+  /** Persist curve and selection together, then update the editor's saved state. */
+  async saveCurve(index: number, array: number[], apply: boolean): Promise<void> {
+    const draft = [...array];
+    if (!draft.length || draft.some((value) => !Number.isFinite(value) || value < 0 || value > 100)) throw new Error("Invalid curve");
+    await this.commit((profiles) => {
+      if (!profiles[index]) throw new Error("Select a fan profile before saving");
+      profiles.forEach((item, i) => {
+        if (i === index) item.array = [...draft];
+        if (apply) item.selected = i === index;
+      });
+    });
+  }
+  async applyCurve(name: string, array: number[]): Promise<void> {
+    const requestId = crypto.randomUUID();
+    let resolveResult!: (result: FanCurveResult) => void;
+    const result = new Promise<FanCurveResult>((resolve) => { resolveResult = resolve; });
+    const unlisten = await getCurrentWebviewWindow().listen<FanCurveResult>(
+      "fan_curve_applied", (event) => {
+        if (event.payload.requestId === requestId) resolveResult(event.payload);
+      },
+    );
+    const timeout = setTimeout(() => resolveResult({ requestId, applied: false }), 8000);
+    try {
+      await invoke("transfer_fan_curves", { curves: { requestId, name, array: [...array] } });
+      if (!(await result).applied) throw new Error("Main window did not apply the fan curve");
+    } finally {
+      clearTimeout(timeout);
+      unlisten();
+    }
   }
 
-  save_to_rust() {
-    invoke("local_storage", {
-      function: "save",
-      option: "profiles",
-      value: JSON.stringify(this.profiles_list),
+  deleteProfile(index: number) {
+    return this.commit((profiles) => {
+      if (!profiles[index]) throw new Error("Profile no longer exists.");
+      if (profiles.length === 1) throw new Error("Keep at least one fan profile.");
+      const selected = profiles[index].selected;
+      profiles.splice(index, 1);
+      if (selected) profiles[0].selected = true;
     });
   }
 }

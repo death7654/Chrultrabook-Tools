@@ -1,0 +1,37 @@
+name: Hardware regression tests
+
+on:
+  push:
+    branches: [fix/windows-hardware-controls]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  regression:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+      - name: Check Rust formatting
+        run: cargo fmt --manifest-path src-tauri/Cargo.toml --all -- --check
+      - run: npm ci
+      - run: npm run test:fan
+      - run: npm run build
+      - name: Test native control logic
+        shell: pwsh
+        run: |
+          foreach ($module in @("custom_fan", "temps", "settings_file", "keyboard_light")) {
+            rustc --edition=2021 --test "src-tauri/src/$module.rs" -o "$module-tests.exe"
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            & "./$module-tests.exe"
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }

@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "test:fan": "ng test --watch=false",
     "watch": "ng build --watch --configuration development",
     "tauri": "tauri",
     "lint": "ng lint"

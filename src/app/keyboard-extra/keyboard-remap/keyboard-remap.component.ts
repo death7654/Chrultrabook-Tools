@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnDestroy, signal } from "@angular/core";
 import { ChangeDetectorRef } from "@angular/core";
 import { invoke } from "@tauri-apps/api/core";
 import { FormsModule } from '@angular/forms';
@@ -45,7 +45,13 @@ interface ConfigFileJson {
   templateUrl: "./keyboard-remap.component.html",
   styleUrl: "./keyboard-remap.component.scss",
 })
-export class KeyboardRemapComponent {
+export class KeyboardRemapComponent implements OnDestroy {
+  readonly loading = signal(true);
+  readonly saving = signal(false);
+  readonly error = signal("");
+  readonly status = signal("");
+  private destroyed = false;
+  private revision = 0;
   constructor(private cdr: ChangeDetectorRef) {}
 
   // Remap mode
@@ -73,23 +79,29 @@ export class KeyboardRemapComponent {
 
   ngOnInit() {
     invoke("os").then((os) => {
+      if (this.destroyed) return;
       if (typeof os == "string") {
-        if (os != "linux") {
+        if (os === "not macOS") {
           this.linux = false;
           this.cdr.detectChanges();
           this.getRemappedKeys(false);
-        }
+        } else this.loading.set(false);
       }
-    });
+    }).catch(() => { if (!this.destroyed) { this.error.set("Unable to detect operating system."); this.loading.set(false); } });
   }
 
   getRemappedKeys(type: boolean) {
+    if (this.current_remap.length > 0) return this.current_remap;
+    const revision = ++this.revision;
+    this.loading.set(true); this.error.set("");
     if (this.current_remap.length === 0) {
       // Only fetch if not already loaded
       invoke<string>("get_remap_json", { hardReset: type })
         .then((event) => {
+          if (this.destroyed || revision !== this.revision) return;
           if (typeof event === "string") {
             const parsedConfig: ConfigFileJson = JSON.parse(event);
+            if (!parsedConfig.valid || !Array.isArray(parsedConfig.configs)) throw new Error("Invalid keyboard configuration");
             this.fullConfig = parsedConfig;
             this.current_remap = parsedConfig.configs;
             console.log("Loaded config:", this.current_remap);
@@ -98,7 +110,8 @@ export class KeyboardRemapComponent {
         })
         .catch((error) => {
           console.error("Failed to load config:", error);
-        });
+          if (!this.destroyed && revision === this.revision) this.error.set("Unable to load keyboard configuration or backup.");
+        }).finally(() => { if (!this.destroyed && revision === this.revision) this.loading.set(false); });
     }
     return this.current_remap;
   }
@@ -151,8 +164,8 @@ updateConfigField(rowIndex: number, field: string, value: any): void {
     }
   }
 
-  exportConfigJSON(): void {
-    if (!this.fullConfig) {
+  async exportConfigJSON(): Promise<void> {
+    if (!this.fullConfig || this.loading() || this.saving()) {
       console.error("No config loaded");
       return;
     }
@@ -167,7 +180,13 @@ updateConfigField(rowIndex: number, field: string, value: any): void {
 
     console.log("Exporting config with", this.current_remap.length, "entries");
 
-    invoke<boolean>("set_remap", { params: jsonString });
+    this.saving.set(true); this.error.set(""); this.status.set("");
+    try {
+      const applied = await invoke<boolean>("set_remap", { params: jsonString });
+      if (!this.destroyed) this.status.set(applied ? "Keyboard configuration saved and reloaded." : "Save cancelled.");
+    } catch (error) {
+      if (!this.destroyed) this.error.set("Unable to save or reload keyboard mapping. Check driver access.");
+    } finally { if (!this.destroyed) this.saving.set(false); }
   }
 
   getCellClass(value: any): any {
@@ -176,4 +195,5 @@ updateConfigField(rowIndex: number, field: string, value: any): void {
     if (value === "EnforceNot") return "text-danger fw-semibold";
     return "text-white fw-bold";
   }
+  ngOnDestroy() { this.destroyed = true; ++this.revision; }
 }

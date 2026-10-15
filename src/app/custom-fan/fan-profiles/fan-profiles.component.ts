@@ -1,76 +1,50 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  HostListener,
-  inject,
-} from "@angular/core";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, inject } from "@angular/core";
 import { FanService } from "../../services/fan.service";
 import { profile } from "../../services/profiles";
 
 @Component({
-  selector: "app-fan-profiles",
-  imports: [],
-  templateUrl: "./fan-profiles.component.html",
-  styleUrl: "./fan-profiles.component.scss",
+  selector: "app-fan-profiles", imports: [],
+  templateUrl: "./fan-profiles.component.html", styleUrl: "./fan-profiles.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FanProfilesComponent {
-  edit: boolean = false;
-  img_class: string = "btn-outline-info";
-  img: string = "\uF4CB";
-
+export class FanProfilesComponent implements OnDestroy {
   profiles: profile[] = [];
-  fan_service: FanService = inject(FanService);
-
+  fan_service = inject(FanService);
+  busy = true;
+  error = "";
+  private destroyed = false;
   constructor(private cdr: ChangeDetectorRef) {
-    setTimeout(() => {
-      this.profiles = this.fan_service.getProfiles();
-      this.cdr.detectChanges();
-    }, 550);
+    this.fan_service.ready.then(() => {
+      if (!this.destroyed) this.profiles = this.fan_service.getProfiles();
+    }).catch(() => this.error = "Unable to load fan profiles.")
+      .finally(() => { this.busy = false; if (!this.destroyed) this.cdr.markForCheck(); });
   }
-
-  @HostListener("window:keydown", ["$event"])
-  keyboard(event: KeyboardEvent) {
-    if (event.code == "Enter") {
-      this.addProfiles();
-    }
+  private async update(action: () => Promise<void>) {
+    if (this.busy) return;
+    this.busy = true; this.error = "";
+    try { await action(); }
+    catch (error) { if (!this.destroyed) this.error = String(error); }
+    finally { this.busy = false; if (!this.destroyed) this.cdr.markForCheck(); }
   }
-
-  addProfiles() {
-    const name = (document.getElementById("text") as HTMLInputElement).value
-      .trim()
-      .replace(/ /g, "");
-    if (name !== "") {
-      (document.getElementById("text") as HTMLInputElement).value = "";
-      this.fan_service.addProfile(name);
-    }
+  addProfiles(input: HTMLInputElement) {
+    const name = input.value.trim();
+    if (!name) return;
+    return this.update(async () => { await this.fan_service.addProfile(name); input.value = ""; });
   }
-
-  editProfile(i: number) {
-    if (this.profiles[i].class === "transparent") {
-      this.profiles[i].class = "edit";
-      this.profiles[i].img = "\uF7D8";
-      this.profiles[i].img_class = "btn-outline-success";
-      this.profiles[i].disabled = false;
+  async editProfile(index: number, input: HTMLInputElement) {
+    if (this.busy) return;
+    const item = this.profiles[index];
+    if (item.disabled) {
+      item.class = "edit"; item.img = "\uF7D8"; item.img_class = "btn-outline-success"; item.disabled = false;
+      input.value = item.name;
     } else {
-      this.profiles[i].class = "transparent";
-      this.profiles[i].img = "\uF4CB";
-      this.profiles[i].img_class = "btn-outline-info";
-      this.profiles[i].disabled = true;
-      const changed_name = (
-        document.getElementById(
-          this.profiles[i].id.toString()
-        ) as HTMLInputElement
-      ).value;
-      if (changed_name !== "") {
-        this.profiles[i].name = changed_name;
-        this.fan_service.editProfileName(i, changed_name);
-      }
+      await this.update(async () => {
+        await this.fan_service.editProfileName(index, input.value);
+        const saved = this.profiles[index];
+        saved.class = "transparent"; saved.img = "\uF4CB"; saved.img_class = "btn-outline-info"; saved.disabled = true;
+      });
     }
   }
-
-  deleteProfiles(i: number) {
-    this.fan_service.deleteProfile(i);
-  }
+  deleteProfiles(index: number) { return this.update(() => this.fan_service.deleteProfile(index)); }
+  ngOnDestroy() { this.destroyed = true; }
 }

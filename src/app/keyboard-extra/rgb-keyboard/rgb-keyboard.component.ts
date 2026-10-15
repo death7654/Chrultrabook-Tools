@@ -1,9 +1,10 @@
-import { Component, OnDestroy, ChangeDetectorRef } from "@angular/core";
+import { Component, OnDestroy, ChangeDetectorRef, signal } from "@angular/core";
 import { invoke } from "@tauri-apps/api/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
+import { ec } from "../../services/device";
 
-const ANIMATION_INTERVAL = 20;
+const ANIMATION_INTERVAL = 50;
 
 interface Key {
   label: string;
@@ -38,6 +39,9 @@ interface SavedProfile {
   styleUrl: "./rgb-keyboard.component.scss",
 })
 export class RgbKeyboardComponent implements OnDestroy {
+  readonly error = signal("");
+  readonly busy = signal(false);
+  private destroyed = false;
   private _rgbEnabled: boolean = true;
   brightness: number = 80;
   private _rgbRed: number = 255;
@@ -194,7 +198,7 @@ export class RgbKeyboardComponent implements OnDestroy {
   }
   private loadCustomProfiles(): void {
     const STORAGE_KEY = "rgb_profile";
-    let configList: any[];
+    let configList: any[] = [];
 
     invoke("local_storage", {
       function: "get",
@@ -210,6 +214,8 @@ export class RgbKeyboardComponent implements OnDestroy {
             configList = [];
           }
         }
+        if (this.destroyed) return;
+        if (!Array.isArray(configList)) throw new Error("Invalid RGB profiles");
         this.customProfiles = configList;
         console.log("Loaded profiles:", this.customProfiles);
         this.cdr.detectChanges();
@@ -351,164 +357,46 @@ export class RgbKeyboardComponent implements OnDestroy {
   }
 
   public ngOnDestroy(): void {
+    this.destroyed = true;
     this.stopColorCycle();
   }
 
-  public generateCustomRgbConfigJson(send_to_main: boolean): void {
-    const STORAGE_KEY = "rgb_profile";
-    let configList: any[] = [];
-
-    invoke("local_storage", {
-      function: "get",
-      option: STORAGE_KEY,
-      value: "",
-    })
-      .then((existingJsonString: any) => {
-        if (typeof existingJsonString === "string" && existingJsonString) {
-          try {
-            configList = JSON.parse(existingJsonString);
-          } catch (e) {
-            console.error("Error parsing existing RGB config JSON:", e);
-            configList = [];
-          }
-        }
-
-        const existingEntry = configList.find(
-          (c) => c.name === this.customCycleName
-        );
-
-        let newId: number;
-
-        if (existingEntry) {
-          newId = existingEntry.id;
-          console.log(
-            `Updating existing RGB config with name: ${this.customCycleName} (ID: ${newId})`
-          );
-        } else {
-          const maxId = configList.reduce((max, c) => Math.max(max, c.id), 0);
-          newId = maxId + 1;
-          console.log(`Generating new RGB config with ID: ${newId}`);
-        }
-
-        const newConfig = {
-          id: newId,
-          active: false,
-          name: this.customCycleName,
-          mode: "custom_cycle",
-          steps_count: this.customColors.length,
-          steps: this.customColors.map((color) => ({
-            hex_code: color.hexCode.toUpperCase().startsWith("#")
-              ? color.hexCode.toUpperCase()
-              : `#${color.hexCode.toUpperCase()}`,
-            duration_ms: Math.max(1, color.duration),
-          })),
-        };
-
-        if (existingEntry) {
-          const index = configList.findIndex((c) => c.id === newId);
-          configList[index] = newConfig;
-        } else {
-          configList.forEach((obj) => {
-            obj.active = false;
-          });
-          configList.push(newConfig);
-        }
-
-        if (send_to_main) {
-          newConfig.active = true;
-        }
-
-        const finalJsonString = JSON.stringify(configList, null, 2);
-        console.log(finalJsonString);
-
-        if (send_to_main) {
-          console.log("sent");
-          invoke("transfer_rgb", {
-            rgb: finalJsonString,
-          });
-        }
-
-        return invoke("local_storage", {
-          function: "save",
-          option: STORAGE_KEY,
-          value: finalJsonString,
-        }).then(() => {
-          console.log("Generated and Saved Custom RGB Config JSON:");
-          console.log(finalJsonString);
-
-          this.generatedConfigJson = finalJsonString;
-        });
-      })
-      .catch((error) => {
-        console.error(
-          "An error occurred during RGB config generation or storage:",
-          error
-        );
-      });
+  public async generateCustomRgbConfigJson(send_to_main: boolean): Promise<void> {
+    if (this.busy()) return;
+    this.busy.set(true); this.error.set("");
+    try {
+      const raw = await invoke<string>("local_storage", { function: "get", option: "rgb_profile", value: "" });
+      const profiles = raw ? JSON.parse(raw) : [];
+      if (!Array.isArray(profiles)) throw new Error("Invalid RGB profiles");
+      const name = this.customCycleName.trim();
+      if (!name || !this.customColors.length || this.customColors.some((color) =>
+        !/^#?[a-f0-9]{6}$/i.test(color.hexCode) || !Number.isFinite(color.duration) || color.duration < 1)) throw new Error("Invalid RGB cycle");
+      const previous = profiles.find((profile) => profile.name === name);
+      const id = previous?.id ?? Math.max(0, ...profiles.map((profile) => profile.id)) + 1;
+      const next = profiles.filter((profile) => profile.id !== id).map((profile) => ({ ...profile, active: send_to_main ? false : profile.active }));
+      next.push({ id, active: send_to_main || !!previous?.active, name, mode: "custom_cycle", steps_count: this.customColors.length,
+        steps: this.customColors.map((color) => ({ hex_code: "#" + color.hexCode.replace(/^#/, "").toUpperCase(), duration_ms: color.duration })) });
+      const json = JSON.stringify(next);
+      await invoke("local_storage", { function: "save", option: "rgb_profile", value: json });
+      if (!this.destroyed) { this.customProfiles = next; this.generatedConfigJson = json; }
+      // Custom cycles remain a preview until a persistent hardware controller is implemented.
+      if (send_to_main && !this.destroyed) this.error.set("Cycle saved. Custom cycles currently support preview only.");
+    } catch (error) { if (!this.destroyed) this.error.set("Unable to save RGB profile. Check its name, colors and durations."); }
+    finally { if (!this.destroyed) this.busy.set(false); }
   }
-
-  public delete_profile(profileId: number | string): void {
-    if (typeof profileId !== "number") {
-      console.warn(
-        "Cannot delete profile: A custom profile ID must be selected."
-      );
-      return;
-    }
-
-    // Call the logic implemented previously, ensuring it takes a number
-    this.delete_profile_logic(profileId as number);
-    window.location.reload();
+  public async delete_profile(profileId: number | string): Promise<void> {
+    if (typeof profileId !== "number" || this.busy()) return;
+    this.busy.set(true); this.error.set("");
+    try {
+      const raw = await invoke<string>("local_storage", { function: "get", option: "rgb_profile", value: "" });
+      const profiles = raw ? JSON.parse(raw) : [];
+      if (!Array.isArray(profiles)) throw new Error("Invalid RGB profiles");
+      const next = profiles.filter((profile) => profile.id !== profileId);
+      await invoke("local_storage", { function: "save", option: "rgb_profile", value: JSON.stringify(next) });
+      if (!this.destroyed) { this.customProfiles = next; this.rgbMode = "off"; this.selectedProfileId = "off"; }
+    } catch (error) { if (!this.destroyed) this.error.set("Unable to delete RGB profile."); }
+    finally { if (!this.destroyed) this.busy.set(false); }
   }
-
-  private delete_profile_logic(profileId: number) {
-    const STORAGE_KEY = "rgb_profile";
-
-    invoke("local_storage", {
-      function: "get",
-      option: STORAGE_KEY,
-      value: "",
-    })
-      .then((existingJsonString: any) => {
-        let configList: any[] = [];
-
-        if (typeof existingJsonString === "string" && existingJsonString) {
-          try {
-            configList = JSON.parse(existingJsonString);
-          } catch (e) {
-            console.error(
-              "Error parsing existing RGB config JSON during delete:",
-              e
-            );
-            return;
-          }
-        }
-
-        const initialCount = configList.length;
-        const updatedConfigList = configList.filter((c) => c.id !== profileId);
-
-        if (updatedConfigList.length === initialCount) {
-          console.warn(`Profile with ID ${profileId} not found for deletion.`);
-          return;
-        }
-
-        console.log(`Successfully deleted profile with ID: ${profileId}`);
-
-        const finalJsonString = JSON.stringify(updatedConfigList, null, 2);
-
-        return invoke("local_storage", {
-          function: "save",
-          option: STORAGE_KEY,
-          value: finalJsonString,
-        });
-      })
-      .then(() => {
-        console.log("Updated config list saved to local storage.");
-      })
-      .catch((error) => {
-        console.error("An error occurred during profile deletion:", error);
-      });
-  }
-
   public startColorCycle(): void {
     this.stopColorCycle();
 
@@ -627,65 +515,22 @@ export class RgbKeyboardComponent implements OnDestroy {
     }
   }
 
-  public apply() {
-    console.log("apply");
-    if (this._rgbMode === "off") {
-      invoke("execute", {
-        program: "ectool",
-        arguments: ["rgbkbd", "demo", "0"],
-        reply: true,
-      }).then((event) => {
-        console.log(event);
-      });
-    }
-
-    if (this._rgbMode === "static") {
-      let hex = this.hexCodeInput.trim();
-
-      // Normalize input: remove '#' if present
-      if (hex.startsWith("#")) {
-        hex = hex.slice(1);
-      }
-
-      // Validate hex
-      if (!/^[0-9A-Fa-f]{6}$/.test(hex)) {
-        console.error("Invalid hex color:", hex);
-        return;
-      }
-
-      const ectoolHex = ("0x" + hex.toLowerCase()).toString().trim();
-      console.log(ectoolHex);
-
-      invoke("execute", {
-        program: "ectool",
-        arguments: ["rgbkbd", "clear", ectoolHex],
-        reply: true,
-      }).then((event: any) => {
-        console.log(event);
-      });
-    }
-
-    if (this._rgbMode == "flow") {
-      invoke("execute", {
-        program: "ectool",
-        arguments: ["rgbkbd", "demo", "1"],
-        reply: true,
-      }).then((event) => {
-        console.log(event);
-      });
-    }
-
-    if (this._rgbMode == "dot") {
-      invoke("execute", {
-        program: "ectool",
-        arguments: ["rgbkbd", "demo", "2"],
-        reply: true,
-      }).then((event) => {
-        console.log(event);
-      });
-    }
+  public async apply(): Promise<void> {
+    if (this.busy()) return;
+    const mode = this._rgbMode;
+    const hex = this.hexCodeInput.trim().replace(/^#/, "");
+    if (mode === "static" && !/^[a-f0-9]{6}$/i.test(hex)) { this.error.set("Enter a six-digit hex color."); return; }
+    if (!["off", "static", "flow", "dot"].includes(mode)) return;
+    this.busy.set(true); this.error.set("");
+    try {
+      if (mode === "static" || mode === "off") {
+        await ec(["rgbkbd", "demo", "0"]);
+        await ec(["rgbkbd", "clear", mode === "off" ? "0x000000" : "0x" + hex.toLowerCase()]);
+      } else await ec(["rgbkbd", "demo", mode === "flow" ? "1" : "2"]);
+      if (mode !== "off") await ec(["pwmsetkblight", Math.round(Math.max(0, Math.min(100, this.brightness)))]);
+    } catch (error) { if (!this.destroyed) this.error.set("Unable to apply RGB lighting. Check keyboard and firmware support."); }
+    finally { if (!this.destroyed) this.busy.set(false); }
   }
-
   get isCustomMode(): boolean {
     return (
       this.rgbMode != "off" &&

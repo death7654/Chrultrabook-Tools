@@ -1,6 +1,6 @@
 <div
   class="keyboard_text mt-4 container-fluid p-0 align-items-center"
-  [class]="disabled_class"
+  [class.disabled]="loading() || unsupported()"
 >
   <div class="row p-0 m-0">
     <div class="col-7 p-0">
@@ -14,21 +14,27 @@
     </div>
     <div class="col-5">
       <h4 class="fs-4 fw-heavy pt-1 ms-4">
-        Brightness: <span>{{ backlight_percentage + extension }}</span>
+        Brightness: <span>{{ brightness() === null ? 'N/A' : brightness() + '%' }}</span>
       </h4>
     </div>
   </div>
 </div>
 <div class="keyboard_controls px-2 pt-1">
   <input
-    (click)="update_percentage($event)"
+    (input)="preview($event)"
+    (change)="update_percentage($event)"
     type="range"
     class="form-range pt-1 px-1"
     min="0"
     max="100"
     step="10"
     id="keyboard_backlight"
-    [value]="percentage"
-    [disabled]="backlight_exists"
+    [value]="brightness() ?? 0"
+    [disabled]="loading() || unsupported()"
   />
 </div>
+@if (error()) {
+  <div role="alert" class="text-warning px-2">
+    {{ error() }} <button type="button" class="btn btn-sm btn-outline-secondary" (click)="load()">Retry</button>
+  </div>
+}

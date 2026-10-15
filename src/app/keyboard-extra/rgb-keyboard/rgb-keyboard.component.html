@@ -1,3 +1,4 @@
+@if (error()) { <div role="alert" class="text-warning px-3">{{ error() }}</div> }
 <div class="row mb-3" data-bs-theme="dark">
   <div class="col">
     <div class="p-3 bg-secondary rounded-3 overflow-auto">
@@ -190,7 +191,7 @@
           <button
             class="btn btn-outline-success w-100"
             (click)="apply()"
-            [disabled]="!rgbEnabled && !options_enabled"
+            [disabled]="busy()"
           >
             Apply
           </button>

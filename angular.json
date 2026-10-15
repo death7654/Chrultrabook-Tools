@@ -4,7 +4,9 @@
   "newProjectRoot": "projects",
   "cli": {
     "analytics": false,
-    "schematicCollections": ["@angular-eslint/schematics"]
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   },
   "schematics": {
     "@schematics/angular:component": {
@@ -47,9 +49,13 @@
             "index": "src/index.html",
             "browser": "src/main.ts",
             "statsJson": true,
-            "polyfills": ["zone.js"],
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "tsconfig.app.json",
-            "assets": ["src/assets"],
+            "assets": [
+              "src/assets"
+            ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.scss"
@@ -102,8 +108,29 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
+        },
+        "test": {
+          "options": {
+            "assets": ["src/assets"],
+            "styles": ["node_modules/bootstrap/dist/css/bootstrap.min.css"],
+            "scripts": ["node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"],
+            "watch": false,
+            "tsConfig": "tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "include": [
+              "src/**/*.regression.spec.ts"
+            ],
+            "browsers": "ChromeHeadless"
+          },
+          "builder": "@angular/build:karma"
         }
       }
     }

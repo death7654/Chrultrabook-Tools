@@ -1,3 +1,4 @@
+@if (error()) { <div role="alert" class="text-warning px-3">{{ error() }}</div> }
 <div class="position-relative overflow-y-auto" style="height: 100vh">
   <div class="container-fluid p-3 keyboard_container">
     <div class="row align-items-center mb-3">
@@ -15,10 +16,10 @@
       <div class="col-3 text-end">
         <button
           class="btn btn-outline-secondary fs-4 border-0 w-100 h-100"
-          [class]="remap"
+          routerLinkActive="active"
           routerLink="remap"
           (click)="keyboard_remap()"
-          data-bs-toggle="button"
+
         >
           <span class="p-0 m-0">Keyboard Remapping</span>
         </button>
@@ -26,11 +27,11 @@
       <div class="col-3">
         <button
           class="btn btn-outline-secondary fs-4 border-0 ms-2 w-100 h-100"
-          [class]="rgb_class"
+          routerLinkActive="active"
           routerLink="rgb"
           (click)="rgb()"
-          data-bs-toggle="button"
-          [disabled]="rgb_enabled"
+
+          [disabled]="rgb_enabled()"
         >
           RGB Keyboards
         </button>

@@ -1,3 +1,5 @@
+@if (error()) { <div role="alert" class="text-warning px-3">{{ error() }}</div> }
+@if (status()) { <div role="status" class="text-info px-3">{{ status() }}</div> }
 <div class="row">
   <div class="col">
     <footer class="fixed-bottom bg-dark p-3" data-bs-theme="dark">
@@ -24,21 +26,21 @@
             <button
               class="btn btn-outline-danger btn-sm"
               (click)="resetToOriginalConfig()"
-              [disabled]="linux"
+              [disabled]="linux || loading() || saving()"
             >
               Hard Reset
             </button>
             <button
               class="btn btn-outline-warning btn-sm"
               (click)="resetToCurrentConfig()"
-              [disabled]="linux"
+              [disabled]="linux || loading() || saving()"
             >
               Soft Reset
             </button>
             <button
               class="btn btn-outline-success btn-sm"
               (click)="exportConfigJSON()"
-              [disabled]="linux"
+              [disabled]="linux || loading() || saving()"
             >
               Apply Remap
             </button>

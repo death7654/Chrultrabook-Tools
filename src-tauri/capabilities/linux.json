@@ -4,7 +4,11 @@
   "local": true,
   "windows": [
     "main",
-    "Settings"
+    "Settings",
+    "Keyboard_extra",
+    "Custom_Fans",
+    "Diagnostics",
+    "Battery"
   ],
   "platforms": [
     "linux"

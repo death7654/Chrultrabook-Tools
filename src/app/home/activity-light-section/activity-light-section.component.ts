@@ -1,35 +1,29 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { invoke } from "@tauri-apps/api/core";
-
 @Component({
-  selector: "app-activity-light-section",
-  imports: [],
-  templateUrl: "./activity-light-section.component.html",
-  styleUrl: "./activity-light-section.component.scss",
+  selector: "app-activity-light-section", imports: [],
+  templateUrl: "./activity-light-section.component.html", styleUrl: "./activity-light-section.component.scss",
 })
-export class ActivityLightSectionComponent implements OnInit {
-  class: string = "disabled";
-  disabled: boolean = true;
-
-  ngOnInit() {
-    invoke("boardname").then((event: any) => {
-      let output = event.trim().toLowerCase();
-      if (output == "candy" || output == "kefka") {
-        this.disabled = false;
-        this.class = " ";
+export class ActivityLightSectionComponent implements OnInit, OnDestroy {
+  class = "disabled";
+  disabled = true;
+  activity_light_color = "N/A";
+  private destroyed = false;
+  async ngOnInit() {
+    try {
+      const board = (await invoke<string>("boardname")).trim().toLowerCase();
+      if (!this.destroyed && ["candy", "kefka"].includes(board)) {
+        this.disabled = false; this.class = "";
       }
-    });
+    } catch (error) { console.error("activity light detection:", error); }
   }
-
-  activity_light_color: string = "N/A";
-  update_color(event: MouseEvent) {
-    const selected_color = (event.target as HTMLInputElement).value;
-    if (selected_color === "Select A Color") {
-      this.activity_light_color = "Off";
-      invoke("change_activity_light", { selected: "Black" });
-    } else {
-      this.activity_light_color = selected_color;
-      invoke("change_activity_light", { selected: this.activity_light_color });
-    }
+  async update_color(event: Event) {
+    const color = (event.target as HTMLSelectElement).value;
+    if (this.disabled || color === "Select A Color") return;
+    try {
+      await invoke("change_activity_light", { selected: color === "Off" ? "Black" : color });
+      if (!this.destroyed) this.activity_light_color = color;
+    } catch (error) { console.error("activity light:", error); }
   }
+  ngOnDestroy() { this.destroyed = true; }
 }
