@@ -1,57 +1,19 @@
 import { Component } from "@angular/core";
 import { invoke } from "@tauri-apps/api/core";
-
+import { zoomScale } from "../../services/device";
 @Component({
-  selector: "app-extra-section",
-  imports: [],
-  templateUrl: "./extra-section.component.html",
-  styleUrl: "./extra-section.component.scss",
+  selector: "app-extra-section", imports: [],
+  templateUrl: "./extra-section.component.html", styleUrl: "./extra-section.component.scss",
 })
 export class ExtraSectionComponent {
-  zoom: number = 1;
-  ngOnInit() {
-    invoke("local_storage", {
-      function: "get",
-      option: "zoom",
-      value: "",
-    }).then((percentage) => {
-      if (typeof percentage === "string") {
-        const number = Number(percentage) / 100;
-        this.zoom = number;
-        console.log(this.zoom);
-      }
-    });
+  private async open(name: string, width: number, height: number) {
+    try {
+      const value = await invoke<string>("local_storage", { function: "get", option: "zoom", value: "" });
+      await invoke("open_window", { name, width, height, zoom: zoomScale(value) });
+    } catch (error) { console.error("open window:", error); }
   }
-  diagnostic() {
-    invoke("open_window", {
-      name: "Diagnostics",
-      width: 760.0,
-      height: 510.0,
-      zoom: this.zoom,
-    });
-  }
-  settings() {
-    invoke("open_window", {
-      name: "Settings",
-      width: 600.0,
-      height: 450.0,
-      zoom: this.zoom,
-    });
-  }
-  keyboard() {
-    invoke("open_window", {
-      name: "Keyboard_extra",
-      width: 1100.0,
-      height: 600.0,
-      zoom: this.zoom,
-    });
-  }
-  battery() {
-    invoke("open_window", {
-      name: "Battery",
-      width: 700.0,
-      height: 350.0,
-      zoom: this.zoom,
-    });
-  }
+  diagnostic() { return this.open("Diagnostics", 760, 510); }
+  settings() { return this.open("Settings", 600, 450); }
+  keyboard() { return this.open("Keyboard_extra", 1100, 600); }
+  battery() { return this.open("Battery", 700, 350); }
 }

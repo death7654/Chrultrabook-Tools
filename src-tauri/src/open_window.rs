@@ -7,7 +7,7 @@ pub async fn new_window(
     width: f64,
     height: f64,
     resizeable: bool,
-) -> tauri::WebviewWindow<tauri::Wry> {
+) -> Result<tauri::WebviewWindow<tauri::Wry>, String> {
     let windows = Manager::webview_windows(handle);
     let window_exists = windows.get(label);
     match window_exists {
@@ -21,9 +21,10 @@ pub async fn new_window(
             .title(label)
             .resizable(resizeable)
             .maximizable(resizeable)
+            .min_inner_size(320.0, 240.0)
             .build()
-            .unwrap()
+            .map_err(|error| error.to_string())
         }
-        Some(x) => x.clone(),
+        Some(x) => Ok(x.clone()),
     }
 }

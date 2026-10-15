@@ -1,12 +1,12 @@
 use hidapi::{HidApi, HidDevice};
 
-pub fn set_color(color: String) {
-    let hid_dev = &HidApi::new().unwrap();
+pub fn set_color(color: String) -> Result<(), String> {
+    let hid_dev = &HidApi::new().map_err(|error| error.to_string())?;
     let device: HidDevice = match HidApi::open(hid_dev, 0x04d8, 0x0b28) {
         Ok(dev) => dev,
         Err(_err) => match HidApi::open(hid_dev, 0x046d, 0xc33c) {
             Ok(dev) => dev,
-            Err(_e) => return,
+            Err(error) => return Err(error.to_string()),
         },
     };
     let color_data: [u8; 4] = match color.as_str() {
@@ -18,7 +18,7 @@ pub fn set_color(color: String) {
         "Cyan" => [17, 6, 222, 32],
         "White" => [17, 7, 241, 32],
         "Black" => [17, 8, 5, 32],
-        _ => [0, 0, 0, 0],
+        _ => return Err("Unknown activity light color".into()),
     };
     let command: [u8; 64] = {
         let mut whole: [u8; 64] = [0; 64];
@@ -27,5 +27,6 @@ pub fn set_color(color: String) {
         two.copy_from_slice(&[255; 60]);
         whole
     };
-    device.write(&command).unwrap();
+    device.write(&command).map_err(|error| error.to_string())?;
+    Ok(())
 }

@@ -3,6 +3,8 @@
   data-bs-theme="dark"
 >
   <div class="row">
+    @if (error()) { <div role="alert" class="text-warning">{{ error() }} <button class="btn btn-sm btn-outline-secondary" (click)="load()" [disabled]="busy()">Retry</button></div> }
+    @if (status()) { <div role="status" class="text-info">{{ status() }}</div> }
     <div class="col">
       <h4 class="fs-4 fw-heavy">
         <img
@@ -23,15 +25,16 @@
         id="chargecontrol"
         class="form-control m-0 w-100 h-100"
         placeholder="Value"
-        [disabled]="oldec"
+        #chargeInput min="5" max="100" step="1"
+        [disabled]="oldec() || loading() || busy()"
       />
     </div>
     <div class="col-3">
       <button
         type="button"
         class="btn btn-outline-secondary border-0 fs-4 w-100 h-100"
-        [disabled]="oldec"
-        (click)="apply_limits()"
+        [disabled]="oldec() || loading() || busy()"
+        (click)="apply_limits(chargeInput.value)"
       >
         Apply
       </button>
@@ -39,13 +42,14 @@
   </div>
   <div class="row pt-3">
     <div class="col-2">
-      <label for="batterymode" class="col-form-label">Set Battery Mode</label>
+      <label for="mode_battery" class="col-form-label">Set Battery Mode</label>
     </div>
     <div class="col-7">
       <select
         class="form-select text-white border-0 fs-4 bg-secondary rounded-1 w-100 h-100"
         id="mode_battery"
         #dropdown
+        [disabled]="loading() || busy()"
       >
         <option value="normal" selected>Normal</option>
         <option value="idle">Idle</option>
@@ -56,7 +60,7 @@
       <button
         type="button"
         class="btn btn-outline-secondary border-0 fs-4 w-100 h-100"
-        (click)="apply_mode()"
+        (click)="apply_mode(dropdown.value)" [disabled]="loading() || busy()"
       >
         Apply
       </button>
@@ -64,7 +68,7 @@
   </div>
   <div class="row pt-3">
     <div class="col-2">
-      <label for="batterymode" class="col-form-label"
+      <label for="maxcurrent" class="col-form-label"
         >Battery Current Limit</label
       >
     </div>
@@ -74,13 +78,14 @@
         id="maxcurrent"
         class="form-control m-0 h-100 w-100"
         placeholder="Value in mA"
+        #currentInput min="0" max="65535" step="1" [disabled]="loading() || busy()"
       />
     </div>
     <div class="col-3">
       <button
         type="button"
         class="btn btn-outline-secondary border-0 fs-4 w-100 h-100"
-        (click)="apply_maximum_current()"
+        (click)="apply_maximum_current(currentInput.value)" [disabled]="loading() || busy()"
       >
         Apply
       </button>

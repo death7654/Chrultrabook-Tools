@@ -1,12 +1,14 @@
 <div class="input-group px-2" data-bs-theme="dark">
+  @if (error) { <div role="alert" class="w-100 text-warning">{{ error }}</div> }
   <input
     type="text"
     id="text"
     autocomplete="off"
     class="form-control bg-secondary text-bg-dark"
     placeholder="Profile Name"
+    #newName [disabled]="busy" (keydown.enter)="addProfiles(newName)"
   />
-  <button class="btn btn-outline-secondary" (click)="addProfiles()">
+  <button class="btn btn-outline-secondary" [disabled]="busy" (click)="addProfiles(newName)">
     <img src="../../../assets/fan/add.svg" alt="plus" />
   </button>
 </div>
@@ -26,7 +28,7 @@
           </tr>
         </thead>
         <tbody>
-          @for (item of profiles; track $index) {
+          @for (item of profiles; track item.id) {
           <tr>
             <th scope="row"></th>
             <td class="w-100" colspan="4">
@@ -37,7 +39,7 @@
                 [id]="item.id.toString()"
                 [class]="item.class"
                 [placeholder]="item.name"
-                [disabled]="item.disabled"
+                #profileName [disabled]="item.disabled || busy"
               />
             </td>
             <td>
@@ -45,7 +47,7 @@
                 type="button"
                 class="btn"
                 [class]="item.img_class"
-                (click)="editProfile($index)"
+                (click)="editProfile($index, profileName)" [disabled]="busy"
               >
                 {{ item.img }}
               </button>
@@ -55,7 +57,7 @@
               <button
                 type="button"
                 class="btn btn-outline-danger"
-                (click)="deleteProfiles($index)"
+                (click)="deleteProfiles($index)" [disabled]="busy || profiles.length < 2"
               >
                 &#xF78B;
               </button>

@@ -2,36 +2,40 @@
   <div class="text-left mt-3 container-fluid w-100 text-start p-0">
     <div class="row w-100 align-items-center">
       <div class="col-5 p-0 m-0">
-        <h4 class="fs-4 fw-heavy" [class]="disabled_class">
+        <h4 class="fs-4 fw-heavy" [class.disable]="!fanAvailable()">
           <img
             src="../../../assets/fan/fan.svg"
             class="align-text-middle mx-2"
             alt="fan"
-          />Mode - <span id="selected_mode">{{ selected_mode }}</span>
+          />Mode - <span id="selected_mode">{{ selectedMode() }}</span>
         </h4>
       </div>
       <div class="col-3 align-middle">
-        <h4 class="fs-4 fw-heavy">CPU: <span id="temp"></span> °C</h4>
+        <h4 class="fs-4 fw-heavy">CPU: <span id="temp">{{ temperature() ?? 'N/A' }}</span> °C</h4>
       </div>
       <div class="col-4">
-        <h4 class="fs-4 fw-heavy" [class]="disabled_class">
-          Fan: <span id="fanRPM"></span> {{ extension }}
+        <h4 class="fs-4 fw-heavy" [class.disable]="!fanAvailable()">
+          Fan: <span id="fanRPM">{{ rpm() ?? 'N/A' }}</span> RPM
         </h4>
       </div>
     </div>
   </div>
 </div>
 
-<div class="container-fluid px-3" [class]="disabled_class">
+@if (error()) {
+  <div role="alert" class="text-danger px-3">{{ error() }}</div>
+}
+<div class="container-fluid px-3" [class.disable]="!fanAvailable()">
   <div class="row">
     <div class="col p-0 m-1">
       <button
         type="button"
         class="btn fs-4 w-100 h-100"
-        [class]="fan_auto_class + ' ' + button + ' ' + auto_active"
-        [disabled]="fan_exists"
+        [class]="'btn-outline-success border-0 ' + (state().mode === 'auto' ? 'active' : '')"
+        [attr.aria-pressed]="state().mode === 'auto'"
+        [disabled]="!fanAvailable()"
         (click)="fan_auto()"
-        data-bs-toggle="button"
+        title="EC-managed automatic fan control"
       >
         <img
           class="p-2 pb-2"
@@ -44,10 +48,10 @@
       <button
         type="button"
         class="btn fs-4 w-100 h-100"
-        [class]="fan_off_class + ' ' + button + ' ' + off_active"
-        [disabled]="fan_exists"
+        [class]="'btn-outline-warning border-0 ' + (state().mode === 'off' ? 'active' : '')"
+        [attr.aria-pressed]="state().mode === 'off'"
+        [disabled]="!fanAvailable()"
         (click)="fan_off()"
-        data-bs-toggle="button"
       >
         <img
           class="p-2 pb-2"
@@ -60,10 +64,10 @@
       <button
         type="button"
         class="btn fs-4 w-100 h-100"
-        [class]="fan_max_class + ' ' + button + ' ' + max_active"
-        [disabled]="fan_exists"
+        [class]="'btn-outline-danger border-0 ' + (state().mode === 'max' ? 'active' : '')"
+        [attr.aria-pressed]="state().mode === 'max'"
+        [disabled]="!fanAvailable()"
         (click)="fan_max()"
-        data-bs-toggle="button"
       >
         <img
           class="p-2 pb-2"
@@ -76,8 +80,9 @@
       <button
         type="button"
         class="btn fs-4 w-100 h-100"
-        [class]="fan_custom_class + ' ' + button + ' ' + custom_active"
-        [disabled]="fan_exists"
+        [class]="'btn-outline-info btn-outline-info-custom border-0 ' + (state().mode === 'custom' ? 'active' : '')"
+        [attr.aria-pressed]="state().mode === 'custom'"
+        [disabled]="!fanAvailable()"
         (click)="open_fan_custom_window()"
       >
         <img

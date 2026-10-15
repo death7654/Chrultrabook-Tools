@@ -1,4 +1,12 @@
-.outlet {
-  max-height: 100vh;
-  min-height: 100vh;
+:host { display: block; height: 100vh; min-height: 0; }
+.custom-shell { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+header { flex: 0 0 auto; }
+.custom-body {
+  display: grid;
+  grid-template-columns: minmax(100px, 17%) minmax(0, 1fr);
+  flex: 1;
+  min-height: 0;
+  gap: 12px;
 }
+nav { min-width: 0; overflow-y: auto; padding-bottom: 8px; }
+.outlet { min-width: 0; min-height: 0; overflow: auto; }

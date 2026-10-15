@@ -2,59 +2,61 @@
   <h4 class="fs-3">Diagnostics</h4>
 </div>
 <div class="container-fluid diagnostics">
+  @if (error()) { <div role="alert" class="text-warning">{{ error() }}</div> }
+  @if (loading()) { <div role="status">Generating report…</div> }
   <div class="row diagnostics">
     <div class="col-3 p-0 ps-2">
       <div class="container-fluid p-0">
         <select
-          (click)="select()"
+          (change)="select(dropdown.value)"
           class="form-select text-white border-0 fs-4 pt-1 bg-secondary rounded-1 w-100"
           id="diagnostic_dropdown"
           #dropdown
         >
           <option selected>Select</option>
-          <option value="Boot Timestraps" [disabled]="disabled">
+          <option value="Boot Timestraps" [disabled]="disabled()">
             Timestraps
           </option>
-          <option value="Coreboot Log" [disabled]="disabled">
+          <option value="Coreboot Log" [disabled]="disabled()">
             Coreboot Log
           </option>
-          <option value="Coreboot Extended Log" [disabled]="disabled">
+          <option value="Coreboot Extended Log" [disabled]="disabled()">
             Coreboot Extended Log
           </option>
-          <option value="Battery Information" [disabled]="ectools">
+          <option value="Battery Information" [disabled]="ectools()">
             Battery Information
           </option>
-          <option value="EC Console Log" [disabled]="ectools">
+          <option value="EC Console Log" [disabled]="ectools()">
             EC Console Log
           </option>
-          <option value="EC Chip Information" [disabled]="ectools">
+          <option value="EC Chip Information" [disabled]="ectools()">
             EC Chip Information
           </option>
-          <option value="SPI Information" [disabled]="ectools">
+          <option value="SPI Information" [disabled]="ectools()">
             SPI Information
           </option>
-          <option value="EC Protocol Information" [disabled]="ectools">
+          <option value="EC Protocol Information" [disabled]="ectools()">
             EC Protocol Information
           </option>
-          <option value="Temperature Sensor Information" [disabled]="ectools">
+          <option value="Temperature Sensor Information" [disabled]="ectools()">
             Temperature Sensor Information
           </option>
-          <option value="Power Delivery Information" [disabled]="ectools">
+          <option value="Power Delivery Information" [disabled]="ectools()">
             Power Delivery Information
           </option>
-          <option value="cbi0" [disabled]="ectools">Board Version</option>
-          <option value="cbi1" [disabled]="ectools">OEM ID</option>
-          <option value="cbi2" [disabled]="ectools">SKU ID</option>
-          <option value="cbi3" [disabled]="ectools">DRAM part number</option>
-          <option value="cbi4" [disabled]="ectools">OEM Name</option>
-          <option value="cbi5" [disabled]="ectools">MODEL ID</option>
-          <option value="cbi6" [disabled]="ectools">
+          <option value="cbi0" [disabled]="ectools()">Board Version</option>
+          <option value="cbi1" [disabled]="ectools()">OEM ID</option>
+          <option value="cbi2" [disabled]="ectools()">SKU ID</option>
+          <option value="cbi3" [disabled]="ectools()">DRAM part number</option>
+          <option value="cbi4" [disabled]="ectools()">OEM Name</option>
+          <option value="cbi5" [disabled]="ectools()">MODEL ID</option>
+          <option value="cbi6" [disabled]="ectools()">
             Firmware Configuration
           </option>
-          <option value="cbi7" [disabled]="ectools">PCB Vendor</option>
-          <option value="cbi8" [disabled]="ectools">SSFC</option>
-          <option value="cbi9" [disabled]="ectools">Reword ID</option>
-          <option value="cbi10" [disabled]="ectools">
+          <option value="cbi7" [disabled]="ectools()">PCB Vendor</option>
+          <option value="cbi8" [disabled]="ectools()">SSFC</option>
+          <option value="cbi9" [disabled]="ectools()">Reword ID</option>
+          <option value="cbi10" [disabled]="ectools()">
             Factory Calibration Data
           </option>
         </select>
@@ -86,7 +88,7 @@
           <img class="p-0" src="../../assets/diagnostics/copy.svg" alt="copy" />
         </button>
         <div class="box fs-4 font-monospace m-2 p-2">
-          <span>{{ collected_info }}</span>
+          <span>{{ collected_info() }}</span>
         </div>
       </div>
     </div>

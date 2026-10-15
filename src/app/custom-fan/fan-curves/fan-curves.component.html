@@ -2,12 +2,14 @@
   <div class="options pe-2 pb-1">
     <div class="ps-0 mb-2">
       <select
-        (click)="fan_profiles()"
+        [ngModel]="selectedIndex"
+        (ngModelChange)="selectProfile($event)"
+        [disabled]="loading || saving || profiles.length === 0"
         class="form-select fw-normal border-0 fs-4 text-white bg-secondary rounded-3 m-1 ms-0 h-100"
         id="selector"
       >
         @for (item of profiles; track $index) {
-        <option [selected]="item.selected" [value]="item.name">
+        <option [ngValue]="$index">
           {{ item.name }}
         </option>
         }
@@ -16,17 +18,23 @@
     <button
       class="btn btn-outline-secondary border-0 fs-4 m-1 me-1 ms-2"
       (click)="save()"
+      [disabled]="loading || saving || selectedIndex < 0"
     >
       Save
     </button>
     <button
       class="btn btn-outline-secondary border-0 fs-4 m-1 me-0"
       (click)="saveAndApply()"
+      [disabled]="loading || saving || selectedIndex < 0"
     >
       Save and Apply
     </button>
   </div>
   <div class="pt-0 pb-0 pe-2 chart">
+    @if (error) {
+      <div role="alert" class="text-danger">{{ error }}</div>
+    }
+    @if (!loading && selectedIndex >= 0) {
     <canvas
       class="bg-dark p-2 rounded-3"
       baseChart
@@ -34,5 +42,6 @@
       [options]="lineChartOptions"
       [type]="'line'"
     ></canvas>
+    }
   </div>
 </div>

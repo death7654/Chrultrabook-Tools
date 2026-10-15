@@ -5,91 +5,93 @@ import {
   OnInit,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
+  OnDestroy,
 } from "@angular/core";
+import { FormsModule } from "@angular/forms";
 import { FanService } from "../../services/fan.service";
 import { profile } from "../../services/profiles";
 
 import { BaseChartDirective } from "ng2-charts";
 import { ChartConfiguration, Chart } from "chart.js/auto";
 import DragData from "chartjs-plugin-dragdata";
-import { invoke } from "@tauri-apps/api/core";
 
 @Component({
   selector: "app-fan-curves",
-  imports: [BaseChartDirective],
+  imports: [BaseChartDirective, FormsModule],
   templateUrl: "./fan-curves.component.html",
   styleUrl: "./fan-curves.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FanCurvesComponent implements OnInit {
-  mode_value: string = " ";
-  selected_mode: number = 10000;
+export class FanCurvesComponent implements OnInit, OnDestroy {
+  selectedIndex = -1;
+  loading = true;
+  saving = false;
+  error = "";
+  private destroyed = false;
   profiles: profile[] = [];
   fan_service: FanService = inject(FanService);
 
   constructor(private cdr: ChangeDetectorRef) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     Chart.register(DragData);
-
-    this.fan_service.getIndex.subscribe((index) => {
-      this.selected_mode = index;
-      this.cdr.detectChanges();
-    });
-
-    setTimeout(() => {
+    try {
+      await this.fan_service.ready;
+      if (this.destroyed) return;
       this.profiles = this.fan_service.getProfiles();
-      console.log(this.profiles);
-
-      if (this.profiles && this.profiles.length > 0) {
-        const defaultProfileName = this.profiles[0].name;
-
-        this.initializeChart(defaultProfileName);
-
-        (document.getElementById("selector") as HTMLInputElement).value =
-          defaultProfileName;
-      }
-
-      this.cdr.detectChanges();
-    }, 600);
-  }
-
-  initializeChart(profileName: string) {
-    const profileArray = this.fan_service.getProfileArrayByName(profileName);
-
-    if (profileArray) {
-      this.lineChartData.datasets[0].data = profileArray.array;
-      this.mode_value = profileName;
-
-      this.chart?.update();
-    } else {
-      console.warn(`Profile array not found for name: ${profileName}`);
+      const selected = this.profiles.findIndex((item) => item.selected);
+      this.selectProfile(selected >= 0 ? selected : 0);
+    } catch (error) {
+      console.error("fan-curves: failed to load profiles:", error);
+      this.error = "Unable to load fan profiles.";
+    } finally {
+      this.loading = false;
+      if (!this.destroyed) this.cdr.markForCheck();
     }
   }
 
-  fan_profiles() {
-    const profile = (document.getElementById("selector") as HTMLInputElement)
-      .value;
-
-    this.initializeChart(profile);
+  ngOnDestroy() {
+    this.destroyed = true;
   }
-  save() {
-    this.fan_service.editFanCurves(
-      this.fan_service.getProfileIndexByName(
-        (document.getElementById("selector") as HTMLInputElement).value
-      ),
-      this.lineChartData.datasets[0].data
-    );
+
+  selectProfile(index: number) {
+    const item = this.profiles[index];
+    if (!item) {
+      this.selectedIndex = -1;
+      return;
+    }
+    this.selectedIndex = index;
+    // Chart.js/dragdata mutates its dataset; never share it with saved profiles.
+    this.lineChartData = {
+      ...this.lineChartData,
+      datasets: [{ ...this.lineChartData.datasets[0], data: [...item.array] }],
+    };
+    this.error = "";
+  }
+
+  async save(apply = false) {
+    if (this.loading || this.saving || this.selectedIndex < 0) return;
+    this.saving = true;
+    this.error = "";
+    this.cdr.markForCheck();
+    const index = this.selectedIndex;
+    const name = this.profiles[index].name;
+    const curve = [...this.lineChartData.datasets[0].data] as number[];
+    try {
+      await this.fan_service.saveCurve(index, curve, apply);
+      if (apply) {
+        await this.fan_service.applyCurve(name, curve);
+      }
+    } catch (error) {
+      console.error("fan-curves: save/apply failed:", error);
+      this.error = "Unable to save or apply the fan curve. Please retry.";
+    } finally {
+      this.saving = false;
+      if (!this.destroyed) this.cdr.markForCheck();
+    }
   }
   saveAndApply() {
-    this.save();
-    const name = (document.getElementById("selector") as HTMLInputElement)
-      .value;
-    this.fan_service.setMode(this.fan_service.getProfileIndexByName(name));
-    this.fan_service.saveSelected(this.fan_service.getProfileIndexByName(name));
-    let curves = JSON.stringify(this.lineChartData.datasets[0].data);
-    let data = name + " " + curves;
-    invoke("transfer_fan_curves", { curves: data });
+    return this.save(true);
   }
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
@@ -127,6 +129,7 @@ export class FanCurvesComponent implements OnInit {
   };
 
   public lineChartOptions: ChartConfiguration["options"] = {
+    animation: false,
     responsive: true,
     maintainAspectRatio: false,
     scales: {

@@ -1,73 +1,51 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy, signal } from "@angular/core";
 import { invoke } from "@tauri-apps/api/core";
+import { ec } from "../services/device";
 
 @Component({
-  selector: "app-diagnostics",
-  imports: [],
-  templateUrl: "./diagnostics.component.html",
-  styleUrl: "./diagnostics.component.scss",
+  selector: "app-diagnostics", imports: [],
+  templateUrl: "./diagnostics.component.html", styleUrl: "./diagnostics.component.scss",
 })
-export class DiagnosticsComponent implements OnInit {
-  collected_info: string = "";
-  selected_function: string = "";
-  disabled: boolean = false;
-  ectools: boolean = false;
-
-  ngOnInit() {
-    invoke("os").then((os) => {
-      if (os == "macOS") {
-        this.disabled = true;
-      }
-    });
-    invoke("execute", {
-      program: "ectool",
-      arguments: ["hello"],
-      reply: true,
-    }).then((event: any) => {
-      let output = event.toLowerCase().trim();
-      console.log(output);
-      if (output !== "ec says hello!") {
-        this.ectools = true;
-        this.collected_info = "You are missing the ECTOOL Binary";
-      }
-    });
-
-    invoke("execute", {
-      program: "cbmem",
-      arguments: ["-v"],
-      reply: true,
-    }).then((event: any) => {
-      let output = event.toLowerCase().trim().split(" ");
-      if (output[0] !== "cbmem") {
-        this.disabled = true;
-        if (this.ectools == true) {
-          this.collected_info = "You are missing ECTOOL and CBMEM Binaries";
-        } else {
-          this.collected_info = "You are missing the CBMEM Binary";
-        }
-      }
-    });
+export class DiagnosticsComponent implements OnInit, OnDestroy {
+  readonly collected_info = signal("");
+  readonly error = signal("");
+  readonly loading = signal(false);
+  readonly disabled = signal(true);
+  readonly ectools = signal(true);
+  selected_function = "Select";
+  private revision = 0;
+  private destroyed = false;
+  async ngOnInit() {
+    const [os, ecResult, cbmem] = await Promise.allSettled([
+      invoke<string>("os"), ec(["hello"]),
+      invoke<string>("execute_checked", { program: "cbmem", arguments: ["-v"] }),
+    ]);
+    if (this.destroyed) return;
+    this.ectools.set(ecResult.status !== "fulfilled" || !/ec says hello!/i.test(ecResult.value));
+    this.disabled.set(os.status !== "fulfilled" || os.value === "macOS" || cbmem.status !== "fulfilled");
+    if (this.ectools() || this.disabled()) this.error.set("Some diagnostics are unavailable. Check the required tools and drivers.");
   }
-
-  async select() {
-    this.selected_function = (
-      document.getElementById("diagnostic_dropdown") as HTMLInputElement
-    ).value;
-    if (this.selected_function !== "Select") {
-      this.collected_info = await invoke("diagnostics", {
-        selected: this.selected_function,
-      });
-    }
+  async select(value = this.selected_function) {
+    this.selected_function = value;
+    const revision = ++this.revision;
+    this.collected_info.set(""); this.error.set("");
+    if (value === "Select") { this.loading.set(false); return; }
+    this.loading.set(true);
+    try {
+      const report = await invoke<string>("diagnostics", { selected: value });
+      if (!this.destroyed && revision === this.revision) this.collected_info.set(report);
+    } catch (error) {
+      if (!this.destroyed && revision === this.revision) this.error.set("Unable to generate this report. Please retry.");
+    } finally { if (!this.destroyed && revision === this.revision) this.loading.set(false); }
   }
-
   async copy_to_clipboard() {
-    invoke("copy", { text: this.collected_info });
+    try { await invoke("copy", { text: this.collected_info() }); }
+    catch (error) { if (!this.destroyed) this.error.set("Unable to copy the report."); }
   }
-
-  save() {
-    invoke("save", {
-      filename: this.selected_function,
-      content: this.collected_info,
-    });
+  async save() {
+    if (!this.collected_info() || this.loading()) return;
+    try { await invoke("save", { filename: this.selected_function, content: this.collected_info() }); }
+    catch (error) { if (!this.destroyed) this.error.set("Unable to save the report."); }
   }
+  ngOnDestroy() { this.destroyed = true; ++this.revision; }
 }

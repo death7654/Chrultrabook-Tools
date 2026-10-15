@@ -1,47 +1,46 @@
-import { Component, ViewChild, inject } from "@angular/core";
+import { Component, ViewChild, OnDestroy, signal } from "@angular/core";
 import { ChartConfiguration } from "chart.js";
 import { BaseChartDirective } from "ng2-charts";
-import { FanService } from "../../services/fan.service";
 import { invoke } from "@tauri-apps/api/core";
+import { ec } from "../../services/device";
 
 @Component({
-  selector: "app-fan-data",
-  imports: [BaseChartDirective],
-  templateUrl: "./fan-data.component.html",
-  styleUrl: "./fan-data.component.scss",
+  selector: "app-fan-data", imports: [BaseChartDirective],
+  templateUrl: "./fan-data.component.html", styleUrl: "./fan-data.component.scss",
 })
-export class FanDataComponent {
-  fan_service: FanService = inject(FanService);
-  button_label: string = "Collect Data";
-  data_label: string = "Show All Data";
-  label: number = 0;
-  interval: any;
-  tiny_cpu: any = [];
-  tiny_rpm: any = [];
-  tiny_label: any = [];
-  data_cpu: any = [];
-  data_rpm: any = [];
-  total_label: any = [];
-
+export class FanDataComponent implements OnDestroy {
+  readonly collecting = signal(false);
+  readonly error = signal("");
+  data_label = "Show All Data";
+  label = 0;
+  interval?: ReturnType<typeof setInterval>;
+  tiny_cpu: number[] = [];
+  tiny_rpm: number[] = [];
+  tiny_label: string[] = [];
+  data_cpu: number[] = [];
+  data_rpm: number[] = [];
+  total_label: string[] = [];
+  private sampling = false;
+  private destroyed = false;
+  private revision = 0;
+  private started = 0;
   @ViewChild("myChart") myChart?: BaseChartDirective;
   @ViewChild("myChart2") myChart2?: BaseChartDirective;
 
-  collect() {
-    const time = Number(
-      (document.getElementById("time") as HTMLInputElement).value
-    );
-    if (this.button_label == "Collect Data") {
-      this.button_label = "Stop Collect";
-      this.interval = setInterval(async () => {
-        this.showData(time);
-      }, time);
-    } else {
-      this.label = 0;
-      this.button_label = "Collect Data";
-      clearInterval(this.interval);
+  collect(value: string) {
+    if (this.collecting()) { this.stop(); return; }
+    const time = Number(value);
+    if (!Number.isFinite(time) || time < 1000 || time > 600000) {
+      this.error.set("Choose a valid sampling interval."); return;
     }
+    this.started = Date.now() - this.label * 1000;
+    this.collecting.set(true); this.error.set("");
+    this.interval = setInterval(() => { void this.showData(); }, time);
   }
-
+  private stop() {
+    clearInterval(this.interval); this.interval = undefined;
+    this.collecting.set(false); ++this.revision;
+  }
   smallData() {
     this.lineChartData.datasets[0].data = this.tiny_cpu;
     this.lineChartData2.datasets[0].data = this.tiny_rpm;
@@ -54,66 +53,43 @@ export class FanDataComponent {
     this.lineChartData.labels = this.total_label;
     this.lineChartData2.labels = this.total_label;
   }
-
   clear() {
-    this.tiny_cpu = [];
-    this.tiny_rpm = [];
-    this.tiny_label = [];
-    this.data_cpu = [];
-    this.data_rpm = [];
-    this.total_label = [];
-    if (this.data_label == "Show All Data") {
-      this.smallData();
-    } else {
-      this.allData();
-    }
-    this.updateChart();
+    ++this.revision; this.label = 0; this.started = Date.now();
+    this.tiny_cpu = []; this.tiny_rpm = []; this.tiny_label = [];
+    this.data_cpu = []; this.data_rpm = []; this.total_label = [];
+    this.render();
   }
-
   retrieveCollectedData() {
-    if (this.data_label == "Show All Data") {
-      this.data_label = "Show Last 10";
-      this.allData();
-    } else {
-      this.data_label = "Show All Data";
-      this.smallData();
-    }
-    this.updateChart();
+    this.data_label = this.data_label === "Show All Data" ? "Show Last 10" : "Show All Data";
+    this.render();
   }
-
-  updateChart() {
-    this.myChart?.update();
-    this.myChart2?.update();
+  private render() {
+    if (this.data_label === "Show All Data") this.smallData(); else this.allData();
+    this.myChart?.update("none"); this.myChart2?.update("none");
   }
-
-  async showData(time: number) {
-    const cpuDataArrayLength = this.lineChartData.datasets[0].data.length;
-    const tempOutput: any = await invoke("get_temps");
-    const output: string = await invoke("execute", {
-      program: "ectool",
-      arguments: ["pwmgetfanrpm", "all"],
-      reply: true,
-    });
-    const split = output.split(" ");
-    const temp = Number(tempOutput);
-    const rpm = Number(split[3]);
-
-    this.label = this.label + time / 1000;
-
-    if (cpuDataArrayLength > 9) {
-      this.tiny_cpu.splice(0, 1);
-      this.tiny_label.splice(0, 1);
-      this.tiny_rpm.splice(0, 1);
-    }
-    this.tiny_cpu.push(temp);
-    this.tiny_rpm.push(rpm);
-    this.tiny_label.push(this.label.toString());
-    this.data_cpu.push(temp);
-    this.data_rpm.push(rpm);
-    this.total_label.push(this.label.toString());
-    this.smallData();
-    this.updateChart();
+  async showData() {
+    if (this.sampling || !this.collecting() || this.destroyed) return;
+    this.sampling = true;
+    const revision = this.revision;
+    try {
+      const temp = Number(await invoke("get_temps"));
+      if (this.destroyed || !this.collecting() || revision !== this.revision) return;
+      const output = await ec(["pwmgetfanrpm", "all"]);
+      if (this.destroyed || !this.collecting() || revision !== this.revision) return;
+      const rpms = [...output.matchAll(/(?:RPM:\s*|fan\s*\d+\s*:\s*)(\d+)/gi)].map((match) => Number(match[1]));
+      if (!Number.isFinite(temp) || temp <= 0 || !rpms.length) throw new Error("Invalid sample");
+      const rpm = Math.max(...rpms);
+      this.label = Math.round((Date.now() - this.started) / 100) / 10;
+      this.data_cpu.push(temp); this.data_rpm.push(rpm); this.total_label.push(String(this.label));
+      // Bound memory use during long unattended sessions.
+      if (this.data_cpu.length > 3600) { this.data_cpu.shift(); this.data_rpm.shift(); this.total_label.shift(); }
+      this.tiny_cpu = this.data_cpu.slice(-10); this.tiny_rpm = this.data_rpm.slice(-10); this.tiny_label = this.total_label.slice(-10);
+      this.error.set(""); this.render();
+    } catch (error) {
+      if (!this.destroyed && revision === this.revision) this.error.set("Unable to read a sample. Collection will retry.");
+    } finally { this.sampling = false; }
   }
+  ngOnDestroy() { this.destroyed = true; this.stop(); }
 
   public lineChartData: ChartConfiguration["data"] = {
     datasets: [

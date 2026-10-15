@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": { "types": ["jasmine"], "typeRoots": ["node_modules/@types", "src/types"] },
+  "files": [],
+  "include": ["src/**/*.regression.spec.ts", "src/**/*.d.ts"]
+}
